@@ -735,7 +735,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           <h4 className='lg:text-[32px] md:text-xl text-lg font-semibold'>
             Integrations run at
           </h4>
-          <Link href="https://viasocket.com">
+          <Link href="https://viasocket.com/">
           <Image
             src='../../../assets/brand/socket_fav_dark.svg'
             width={40}

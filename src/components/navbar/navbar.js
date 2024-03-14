@@ -38,6 +38,7 @@ const Navbar = ({productData, pathArray}) => {
         <div
           className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}
         >
+          <Link href="https://viasocket.com/">
           <Image
           className="w-[120px]"
             src={pageData?.logo[0] ? pageData.logo[0] : './assets/brand/logo.svg'}
@@ -45,6 +46,7 @@ const Navbar = ({productData, pathArray}) => {
             height={400}
             alt='viasocket'
           />
+          </Link>
 
           <div className='gap-6 lg:flex hidden items-center'>
             {shorterData &&
@@ -70,6 +72,14 @@ const Navbar = ({productData, pathArray}) => {
                               tabIndex={0}
                               className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
                             >
+                              {shorterData && shorterData.map((option, index) => {
+                                if (option.group_name === option.name) {
+                                  return (
+                                    <>
+                                    </>
+                                  )}
+
+                              })}
                               <li>
                                 <button onClick={openChatWidget}>Live Chat</button>
                               </li>

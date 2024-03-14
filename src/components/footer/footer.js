@@ -30,6 +30,7 @@ const Footer = () => {
         <h5 className='font-bold'>{groupName}</h5>
         <div className='flex flex-col gap-3'>
           {items.map((item, index) => (
+            !item.hidden && (
             <Link
               target='_blank'
               href={item?.link ? item.link : `/${item?.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -38,6 +39,7 @@ const Footer = () => {
             >
               {item?.name}
             </Link>
+            )
           ))}
         </div>
       </div>
