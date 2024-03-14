@@ -16,56 +16,70 @@ const Footer = () => {
 
   const groupedData = data?.reduce((acc, obj) => {
     const groupName = obj.group_name;
-    if (!acc[groupName]) {
-      acc[groupName] = [];
+    if (obj?.hidden === null) {
+      if (!acc[groupName]) {
+        acc[groupName] = [];
+      }
+      acc[groupName].push(obj);
     }
-    acc[groupName].push(obj);
+
     return acc;
   }, {});
 
   const renderedGroups =
     groupedData &&
-    Object.entries(groupedData).map(([groupName, items]) => (
-      <div className='flex flex-col gap-4 w-full' key={groupName}>
-        <h5 className='font-bold'>{groupName}</h5>
-        <div className='flex flex-col gap-3'>
-          {items.map((item, index) => (
-            !item.hidden && (
-            <Link
-              target='_blank'
-              href={item?.link ? item.link : `/${item?.name.toLowerCase().replace(/\s+/g, "-")}`}
-
-              key={index}
-            >
-              {item?.name}
-            </Link>
-            )
-          ))}
-        </div>
-      </div>
-
-    ));
+    Object.entries(groupedData).map(([groupName, items]) => {
+      if (items.length > 0) {
+        return (
+          <div className='flex flex-col gap-4 w-full' key={groupName}>
+            <h5 className='font-bold'>{groupName}</h5>
+            <div className='flex flex-col gap-3'>
+              {items.map(
+                (item, index) =>
+                  !item.hidden && (
+                    <Link
+                      target='_blank'
+                      href={
+                        item?.link
+                          ? item.link
+                          : `/${item?.name.toLowerCase().replace(/\s+/g, "-")}`
+                      }
+                      key={index}
+                    >
+                      {item?.name}
+                    </Link>
+                  )
+              )}
+            </div>
+          </div>
+        );
+      }
+    });
   return (
     <>
       <div className='container flex sm:flex-row flex-col-reverse my-20 py-8 gap-12 '>
         <div className='flex w-full lg:max-w-[260px] md:max-w-[140px] max-w-[200px] flex-col justify-between '>
           <div className='flex flex-col gap-2'>
-            <Link href="/">
-            <Image
-              src='./assets/brand/socket_fav_dark.svg'
-              width={46}
-              height={46}
-              alt='socket fav icon'
-            />
+            <Link href='/'>
+              <Image
+                src='./assets/brand/socket_fav_dark.svg'
+                width={46}
+                height={46}
+                alt='socket fav icon'
+              />
             </Link>
-            
+
             <p> © 2024 viaSocket</p>
             <p>All rights reserved.</p>
           </div>
           <div className='flex items-center  gap-2 w-full flex-wrap'>
             <span>A product of</span>
-            <Link href="https://walkover.in/">
-            <Image src='./assets/brand/walkover.svg' width={100} height={20} />
+            <Link href='https://walkover.in/'>
+              <Image
+                src='./assets/brand/walkover.svg'
+                width={100}
+                height={20}
+              />
             </Link>
           </div>
         </div>
