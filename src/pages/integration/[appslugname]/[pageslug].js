@@ -153,7 +153,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       if (events) {
         const event = events.find((e) => e.rowid === eventId);
         if (event) {
-          return event.description;
+          return event.name;
         }
       }
     }
@@ -301,9 +301,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               const actionDescriptions = card.action.map((action) =>
                 getEventDescription(action.id)
               );
-              const combinedDescription = ` ${actionDescriptions.join(
-                " and "
-              )} when ${triggerDescription} `;
+              // const combinedDescription = ` ${actionDescriptions.join(
+              //   " and "
+              // )} when ${triggerDescription} `;
+              const capitalizeFirstLetter = (string) => {
+                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+              };
+              const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])}  ${actionDescriptions.slice(1).map(desc => desc.toLowerCase())} when ${triggerDescription.toLowerCase()}`;
               return (
                 <div
                   key={index}
