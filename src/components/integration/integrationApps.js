@@ -23,7 +23,7 @@ const IntegrationSearch = ({
   pathArray
 }) => {
   console.log("🚀 ~ pathArray:", pathArray)
-  const noAppsFoundMessage = filteredData.length === 0 ? "No app found" : "";
+  const noAppsFoundMessage = filteredData.length === 0 ? "Sorry, no matching app available" : "";
   const [isDataLoading, setIsDataLoading] = useState(loading);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const IntegrationSearch = ({
             <div
               tabIndex={0}
               role="button"
-              className="bg-white px-4 py-1 rounded-lg m-1 border-[#F5F5F5]"
+              className="bg-white px-4 py-1 rounded-lg m-1 w-48 border-[#F5F5F5]"
               onClick={handleCategoryClick}
             >
               {selectedCategory || "Select Category"}

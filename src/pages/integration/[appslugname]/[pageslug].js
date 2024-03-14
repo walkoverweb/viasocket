@@ -8,6 +8,7 @@ import {
   MdAdd,
 } from "react-icons/md";
 import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 
 const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
@@ -194,7 +195,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 <div
                   tabIndex={0}
                   role='button'
-                  className='flex gap-1 bg-[#F5F5F5] border px-4 py-2 rounded border-[#CCCCCC]'
+                  className='flex items-center gap-1 bg-[#F5F5F5]   py-2 '
                   onClick={() =>
                     setCategoryDropdownOpen(!isCategoryDropdownOpen)
                   }
@@ -212,6 +213,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                   <h6 className='md:text-2xl text-base font-bold capitalize'>
                     {pluginTwo?.name}
                   </h6>
+                  <MdOutlineKeyboardArrowDown size={25} />
                 </div>
                 {isCategoryDropdownOpen && (
                   <div
@@ -260,6 +262,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                     <h5 className='md:text-base text-sm font-medium'>
                                       {app?.name}
                                     </h5>
+                                   
                                   </div>
                                 </a>
                               ))
@@ -276,6 +279,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               </div>
             </div>
           </div>
+          
         </div>
       </div>
 
@@ -735,7 +739,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           <h4 className='lg:text-[32px] md:text-xl text-lg font-semibold'>
             Integrations run at
           </h4>
-          <Link href="https://viasocket.com/">
+          <Link href="/">
           <Image
             src='../../../assets/brand/socket_fav_dark.svg'
             width={40}
