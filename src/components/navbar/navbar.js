@@ -87,19 +87,6 @@ const Navbar = ({productData, pathArray}) => {
                                   );
                                 }
                               })}
-                              <li>
-                                <button onClick={openChatWidget}>Live Chat</button>
-                              </li>
-                              <li>
-                                <Link href='https://calendly.com/rpaliwal71/15-mins'>
-                                  Book a meeting
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href='https://viasocket.com/faq'>
-                                  Help Doc
-                                </Link>
-                              </li>
                             </ul>
                           </div>
                         </>
