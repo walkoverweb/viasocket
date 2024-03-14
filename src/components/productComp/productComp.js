@@ -84,9 +84,7 @@ export default function ProductComp(props) {
                           <p className="text-sm text-gray-500">
                             {feature?.description}
                           </p>
-                        </div>
-
-                        {feature?.link && (
+                          {feature?.link && (
                           <Link href={feature?.link}>
                             <button className="underline text-blue-500">
                               {" "}
@@ -94,6 +92,8 @@ export default function ProductComp(props) {
                             </button>
                           </Link>
                         )}
+                        </div>
+                      
 
                         {feature?.image && (
                           <div className="flex w-full">
@@ -127,9 +127,7 @@ export default function ProductComp(props) {
                           <p className="text-sm text-gray-500">
                             {feature?.description}
                           </p>
-                        </div>
-
-                        {feature?.link && (
+                          {feature?.link && (
                           <Link href={feature?.link}>
                             <button className="underline text-blue-500">
                               {" "}
@@ -137,6 +135,9 @@ export default function ProductComp(props) {
                             </button>
                           </Link>
                         )}
+                        </div>
+
+                        
 
                         {feature?.image && (
                           <div className="flex w-full">
@@ -170,9 +171,7 @@ export default function ProductComp(props) {
                           <p className="text-sm text-gray-500">
                             {feature?.description}
                           </p>
-                        </div>
-
-                        {feature?.link && (
+                          {feature?.link && (
                           <Link href={feature?.link}>
                             <button className="underline text-blue-500">
                               {" "}
@@ -180,6 +179,9 @@ export default function ProductComp(props) {
                             </button>
                           </Link>
                         )}
+                        </div>
+
+                        
 
                         {feature?.image && (
                           <div className="flex w-full">

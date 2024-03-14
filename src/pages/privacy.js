@@ -1,7 +1,7 @@
 const Privacy = () => {
   return (
     <>
-      <div className="container mb-4">
+      <div className="container mb-4 mt-28">
         <style
           dangerouslySetInnerHTML={{
             __html:
