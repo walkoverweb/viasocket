@@ -123,17 +123,19 @@ const IntegrationSlugPage = ({ pathArray }) => {
 
   //search functions
   const applyFilters = () => {
-    let filteredItems = apps.filter(
-      (item) =>
-        item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let filteredItems = apps.filter((item) => {
+      const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const categoryMatches = selectedCategory === "All" || item.category === selectedCategory || !item.category;
+      return nameMatches && categoryMatches;
+    });
 
     setFilteredData(filteredItems);
   };
 
   useEffect(() => {
     applyFilters();
-  }, [apps, searchTerm]);
+  }, [apps, searchTerm, selectedCategory]);
+
 
   const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const handleCategoryClick = () => {
@@ -146,14 +148,12 @@ const IntegrationSlugPage = ({ pathArray }) => {
     "Engineering",
     "Productivity",
     "Marketing",
-    "IT Operations",
+    "IT",
     "Support",
     "Website Builders",
     "Databases",
     "Social Media Accounts",
     "Communication",
-    "Other",
-   
     "Accounting",
     "Ads & Conversion",
     "AI Tools",
@@ -256,7 +256,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
 
   // console.log(combos?.plugins?.[pathArray[2]], 222);
   return (
-    <div className="bg-[#F5F5F5]">
+    <div className="bg-[#F5F5F5] mt-24">
       {/* nav start */}
       {/* <div className="bg-[#00A68B] pt-6">
         <div className="flex flex-row justify-between items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
@@ -285,7 +285,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
           and more for streamlined business success.
         </p>
       </div>
-      <div className="bg-[#F5F5F5] py-10">
+      <div className="bg-[#F5F5F5] ">
         <div className="container">
           <IntegrationSearch
           loading={loading}
@@ -311,7 +311,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
 
       {/* footer */}
 
-      <div className="bg-[#E6E6E6] py-10">
+      {/* <div className="bg-[#E6E6E6] py-10">
         <div className="flex flex-row gap-4 justify-center items-center">
           <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">
             Integrations run at
@@ -322,7 +322,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
             height={40}
           />
         </div>
-      </div>
+      </div> */}
 
       {/* ------------------------------------------------------------------------------------------------------ */}
     </div>
@@ -330,21 +330,3 @@ const IntegrationSlugPage = ({ pathArray }) => {
 };
 
 export default IntegrationSlugPage;
-
-// <div className='mx-auto grid mt-14 gap-24 w-full  md:pt-48 pt-24'>
-//     <div className='grid gap-14 container'>
-//       <div className='grid gap-4 md:gap-10'>
-//         <ul>
-//           {integrations.map((integration) => (
-//             <li key={integration}>
-//               <Link href={`/integration/${(
-//                   integration || ""
-//                 ).toLowerCase()}`}>
-//                 {integration}
-//               </Link>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//     </div>
-//   </div>

@@ -29,7 +29,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
   if (
     browserPath !== "/login" && 
     browserPath !== "/signup" &&
-    !browserPath.includes("/integration")
+    !browserPath.includes("/integration/")
     ) {
     showNavbar = true;
   }

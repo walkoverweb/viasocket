@@ -239,13 +239,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                 <a
                                   key={app?.rowid}
                                   href={
-                                    app?.slugname
-                                      ? app?.slugname
-                                      : `/integration/${(
-                                          integrationSlug || ""
-                                        ).toLowerCase()}/${app?.name
-                                          ?.replace(/\s/g, "-")
-                                          ?.toLowerCase()}`
+                                    app?.appslugname
+                                      ? `/integration${pathArray[2] ? '/'+pathArray[2] : ''}/${app?.appslugname}`
+                                      : `/experts`
                                   }
                                 >
                                   <div
@@ -700,9 +696,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             <p className='md:text-xl text-base'>{pluginOne?.description}</p>
             <div>
               
-                <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
+                {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
                   Learn more
-                </button>
+                </button> */}
            
             </div>
           </div>
@@ -722,9 +718,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             <p className='md:text-xl text-base'>{pluginTwo?.description}</p>
             <div>
               
-                <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
+                {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
                   Learn more
-                </button>
+                </button> */}
              
             </div>
           </div>
