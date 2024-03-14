@@ -72,13 +72,20 @@ const Navbar = ({productData, pathArray}) => {
                               tabIndex={0}
                               className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
                             >
-                              {shorterData && shorterData.map((option, index) => {
-                                if (option.group_name === option.name) {
+                             {shorterData.map((child, childIndex) => {
+                                if (child.group_name && child.group_name === option.name) {
                                   return (
-                                    <>
-                                    </>
-                                  )}
-
+                                    <li key={childIndex}>
+                                      {child.name === "Live Chat" ? (
+                                        <button onClick={openChatWidget}>Live Chat</button>
+                                      ) : (
+                                        <Link href={`${child.link ? child.link : ""}`}>
+                                          {child.name}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  );
+                                }
                               })}
                               <li>
                                 <button onClick={openChatWidget}>Live Chat</button>
