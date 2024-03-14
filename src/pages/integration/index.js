@@ -38,6 +38,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
     const apiHeaders = {
       headers: {
         "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        "cache-control" : "no-cache",
       },
     };
 
@@ -73,6 +74,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
     const apiHeaders = {
       headers: {
         "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        "Cache-Control" : "no-cache"
       },
     };
     if (pathArray[2] !== "[integrationSlug]")
