@@ -38,6 +38,7 @@ const Navbar = ({productData, pathArray}) => {
         <div
           className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}
         >
+          <Link href="https://viasocket.com/">
           <Image
           className="w-[120px]"
             src={pageData?.logo[0] ? pageData.logo[0] : './assets/brand/logo.svg'}
@@ -45,6 +46,7 @@ const Navbar = ({productData, pathArray}) => {
             height={400}
             alt='viasocket'
           />
+          </Link>
 
           <div className='gap-6 lg:flex hidden items-center'>
             {shorterData &&
@@ -70,19 +72,21 @@ const Navbar = ({productData, pathArray}) => {
                               tabIndex={0}
                               className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
                             >
-                              <li>
-                                <button onClick={openChatWidget}>Live Chat</button>
-                              </li>
-                              <li>
-                                <Link href='https://calendly.com/rpaliwal71/15-mins'>
-                                  Book a meeting
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href='https://viasocket.com/faq'>
-                                  Help Doc
-                                </Link>
-                              </li>
+                             {shorterData.map((child, childIndex) => {
+                                if (child.group_name && child.group_name === option.name) {
+                                  return (
+                                    <li key={childIndex}>
+                                      {child.name === "Live Chat" ? (
+                                        <button onClick={openChatWidget}>Live Chat</button>
+                                      ) : (
+                                        <Link href={`${child.link ? child.link : ""}`}>
+                                          {child.name}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  );
+                                }
+                              })}
                             </ul>
                           </div>
                         </>
