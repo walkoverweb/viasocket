@@ -162,7 +162,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen ">
       {/* nav start */}
       <div className='bg-[#00A68B] pt-6'>
         <div className='flex flex-row justify-start gap-3 items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg'>
@@ -682,7 +682,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       {/* blogg section starts here */}
 
       {/* abouttttt */}
-      <div className='bg-[#F5F5F5] py-10'>
+      <div className=' py-10 my-auto'>
         <div className='flex lg:flex-row md:flex-row flex-col gap-10 container justify-between'>
           <div className='flex flex-1 flex-col justify-start gap-4'>
             <Image
@@ -734,8 +734,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
       {/* footer */}
 
-      <div className='bg-[#E6E6E6] py-10'>
-        <div className='flex flex-row gap-4 justify-center items-center'>
+      <footer className='bg-[#E6E6E6] py-10 h-full'>
+        <div className='flex flex-row gap-4 justify-center items-center '>
           <h4 className='lg:text-[32px] md:text-xl text-lg font-semibold'>
             Integrations run at
           </h4>
@@ -748,7 +748,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           </Link>
           
         </div>
-      </div>
+      </footer>
 
       {/* ------------------------------------------------------------------------------------------------------ */}
     </div>

@@ -11,7 +11,6 @@ const IntegrationSearch = ({
   isCategoryDropdownOpen,
   handleCategoryClick,
   selectedCategory,
-  handleCategoryItemClick,
   filteredData,
   handleLocalStore,
   visibleItems,
@@ -30,7 +29,12 @@ const IntegrationSearch = ({
     setIsDataLoading(loading);
   }, [loading]);
 
-  
+  const handleCategoryItemClick = (category) => {
+    // Update selected category immediately upon click
+    handleCategoryClick();
+    selectedCategory(category); // Update selected category
+  };
+
 
   // const handleCategoryLoadMore = () => {
   //   setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
@@ -144,13 +148,15 @@ const IntegrationSearch = ({
                     if (isSameAsSelected) {
                       {console.log(app.appslugname, "hello")}
                       return (
-                        <Link
+                        <a
                           key={app?.rowid}
                           href={
                             app?.appslugname
                               ? `/integration${pathArray[2] ? '/'+pathArray[2] : ''}/${app?.appslugname}`
                               : `/experts`
                           }
+                          target="_blank" 
+          rel="noopener noreferrer"
                         >
                           <div
                             className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white"
@@ -169,7 +175,7 @@ const IntegrationSearch = ({
                               {app?.name}
                             </h5>
                           </div>
-                        </Link>
+                        </a>
                       );
                     }
                   }

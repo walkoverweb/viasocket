@@ -256,7 +256,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
 
   // console.log(combos?.plugins?.[pathArray[2]], 222);
   return (
-    <div className="bg-[#F5F5F5] mt-24">
+    <div className="mt-24">
       {/* nav start */}
       {/* <div className="bg-[#00A68B] pt-6">
         <div className="flex flex-row justify-between items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
@@ -285,7 +285,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
           and more for streamlined business success.
         </p>
       </div>
-      <div className="bg-[#F5F5F5] ">
+      <div className=" ">
         <div className="container">
           <IntegrationSearch
           loading={loading}
