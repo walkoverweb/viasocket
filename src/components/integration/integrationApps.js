@@ -59,7 +59,7 @@ const IntegrationSearch = ({
               tabIndex={0}
               role="button"
               className="bg-white px-4 py-1 rounded-lg m-1 border-[#F5F5F5]"
-              onClick={handleCategoryClick}
+              onClick={() => {handleCategoryClick(); setIsDataLoading(false);}}
             >
               {selectedCategory || "Select Category"}
             </div>
@@ -71,7 +71,7 @@ const IntegrationSearch = ({
                 {renderFilterOptions().map((category) => (
                   <li
                     key={category}
-                    onClick={() => handleCategoryItemClick(category)}
+                    onClick={() => {handleCategoryItemClick(category); category === selectedCategory ? setIsDataLoading(false) : '';}}
                     className={`cursor-pointer ${
                       selectedCategory === category
                         ? "font-bold"
