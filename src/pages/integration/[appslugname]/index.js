@@ -202,7 +202,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <div className="bg-[#00A68B] pt-6">
         <div className="flex flex-row justify-between items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
           <Link
-            href={`/integration/${encodeURIComponent(plugin?.name)
+            href={`/integration/${encodeURIComponent(pathArray[2])
               .replace(/\s/g, "-")
               ?.toLowerCase()}`}
           >
@@ -217,7 +217,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 width={40}
                 height={40}
               />
-              <h6 className="text-2xl font-bold capitalize">{plugin?.name}</h6>
+              <h6 className="text-2xl font-bold capitalize">{pathArray[2]}</h6>
             </div>
           </Link>
         </div>
@@ -227,7 +227,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <div className="bg-[#00A68B] pt-14">
         <div className="flex container">
           <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
-            Create integrations between {plugin?.name} and your favorite app.
+            {`Create integrations between ${pathArray[2]} and your favorite app.`}
           </h1>
         </div>
       </div>
@@ -313,7 +313,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           </h1>
           <IntegrationSearch
             loading={loading}
-            selectedApp={plugin?.name}
+            selectedApp={pathArray[2]}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             renderFilterOptions={renderFilterOptions}
@@ -420,7 +420,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               height={34}
             />
             <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-              About {plugin?.name}
+              {`About ${pathArray[2]}`}
             </h6>
             <p className="md:text-xl text-base">{plugin?.description}</p>
             <div>

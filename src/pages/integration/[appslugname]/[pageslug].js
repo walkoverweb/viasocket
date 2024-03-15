@@ -285,7 +285,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <div className='bg-[#00A68B] pt-14'>
         <div className='flex container'>
           <h1 className='lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8'>
-            Create integrations between {pluginOne?.name} and {pluginTwo?.name}.
+            {`Create integrations between ${pathArray[2]} and ${pathArray[3]}.`}
           </h1>
         </div>
       </div>
@@ -369,8 +369,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           <>
             <div className='container  py-14'>
               <h1 className='flex justify-center lg:text-[40px] text-3xl md:text-3xl font-semibold'>
-                Automate anything with {pluginOne?.name} & {pluginTwo?.name}{" "}
-                Integrations!
+                {`Automate anything with ${pathArray[2]} & ${pathArray[3]}${" "}
+                Integrations!`}
               </h1>
 
               <div className='grid md:grid-cols-2 grid-cols-1 py-10 gap-10'>
@@ -693,7 +693,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               height={34}
             />
             <h6 className='lg:text-[32px] md:text-2xl text-xl font-medium'>
-              About {pluginOne?.name}
+              {`About ${pathArray[2]}`}
             </h6>
             <p className='md:text-xl text-base'>{pluginOne?.description}</p>
             <div>
@@ -715,7 +715,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               height={34}
             />
             <h6 className='lg:text-[32px] md:text-2xl text-xl font-medium'>
-              About {pluginTwo?.name}
+            {`About ${pathArray[3]}`}
             </h6>
             <p className='md:text-xl text-base'>{pluginTwo?.description}</p>
             <div>

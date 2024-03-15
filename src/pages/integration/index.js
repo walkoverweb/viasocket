@@ -2,121 +2,43 @@ import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { MdOutlineArrowRightAlt } from "react-icons/md";
 import IntegrationSearch from "@/components/integration/integrationApps";
 
-const IntegrationSlugPage = ({ pathArray }) => {
+const IntegrationSlugPage = ({responseData}) => {
   //defined states
-  const [combos, setCombos] = useState();
-  const [apps, setApps] = useState([]);
-  const [plugin, setPlugin] = useState();
+  const pathArray = ['','integration']
+  const [apps, setApps] = useState(responseData);
   const [filteredData, setFilteredData] = useState([]);
   const [visibleItems, setVisibleItems] = useState(25);
-  const [visibleComboItems, setVisibleComboItems] = useState(6);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState()
   const [visibleCategories, setVisibleCategories] = useState(10);
 
   const router = useRouter();
-  const { integrationSlug } = router.query;
-
-  const cardsData = combos?.combinations;
+  const { prop1 } = router.query;
 
   //fetch apps
   useEffect(() => {
-    const fetchUrl =
-      selectedCategory && selectedCategory !== "All"
-        ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
-            selectedCategory && selectedCategory === "Other"
-              ? null
-              : selectedCategory
-          }&limit=200`
-        : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
+  
+    setApps(responseData);
+    setLoading(false)
 
-    const apiHeaders = {
-      headers: {
-        "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        "cache-control" : "no-cache",
-      },
-    };
-
-    const fetchApps = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(fetchUrl, apiHeaders);
-        const responseData = await response.json();
-
-        if (responseData?.length > 0) {
-          setLoading(false)
-          setApps(responseData);
-        } else {
-          setLoading(false)
-          console.error(
-            "API request was not successful:",
-            responseData.message
-          );
-        }
-      } catch (error) {
-        setLoading(false)
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchApps();
-  }, [selectedCategory, visibleItems]);
+  }, [prop1, visibleItems]);
 
   //fetch apps
-
-  const fetchCombos = async () => {
-    const apiHeaders = {
-      headers: {
-        "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        "Cache-Control" : "no-cache"
-      },
-    };
-    if (pathArray[2] !== "[integrationSlug]")
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?service=${pathArray[2]}`,
-          apiHeaders
-        );
-        const responseData = await response.json();
-        if (responseData) {
-          setCombos(responseData);
-        } else {
-          console.error("API request was not successful:", response?.message);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-  };
-  useEffect(() => {
-    fetchCombos();
-  }, [pathArray[2]]);
 
   useEffect(() => {
     setVisibleItems(25);
   }, [selectedCategory]);
-  useEffect(() => {
-    setPlugin(combos?.plugins?.[pathArray[2]]);
-  }, [combos, pathArray[2]]);
+  
 
   //fetch icons
-  const getIconUrl = (pluginName) => {
-    if (cardsData) {
-      const plugin = combos?.plugins[pluginName];
-      return plugin ? plugin.iconurl : null;
-    }
-  };
 
   const handleLoadMore = () => {
     setVisibleItems(visibleItems + 25);
   };
 
-  const handleComboLoadMore = () => {
-    setVisibleComboItems(visibleComboItems + 3);
-  };
 
   //search functions
   const applyFilters = () => {
@@ -131,8 +53,7 @@ const IntegrationSlugPage = ({ pathArray }) => {
 
   useEffect(() => {
     applyFilters();
-  }, [apps, searchTerm, selectedCategory]);
-
+  }, [apps, searchTerm, prop1]);
 
   const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const handleCategoryClick = () => {
@@ -227,15 +148,17 @@ const IntegrationSlugPage = ({ pathArray }) => {
   ];
   const renderFilterOptions = () => {
     return uniqueCategories.slice(0, visibleCategories).map((category) => (
-      <h6
+      <Link href={`/integration?prop1=${category}`}>
+        <h6
         key={category}
-        onClick={() => setSelectedCategory(category)}
+        onClick={() => {setSelectedCategory(category); category !== selectedCategory ? setLoading(true) : '';}}
         className={`lg:text-[20px] text-base cursor-pointer ${
           selectedCategory === category ? "font-bold" : "font-normal"
         }`}
       >
-        {category === "Null" ? "Other" : category}
+          {category === "Null" ? "Other" : category}
       </h6>
+    </Link>
     ));
   };
   const handleCategoryLoadMore = () => {
@@ -327,3 +250,33 @@ const IntegrationSlugPage = ({ pathArray }) => {
 };
 
 export default IntegrationSlugPage;
+
+export async function getServerSideProps(context) {
+
+  const { prop1 } = context.query;
+      
+  const fetchUrl =
+      prop1 && prop1 !== "All"
+        ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
+          prop1 && prop1 === "Other"
+              ? null
+              : prop1
+          }&limit=200`
+        : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
+
+  const apiHeaders = {
+      headers: {
+        "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+      },
+  };
+
+  const response = await fetch(fetchUrl, apiHeaders);
+  const responseData = await response.json();
+
+   return {
+    props: {
+      responseData
+    }
+  };
+
+}

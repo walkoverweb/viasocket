@@ -62,8 +62,8 @@ const IntegrationSearch = ({
             <div
               tabIndex={0}
               role="button"
-              className="px-5 py-3 flex justify-between items-center rounded border border-[#CCCCCC] bg-white  w-48"
-              onClick={handleCategoryClick}
+              className="bg-white px-4 py-1 rounded-lg m-1 border-[#F5F5F5]"
+              onClick={() => {handleCategoryClick(); setIsDataLoading(false);}}
             >
               <span>{selectedCategory || "Select Category"} </span>
               <MdOutlineKeyboardArrowDown size={20} />
@@ -76,8 +76,9 @@ const IntegrationSearch = ({
                 {renderFilterOptions().map((category) => (
                   <li
                     key={category}
-                    onClick={() => handleCategoryItemClick(category)}
-                    className={`cursor-pointer ${selectedCategory === category
+                    onClick={() => {handleCategoryItemClick(category); category === selectedCategory ? setIsDataLoading(false) : '';}}
+                    className={`cursor-pointer ${
+                      selectedCategory === category
                         ? "font-bold"
                         : "font-normal"
                       }`}
