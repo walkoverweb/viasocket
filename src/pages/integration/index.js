@@ -7,7 +7,6 @@ import IntegrationSearch from "@/components/integration/integrationApps";
 
 const IntegrationSlugPage = ({ pathArray }) => {
   //defined states
-  console.log(pathArray, "path array");
   const [combos, setCombos] = useState();
   const [apps, setApps] = useState([]);
   const [plugin, setPlugin] = useState();
@@ -70,7 +69,6 @@ const IntegrationSlugPage = ({ pathArray }) => {
   //fetch apps
 
   const fetchCombos = async () => {
-    console.log(pathArray[2]);
     const apiHeaders = {
       headers: {
         "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
@@ -106,7 +104,6 @@ const IntegrationSlugPage = ({ pathArray }) => {
 
   //fetch icons
   const getIconUrl = (pluginName) => {
-    console.log();
     if (cardsData) {
       const plugin = combos?.plugins[pluginName];
       return plugin ? plugin.iconurl : null;

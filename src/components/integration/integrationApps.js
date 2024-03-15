@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const IntegrationSearch = ({
   loading,
@@ -21,7 +22,6 @@ const IntegrationSearch = ({
   handleCategoryLoadMore,
   pathArray
 }) => {
-  console.log("🚀 ~ pathArray:", pathArray)
   const noAppsFoundMessage = filteredData.length === 0 ? "Sorry, no matching app available" : "";
   const [isDataLoading, setIsDataLoading] = useState(loading);
 
@@ -62,25 +62,25 @@ const IntegrationSearch = ({
             <div
               tabIndex={0}
               role="button"
-              className="bg-white px-4 py-1 rounded-lg m-1 w-48 border-[#F5F5F5]"
+              className="px-5 py-3 flex justify-between items-center rounded border border-[#CCCCCC] bg-white  w-48"
               onClick={handleCategoryClick}
             >
-              {selectedCategory || "Select Category"}
+              <span>{selectedCategory || "Select Category"} </span>
+              <MdOutlineKeyboardArrowDown size={20} />
             </div>
             {isCategoryDropdownOpen && (
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-4 shadow bg-white border-[#f5f5f5] rounded-md w-48"
+                className="dropdown-content z-[1] menu  py-4 shadow bg-white border-[#f5f5f5] rounded-md w-48"
               >
                 {renderFilterOptions().map((category) => (
                   <li
                     key={category}
                     onClick={() => handleCategoryItemClick(category)}
-                    className={`cursor-pointer ${
-                      selectedCategory === category
+                    className={`cursor-pointer ${selectedCategory === category
                         ? "font-bold"
                         : "font-normal"
-                    }`}
+                      }`}
                   >
                     {category === "Null" ? "Other" : category}
                   </li>
@@ -140,23 +140,22 @@ const IntegrationSearch = ({
               )}
 
               <div className="flex flex-row flex-wrap gap-5">
-                {filteredData?.length > 0 &&  
+                {filteredData?.length > 0 &&
                   filteredData.slice(0, visibleItems).map((app) => {
                     const isSameAsSelected = selectedApp !== app?.name;
-                    console.log(app);
+                   
 
                     if (isSameAsSelected) {
-                      {console.log(app.appslugname, "hello")}
                       return (
                         <a
                           key={app?.rowid}
                           href={
                             app?.appslugname
-                              ? `/integration${pathArray[2] ? '/'+pathArray[2] : ''}/${app?.appslugname}`
+                              ? `/integration${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
                               : `/experts`
                           }
-                          target="_blank" 
-          rel="noopener noreferrer"
+                          target={pathArray[2] ? "_self" : "_blank"}
+                          rel="noopener noreferrer"
                         >
                           <div
                             className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white"
@@ -186,7 +185,7 @@ const IntegrationSearch = ({
           )}
 
           <div>
-          {visibleItems < filteredData.length && !loading && !noAppsFoundMessage && (
+            {visibleItems < filteredData.length && !loading && !noAppsFoundMessage && (
               <button
                 onClick={handleLoadMore}
                 className="font-medium text-[#2D81F7]"

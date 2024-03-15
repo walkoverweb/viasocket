@@ -6,14 +6,12 @@ import {
   MdOutlineTaskAlt,
   MdOutlineAdsClick,
   MdAdd,
+  MdOutlineKeyboardArrowDown
 } from "react-icons/md";
 import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 
 const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
-  console.log("🚀 ~ IntegrationSlugPage ~ combos:", combos)
-  console.log("🚀 ~ IntegrationSlugPage ~ pathArray:", pathArray);
   //defined states
   const [pluginOne, setPluginOne] = useState();
   const [pluginTwo, setPluginTwo] = useState();
@@ -764,7 +762,6 @@ export async function getServerSideProps(context) {
   // Fetch data server-side here
   const combos = await fetchCombos(pathArray);
   const apps = await fetchApps("All", 25); // Example: fetching with default category "All" and 25 items
-  console.log(combos?.combinations);
 
   return {
     props: {
@@ -808,7 +805,6 @@ async function fetchCombos(pathArray) {
     `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?service=${pathArray[0]}&service=${pathArray[1]}`,
     apiHeaders
   );
-  console.log(response, "reso");
   const responseData = await response.json();
   return responseData;
 }
