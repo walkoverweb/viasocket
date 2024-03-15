@@ -58,7 +58,7 @@ export default function ProductComp(props) {
         <div className="grid gap-10 container">
           <h2 className="text-3xl font-semibold">Features</h2>
 
-          <div className="grid lg:grid-cols-4 lg:grid-rows-3 md:grid-cols-3 md:grid-rows-4 sm:grid-cols-2 sm:grid-rows-6 gap-5  overflow-hidden ">
+          <div className="grid lg:grid-cols-4 lg:grid-rows-3 md:grid-cols-3 md:grid-rows-4 sm:grid-cols-2 sm:grid-rows-6 md:gap-5 gap-3  overflow-hidden ">
             {props?.features
               .sort((a, b) => a.priority - b.priority)
               .map((feature, index) => {
@@ -67,7 +67,7 @@ export default function ProductComp(props) {
                     return (
                       <div
                         key={index}
-                        className={` col-span-2 row-span-2 h-full bg-[#F7F7F8] p-6 rounded-lg justify-between gap-4 flex flex-col`}
+                        className={` col-span-2 row-span-2 h-full bg-[#F7F7F8] md:p-6 p-4 rounded-lg justify-between gap-4 flex flex-col`}
                       >
                         <div className="flex flex-col gap-3">
                           {feature?.icon ? (
@@ -75,42 +75,53 @@ export default function ProductComp(props) {
                           ) : (
                             <HiOutlineComputerDesktop size={35} />
                           )}
-                        </div>
-
-                        <div className="flex flex-col gap-2 justify-end">
-                          <h1 className="text-xl font-semibold">
-                            {feature.name}
-                          </h1>
-                          <p className="text-sm text-gray-500">
-                            {feature?.description}
-                          </p>
-                          {feature?.link && (
-                          <Link href={feature?.link}>
-                            <button className="underline text-blue-500">
-                              {" "}
-                              Discover{" "}
-                            </button>
-                          </Link>
-                        )}
-                        </div>
-                      
-
-                        {feature?.image && (
-                          <div className="flex w-full">
-                            <Image
-                              src={feature?.image}
-                              alt="feature 1"
-                              className="w-full "
-                            />
+                          <div className="flex flex-col gap-2 justify-end">
+                            <h1 className="md:text-xl text-lg font-semibold">
+                              {feature.name}
+                            </h1>
+                            <p className="md:text-sm text-xs text-gray-500">
+                              {feature?.description}
+                            </p>
+                            {feature?.link && (
+                              <Link href={feature?.link}>
+                                <button className="underline md:text-sm text-xs text-blue-500">
+                                  {" "}
+                                  Discover{" "}
+                                </button>
+                              </Link>
+                            )}
                           </div>
-                        )}
+                        </div>
+
+
+
+                        <div className="flex justify-end items-end h-full">
+                          {feature?.image ? (
+                            <Image
+                              src={feature.image}
+                              alt="feature 1"
+                              className="w-full"
+                              height={100}
+                              width={100}
+                            />
+                          ) : (
+                            <Image
+                              src="https://placehold.co/100x100"
+                              alt="Placeholder"
+                              className="w-full"
+                              height={100}
+                              width={100}
+                            />
+                          )}
+                        </div>
+
                       </div>
                     );
                   } else if (feature.block_type === "R1C1") {
                     return (
                       <div
                         key={index}
-                        className={`col-span-1 row-span-1 h-full bg-[#F7F7F8] p-6 rounded-lg justify-between gap-4 flex flex-col`}
+                        className={`col-span-1 row-span-1 min-h-[200px] bg-[#F7F7F8] md:p-6 p-4 rounded-lg justify-between gap-4  flex flex-col flex-wrap min-w-[150px]`}
                       >
                         <div className="flex flex-col gap-3">
                           {feature?.icon ? (
@@ -120,70 +131,33 @@ export default function ProductComp(props) {
                           )}
                         </div>
 
-                        <div className="flex flex-col gap-2 justify-end">
-                          <h1 className="text-xl font-semibold">
+                        <div className="flex flex-col gap-2 justify-end ">
+                          <h1 className="md:text-xl text-lg  font-semibold">
                             {feature.name}
                           </h1>
-                          <p className="text-sm text-gray-500">
+                          <p className="md:text-sm text-xs text-gray-500">
                             {feature?.description}
                           </p>
                           {feature?.link && (
-                          <Link href={feature?.link}>
-                            <button className="underline text-blue-500">
-                              {" "}
-                              Discover{" "}
-                            </button>
-                          </Link>
-                        )}
+                            <Link href={feature?.link}>
+                              <button className="underline md:text-sm text-xs text-blue-500">
+                                {" "}
+                                Discover{" "}
+                              </button>
+                            </Link>
+                          )}
                         </div>
 
-                        
-
-                        {feature?.image && (
-                          <div className="flex w-full">
-                            <Image
-                              src={feature?.image}
-                              alt="feature 1"
-                              className="w-full "
-                            />
-                          </div>
-                        )}
                       </div>
                     );
                   } else {
                     return (
                       <div
                         key={index}
-                        className={` col-span-2 row-span-1 h-full bg-[#F7F7F8] p-6 rounded-lg justify-between gap-4 flex flex-col`}
+                        className={` col-span-2 row-span-1 h-full bg-[#F7F7F8] md:p-6 p-4 rounded-lg justify-between gap-4 flex flex-col`}
                       >
-                        <div className="flex flex-col gap-3">
-                          {feature?.icon ? (
-                            <feature.icon size={35} />
-                          ) : (
-                            <HiOutlineComputerDesktop size={35} />
-                          )}
-                        </div>
 
-                        <div className="flex flex-col gap-2 justify-end">
-                          <h1 className="text-xl font-semibold">
-                            {feature.name}
-                          </h1>
-                          <p className="text-sm text-gray-500">
-                            {feature?.description}
-                          </p>
-                          {feature?.link && (
-                          <Link href={feature?.link}>
-                            <button className="underline text-blue-500">
-                              {" "}
-                              Discover{" "}
-                            </button>
-                          </Link>
-                        )}
-                        </div>
-
-                        
-
-                        {feature?.image && (
+                        {/* {feature?.image && (
                           <div className="flex w-full">
                             <Image
                               src={feature?.image}
@@ -191,7 +165,53 @@ export default function ProductComp(props) {
                               className="w-full "
                             />
                           </div>
-                        )}
+                        )} */}
+                        {/* <div className="flex justify-end items-end h-full">
+                          {feature?.image ? (
+                            <Image
+                              src={feature.image}
+                              alt="feature 1"
+                              className="w-full"
+                              height={100}
+                              width={100}
+                            />
+                          ) : (
+                            <Image
+                              src="https://placehold.co/20x20"
+                              alt="Placeholder"
+                              className="w-full"
+                              height={20}
+                              width={12}
+                            />
+                          )}
+                        </div> */}
+                        <div className="flex flex-col gap-3">
+                          {feature?.icon ? (
+                            <feature.icon size={35} />
+                          ) : (
+                            <HiOutlineComputerDesktop size={35} />
+                          )}
+                          
+                        </div>
+                        <div className="flex flex-col gap-2 justify-end">
+                            <h1 className="md:text-xl text-lg font-semibold">
+                              {feature.name}
+                            </h1>
+                            <p className="md:text-sm text-xs text-gray-500">
+                              {feature?.description}
+                            </p>
+                            {feature?.link && (
+                              <Link href={feature?.link}>
+                                <button className="underline md:text-sm text-xs text-blue-500">
+                                  {" "}
+                                  Discover{" "}
+                                </button>
+                              </Link>
+                            )}
+                          </div>
+
+
+
                       </div>
                     );
                   }
