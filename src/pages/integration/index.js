@@ -16,7 +16,7 @@ const IntegrationSlugPage = ({responseData}) => {
   const [visibleCategories, setVisibleCategories] = useState(10);
 
   const router = useRouter();
-  const { categoryProp } = router.query;
+  const { currentcategory } = router.query;
 
   //fetch apps
   useEffect(() => {
@@ -24,7 +24,7 @@ const IntegrationSlugPage = ({responseData}) => {
     setApps(responseData);
     setLoading(false)
 
-  }, [categoryProp, visibleItems]);
+  }, [currentcategory, visibleItems]);
 
   //fetch apps
 
@@ -53,7 +53,7 @@ const IntegrationSlugPage = ({responseData}) => {
 
   useEffect(() => {
     applyFilters();
-  }, [apps, searchTerm, categoryProp]);
+  }, [apps, searchTerm, currentcategory]);
 
   const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const handleCategoryClick = () => {
@@ -148,7 +148,7 @@ const IntegrationSlugPage = ({responseData}) => {
   ];
   const renderFilterOptions = () => {
     return uniqueCategories.slice(0, visibleCategories).map((category) => (
-      <Link href={`/integration?categoryProp=${category}`}>
+      <Link href={`/integration?currentcategory=${category}`}>
         <h6
         key={category}
         onClick={() => {setSelectedCategory(category); category !== selectedCategory ? setLoading(true) : '';}}
@@ -253,14 +253,14 @@ export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
 
-  const { categoryProp } = context.query;
+  const { currentcategory } = context.query;
       
   const fetchUrl =
-  categoryProp && categoryProp !== "All"
+  currentcategory && currentcategory !== "All"
         ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
-          categoryProp && categoryProp === "Other"
+          currentcategory && currentcategory === "Other"
               ? null
-              : categoryProp
+              : currentcategory
           }&limit=200`
         : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
 
