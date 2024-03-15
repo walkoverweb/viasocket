@@ -7,7 +7,6 @@ import IntegrationSearch from "@/components/integration/integrationApps";
 
 const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
   //defined states
-  console.log(pathArray, "inside integration slug");
   const [plugin, setPlugin] = useState();
   const [filteredData, setFilteredData] = useState([]);
   const [visibleItems, setVisibleItems] = useState(25);
@@ -36,7 +35,6 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
   //fetch icons
   const getIconUrl = (pluginName) => {
-    console.log();
     if (cardsData) {
       const plugin = combos?.plugins[pluginName];
       return plugin ? plugin.iconurl : null;
@@ -435,7 +433,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           </div>
 
           <div className="flex flex-1 flex-col gap-4">
-          <Link href="https://viasocket.com/">
+          <Link href="/">
             <Image
               src="../../../assets/brand/socket_fav_dark.svg"
               width={34}
@@ -469,7 +467,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">
             Integrations run at
           </h4>
-          <Link href="https://viasocket.com/">
+          <Link href="/">
           <Image
             src='../../../assets/brand/socket_fav_dark.svg'
             width={40}
@@ -512,7 +510,6 @@ async function fetchApps(selectedCategory, visibleItems) {
             : selectedCategory
         }&limit=200`
       : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
-console.log(fetchUrl);
   const apiHeaders = {
     headers: {
       "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
@@ -525,7 +522,6 @@ console.log(fetchUrl);
 }
 
 async function fetchCombos(pathArray) {
-  console.log("🚀 ~ fetchCombos ~ pathArray:", pathArray)
   
   const apiHeaders = {
     headers: {

@@ -1,11 +1,11 @@
 const Terms = () => {
   return (
     <>
-      <div className="container">
+      <div className="container mt-28">
         <style
           dangerouslySetInnerHTML={{
             __html:
-              "\n  [data-custom-class='body'], [data-custom-class='body'] * {\n          background: transparent !important;\n        }\n[data-custom-class='title'], [data-custom-class='title'] * {\n          font-family: Arial !important;\nfont-size: 26px !important;\ncolor: #ffff !important;\n        }\n[data-custom-class='subtitle'], [data-custom-class='subtitle'] * {\n          font-family: Arial !important;\ncolor: #ffff !important;\nfont-size: 14px !important;\n        }\n[data-custom-class='heading_1'], [data-custom-class='heading_1'] * {\n          font-family: Arial !important;\nfont-size: 19px !important;\ncolor: #ffff !important;\n        }\n[data-custom-class='heading_2'], [data-custom-class='heading_2'] * {\n          font-family: Arial !important;\nfont-size: 17px !important;\ncolor: #ffff !important;\n        }\n[data-custom-class='body_text'], [data-custom-class='body_text'] * {\n          color: #ffff !important;\nfont-size: 14px !important;\nfont-family: Arial !important;\n        }\n[data-custom-class='link'], [data-custom-class='link'] * {\n          color: #ACE2F6 !important;\nfont-size: 14px !important;\nfont-family: Arial !important;\nword-break: break-word !important;\n        }\n",
+              "\n  [data-custom-class='body'], [data-custom-class='body'] * {\n          background: transparent !important;\n        }\n[data-custom-class='title'], [data-custom-class='title'] * {\n          font-family: Arial !important;\nfont-size: 26px !important;\n !important;\n        }\n[data-custom-class='subtitle'], [data-custom-class='subtitle'] * {\n          font-family: Arial !important;\n;\nfont-size: 14px !important;\n        }\n[data-custom-class='heading_1'], [data-custom-class='heading_1'] * {\n          font-family: Arial !important;\nfont-size: 19px !important;\n;\n        }\n[data-custom-class='heading_2'], [data-custom-class='heading_2'] * {\n          font-family: Arial !important;\nfont-size: 17px !important;\n;\n        }\n[data-custom-class='body_text'], [data-custom-class='body_text'] * {\n          \nfont-size: 14px !important;\nfont-family: Arial !important;\n        }\n[data-custom-class='link'], [data-custom-class='link'] * {\n          color: #ACE2F6 !important;\nfont-size: 14px !important;\nfont-family: Arial !important;\nword-break: break-word !important;\n        }\n",
           }}
         />
         <div data-custom-class="body">
@@ -76,7 +76,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -107,7 +107,7 @@ const Terms = () => {
                     fontSize: "11.0pt",
                     lineHeight: "115%",
                     msoFareastFontFamily: "Calibri",
-                    color: "#ffff",
+                    // color: "#ffff",
                     msoThemecolor: "text1",
                     msoThemetint: 166,
                   }}
@@ -117,7 +117,7 @@ const Terms = () => {
                       fontSize: "11.0pt",
                       lineHeight: "115%",
                       msoFareastFontFamily: "Calibri",
-                      color: "#ffff",
+                      // color: "#ffff",
                       msoThemecolor: "text1",
                       msoThemetint: 166,
                     }}
@@ -127,7 +127,7 @@ const Terms = () => {
                         fontSize: "11.0pt",
                         lineHeight: "115%",
                         msoFareastFontFamily: "Calibri",
-                        color: "#ffff",
+                        // color: "#ffff",
                         msoThemecolor: "text1",
                         msoThemetint: 166,
                       }}
@@ -140,7 +140,7 @@ const Terms = () => {
                           fontSize: "11.0pt",
                           lineHeight: "115%",
                           msoFareastFontFamily: "Calibri",
-                          color: "#ffff",
+                          // color: "#ffff",
                           msoThemecolor: "text1",
                           msoThemetint: 166,
                         }}
@@ -155,7 +155,7 @@ const Terms = () => {
                           fontSize: "11.0pt",
                           lineHeight: "115%",
                           msoFareastFontFamily: "Calibri",
-                          color: "#ffff",
+                          // color: "#ffff",
                           msoThemecolor: "text1",
                           msoThemetint: 166,
                         }}
@@ -165,7 +165,7 @@ const Terms = () => {
                             fontSize: "11.0pt",
                             lineHeight: "115%",
                             msoFareastFontFamily: "Calibri",
-                            color: "#ffff",
+                            // color: "#ffff",
                             msoThemecolor: "text1",
                             msoThemetint: 166,
                           }}
@@ -177,7 +177,7 @@ const Terms = () => {
                                 fontSize: "11.0pt",
                                 lineHeight: "115%",
                                 msoFareastFontFamily: "Calibri",
-                                color: "#ffff",
+                                // color: "#ffff",
                                 msoThemecolor: "text1",
                                 msoThemetint: 166,
                               }}
@@ -187,7 +187,7 @@ const Terms = () => {
                                   fontSize: "11.0pt",
                                   lineHeight: "115%",
                                   msoFareastFontFamily: "Calibri",
-                                  color: "#ffff",
+                                  // color: "#ffff",
                                   msoThemecolor: "text1",
                                   msoThemetint: 166,
                                 }}
@@ -230,7 +230,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   msoFareastFontFamily: "Calibri",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -240,7 +240,7 @@ const Terms = () => {
                     fontSize: "11.0pt",
                     lineHeight: "115%",
                     msoFareastFontFamily: "Calibri",
-                    color: "#ffff",
+                    // color: "#ffff",
                     msoThemecolor: "text1",
                     msoThemetint: 166,
                   }}
@@ -268,7 +268,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -321,7 +321,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -342,7 +342,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -385,7 +385,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -417,7 +417,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -455,7 +455,7 @@ const Terms = () => {
                         fontSize: "11.0pt",
                         lineHeight: "115%",
                         fontFamily: "Arial",
-                        color: "#ffff",
+                        // color: "#ffff",
                         msoThemecolor: "text1",
                         msoThemetint: 166,
                       }}
@@ -1031,7 +1031,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1063,7 +1063,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1087,7 +1087,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1167,7 +1167,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1190,7 +1190,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1217,7 +1217,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1248,7 +1248,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1270,7 +1270,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1293,7 +1293,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1520,7 +1520,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1889,7 +1889,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1918,7 +1918,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1937,7 +1937,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1956,7 +1956,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1975,7 +1975,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -1994,7 +1994,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -2008,7 +2008,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -2026,7 +2026,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -2066,7 +2066,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -2120,7 +2120,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6315,7 +6315,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6424,7 +6424,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6565,7 +6565,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6680,7 +6680,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6763,7 +6763,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6857,7 +6857,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -6942,7 +6942,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -7045,7 +7045,7 @@ const Terms = () => {
                   fontSize: "11.0pt",
                   lineHeight: "115%",
                   fontFamily: "Arial",
-                  color: "#ffff",
+                  // color: "#ffff",
                   msoThemecolor: "text1",
                   msoThemetint: 166,
                 }}
@@ -7164,7 +7164,7 @@ const Terms = () => {
                     fontSize: "11.0pt",
                     lineHeight: "115%",
                     fontFamily: "Arial",
-                    color: "#ffff",
+                    // color: "#ffff",
                     msoThemecolor: "text1",
                     msoThemetint: 166,
                   }}
@@ -7188,7 +7188,7 @@ const Terms = () => {
                     fontSize: "11.0pt",
                     lineHeight: "115%",
                     fontFamily: "Arial",
-                    color: "#ffff",
+                    // color: "#ffff",
                     msoThemecolor: "text1",
                     msoThemetint: 166,
                   }}
@@ -7210,7 +7210,7 @@ const Terms = () => {
                     fontSize: "11.0pt",
                     lineHeight: "115%",
                     fontFamily: "Arial",
-                    color: "#ffff",
+                    // color: "#ffff",
                     msoThemecolor: "text1",
                     msoThemetint: 166,
                   }}
@@ -7231,7 +7231,7 @@ const Terms = () => {
         />
         <div
           style={{
-            color: "#ffff",
+            // color: "#ffff",
             fontSize: "14px",
             fontFamily: "Arial",
             paddingTop: "16px",

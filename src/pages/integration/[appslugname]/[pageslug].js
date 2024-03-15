@@ -6,13 +6,12 @@ import {
   MdOutlineTaskAlt,
   MdOutlineAdsClick,
   MdAdd,
+  MdOutlineKeyboardArrowDown
 } from "react-icons/md";
 import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 
 
 const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
-  console.log("🚀 ~ IntegrationSlugPage ~ combos:", combos)
-  console.log("🚀 ~ IntegrationSlugPage ~ pathArray:", pathArray);
   //defined states
   const [pluginOne, setPluginOne] = useState();
   const [pluginTwo, setPluginTwo] = useState();
@@ -161,7 +160,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen ">
       {/* nav start */}
       <div className='bg-[#00A68B] pt-6'>
         <div className='flex flex-row justify-start gap-3 items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg'>
@@ -194,7 +193,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 <div
                   tabIndex={0}
                   role='button'
-                  className='flex gap-1 bg-[#F5F5F5] border px-4 py-2 rounded border-[#CCCCCC]'
+                  className='flex items-center gap-1 bg-[#F5F5F5]   py-2 '
                   onClick={() =>
                     setCategoryDropdownOpen(!isCategoryDropdownOpen)
                   }
@@ -212,6 +211,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                   <h6 className='md:text-2xl text-base font-bold capitalize'>
                     {pluginTwo?.name}
                   </h6>
+                  <MdOutlineKeyboardArrowDown size={25} />
                 </div>
                 {isCategoryDropdownOpen && (
                   <div
@@ -260,6 +260,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                     <h5 className='md:text-base text-sm font-medium'>
                                       {app?.name}
                                     </h5>
+                                   
                                   </div>
                                 </a>
                               ))
@@ -276,6 +277,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               </div>
             </div>
           </div>
+          
         </div>
       </div>
 
@@ -678,7 +680,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       {/* blogg section starts here */}
 
       {/* abouttttt */}
-      <div className='bg-[#F5F5F5] py-10'>
+      <div className=' py-10 my-auto'>
         <div className='flex lg:flex-row md:flex-row flex-col gap-10 container justify-between'>
           <div className='flex flex-1 flex-col justify-start gap-4'>
             <Image
@@ -730,12 +732,12 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
       {/* footer */}
 
-      <div className='bg-[#E6E6E6] py-10'>
-        <div className='flex flex-row gap-4 justify-center items-center'>
+      <footer className='bg-[#E6E6E6] py-10 h-full'>
+        <div className='flex flex-row gap-4 justify-center items-center '>
           <h4 className='lg:text-[32px] md:text-xl text-lg font-semibold'>
             Integrations run at
           </h4>
-          <Link href="https://viasocket.com/">
+          <Link href="/">
           <Image
             src='../../../assets/brand/socket_fav_dark.svg'
             width={40}
@@ -744,7 +746,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           </Link>
           
         </div>
-      </div>
+      </footer>
 
       {/* ------------------------------------------------------------------------------------------------------ */}
     </div>
@@ -760,7 +762,6 @@ export async function getServerSideProps(context) {
   // Fetch data server-side here
   const combos = await fetchCombos(pathArray);
   const apps = await fetchApps("All", 25); // Example: fetching with default category "All" and 25 items
-  console.log(combos?.combinations);
 
   return {
     props: {
@@ -804,7 +805,6 @@ async function fetchCombos(pathArray) {
     `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?service=${pathArray[0]}&service=${pathArray[1]}`,
     apiHeaders
   );
-  console.log(response, "reso");
   const responseData = await response.json();
   return responseData;
 }

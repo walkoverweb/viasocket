@@ -38,7 +38,7 @@ const Navbar = ({productData, pathArray}) => {
         <div
           className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}
         >
-          <Link href="https://viasocket.com/">
+          <Link href="/">
           <Image
           className="w-[120px]"
             src={pageData?.logo[0] ? pageData.logo[0] : './assets/brand/logo.svg'}
