@@ -5,10 +5,6 @@ import Link from "next/link";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import IntegrationSearch from "@/components/integration/integrationApps";
 
-
-
-
-
 const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
   //defined states
   console.log(pathArray, "inside integration slug");
@@ -57,17 +53,18 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
   //search functions
   const applyFilters = () => {
-    let filteredItems = apps.filter(
-      (item) =>
-        item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let filteredItems = apps.filter((item) => {
+      const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const categoryMatches = selectedCategory === "All" || item.category === selectedCategory || !item.category;
+      return nameMatches && categoryMatches;
+    });
 
     setFilteredData(filteredItems);
   };
 
   useEffect(() => {
     applyFilters();
-  }, [apps, searchTerm]);
+  }, [apps, searchTerm, selectedCategory]);
 
   const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const handleCategoryClick = () => {
@@ -79,14 +76,12 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     "Engineering",
     "Productivity",
     "Marketing",
-    "IT Operations",
+    "IT",
     "Support",
     "Website Builders",
     "Databases",
     "Social Media Accounts",
     "Communication",
-    "Other",
-   
     "Accounting",
     "Ads & Conversion",
     "AI Tools",
@@ -196,7 +191,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       if (events) {
         const event = events.find((e) => e.rowid === eventId);
         if (event) {
-          return event.description;
+          return event.name;
         }
       }
     }
@@ -248,9 +243,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               const actionDescriptions = card.action.map((action) =>
                 getEventDescription(action.id)
               );
-              const combinedDescription = ` ${actionDescriptions.join(
-                " and "
-              )} when ${triggerDescription} `;
+              // const combinedDescription = ` ${actionDescriptions.join(
+              //   " and "
+              // )} when ${triggerDescription} `;
+              const capitalizeFirstLetter = (string) => {
+                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+              };
+              const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map(desc => desc.toLowerCase())} when ${triggerDescription.toLowerCase()}`;
               return (
                 <div
                   key={index}
@@ -427,20 +426,22 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             </h6>
             <p className="md:text-xl text-base">{plugin?.description}</p>
             <div>
-              <Link href="/">
-                <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
+              
+                {/* <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
                   Learn more
-                </button>
-              </Link>
+                </button> */}
+              
             </div>
           </div>
 
           <div className="flex flex-1 flex-col gap-4">
+          <Link href="https://viasocket.com/">
             <Image
               src="../../../assets/brand/socket_fav_dark.svg"
               width={34}
               height={34}
             />
+            </Link>
             <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
               About viaSocket
             </h6>
@@ -450,11 +451,11 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               your favorite applications and tools.
             </p>
             <div>
-              <Link href="/">
+              {/* <Link href="/">
                 <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
                   Learn more
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -468,11 +469,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">
             Integrations run at
           </h4>
+          <Link href="https://viasocket.com/">
           <Image
-            src="../../../assets/brand/socket_fav_dark.svg"
+            src='../../../assets/brand/socket_fav_dark.svg'
             width={40}
             height={40}
           />
+          </Link>
         </div>
       </div>
 
@@ -527,6 +530,7 @@ async function fetchCombos(pathArray) {
   const apiHeaders = {
     headers: {
       "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+      "Cache-Control" : "no-cache"
     },
   };
   const response = await fetch(

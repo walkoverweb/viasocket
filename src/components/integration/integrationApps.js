@@ -180,10 +180,10 @@ const IntegrationSearch = ({
           )}
 
           <div>
-            {visibleItems < apps.length && !noAppsFoundMessage && (
+          {visibleItems < filteredData.length && !loading && !noAppsFoundMessage && (
               <button
                 onClick={handleLoadMore}
-                className=" font-medium text-[#2D81F7]"
+                className="font-medium text-[#2D81F7]"
               >
                 Load More...
               </button>
