@@ -23,6 +23,7 @@ const IntegrationSlugPage = ({responseData}) => {
   
     setApps(responseData);
     setLoading(false)
+    setSelectedCategory(currentcategory);
 
   }, [currentcategory, visibleItems]);
 
