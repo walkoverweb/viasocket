@@ -33,7 +33,8 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     ) {
     showNavbar = true;
   }
-  const pathArray = browserPath.split("/"); 
+  const rawpathArray = browserPath.split("?");
+  const pathArray = rawpathArray[0].split("/"); 
   
   useEffect(() => {
     const helloConfig = {
@@ -57,8 +58,8 @@ export default function MyApp({ Component, pageProps, pagesData }) {
   return (
     <>
       <HeadComp />
-      {showNavbar && <Navbar productData={pageProps?.productData} pathArray={pathArray} />}
-      <Component {...pageProps} pathArray={pathArray} />
+      {showNavbar && <Navbar productData={pageProps?.productData} pathArray={pathArray} rawpathArray={rawpathArray} />}
+      <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
       {showNavbar && <Footer />}
     </>
   );
