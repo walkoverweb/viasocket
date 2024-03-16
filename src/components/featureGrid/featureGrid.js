@@ -13,7 +13,7 @@ export function FeaturesGrid({ features, page }) {
           {features
             .sort((a, b) => a.priority - b.priority)
             .map((feature, index) => {
-              if (feature?.product?.toLowerCase() === page) {
+              if (feature?.product?.toLowerCase() === page && feature?.hidden !== true) {
                 if (feature.block_type === "R2C2") {
                   return (
                     <Link
@@ -23,7 +23,14 @@ export function FeaturesGrid({ features, page }) {
                     >
                       <div className='flex flex-col gap-3 lg:p-5 md:p-3 p-3'>
                         {feature?.icon ? (
-                          <feature.icon size={35} />
+                            <Image
+                            src={feature.icon[0]}
+                            alt='feature 1'
+                            className={` `}
+                            height={40}
+                            width={40}
+                          />
+
                         ) : (
                           <HiOutlineComputerDesktop size={35} />
                         )}
@@ -69,7 +76,13 @@ export function FeaturesGrid({ features, page }) {
                     >
                       <div className='flex flex-col gap-3 h-full justify-between  lg:p-5 md:p-3 p-3 sm:w-1/2 w-1/1'>
                         {feature?.icon ? (
-                          <feature.icon size={35} />
+                            <Image
+                            src={feature.icon[0]}
+                            alt='feature 1'
+                            className={` `}
+                            height={40}
+                            width={40}
+                          />
                         ) : (
                           <HiOutlineComputerDesktop size={35} />
                         )}
@@ -115,7 +128,13 @@ export function FeaturesGrid({ features, page }) {
                     >
                       <div className='flex flex-col gap-3'>
                         {feature?.icon ? (
-                          <feature.icon size={35} />
+                              <Image
+                              src={feature.icon[0]}
+                              alt='feature 1'
+                              className={` `}
+                              height={40}
+                              width={40}
+                            />
                         ) : (
                           <HiOutlineComputerDesktop size={35} />
                         )}
