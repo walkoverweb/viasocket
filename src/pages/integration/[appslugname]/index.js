@@ -159,9 +159,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <h6
         key={category}
         onClick={() => setSelectedCategory(category)}
-        className={`lg:text-[20px] text-base cursor-pointer ${
-          selectedCategory === category ? "font-bold" : "font-normal"
-        }`}
+        className={`lg:text-[20px] text-base cursor-pointer ${selectedCategory === category ? "font-bold" : "font-normal"
+          }`}
       >
         {category === "Null" ? "Other" : category}
       </h6>
@@ -195,6 +194,11 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     }
     return null;
   };
+
+  const openChatWidget = () => {
+    window.chatWidget.open();
+  };
+
 
   return (
     <div>
@@ -234,16 +238,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
       {/* Display cards */}
       <div className="bg-[#00A68B] pb-14">
-        <div className="container grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-10 py-10">
-          {cardsData?.length > 0 &&
-            cardsData.slice(0, visibleComboItems).map((card, index) => {
+        {cardsData?.length > 0 ? (
+          <div className="container grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-10 py-10">
+            {cardsData.slice(0, visibleComboItems).map((card, index) => {
               const triggerDescription = getEventDescription(card.trigger.id);
               const actionDescriptions = card.action.map((action) =>
                 getEventDescription(action.id)
               );
-              // const combinedDescription = ` ${actionDescriptions.join(
-              //   " and "
-              // )} when ${triggerDescription} `;
               const capitalizeFirstLetter = (string) => {
                 return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
               };
@@ -276,8 +277,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                         ))}
                       </div>
                       {/* <div className='flex gap-4 items-center'>
-                        <p className='text-base'>Details</p>
-                      </div> */}
+   <p className='text-base'>Details</p>
+ </div> */}
                     </div>
                     <div className="flex px-6 mb-4 pb-6 ">
                       <p className="md:text-xl text-lg font-medium ">
@@ -291,8 +292,25 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                   </div>
                 </div>
               );
-            })}
-        </div>
+            })
+
+            }
+          </div>
+        ) :
+          (
+
+            <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
+              No matching combination was found. Please try again with different parameters or reach out to support for assistance.
+              <div>
+                <button className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded" onClick={openChatWidget}>Live chat</button>
+              </div>
+            </div>
+
+
+          )}
+
+
+
         <div className="flex flex-row justify-center items-center">
           {visibleComboItems < cardsData?.length && (
             <button
@@ -424,21 +442,21 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             </h6>
             <p className="md:text-xl text-base">{plugin?.description}</p>
             <div>
-              
-                {/* <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
+
+              {/* <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
                   Learn more
                 </button> */}
-              
+
             </div>
           </div>
 
           <div className="flex flex-1 flex-col gap-4">
-          <Link href="/">
-            <Image
-              src="../../../assets/brand/socket_fav_dark.svg"
-              width={34}
-              height={34}
-            />
+            <Link href="/">
+              <Image
+                src="../../../assets/brand/socket_fav_dark.svg"
+                width={34}
+                height={34}
+              />
             </Link>
             <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
               About viaSocket
@@ -468,11 +486,11 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             Integrations run at
           </h4>
           <Link href="/">
-          <Image
-            src='../../../assets/brand/socket_fav_dark.svg'
-            width={40}
-            height={40}
-          />
+            <Image
+              src='../../../assets/brand/socket_fav_dark.svg'
+              width={40}
+              height={40}
+            />
           </Link>
         </div>
       </div>
@@ -504,11 +522,10 @@ export async function getServerSideProps(context) {
 async function fetchApps(selectedCategory, visibleItems) {
   const fetchUrl =
     selectedCategory && selectedCategory !== "All"
-      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
-          selectedCategory && selectedCategory === "Other"
-            ? null
-            : selectedCategory
-        }&limit=200`
+      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${selectedCategory && selectedCategory === "Other"
+        ? null
+        : selectedCategory
+      }&limit=200`
       : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
   const apiHeaders = {
     headers: {
@@ -522,11 +539,11 @@ async function fetchApps(selectedCategory, visibleItems) {
 }
 
 async function fetchCombos(pathArray) {
-  
+
   const apiHeaders = {
     headers: {
       "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-      "Cache-Control" : "no-cache"
+      "Cache-Control": "no-cache"
     },
   };
   const response = await fetch(
