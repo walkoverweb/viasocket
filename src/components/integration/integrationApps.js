@@ -62,7 +62,7 @@ const IntegrationSearch = ({
             <div
               tabIndex={0}
               role="button"
-              className="bg-white px-4 py-1 rounded-lg m-1 border-[#F5F5F5]"
+              className="bg-white flex justify-between items-center border border-[#CCCCCC] px-5 py-3 rounded  w-48"
               onClick={() => {handleCategoryClick(); setIsDataLoading(false);}}
             >
               <span>{selectedCategory || "Select Category"} </span>
