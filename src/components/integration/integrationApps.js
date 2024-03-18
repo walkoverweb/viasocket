@@ -23,7 +23,7 @@ const IntegrationSearch = ({
   pathArray
 }) => {
   const noAppsFoundMessage = filteredData.length === 0 ? "Sorry, no matching app available" : "";
-  const [isDataLoading, setIsDataLoading] = useState(loading);
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
     setIsDataLoading(loading);

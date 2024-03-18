@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import {
   MdOutlineArrowRightAlt,
@@ -19,12 +20,19 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
   const [visibleComboItems, setVisibleComboItems] = useState(6);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const router = useRouter();
   const cardsData = combos?.combinations;
 
   useEffect(() => {
     setPluginOne(combos?.plugins?.[pathArray[2]]);
     setPluginTwo(combos?.plugins?.[pathArray[3]]);
   }, [combos, pathArray[2]]);
+
+  useEffect(() => {
+    if(pathArray[2] === pathArray[3]){
+      router.push('/404');
+    }
+  }, [pathArray[3]]);
 
   //fetch icons
   const getIconUrl = (pluginName) => {
