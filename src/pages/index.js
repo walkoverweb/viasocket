@@ -6,6 +6,7 @@ import { getDbdashData } from "./api/index";
 import { MdArrowForward } from "react-icons/md";
 import GetStarted from "@/components/getStarted/getStarted";
 import HeadComp from "@/components/head/headComp";
+import { FeaturesGrid } from "@/components/featureGrid/featureGrid";
 
 export async function getServerSideProps() {
   const IDs = [
@@ -15,6 +16,7 @@ export async function getServerSideProps() {
     "tblvgm05y",
     "tblmsw3ci",
     "tblsaw4zp",
+    "tblvo36my",
   ];
 
   const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -28,6 +30,7 @@ export async function getServerSideProps() {
       getStartedData: results[3].data.rows,
       productData: results[4].data.rows,
       trustedData: results[5].data.rows,
+      features: results[6].data.rows,
     },
   };
 }
@@ -39,6 +42,7 @@ const Index = ({
   getStartedData,
   productData,
   trustedData,
+  features
 }) => {
   return (
     <>
@@ -62,20 +66,10 @@ const Index = ({
           </div>
           {getStartedData && <GetStarted data={getStartedData} isHero={"true"} />}
 
-          {/* <div className='flex flex-col gap-6 mb-4'>
-            <button className=' text-lg btn btn-accent w-fit '>
-              Click for our 24/7 AI & Team Support
-            </button>
-            <button className=' text-lg btn btn-outline w-fit '>
-              Hire a no-code developer
-            </button>
-            <Link href='/' className='underline  w-fit font-normal text-lg'>
-              Read More
-            </Link>
-          </div> */}
+   
           <TrustedBy data={trustedData} />
         </div>
-        {/* <div className='grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8  items-center justify-center mx-4 md:mx-12 lg:mx-24'> */}
+    
         <div className='container grid gap-10'>
           <h2 className='font-inter text-3xl font-semibold leading-9 tracking-normal text-left'>
             Meet our automation products
@@ -128,6 +122,7 @@ const Index = ({
               })}
           </div>
         </div>
+        {features && <FeaturesGrid features={features} page={'overall'}/>}
         <div className='grid gap-10 container w'>
           <h2 className='font-inter text-3xl font-semibold leading-9 tracking-normal text-left '>
             What clients says
