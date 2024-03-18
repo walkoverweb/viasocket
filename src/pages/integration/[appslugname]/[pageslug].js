@@ -345,8 +345,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     </div>
                   </div>
                   <div className='flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg mt-auto cursor-pointer'>
-                    <p className='text-base font-medium'> Try it</p>
-                    <MdOutlineArrowRightAlt size={25} />
+                  {card.action.map((action, actionIndex) => (
+                      <Link key={actionIndex} href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}>
+                        <button className="flex flex-row gap-2 text-base font-medium">
+                          Try it
+                          <MdOutlineArrowRightAlt size={25} /> </button>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               );
@@ -587,12 +592,17 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                   </button>
                 </div>
                 <div>
-                  <button
-                    className='btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded'
-                    disabled={cnt !== 2}
+                  <Link
+                    href={`/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
                   >
-                    Try it now
-                  </button>
+                    <button
+                      className='btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded'
+                      disabled={cnt !== 2}
+                    >
+                      Try it now
+                    </button>
+                  </Link>
+
                 </div>
               </div>
             </div>
