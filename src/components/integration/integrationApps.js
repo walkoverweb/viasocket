@@ -143,9 +143,8 @@ const IntegrationSearch = ({
               <div className="flex flex-row flex-wrap gap-5">
                 {filteredData?.length > 0 &&
                   filteredData.slice(0, visibleItems).map((app) => {
-                    const isSameAsSelected = selectedApp !== app?.name;
-                   
-
+                    const isSameAsSelected = selectedApp !== app?.appslugname;
+                    
                     if (isSameAsSelected) {
                       return (
                         <a
