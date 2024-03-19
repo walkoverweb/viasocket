@@ -189,7 +189,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 height={40}
               />
               <h6 className='md:text-2xl text-base font-bold capitalize'>
-                {pluginOne?.name}
+                {combos?.plugins?.[pathArray[2]].name}
               </h6>
             </div>
           </Link>
@@ -217,7 +217,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     height={40}
                   />
                   <h6 className='md:text-2xl text-base font-bold capitalize'>
-                    {pluginTwo?.name}
+                    {combos?.plugins?.[pathArray[3]].name}
                   </h6>
                   <MdOutlineKeyboardArrowDown size={25} />
                 </div>
@@ -293,7 +293,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <div className='bg-[#00A68B] pt-14'>
         <div className='flex container'>
           <h1 className='lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8'>
-            {`Create integrations between ${pathArray[2]} and ${pathArray[3]}.`}
+            {`Create integrations between ${combos?.plugins?.[pathArray[2]].name} and ${combos?.plugins?.[pathArray[3]].name}.`}
           </h1>
         </div>
       </div>
@@ -701,9 +701,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               height={34}
             />
             <h6 className='lg:text-[32px] md:text-2xl text-xl font-medium'>
-              {`About ${pathArray[2]}`}
+              {`About ${combos?.plugins?.[pathArray[2]].name}`}
             </h6>
-            <p className='md:text-xl text-base'>{pluginOne?.description}</p>
+            <p className='md:text-xl text-base'>{combos?.plugins?.[pathArray[2]].description}</p>
             <div>
               
                 {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
@@ -723,9 +723,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               height={34}
             />
             <h6 className='lg:text-[32px] md:text-2xl text-xl font-medium'>
-            {`About ${pathArray[3]}`}
+            {`About ${combos?.plugins?.[pathArray[3]].name}`}
             </h6>
-            <p className='md:text-xl text-base'>{pluginTwo?.description}</p>
+            <p className='md:text-xl text-base'>{combos?.plugins?.[pathArray[3]].description}</p>
             <div>
               
                 {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
