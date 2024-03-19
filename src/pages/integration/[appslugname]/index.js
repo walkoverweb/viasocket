@@ -221,7 +221,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 width={40}
                 height={40}
               />
-              <h6 className="text-2xl font-bold capitalize">{pathArray[2]}</h6>
+              <h6 className="text-2xl font-bold capitalize">{combos?.plugins?.[pathArray[2]].name}</h6>
             </div>
           </Link>
         </div>
@@ -231,7 +231,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <div className="bg-[#00A68B] pt-14">
         <div className="flex container">
           <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
-            {`Create integrations between ${pathArray[2]} and your favorite app.`}
+            {`Create integrations between ${combos?.plugins?.[pathArray[2]].name} and your favorite app.`}
           </h1>
         </div>
       </div>
@@ -444,7 +444,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               height={34}
             />
             <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-              {`About ${pathArray[2]}`}
+              {`About ${combos?.plugins?.[pathArray[2]].name}`}
             </h6>
             <p className="md:text-xl text-base">{plugin?.description}</p>
             <div>
