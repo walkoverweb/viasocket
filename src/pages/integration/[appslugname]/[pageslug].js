@@ -318,7 +318,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               return (
                 <div
                   key={index}
-                  className='card rounded-lg bg-white border relative '
+                  className='card rounded-lg bg-white justify-between border relative '
                 >
                   <div className='flex flex-col justify-between gap-4 '>
                     <div className='flex flex-row justify-between items-center pt-6 px-6 '>
@@ -352,15 +352,19 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                       </p>
                     </div>
                   </div>
-                  <div className='flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg mt-auto cursor-pointer'>
                   {card.action.map((action, actionIndex) => (
-                      <Link key={actionIndex} href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}>
-                        <button className="flex flex-row gap-2 text-base font-medium">
+                      <Link key={actionIndex} href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
+                      target="_blank"
+                      >
+                  <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg mt-auto shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
+                    
+                        <button className="flex justify-end flex-row gap-2 text-base font-medium w-full">
                           Try it
                           <MdOutlineArrowRightAlt size={25} /> </button>
-                      </Link>
-                    ))}
+                                     
                   </div>
+                  </Link>
+                    ))}
                 </div>
               );
             })}
@@ -602,6 +606,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 <div>
                   <Link
                     href={`https://dev-flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
+                    target="_blank"
                   >
                     <button
                       className='btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded'
