@@ -593,7 +593,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 </div>
                 <div>
                   <Link
-                    href={`/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
+                    href={`https://dev-flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
                   >
                     <button
                       className='btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded'
