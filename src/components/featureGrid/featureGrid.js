@@ -19,7 +19,7 @@ export function FeaturesGrid({ features, page }) {
                     <Link
                       key={index}
                       href={feature?.link ? feature?.link : "#"}
-                      className={`${styles.r2c2} col-span-2 row-span-2  bg-[#F7F7F8] rounded-lg justify-between gap-4 w-full h-full flex flex-col aspect-square overflow-hidden hover:shadow-lg `}
+                      className={`${styles.r2c2} col-span-2 row-span-2  bg-[#d8e2dc] rounded-lg justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg `}
                     >
                       <div className='flex flex-col gap-3 lg:p-5 md:p-3 p-3'>
                         {feature?.icon ? (
@@ -45,13 +45,13 @@ export function FeaturesGrid({ features, page }) {
                       </div>
 
                       <div
-                        className={`${styles.r2c2_img_cont} flex h-full justify-end items-end`}
+                        className={`${styles.r2c2_img_cont} flex h-full justify-center items-end`}
                       >
                         {feature?.image ? (
                           <Image
-                            src={feature.image}
+                            src={feature.image[0]}
                             alt='feature 1'
-                            className={`${styles.r2c2_img} `}
+                            className={`${styles.r2c2_img} p-2 md:p-6 lg:p-12`}
                             height={1080}
                             width={1080}
                           />

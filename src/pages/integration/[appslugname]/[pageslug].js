@@ -167,6 +167,10 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     return null;
   };
 
+  const openChatWidget = () => {
+    window.chatWidget.open();
+  };
+
   return (
     <div className="flex flex-col min-h-screen ">
       {/* nav start */}
@@ -248,7 +252,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                   key={app?.rowid}
                                   href={
                                     app?.appslugname
-                                      ? `/integration${pathArray[2] ? '/'+pathArray[2] : ''}/${app?.appslugname}`
+                                      ? `/integration${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
                                       : `/experts`
                                   }
                                 >
@@ -268,7 +272,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                     <h5 className='md:text-base text-sm font-medium'>
                                       {app?.name}
                                     </h5>
-                                   
+
                                   </div>
                                 </a>
                               ))
@@ -285,7 +289,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
 
@@ -300,16 +304,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
       {/* Display cards */}
       <div className='bg-[#00A68B] pb-14'>
-        <div className='container grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-10 py-10'>
-          {cardsData?.length > 0 &&
-            cardsData.slice(0, visibleComboItems).map((card, index) => {
+        {cardsData?.length > 0 ? (
+          <div className='container grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-10 py-10'>
+            {cardsData.slice(0, visibleComboItems).map((card, index) => {
               const triggerDescription = getEventDescription(card.trigger.id);
               const actionDescriptions = card.action.map((action) =>
                 getEventDescription(action.id)
               );
-              // const combinedDescription = ` ${actionDescriptions.join(
-              //   " and "
-              // )} when ${triggerDescription} `;
               const capitalizeFirstLetter = (string) => {
                 return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
               };
@@ -352,13 +353,27 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     </div>
                   </div>
                   <div className='flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg mt-auto cursor-pointer'>
-                    <p className='text-base font-medium'> Try it</p>
-                    <MdOutlineArrowRightAlt size={25} />
+                  {card.action.map((action, actionIndex) => (
+                      <Link key={actionIndex} href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}>
+                        <button className="flex flex-row gap-2 text-base font-medium">
+                          Try it
+                          <MdOutlineArrowRightAlt size={25} /> </button>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               );
             })}
-        </div>
+          </div>
+        ) : (
+          <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
+            No matching combination was found. Please try again with different parameters or reach out to support for assistance.
+            <div>
+              <button className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded" onClick={openChatWidget}>Live chat</button>
+            </div>
+          </div>
+        )}
+
         <div className='flex flex-row justify-center items-center'>
           {visibleComboItems < cardsData?.length && (
             <button
@@ -397,9 +412,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     triggerEvent.map((card, index) => (
                       <div
                         key={index}
-                        className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative ${
-                          selectedCardIndex === index ? "selected-card" : ""
-                        }`}
+                        className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative ${selectedCardIndex === index ? "selected-card" : ""
+                          }`}
                         onClick={() => {
                           if (selectedCardIndex === index) {
                             handleCardClick(null);
@@ -464,9 +478,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     actionEvents.map((card, i) => (
                       <div
                         key={i}
-                        className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative ${
-                          selectedActionCardIndex === i ? "selected-card" : ""
-                        }`}
+                        className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative ${selectedActionCardIndex === i ? "selected-card" : ""
+                          }`}
                         onClick={() => {
                           if (selectedActionCardIndex === i) {
                             handleActionCardClick(null);
@@ -525,9 +538,8 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
         cnt >= 1 &&
         showFixedSection && (
           <div
-            className={`bg-white ${
-              cnt < 1 ? "hidden" : "fixed"
-            } bottom-0 w-[100%] z-30`}
+            className={`bg-white ${cnt < 1 ? "hidden" : "fixed"
+              } bottom-0 w-[100%] z-30`}
           >
             <div className='container flex flex-wrap lg:justify-between gap-6 items-center py-4 '>
               <div className='flex flex-row flex-wrap items-center gap-4'>
@@ -588,12 +600,17 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                   </button>
                 </div>
                 <div>
-                  <button
-                    className='btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded'
-                    disabled={cnt !== 2}
+                  <Link
+                    href={`https://dev-flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
                   >
-                    Try it now
-                  </button>
+                    <button
+                      className='btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded'
+                      disabled={cnt !== 2}
+                    >
+                      Try it now
+                    </button>
+                  </Link>
+
                 </div>
               </div>
             </div>
@@ -705,11 +722,11 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             </h6>
             <p className='md:text-xl text-base'>{combos?.plugins?.[pathArray[2]].description}</p>
             <div>
-              
-                {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
+
+              {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
                   Learn more
                 </button> */}
-           
+
             </div>
           </div>
           <div className='flex flex-1 flex-col justify-start gap-4'>
@@ -727,11 +744,11 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             </h6>
             <p className='md:text-xl text-base'>{combos?.plugins?.[pathArray[3]].description}</p>
             <div>
-              
-                {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
+
+              {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
                   Learn more
                 </button> */}
-             
+
             </div>
           </div>
         </div>
@@ -746,13 +763,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             Integrations run at
           </h4>
           <Link href="/">
-          <Image
-            src='../../../assets/brand/socket_fav_dark.svg'
-            width={40}
-            height={40}
-          />
+            <Image
+              src='../../../assets/brand/socket_fav_dark.svg'
+              width={40}
+              height={40}
+            />
           </Link>
-          
+
         </div>
       </footer>
 
@@ -784,11 +801,10 @@ export async function getServerSideProps(context) {
 async function fetchApps(selectedCategory, visibleItems) {
   const fetchUrl =
     selectedCategory && selectedCategory !== "All"
-      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
-          selectedCategory && selectedCategory === "Other"
-            ? null
-            : selectedCategory
-        }&limit=${visibleItems}`
+      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${selectedCategory && selectedCategory === "Other"
+        ? null
+        : selectedCategory
+      }&limit=${visibleItems}`
       : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=${visibleItems}`;
 
   const apiHeaders = {
@@ -806,7 +822,7 @@ async function fetchCombos(pathArray) {
   const apiHeaders = {
     headers: {
       "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-      "Cache-Control" : "no-cache"
+      "Cache-Control": "no-cache"
     },
   };
   const response = await fetch(
