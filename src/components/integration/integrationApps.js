@@ -23,7 +23,7 @@ const IntegrationSearch = ({
   pathArray
 }) => {
   const noAppsFoundMessage = filteredData.length === 0 ? "Sorry, no matching app available" : "";
-  const [isDataLoading, setIsDataLoading] = useState(loading);
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
     setIsDataLoading(loading);
@@ -143,9 +143,8 @@ const IntegrationSearch = ({
               <div className="flex flex-row flex-wrap gap-5">
                 {filteredData?.length > 0 &&
                   filteredData.slice(0, visibleItems).map((app) => {
-                    const isSameAsSelected = selectedApp !== app?.name;
-                   
-
+                    const isSameAsSelected = selectedApp !== app?.appslugname;
+                    
                     if (isSameAsSelected) {
                       return (
                         <a

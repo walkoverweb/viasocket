@@ -4,9 +4,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import IntegrationSearch from "@/components/integration/integrationApps";
 
-const IntegrationSlugPage = ({responseData}) => {
+const IntegrationSlugPage = ({responseData, pathArray}) => {
   //defined states
-  const pathArray = ['','integration']
   const [apps, setApps] = useState(responseData);
   const [filteredData, setFilteredData] = useState([]);
   const [visibleItems, setVisibleItems] = useState(25);
@@ -17,6 +16,10 @@ const IntegrationSlugPage = ({responseData}) => {
 
   const router = useRouter();
   const { currentcategory } = router.query;
+
+  useEffect(() => {
+    router.push('/integration?currentcategory=All');
+  }, []);
 
   //fetch apps
   useEffect(() => {
@@ -255,6 +258,8 @@ export default IntegrationSlugPage;
 export async function getServerSideProps(context) {
 
   const { currentcategory } = context.query;
+
+  const pathArray = ['','integration']
       
   const fetchUrl =
   currentcategory && currentcategory !== "All"
@@ -276,7 +281,8 @@ export async function getServerSideProps(context) {
 
    return {
     props: {
-      responseData
+      responseData,
+      pathArray
     }
   };
 
