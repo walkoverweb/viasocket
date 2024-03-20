@@ -827,7 +827,7 @@ async function fetchCombos(pathArray) {
   const apiHeaders = {
     headers: {
       "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-      "Cache-Control": "no-cache"
+      
     },
   };
   const response = await fetch(
