@@ -157,7 +157,7 @@ const IntegrationSearch = ({
                           href={
                             app?.appslugname
                               ? `/integration${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
-                              : `/experts`
+                              : `/noplugin`
                           }
                           target={pathArray[2] ? "_self" : "_blank"}
                           rel="noopener noreferrer"

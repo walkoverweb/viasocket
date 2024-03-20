@@ -79,7 +79,9 @@ const Navbar = ({productData, pathArray}) => {
                                       {child.name === "Live Chat" ? (
                                         <button onClick={openChatWidget}>Live Chat</button>
                                       ) : (
-                                        <Link href={`${child.link ? child.link : ""}`}>
+                                        <Link href={`${child.link ? child.link : ""}`}
+                                        target="_blank"
+                                        >
                                           {child.name}
                                         </Link>
                                       )}
@@ -96,6 +98,9 @@ const Navbar = ({productData, pathArray}) => {
                             key={index}
                             href={`${option.link ? option.link : "#"}`}
                             className='  hover:underline'
+                            target={
+                              option.name.toLowerCase() === "home" ? "" : "_blank"
+                            }
                           >
                             {option?.name}
                           </Link>
@@ -105,7 +110,7 @@ const Navbar = ({productData, pathArray}) => {
                   );
                 }
               })}
-               <Link href='/experts' className='btn btn-primary btn-sm'>
+               <Link href='/experts' className='btn btn-primary btn-sm' target="_blank">
              Hire a No-code builder
             </Link>
             {/* <Link href='/login' className='btn btn-outline btn-sm '>
@@ -129,7 +134,7 @@ const Navbar = ({productData, pathArray}) => {
                     return (
                       <>
                         <li key={index}>
-                          <Link href={`${option.link ? option.link : "#"}`}>
+                          <Link href={`${option.link ? option.link : "#"}`} target="_blank">
                             {" "}
                             {option?.name}
                           </Link>

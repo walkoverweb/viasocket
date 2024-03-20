@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
           <div className='flex items-center  gap-2 w-full flex-wrap'>
             <span>A product of</span>
-            <Link href='https://walkover.in/'>
+            <Link href='https://walkover.in/' target="_blank">
               <Image
                 src='./assets/brand/walkover.svg'
                 width={100}
