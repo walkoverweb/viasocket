@@ -80,6 +80,7 @@ const Index = ({
                 return (
                   <Link
                     href={`/${product?.name && product.name}`}
+                    target="_blank"
                     className='flex items-center justify-center w-full h-full'
                   >
                     <div
@@ -172,6 +173,7 @@ const Index = ({
                     <>
                       <Link
                         href={caseStudy?.link && caseStudy?.link}
+                        target="_blank"
                         className='lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg'
                       >
                         <div className='casestudy_img w-full h-full'>
@@ -185,6 +187,7 @@ const Index = ({
                         <div className='grid p-4'>
                           <p>{caseStudy?.title}</p>
                           <Link
+                            target="_blank"
                             href={caseStudy?.link && caseStudy?.link}
                             className='flex items-center gap-1 text-blue-400 mt-6'
                           >
@@ -198,6 +201,7 @@ const Index = ({
                   return (
                     <>
                       <Link
+                        target="_blank"
                         href={caseStudy?.link}
                         className='lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col  lg:flex-row  lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg'
                       >
@@ -210,6 +214,7 @@ const Index = ({
                         <div className='w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4'>
                           <p>{caseStudy?.title}</p>
                           <Link
+                            target="_blank"
                             href={caseStudy?.link}
                             className='flex items-center gap-1 text-blue-400 mt-6'
                           >
