@@ -22,7 +22,7 @@ const IntegrationSearch = ({
   handleCategoryLoadMore,
   pathArray
 }) => {
-  const noAppsFoundMessage = filteredData.length === 0 ? "Sorry, no matching app available" : "";
+  const noAppsFoundMessage = filteredData.length === 0 ? "Can't find what you need? Let us know what you're looking for! We're always looking to expand our collection. Request an app here" : "";
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +35,9 @@ const IntegrationSearch = ({
     selectedCategory(category); // Update selected category
   };
 
-
+  const openChatWidget = () => {
+    window.chatWidget.open();
+  };
   // const handleCategoryLoadMore = () => {
   //   setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
   // };
@@ -135,8 +137,11 @@ const IntegrationSearch = ({
           ) : (
             <>
               {noAppsFoundMessage && (
-                <div className="text-red-500 font-semibold text-xl">
-                  {noAppsFoundMessage}
+                <div className="flex flex-col gap-4">
+                  <p className="text-red-500 font-semibold text-xl" >{noAppsFoundMessage}</p>
+                  <div>
+                  <button className="px-4 py-2 border border-[#CCCCCC] rounded" onClick={openChatWidget}>Live Chat</button>
+                  </div>
                 </div>
               )}
 
