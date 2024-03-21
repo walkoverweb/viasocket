@@ -248,7 +248,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
               const capitalizeFirstLetter = (string) => {
                 return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
               };
-              const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map(desc => desc.toLowerCase())} when ${triggerDescription.toLowerCase()}`;
+              const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map(desc => desc.toLowerCase())} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${triggerDescription.toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`;
               return (
                 <div
                   key={index}
@@ -290,7 +290,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                       <Link key={actionIndex} href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
                       target="_blank"
                       >
-                  <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg mt-auto shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
+                  <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
                     
                         <button className="flex justify-end flex-row gap-2 text-base font-medium w-full">
                           Try it
