@@ -1,5 +1,6 @@
 import ProductComp from "@/components/productComp/productComp";
 import { getDbdashData } from "./api";
+import GetStarted from "@/components/getStarted/getStarted";
 export async function getServerSideProps() {
   const IDs = [
     "tblsaw4zp",
@@ -29,6 +30,7 @@ const Table = ({trustedBy, getStartedData, productData, features,navbarData, pat
   return (
     <>
       <ProductComp trustedBy={trustedBy} getStartedData={getStartedData} productData={productData} features={features} page={pathArray[1]}/>
+      {getStartedData && <GetStarted data={getStartedData} isHero={"false"} />}
     </>
   );
 };
