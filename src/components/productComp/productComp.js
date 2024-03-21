@@ -10,6 +10,9 @@ export default function ProductComp(props) {
     (page) => page?.name?.toLowerCase() === props?.page
   );
 
+  const openChatWidget = () => {
+    window.chatWidget.open();
+  };
 
   return (
     <>
@@ -29,12 +32,14 @@ export default function ProductComp(props) {
 
           <div className='flex flex-col gap-6 mb-4'>
             <div className='flex flex-col gap-6 mb-4'>
+              <Link href='/experts' target="_blank">
               <button className=' text-lg btn btn-accent w-fit '>
                 Hire a no-code builder
               </button>
-              <Link href='/' className='underline  w-fit font-normal text-lg'>
-                Click for our 24/7 AI & Team Support
               </Link>
+              <button onClick={openChatWidget} className='underline  w-fit font-normal text-lg'>
+                Click for our 24/7 AI & Team Support
+              </button>
             </div>
           </div>
           {pageData?.hero_img[0] && (
