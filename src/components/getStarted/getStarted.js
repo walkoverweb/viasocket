@@ -14,7 +14,11 @@ export default function GetStarted({data, isHero}) {
 
         <div className='flex  lg:gap-6 gap-4  flex-wrap'>
           {data[0] && data?.map((faq, index) => {
-            if(faq?.ishero === isHero || faq?.isonlyhero === isHero)
+            if(faq?.ishero === isHero || faq?.isonlyhero === isHero){
+              if(!faq?.name){
+                return null;
+              }
+           
             return (
 
               <Link
@@ -36,7 +40,7 @@ export default function GetStarted({data, isHero}) {
                   <MdOutlineArrowForward />
                 </button>
               </Link>
-            );
+            ); }
           })}
         </div>
       </div>
