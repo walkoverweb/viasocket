@@ -14,15 +14,17 @@ export default function NotificationBar() {
   };
   if (data && data[0]?.details) {
     return (
-      <div className=' bg-accent p-2  w-full '>
-        <div className='container flex flex-wrap items-center justify-center  '>
+      <div className=" bg-accent p-2  w-full ">
+        <div className="container flex flex-wrap items-center justify-center  ">
           <Link
             href={data[1]?.details && data[1]?.details}
-            className=' text-white text-sm flex items-center flex-wrap gap-1'
+            className=" text-white text-sm flex items-center flex-wrap gap-1"
           >
-            <span className="bg-[#FFD672]  text-xs rounded-md px-1 h-fit">Update</span>
+            <span className="bg-[#FFD672]  text-xs rounded-md px-1 h-fit">
+              Update
+            </span>
             {data[0]?.details}{" "}
-            <div className='underline text-white text-xs'>Learn More</div>
+            <div className="underline text-white text-xs">Learn More</div>
           </Link>
         </div>
       </div>

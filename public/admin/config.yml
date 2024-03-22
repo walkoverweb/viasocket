@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: prod   # Branch to update (optional; defaults to master)
+  branch: prod # Branch to update (optional; defaults to master)
 
 # This line should *not* be indented
 publish_mode: editorial_workflow
@@ -19,11 +19,33 @@ collections:
     slug: "{{slug}}" # Filename template, e.g., title.md
     identifier_field: slug
     fields: # The fields for each document, usually in front matter
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Slug", name: "slug", widget: "hidden", default: "slug"}
-      - {label: "Publish Date", name: "date", widget: "datetime", required: false}
-      - {label: "author", name: "author", widget: "string"}
-      - {label: "Tags", name: "tag", widget: "select", multiple: true, options: ["via-socket"], required: false}
-      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}   
-      - {label: "Short Description", name: "description", widget: "string", required: true}   
-      - {label: "Body", name: "body", widget: "markdown"}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "hidden", default: "slug" }
+      - {
+          label: "Publish Date",
+          name: "date",
+          widget: "datetime",
+          required: false,
+        }
+      - { label: "author", name: "author", widget: "string" }
+      - {
+          label: "Tags",
+          name: "tag",
+          widget: "select",
+          multiple: true,
+          options: ["via-socket"],
+          required: false,
+        }
+      - {
+          label: "Featured Image",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Short Description",
+          name: "description",
+          widget: "string",
+          required: true,
+        }
+      - { label: "Body", name: "body", widget: "markdown" }

@@ -18,13 +18,13 @@ export default function PostItem({ post }) {
   const readTime = calculateReadTime(article); */
   //  articleText end code
 
-  function getBlogStyle(titleText){
+  function getBlogStyle(titleText) {
     let textLength = titleText?.length;
     let wordLength = titleText?.split(" ").length;
 
-    if(wordLength > 8 || textLength > 48){
+    if (wordLength > 8 || textLength > 48) {
       return " blog-card--large";
-    }else{
+    } else {
       return " blog-card--small";
     }
   }
@@ -57,7 +57,7 @@ export default function PostItem({ post }) {
             ))}
           </div>
           <span className="date">
-            <MdDateRange /> <Date date={parseISO(post.date)}/>
+            <MdDateRange /> <Date date={parseISO(post.date)} />
           </span>
         </div>
       </div>

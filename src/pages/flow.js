@@ -2,12 +2,7 @@ import ProductComp from "@/components/productComp/productComp";
 import { getDbdashData } from "./api";
 import GetStarted from "@/components/getStarted/getStarted";
 export async function getServerSideProps() {
-  const IDs = [
-    "tblsaw4zp",
-    "tblvgm05y",
-    "tblmsw3ci",
-    "tblvo36my",
-  ];
+  const IDs = ["tblsaw4zp", "tblvgm05y", "tblmsw3ci", "tblvo36my"];
 
   const dataPromises = IDs.map((id) => getDbdashData(id));
   const results = await Promise.all(dataPromises);
@@ -22,12 +17,22 @@ export async function getServerSideProps() {
   };
 }
 
-
-
-const Flow = ({trustedBy, getStartedData, productData, features, pathArray}) => {
+const Flow = ({
+  trustedBy,
+  getStartedData,
+  productData,
+  features,
+  pathArray,
+}) => {
   return (
     <>
-      <ProductComp trustedBy={trustedBy} getStartedData={getStartedData} productData={productData} features={features} page={pathArray[1]}/>
+      <ProductComp
+        trustedBy={trustedBy}
+        getStartedData={getStartedData}
+        productData={productData}
+        features={features}
+        page={pathArray[1]}
+      />
       {getStartedData && <GetStarted data={getStartedData} isHero={"false"} />}
     </>
   );

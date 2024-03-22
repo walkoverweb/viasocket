@@ -7,7 +7,7 @@
 
 .blog {
   background-repeat: no-repeat;
-  // background: url(../../public/img/pexels-share-textures-11285444.jpg);  
+  // background: url(../../public/img/pexels-share-textures-11285444.jpg);
   // background: url(../../public/img/pexels-qwirki-&-co-14380626.jpg);
   background-size: cover;
   background-position: center;
@@ -20,15 +20,15 @@
     margin-right: auto;
     max-width: 1320px;
 
-    @media screen and (max-width:1200px) {
+    @media screen and (max-width: 1200px) {
       max-width: 1140px;
     }
 
-    @media screen and (max-width:768px) {
+    @media screen and (max-width: 768px) {
       max-width: 720px;
     }
 
-    @media screen and (max-width:576px) {
+    @media screen and (max-width: 576px) {
       max-width: 540px;
     }
 
@@ -57,7 +57,7 @@
         .blog-card__content {
           color: var(--col-white) !important;
         }
-        .date{
+        .date {
           display: flex;
           align-items: center;
         }
@@ -211,7 +211,6 @@
         text-align: center;
         list-style: none;
 
-
         li {
           display: inline-block;
           margin-right: 1em;
@@ -238,7 +237,6 @@
 
 .blog-container {
   background: linear-gradient(-70deg, #000, #062004);
-
 
   .blob-body-container {
     max-width: 60vw;
@@ -268,19 +266,19 @@
     margin-right: auto;
     max-width: 1320px;
 
-    @media screen and (max-width:1200) {
+    @media screen and (max-width: 1200) {
       max-width: 1140px;
     }
 
-    @media screen and (max-width:992) {
+    @media screen and (max-width: 992) {
       max-width: 990px;
     }
 
-    @media screen and (max-width:768) {
+    @media screen and (max-width: 768) {
       max-width: 720px;
     }
 
-    @media screen and (max-width:576) {
+    @media screen and (max-width: 576) {
       max-width: 540px;
     }
 
@@ -299,7 +297,6 @@
       .img-div {
         width: 100%;
       }
-
 
       a {
         color: var(--col-black);
@@ -325,7 +322,7 @@
       .blog-main-container {
         display: flex;
         @media screen and (max-width: 992px) {
-         flex-direction: column;
+          flex-direction: column;
         }
         .title-main {
           font-size: 64px !important;
@@ -348,7 +345,6 @@
             font-size: 32px !important;
           }
         }
-
       }
 
       .header-content {
@@ -358,7 +354,6 @@
           width: 100%;
         }
 
-
         .title-main {
           position: absolute;
           // top: 50%;
@@ -366,7 +361,6 @@
           transform: translate(-50%, -50%);
           color: #fff; // or any color you want for the title
         }
-
       }
     }
 
@@ -376,7 +370,6 @@
     }
 
     .blog-page-tags {
-
       li {
         a {
           line-height: 10px;

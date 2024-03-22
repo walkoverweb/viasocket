@@ -1,8 +1,8 @@
-import { generatePagination } from '../lib/pagination'
+import { generatePagination } from "../lib/pagination";
 import Link from "next/link";
 
 function Pagination({ current, pages, link }) {
-   const pagination = generatePagination(current, pages);
+  const pagination = generatePagination(current, pages);
   return (
     <ul className="pagination-padding">
       {pagination.map((it, i) => (
@@ -10,7 +10,11 @@ function Pagination({ current, pages, link }) {
           {it.excerpt ? (
             "..."
           ) : (
-            <Link legacyBehavior href={link.href(it.page)} as={link.as(it.page)}>
+            <Link
+              legacyBehavior
+              href={link.href(it.page)}
+              as={link.as(it.page)}
+            >
               <a className={it.page === current ? "active" : null}>{it.page}</a>
             </Link>
           )}
@@ -32,7 +36,7 @@ function Pagination({ current, pages, link }) {
           color: #222;
           font-weight: bold;
         }
-        a{
+        a {
           text-decoration: none;
         }
       `}</style>

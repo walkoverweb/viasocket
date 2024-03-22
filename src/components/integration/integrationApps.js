@@ -20,9 +20,12 @@ const IntegrationSearch = ({
   uniqueCategories,
   visibleCategories,
   handleCategoryLoadMore,
-  pathArray
+  pathArray,
 }) => {
-  const noAppsFoundMessage = filteredData.length === 0 ? "Can't find what you need? Let us know what you're looking for! We're always looking to expand our collection. Request an app here" : "";
+  const noAppsFoundMessage =
+    filteredData.length === 0
+      ? "Can't find what you need? Let us know what you're looking for! We're always looking to expand our collection. Request an app here"
+      : "";
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
@@ -65,7 +68,10 @@ const IntegrationSearch = ({
               tabIndex={0}
               role="button"
               className="bg-white flex justify-between items-center border border-[#CCCCCC] px-5 py-3 rounded  w-48"
-              onClick={() => {handleCategoryClick(); setIsDataLoading(false);}}
+              onClick={() => {
+                handleCategoryClick();
+                setIsDataLoading(false);
+              }}
             >
               <span>{selectedCategory || "Select Category"} </span>
               <MdOutlineKeyboardArrowDown size={20} />
@@ -78,12 +84,17 @@ const IntegrationSearch = ({
                 {renderFilterOptions().map((category) => (
                   <li
                     key={category}
-                    onClick={() => {handleCategoryItemClick(category); category === selectedCategory ? setIsDataLoading(false) : '';}}
+                    onClick={() => {
+                      handleCategoryItemClick(category);
+                      category === selectedCategory
+                        ? setIsDataLoading(false)
+                        : "";
+                    }}
                     className={`cursor-pointer ${
                       selectedCategory === category
                         ? "font-bold"
                         : "font-normal"
-                      }`}
+                    }`}
                   >
                     {category === "Null" ? "Other" : category}
                   </li>
@@ -138,9 +149,16 @@ const IntegrationSearch = ({
             <>
               {noAppsFoundMessage && (
                 <div className="flex flex-col gap-4">
-                  <p className="text-red-500 font-semibold text-xl" >{noAppsFoundMessage}</p>
+                  <p className="text-red-500 font-semibold text-xl">
+                    {noAppsFoundMessage}
+                  </p>
                   <div>
-                  <button className="px-4 py-2 border border-[#CCCCCC] rounded" onClick={openChatWidget}>Live Chat</button>
+                    <button
+                      className="px-4 py-2 border border-[#CCCCCC] rounded"
+                      onClick={openChatWidget}
+                    >
+                      Live Chat
+                    </button>
                   </div>
                 </div>
               )}
@@ -149,14 +167,14 @@ const IntegrationSearch = ({
                 {filteredData?.length > 0 &&
                   filteredData.slice(0, visibleItems).map((app) => {
                     const isSameAsSelected = selectedApp !== app?.appslugname;
-                    
+
                     if (isSameAsSelected) {
                       return (
                         <a
                           key={app?.rowid}
                           href={
                             app?.appslugname
-                              ? `/integration${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
+                              ? `/integration${pathArray[2] ? "/" + pathArray[2] : ""}/${app?.appslugname}`
                               : `/noplugin`
                           }
                           target={pathArray[2] ? "_self" : "_blank"}
@@ -182,22 +200,22 @@ const IntegrationSearch = ({
                         </a>
                       );
                     }
-                  }
-
-                  )}
+                  })}
               </div>
             </>
           )}
 
           <div>
-            {visibleItems < filteredData.length && !loading && !noAppsFoundMessage && (
-              <button
-                onClick={handleLoadMore}
-                className="font-medium text-[#2D81F7]"
-              >
-                Load More...
-              </button>
-            )}
+            {visibleItems < filteredData.length &&
+              !loading &&
+              !noAppsFoundMessage && (
+                <button
+                  onClick={handleLoadMore}
+                  className="font-medium text-[#2D81F7]"
+                >
+                  Load More...
+                </button>
+              )}
           </div>
         </div>
       </div>

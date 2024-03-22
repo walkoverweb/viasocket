@@ -10,7 +10,6 @@ export async function getServerSideProps() {
 
   const dataPromises = IDs.map((id) => getDbdashData(id));
   const results = await Promise.all(dataPromises);
- 
 
   return {
     props: {
@@ -22,7 +21,7 @@ export async function getServerSideProps() {
 
 const Experts = ({ agencies, rawPageData, pathArray }) => {
   let pageData = rawPageData.find(
-    (page) => page?.name?.toLowerCase() === pathArray[1]
+    (page) => page?.name?.toLowerCase() === pathArray[1],
   );
   const expertsHelp = [
     {
@@ -60,65 +59,65 @@ const Experts = ({ agencies, rawPageData, pathArray }) => {
     <>
       <Head></Head>
       {/* <div id='form-parent' class='form-parent'> */}
-      <div id='iframe-parent-container' class='popup-parent-container'>
-        <div className='header'>
-          <h4 id='title'>Title</h4>
+      <div id="iframe-parent-container" class="popup-parent-container">
+        <div className="header">
+          <h4 id="title">Title</h4>
         </div>
-        <iframe id='iframe-component' title='iframe'></iframe>
+        <iframe id="iframe-component" title="iframe"></iframe>
       </div>
       {/* </div> */}
 
-      <button id='interfaceEmbed' class='popup-interfaceEmbed'>
+      <button id="interfaceEmbed" class="popup-interfaceEmbed">
         Interface
       </button>
-      <div className='container'>
-        <div className=' grid mt-14 gap-8 w-full  md:pt-24 pt-24 '>
-          {pageData?.h3 && <h3 className='text-2xl'>{pageData?.h3}</h3>}
-          <div className='grid gap-2 md:w-5/6 w=1/1'>
+      <div className="container">
+        <div className=" grid mt-14 gap-8 w-full  md:pt-24 pt-24 ">
+          {pageData?.h3 && <h3 className="text-2xl">{pageData?.h3}</h3>}
+          <div className="grid gap-2 md:w-5/6 w=1/1">
             {pageData?.h1 && (
-              <h1 className='md:text-6xl text-4xl font-medium '>
+              <h1 className="md:text-6xl text-4xl font-medium ">
                 {pageData?.h1}
               </h1>
             )}
-            {pageData?.h2 && <h3 className='text-2xl'>{pageData?.h2}</h3>}
+            {pageData?.h2 && <h3 className="text-2xl">{pageData?.h2}</h3>}
           </div>
         </div>
 
-        <div className='grid gap-8'>
-          <h2 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-20 text-[#415765]'>
+        <div className="grid gap-8">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-20 text-[#415765]">
             Verified automation agencies by viaSocket
           </h2>
           {verifiedArr.length > 0 && (
             <AgencyList agencies={verifiedArr} type={"verified"} />
           )}
-          <div className='mt-10 text-center'></div>
+          <div className="mt-10 text-center"></div>
         </div>
-        <div className='grid gap-8'>
-          <h2 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-20 text-[#415765]'>
+        <div className="grid gap-8">
+          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-20 text-[#415765]">
             Non-verified automation agencies
           </h2>
           {nonVerifiedArr.length > 0 && (
             <AgencyList agencies={nonVerifiedArr} type={"nonverified"} />
           )}
-          <div className='mt-10 text-center'>
-            <button className='px-3.5 sm:px-6 py-4 font-bold text-xs sm:text-lg md:text-xl  lg:text-2xl border border-black text-black rounded'>
+          <div className="mt-10 text-center">
+            <button className="px-3.5 sm:px-6 py-4 font-bold text-xs sm:text-lg md:text-xl  lg:text-2xl border border-black text-black rounded">
               Suggest an agency or get listed if you are one
             </button>
           </div>
         </div>
         <h2
-          className='text-base sm:text-xl lg:text-2xl mt-6 block underline text-[#415765]'
-          rel='stylesheet'
-          href='#'
+          className="text-base sm:text-xl lg:text-2xl mt-6 block underline text-[#415765]"
+          rel="stylesheet"
+          href="#"
         >
           How experts can help?
         </h2>
-        <div className='mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-6'>
+        <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-6">
           {expertsHelp &&
             expertsHelp.map((expertsHelp, index) => {
               return (
-                <Link rel='stylesheet' href={"#"} key={index}>
-                  <p className='lg:p-6 p-4 border text-xl rounded  h-full  text-[#415765] border-black'>
+                <Link rel="stylesheet" href={"#"} key={index}>
+                  <p className="lg:p-6 p-4 border text-xl rounded  h-full  text-[#415765] border-black">
                     {expertsHelp?.help}
                   </p>
                 </Link>

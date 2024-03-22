@@ -6700,6 +6700,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   B
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Protected
                                                                                   classification
@@ -6843,6 +6844,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   C
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Commercial
                                                                                   information
@@ -6985,6 +6987,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   D
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Biometric
                                                                                   information
@@ -7122,6 +7125,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   E
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Internet
                                                                                   or
@@ -7175,6 +7179,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   behavior
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   ,
                                                                                   interest
                                                                                   data,
@@ -7280,6 +7285,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   F
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Geolocation
                                                                                   data
@@ -7414,6 +7420,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   G
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Audio,
                                                                                   electronic,
@@ -7566,6 +7573,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   H
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Professional
                                                                                   or
@@ -7730,6 +7738,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   I
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Education
                                                                                   Information
@@ -7867,6 +7876,7 @@ const Privacy = () => {
                                                                                   <bdt className="block-component" />
                                                                                   J
                                                                                   <bdt className="statement-end-if-in-editor" />
+
                                                                                   .
                                                                                   Inferences
                                                                                   drawn
@@ -8883,6 +8893,7 @@ const Privacy = () => {
                                                                                             }}
                                                                                           >
                                                                                             <bdt className="block-component" />
+
                                                                                             "
                                                                                           </span>
                                                                                           <bdt className="statement-end-if-in-editor">
@@ -10046,6 +10057,7 @@ const Privacy = () => {
                                                                                                   }}
                                                                                                 >
                                                                                                   <bdt className="block-component" />
+
                                                                                                   ,{" "}
                                                                                                   <bdt className="question">
                                                                                                     Madhya

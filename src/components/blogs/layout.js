@@ -2,10 +2,9 @@
 // import Navigation from "./Navigation";
 
 export default function Layout({ children }) {
-    return (
-      <div className="blog-root">      
-        <main>{children}</main>      
-      </div>
-    );
-  }
-  
+  return (
+    <div className="blog-root">
+      <main>{children}</main>
+    </div>
+  );
+}

@@ -1,21 +1,20 @@
 //fetch data from DBDash
-export const getDbdashData = async(tableName) =>{
-    const apiUrl = `https://dbdash-backend-h7duexlbuq-el.a.run.app/65d2ed33fa9d1a94a5224235/${tableName}`;
-  const authKey = 'keyJZz-15yE8MAp'; // Replace 'AUTH_TOKEN' with your actual authentication token
+export const getDbdashData = async (tableName) => {
+  const apiUrl = `https://dbdash-backend-h7duexlbuq-el.a.run.app/65d2ed33fa9d1a94a5224235/${tableName}`;
+  const authKey = "keyJZz-15yE8MAp"; // Replace 'AUTH_TOKEN' with your actual authentication token
 
   try {
     const response = await fetch(apiUrl, {
       headers: {
-        'auth-key': `keyJZz-15yE8MAp`
-      }
+        "auth-key": `keyJZz-15yE8MAp`,
+      },
     });
     const responseData = await response.json();
     return responseData;
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
-
+};
 
 //fetch data from multiple tables in DB Dash
 export default async function fetchDataAndUpdateState(IDs, getDataFunction) {
@@ -25,9 +24,9 @@ export default async function fetchDataAndUpdateState(IDs, getDataFunction) {
   }
 }
 
-export const integration =  async() => {
+export const integration = async () => {
   const apiUrl = `https://dbdash-backend-h7duexlbuq-el.a.run.app/64f58cfe54919de3f250dc6d/tblwegm8v?limit=25%27`;
-  
+
   // const authKey = 'keyc9x2Q54-PHlP';
   // try{
   //   const response = await fetch(apiUrl, {
@@ -45,5 +44,4 @@ export const integration =  async() => {
   // }  catch (error) {
   //   console.error('Error:', error);
   // }
-
-}
+};

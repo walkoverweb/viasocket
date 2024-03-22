@@ -7,10 +7,10 @@ import styles from "./navbar.module.scss";
 import NotificationBar from "../notificationBar/notificationbar";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-const Navbar = ({productData, pathArray}) => {
-  let pageData = productData && productData.find(
-    (page) => page?.name?.toLowerCase() === pathArray[1]
-  );
+const Navbar = ({ productData, pathArray }) => {
+  let pageData =
+    productData &&
+    productData.find((page) => page?.name?.toLowerCase() === pathArray[1]);
 
   const openChatWidget = () => {
     window.chatWidget.open();
@@ -25,11 +25,11 @@ const Navbar = ({productData, pathArray}) => {
     const dbdashData = await getDbdashData("tbl7lj8ev");
     setData(dbdashData.data.rows);
   };
-  var shorterData ;
+  var shorterData;
   if (data?.length > 0) {
-     shorterData = data?.sort((a, b) => {
+    shorterData = data?.sort((a, b) => {
       return parseInt(a.priority) - parseInt(b.priority);
-    })
+    });
   }
   return (
     <>
@@ -39,16 +39,18 @@ const Navbar = ({productData, pathArray}) => {
           className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}
         >
           <Link href="/">
-          <Image
-          className="w-[120px]"
-            src={pageData?.logo[0] ? pageData.logo[0] : './assets/brand/logo.svg'}
-            width={1080}
-            height={400}
-            alt='viasocket'
-          />
+            <Image
+              className="w-[120px]"
+              src={
+                pageData?.logo[0] ? pageData.logo[0] : "./assets/brand/logo.svg"
+              }
+              width={1080}
+              height={400}
+              alt="viasocket"
+            />
           </Link>
 
-          <div className='gap-6 lg:flex hidden items-center'>
+          <div className="gap-6 lg:flex hidden items-center">
             {shorterData &&
               shorterData.map((option, index) => {
                 if (
@@ -59,28 +61,34 @@ const Navbar = ({productData, pathArray}) => {
                     <>
                       {option.is_parent ? (
                         <>
-                          <div className='dropdown dropdown-bottom' key={index}>
+                          <div className="dropdown dropdown-bottom" key={index}>
                             <div
                               tabIndex={0}
-                              role='button'
-                              className=' flex items-center gap-1 hover:underline'
+                              role="button"
+                              className=" flex items-center gap-1 hover:underline"
                             >
                               <span>{option?.name}</span>
-                             <MdOutlineKeyboardArrowDown size={20} />
+                              <MdOutlineKeyboardArrowDown size={20} />
                             </div>
                             <ul
                               tabIndex={0}
-                              className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
+                              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                             >
-                             {shorterData.map((child, childIndex) => {
-                                if (child.group_name && child.group_name === option.name) {
+                              {shorterData.map((child, childIndex) => {
+                                if (
+                                  child.group_name &&
+                                  child.group_name === option.name
+                                ) {
                                   return (
                                     <li key={childIndex}>
                                       {child.name === "Live Chat" ? (
-                                        <button onClick={openChatWidget}>Live Chat</button>
+                                        <button onClick={openChatWidget}>
+                                          Live Chat
+                                        </button>
                                       ) : (
-                                        <Link href={`${child.link ? child.link : ""}`}
-                                        target="_blank"
+                                        <Link
+                                          href={`${child.link ? child.link : ""}`}
+                                          target="_blank"
                                         >
                                           {child.name}
                                         </Link>
@@ -97,9 +105,11 @@ const Navbar = ({productData, pathArray}) => {
                           <Link
                             key={index}
                             href={`${option.link ? option.link : "#"}`}
-                            className='  hover:underline'
+                            className="  hover:underline"
                             target={
-                              option.name.toLowerCase() === "home" ? "" : "_blank"
+                              option.name.toLowerCase() === "home"
+                                ? ""
+                                : "_blank"
                             }
                           >
                             {option?.name}
@@ -110,8 +120,12 @@ const Navbar = ({productData, pathArray}) => {
                   );
                 }
               })}
-               <Link href='/experts' className='btn btn-primary btn-sm' target="_blank">
-             Hire a No-code builder
+            <Link
+              href="/experts"
+              className="btn btn-primary btn-sm"
+              target="_blank"
+            >
+              Hire a No-code builder
             </Link>
             {/* <Link href='/login' className='btn btn-outline btn-sm '>
               Login
@@ -120,13 +134,13 @@ const Navbar = ({productData, pathArray}) => {
               Get Started for free
             </Link> */}
           </div>
-          <div className='dropdown dropdown-end lg:hidden block'>
-            <div tabIndex={0} role='button' className=''>
-              <MdMenu className='w-[24px] h-[24px]' />
+          <div className="dropdown dropdown-end lg:hidden block">
+            <div tabIndex={0} role="button" className="">
+              <MdMenu className="w-[24px] h-[24px]" />
             </div>
             <ul
               tabIndex={0}
-              className='dropdown-content z-[1] menu p-2  bg-base-100 rounded-md w-52 shadow-lg'
+              className="dropdown-content z-[1] menu p-2  bg-base-100 rounded-md w-52 shadow-lg"
             >
               {shorterData &&
                 shorterData.map((option, index) => {
@@ -134,7 +148,10 @@ const Navbar = ({productData, pathArray}) => {
                     return (
                       <>
                         <li key={index}>
-                          <Link href={`${option.link ? option.link : "#"}`} target="_blank">
+                          <Link
+                            href={`${option.link ? option.link : "#"}`}
+                            target="_blank"
+                          >
                             {" "}
                             {option?.name}
                           </Link>

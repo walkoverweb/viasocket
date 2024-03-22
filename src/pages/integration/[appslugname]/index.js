@@ -22,9 +22,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
 
   //fetch apps
 
-
   //fetch apps
-
 
   useEffect(() => {
     setVisibleItems(25);
@@ -52,8 +50,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
   //search functions
   const applyFilters = () => {
     let filteredItems = apps.filter((item) => {
-      const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const categoryMatches = selectedCategory === "All" || item.category === selectedCategory || !item.category;
+      const nameMatches = item.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const categoryMatches =
+        selectedCategory === "All" ||
+        item.category === selectedCategory ||
+        !item.category;
       return nameMatches && categoryMatches;
     });
 
@@ -159,8 +162,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
       <h6
         key={category}
         onClick={() => setSelectedCategory(category)}
-        className={`lg:text-[20px] text-base cursor-pointer ${selectedCategory === category ? "font-bold" : "font-normal"
-          }`}
+        className={`lg:text-[20px] text-base cursor-pointer ${
+          selectedCategory === category ? "font-bold" : "font-normal"
+        }`}
       >
         {category === "Null" ? "Other" : category}
       </h6>
@@ -199,7 +203,6 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     window.chatWidget.open();
   };
 
-
   return (
     <div>
       {/* nav start */}
@@ -221,7 +224,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                 width={40}
                 height={40}
               />
-              <h6 className="text-2xl font-bold capitalize">{combos?.plugins?.[pathArray[2]].name}</h6>
+              <h6 className="text-2xl font-bold capitalize">
+                {combos?.plugins?.[pathArray[2]].name}
+              </h6>
             </div>
           </Link>
         </div>
@@ -243,12 +248,14 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             {cardsData.slice(0, visibleComboItems).map((card, index) => {
               const triggerDescription = getEventDescription(card.trigger.id);
               const actionDescriptions = card.action.map((action) =>
-                getEventDescription(action.id)
+                getEventDescription(action.id),
               );
               const capitalizeFirstLetter = (string) => {
-                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+                return (
+                  string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+                );
               };
-              const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map(desc => desc.toLowerCase())} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${triggerDescription.toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`;
+              const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map((desc) => desc.toLowerCase())} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${triggerDescription.toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`;
               return (
                 <div
                   key={index}
@@ -287,39 +294,37 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     </div>
                   </div>
                   {card.action.map((action, actionIndex) => (
-                      <Link key={actionIndex} href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
+                    <Link
+                      key={actionIndex}
+                      href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
                       target="_blank"
-                      >
-                  <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
-                    
+                    >
+                      <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
                         <button className="flex justify-end flex-row gap-2 text-base font-medium w-full">
                           Try it
-                          <MdOutlineArrowRightAlt size={25} /> </button>
-                                     
-                  </div>
-                  </Link>
-                    ))}
-                    
+                          <MdOutlineArrowRightAlt size={25} />{" "}
+                        </button>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               );
-            })
-
-            }
+            })}
           </div>
-        ) :
-          (
-
-            <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
-              No matching combination was found. Please try again with different parameters or reach out to support for assistance.
-              <div>
-                <button className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded" onClick={openChatWidget}>Live chat</button>
-              </div>
+        ) : (
+          <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
+            No matching combination was found. Please try again with different
+            parameters or reach out to support for assistance.
+            <div>
+              <button
+                className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded"
+                onClick={openChatWidget}
+              >
+                Live chat
+              </button>
             </div>
-
-
-          )}
-
-
+          </div>
+        )}
 
         <div className="flex flex-row justify-center items-center">
           {visibleComboItems < cardsData?.length && (
@@ -452,11 +457,9 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             </h6>
             <p className="md:text-xl text-base">{plugin?.description}</p>
             <div>
-
               {/* <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
                   Learn more
                 </button> */}
-
             </div>
           </div>
 
@@ -497,7 +500,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
           </h4>
           <Link href="/">
             <Image
-              src='../../../assets/brand/socket_fav_dark.svg'
+              src="../../../assets/brand/socket_fav_dark.svg"
               width={40}
               height={40}
             />
@@ -532,10 +535,11 @@ export async function getServerSideProps(context) {
 async function fetchApps(selectedCategory, visibleItems) {
   const fetchUrl =
     selectedCategory && selectedCategory !== "All"
-      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${selectedCategory && selectedCategory === "Other"
-        ? null
-        : selectedCategory
-      }&limit=200`
+      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
+          selectedCategory && selectedCategory === "Other"
+            ? null
+            : selectedCategory
+        }&limit=200`
       : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
   const apiHeaders = {
     headers: {
@@ -549,18 +553,15 @@ async function fetchApps(selectedCategory, visibleItems) {
 }
 
 async function fetchCombos(pathArray) {
-
   const apiHeaders = {
     headers: {
       "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-     
     },
   };
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?service=${pathArray[0]}`,
-    apiHeaders
+    apiHeaders,
   );
   const responseData = await response.json();
   return responseData;
 }
-

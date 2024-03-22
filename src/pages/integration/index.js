@@ -4,30 +4,28 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import IntegrationSearch from "@/components/integration/integrationApps";
 
-const IntegrationSlugPage = ({responseData, pathArray}) => {
+const IntegrationSlugPage = ({ responseData, pathArray }) => {
   //defined states
   const [apps, setApps] = useState(responseData);
   const [filteredData, setFilteredData] = useState([]);
   const [visibleItems, setVisibleItems] = useState(25);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [loading, setLoading] = useState()
+  const [loading, setLoading] = useState();
   const [visibleCategories, setVisibleCategories] = useState(10);
 
   const router = useRouter();
   const { currentcategory } = router.query;
 
   useEffect(() => {
-    router.push('/integration?currentcategory=All');
+    router.push("/integration?currentcategory=All");
   }, []);
 
   //fetch apps
   useEffect(() => {
-  
     setApps(responseData);
-    setLoading(false)
+    setLoading(false);
     setSelectedCategory(currentcategory);
-
   }, [currentcategory, visibleItems]);
 
   //fetch apps
@@ -35,7 +33,6 @@ const IntegrationSlugPage = ({responseData, pathArray}) => {
   useEffect(() => {
     setVisibleItems(25);
   }, [selectedCategory]);
-  
 
   //fetch icons
 
@@ -43,12 +40,16 @@ const IntegrationSlugPage = ({responseData, pathArray}) => {
     setVisibleItems(visibleItems + 25);
   };
 
-
   //search functions
   const applyFilters = () => {
     let filteredItems = apps.filter((item) => {
-      const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const categoryMatches = selectedCategory === "All" || item.category === selectedCategory || !item.category;
+      const nameMatches = item.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const categoryMatches =
+        selectedCategory === "All" ||
+        item.category === selectedCategory ||
+        !item.category;
       return nameMatches && categoryMatches;
     });
 
@@ -154,21 +155,24 @@ const IntegrationSlugPage = ({responseData, pathArray}) => {
     return uniqueCategories.slice(0, visibleCategories).map((category) => (
       <Link href={`/integration?currentcategory=${category}`}>
         <h6
-        key={category}
-        onClick={() => {setSelectedCategory(category); category !== selectedCategory ? setLoading(true) : '';}}
-        className={`lg:text-[20px] text-base cursor-pointer ${
-          selectedCategory === category ? "font-bold" : "font-normal"
-        }`}
-      >
+          key={category}
+          onClick={() => {
+            setSelectedCategory(category);
+            category !== selectedCategory ? setLoading(true) : "";
+          }}
+          className={`lg:text-[20px] text-base cursor-pointer ${
+            selectedCategory === category ? "font-bold" : "font-normal"
+          }`}
+        >
           {category === "Null" ? "Other" : category}
-      </h6>
-    </Link>
+        </h6>
+      </Link>
     ));
   };
   const handleCategoryLoadMore = () => {
     setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
   };
- 
+
   const handleCategoryItemClick = (category) => {
     setSelectedCategory(category);
     setCategoryDropdownOpen(false);
@@ -212,7 +216,7 @@ const IntegrationSlugPage = ({responseData, pathArray}) => {
       <div className=" ">
         <div className="container">
           <IntegrationSearch
-          loading={loading}
+            loading={loading}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             renderFilterOptions={renderFilterOptions}
@@ -256,34 +260,32 @@ const IntegrationSlugPage = ({responseData, pathArray}) => {
 export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
-
   const { currentcategory } = context.query;
 
-  const pathArray = ['','integration']
-      
+  const pathArray = ["", "integration"];
+
   const fetchUrl =
-  currentcategory && currentcategory !== "All"
-        ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
+    currentcategory && currentcategory !== "All"
+      ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
           currentcategory && currentcategory === "Other"
-              ? null
-              : currentcategory
-          }&limit=200`
-        : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
+            ? null
+            : currentcategory
+        }&limit=200`
+      : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
 
   const apiHeaders = {
-      headers: {
-        "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-      },
+    headers: {
+      "auth-key": process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+    },
   };
 
   const response = await fetch(fetchUrl, apiHeaders);
   const responseData = await response.json();
 
-   return {
+  return {
     props: {
       responseData,
-      pathArray
-    }
+      pathArray,
+    },
   };
-
 }
