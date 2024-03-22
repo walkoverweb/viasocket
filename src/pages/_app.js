@@ -33,7 +33,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     ) {
     showNavbar = true;
   }
-  const rawpathArray = browserPath.split("?");
+  const rawpathArray = browserPath.split(/[?#]/);
   const pathArray = rawpathArray[0].split("/"); 
   
   useEffect(() => {
