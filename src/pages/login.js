@@ -19,6 +19,16 @@ export async function getServerSideProps() {
 
 const Login = ({ features }) => {
     console.log(features, 7777)
+    let featuresArrOne = []
+    let featuresArrTwo = []
+    features.map((feature) => {
+        if (feature?.block_type !== 'R2C2' && feature?.onlogin) {
+            featuresArrOne.push(feature)
+        }
+        if (feature?.block_type === 'R2C2' && feature?.onlogin) {
+            featuresArrTwo.push(feature)
+        }
+    })
     useLayoutEffect(() => {
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
@@ -72,12 +82,9 @@ const Login = ({ features }) => {
 
                     <div className="my-6">Latest updates</div>
                     <div className=" grid  grid-cols-2 gap-4">
-                        {features.length > 0 &&
-                            features.map((feature) => {
-                                if (
-                                    feature?.onlogin &&
-                                    feature.block_type === 'R2C2'
-                                ) {
+                        {featuresArrTwo.length > 0 &&
+                            featuresArrTwo.map((feature) => {
+                                {
                                     return (
                                         <div className="signup_img my-6 w-full relative col-span-2">
                                             <Image
@@ -91,32 +98,34 @@ const Login = ({ features }) => {
                                                 height={800}
                                                 alt="viasocket"
                                             />
-                                            <p className="absolute bottom-6 left-6 font-medium text-black">
+                                            <p className="absolute bottom-6 left-6 font-medium text-black text-xl">
                                                 {feature?.name}
                                             </p>
                                         </div>
                                     )
-                                } else {
-                                    if (feature?.onlogin) {
-                                        return (
-                                            <div className="w-auto col-span-1">
-                                                <Image
-                                                    src={
-                                                        feature?.icon[0]
-                                                            ? feature?.icon[0]
-                                                            : '/assets/img/feature_ico.svg '
-                                                    }
-                                                    width={36}
-                                                    height={36}
-                                                    alt="feature_ico"
-                                                />
-                                                <div className="text-xl font-semibold my-3">
-                                                    {feature?.name}
-                                                </div>
-                                                <p>{feature?.description}</p>
+                                }
+                            })}
+                        {featuresArrOne.length > 0 &&
+                            featuresArrOne.map((feature) => {
+                                {
+                                    return (
+                                        <div className="w-auto md:col-span-1 col-span-2">
+                                            <Image
+                                                src={
+                                                    feature?.icon[0]
+                                                        ? feature?.icon[0]
+                                                        : '/assets/img/feature_ico.svg '
+                                                }
+                                                width={36}
+                                                height={36}
+                                                alt="feature_ico"
+                                            />
+                                            <div className="text-xl font-semibold my-3">
+                                                {feature?.name}
                                             </div>
-                                        )
-                                    }
+                                            <p>{feature?.description}</p>
+                                        </div>
+                                    )
                                 }
                             })}
                     </div>
