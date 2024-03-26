@@ -44,7 +44,6 @@ const Index = ({
     trustedData,
     features,
 }) => {
-    console.log(features)
     return (
         <>
             <div className="grid gap-20 ">

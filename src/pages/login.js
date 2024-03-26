@@ -18,7 +18,6 @@ export async function getServerSideProps() {
 }
 
 const Login = ({ features }) => {
-    console.log(features, 7777)
     let featuresArrOne = []
     let featuresArrTwo = []
     features.map((feature) => {
@@ -80,7 +79,7 @@ const Login = ({ features }) => {
                         />
                     </a>
 
-                    <div className="my-6">Latest updates</div>
+                    <div className=" mt-6 text-2xl font-bold">Features</div>
                     <div className=" grid  grid-cols-2 gap-4">
                         {featuresArrTwo.length > 0 &&
                             featuresArrTwo.map((feature) => {
@@ -147,7 +146,7 @@ const Login = ({ features }) => {
                     </a>
 
                     <div className="text-2xl font-bold">Login</div>
-                    <div className="text-sm ">Sign up with</div>
+                    <div className="text-sm ">Login with</div>
                     <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} />
                     <div className="flex ">
                         <span className="text-sm">Create a new Account,</span>
@@ -155,7 +154,7 @@ const Login = ({ features }) => {
                             href="/signup"
                             className="ms-1 text-sm text-sky-700"
                         >
-                            SignUp
+                            Sign Up
                         </Link>
                     </div>
                 </div>
