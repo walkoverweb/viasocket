@@ -17,6 +17,7 @@ const component = { ReactPlayer }
 // import { SocialList } from '@/components/socialList';
 // const components = { Test }
 import { MdKeyboardArrowLeft } from 'react-icons/md'
+import Image from 'next/image'
 
 const slugToPostContent = ((postContents) => {
     let hash = {}
@@ -60,7 +61,7 @@ export default function TestPage({
                 >
                     <MdKeyboardArrowLeft /> Back
                 </a>
-                <div className="flex flex-col gap-2 md:flex-row mt-6 mb-12">
+                <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
                     <div className="  flex flex-col justify-center gap-2">
                         <div className=" capitalize">
                             {author}, {date}
@@ -68,10 +69,12 @@ export default function TestPage({
                         <h1 className="font-medium text-4xl">{title}</h1>
                     </div>
                     {thumbnailImage !== '' && (
-                        <img
+                        <Image
                             className="md:w-1/2 w-full"
                             src={thumbnailImage}
-                            alt={author}
+                            width={1080}
+                            height={1080}
+                            alt={title}
                         />
                     )}
                 </div>
