@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import AlphabeticalComponent from '../alphabetSort/alphabetSort'
 
 const Footer = ({ showAppsByTitle }) => {
-
     const [data, setData] = useState(null)
     useEffect(() => {
         getDbdashDataa()
@@ -34,7 +33,7 @@ const Footer = ({ showAppsByTitle }) => {
             if (items.length > 0) {
                 return (
                     <div className="flex flex-col gap-4 w-full" key={groupName}>
-                        <h5 className="font-bold">{groupName}</h5>
+                        <h2 className="font-bold">{groupName}</h2>
                         <div className="flex flex-col gap-3">
                             {items.map(
                                 (item, index) =>
@@ -47,6 +46,7 @@ const Footer = ({ showAppsByTitle }) => {
                                                     : `/${item?.name.toLowerCase().replace(/\s+/g, '-')}`
                                             }
                                             key={index}
+                                            aria-label={item?.name}
                                         >
                                             {item?.name}
                                         </Link>
@@ -71,7 +71,7 @@ const Footer = ({ showAppsByTitle }) => {
             <div className="container flex sm:flex-row flex-col-reverse my-20 py-8 gap-12 ">
                 <div className="flex w-full lg:max-w-[260px] md:max-w-[140px] max-w-[200px] flex-col justify-between ">
                     <div className="flex flex-col gap-2">
-                        <Link href="/">
+                        <Link href="/" aria-label="socket fav icon">
                             <Image
                                 src="/assets/brand/socket_fav_dark.svg"
                                 width={46}
@@ -85,9 +85,14 @@ const Footer = ({ showAppsByTitle }) => {
                     </div>
                     <div className="flex items-center  gap-2 w-full flex-wrap">
                         <span>A product of</span>
-                        <Link href="https://walkover.in/" target="_blank">
+                        <Link
+                            href="https://walkover.in/"
+                            target="_blank"
+                            aria-label="walkover"
+                        >
                             <Image
                                 src="/assets/brand/walkover.svg"
+                                alt="walkover"
                                 width={100}
                                 height={20}
                             />

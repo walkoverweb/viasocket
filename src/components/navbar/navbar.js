@@ -38,7 +38,7 @@ const Navbar = ({ productData, pathArray }) => {
                 <div
                     className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}
                 >
-                    <Link href="/">
+                    <Link href="/" aria-label="logo">
                         <Image
                             className="w-[120px]"
                             src={
@@ -113,6 +113,7 @@ const Navbar = ({ productData, pathArray }) => {
                                                                                     <Link
                                                                                         href={`${child.link ? child.link : ''}`}
                                                                                         target="_blank"
+                                                                                        aria-label="logo"
                                                                                     >
                                                                                         {
                                                                                             child.name
@@ -139,6 +140,9 @@ const Navbar = ({ productData, pathArray }) => {
                                                                 ? ''
                                                                 : '_blank'
                                                         }
+                                                        aria-label={
+                                                            option?.name
+                                                        }
                                                     >
                                                         {option?.name}
                                                     </Link>
@@ -152,6 +156,7 @@ const Navbar = ({ productData, pathArray }) => {
                             href="/experts"
                             className="btn btn-primary btn-sm"
                             target="_blank"
+                            aria-label="Hire a No-code builder"
                         >
                             Hire a No-code builder
                         </Link>
@@ -179,6 +184,9 @@ const Navbar = ({ productData, pathArray }) => {
                                                     <Link
                                                         href={`${option.link ? option.link : '#'}`}
                                                         target="_blank"
+                                                        aria-label={
+                                                            option?.name
+                                                        }
                                                     >
                                                         {' '}
                                                         {option?.name}
