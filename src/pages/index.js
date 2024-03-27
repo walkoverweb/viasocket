@@ -108,7 +108,10 @@ const Index = ({
                                                     {product?.description}
                                                 </p>
                                                 {/* If you need another Link here, ensure it follows the same pattern */}
-                                                <button className="flex items-center gap-1 text-[#0000ff]">
+                                                <button
+                                                    className="flex items-center gap-1 text-[#0000ff]"
+                                                    aria-label="Explore"
+                                                >
                                                     Explore <MdArrowForward />
                                                 </button>
                                             </div>

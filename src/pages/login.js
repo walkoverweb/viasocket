@@ -69,7 +69,7 @@ const Login = ({ features }) => {
         <>
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
                 <div className="md:w-3/5 w-full  py-6 px-3 md:p-10  flex flex-col gap-6">
-                    <a href="/">
+                    <a href="/" aria-label="Logo viaSocket">
                         <Image
                             className="hidden md:block"
                             src="/assets/brand/logo.svg"
@@ -135,7 +135,7 @@ const Login = ({ features }) => {
                 </div>
 
                 <div className="md:w-2/5 w-full bg-white  py-6 px-3 md:p-10 flex flex-col gap-4">
-                    <a href="/" className="md:hidden block">
+                    <a href="/" className="md:hidden block" aria-label="logo">
                         <Image
                             src="/assets/brand/logo.svg"
                             width={158.6}

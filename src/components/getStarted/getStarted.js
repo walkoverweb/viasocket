@@ -46,6 +46,7 @@ export default function GetStarted({ data, isHero }) {
                                                 index !== 0 &&
                                                 'btn-ghost'
                                             }`}
+                                            aria-label="get started"
                                         >
                                             <span>{faq?.name}</span>
                                             <MdOutlineArrowForward />

@@ -210,6 +210,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                         href={`/integration/${encodeURIComponent(pathArray[2])
                             .replace(/\s/g, '-')
                             ?.toLowerCase()}`}
+                        aria-label="plugin one"
                     >
                         <div className="flex gap-1 items-center">
                             <Image
@@ -322,9 +323,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                     key={actionIndex}
                                                     href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
                                                     target="_blank"
+                                                    aria-label="try the app combination"
                                                 >
                                                     <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
-                                                        <button className="flex justify-end flex-row gap-2 text-base font-medium w-full">
+                                                        <button
+                                                            className="flex justify-end flex-row gap-2 text-base font-medium w-full"
+                                                            aria-label="try the combination"
+                                                        >
                                                             Try it
                                                             <MdOutlineArrowRightAlt
                                                                 size={25}
@@ -347,6 +352,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                             <button
                                 className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded"
                                 onClick={openChatWidget}
+                                aria-label="live chat button"
                             >
                                 Live chat
                             </button>
@@ -359,6 +365,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                         <button
                             onClick={handleComboLoadMore}
                             className="border border-white px-4 py-2 rounded-md text-white text-base"
+                            aria-label="load more button"
                         >
                             Load More
                         </button>
@@ -497,7 +504,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     </div>
 
                     <div className="flex flex-1 flex-col gap-4">
-                        <Link href="/">
+                        <Link href="/" aria-label="main link">
                             <Image
                                 src="../../../assets/brand/socket_fav_dark.svg"
                                 width={34}
@@ -533,7 +540,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">
                         Integrations run at
                     </h4>
-                    <Link href="/">
+                    <Link href="/" aria-label="main page">
                         <Image
                             src="../../../assets/brand/socket_fav_dark.svg"
                             width={40}
