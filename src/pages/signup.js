@@ -99,6 +99,7 @@ const Login = ({ testimonials, trustedBy }) => {
                                                 src={testimonial?.client_img[0]}
                                                 width={36}
                                                 height={36}
+                                                alt={testimonial?.given_by}
                                             />
                                             <div>
                                                 <p className="font-inter font-semibold leading-4 tracking-normal text-left">

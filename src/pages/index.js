@@ -85,6 +85,7 @@ const Index = ({
                                         href={`/${product?.name && product.name}`}
                                         target="_blank"
                                         className="flex items-center justify-center w-full h-full"
+                                        aria-label="products"
                                     >
                                         <div
                                             className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg"
@@ -107,7 +108,7 @@ const Index = ({
                                                     {product?.description}
                                                 </p>
                                                 {/* If you need another Link here, ensure it follows the same pattern */}
-                                                <button className="flex items-center gap-1 text-blue-400">
+                                                <button className="flex items-center gap-1 text-[#0000ff]">
                                                     Explore <MdArrowForward />
                                                 </button>
                                             </div>
@@ -150,6 +151,7 @@ const Index = ({
                                                 src={testimonial?.client_img[0]}
                                                 width={36}
                                                 height={36}
+                                                alt={testimonial?.given_by}
                                             />
                                             <div>
                                                 <p className="font-inter  font-semibold leading-4 tracking-normal text-left">
@@ -183,6 +185,7 @@ const Index = ({
                                                 }
                                                 target="_blank"
                                                 className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
+                                                aria-label="casestudy"
                                             >
                                                 <div className="casestudy_img w-full h-full">
                                                     <Image
@@ -202,7 +205,8 @@ const Index = ({
                                                             caseStudy?.link &&
                                                             caseStudy?.link
                                                         }
-                                                        className="flex items-center gap-1 text-blue-400 mt-6"
+                                                        className="flex items-center gap-1 text-[#0000ff] mt-6"
+                                                        aria-label="case study"
                                                     >
                                                         Learn More{' '}
                                                         <MdOutlineArrowForward />
@@ -220,10 +224,12 @@ const Index = ({
                                                 className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col  lg:flex-row  lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
                                             >
                                                 <div className="casestudy_img w-full h-full ">
-                                                    <img
+                                                    <Image
                                                         src={
                                                             caseStudy?.image[0]
                                                         }
+                                                        height={1080}
+                                                        width={1080}
                                                         alt={caseStudy?.title}
                                                     />
                                                 </div>
@@ -232,7 +238,7 @@ const Index = ({
                                                     <Link
                                                         target="_blank"
                                                         href={caseStudy?.link}
-                                                        className="flex items-center gap-1 text-blue-400 mt-6"
+                                                        className="flex items-center gap-1 text-[#0000ff] mt-6"
                                                     >
                                                         Learn More{' '}
                                                         <MdOutlineArrowForward />

@@ -221,6 +221,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                 }
                                 width={40}
                                 height={40}
+                                alt={combos?.plugins?.[pathArray[2]].name}
                             />
                             <h6 className="text-2xl font-bold capitalize">
                                 {combos?.plugins?.[pathArray[2]].name}
@@ -480,6 +481,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                             }
                             width={34}
                             height={34}
+                            alt={combos?.plugins?.[pathArray[2]].name}
                         />
                         <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
                             {`About ${combos?.plugins?.[pathArray[2]].name}`}
@@ -500,6 +502,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                 src="../../../assets/brand/socket_fav_dark.svg"
                                 width={34}
                                 height={34}
+                                alt="viasocket"
                             />
                         </Link>
                         <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
@@ -535,6 +538,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                             src="../../../assets/brand/socket_fav_dark.svg"
                             width={40}
                             height={40}
+                            alt="viasocket"
                         />
                     </Link>
                 </div>
