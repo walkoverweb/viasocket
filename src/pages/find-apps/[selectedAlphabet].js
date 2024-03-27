@@ -23,11 +23,7 @@ const SelectedAlphabetPage = ({ apps, pathArray }) => {
                                 rel="noopener noreferrer"
                                 className="block"
                             >
-                                <div className="">
-                                    <p className="text-base py-1 ">
-                                        {app.name}
-                                    </p>
-                                </div>
+                                <p className="text-base py-1 ">{app.name}</p>
                             </a>
                         ))}
                     </div>
@@ -70,6 +66,8 @@ export async function getServerSideProps(context) {
                       selectedAlphabet.toUpperCase()
               )
             : []
+
+        filteredApps.sort((a, b) => a.name.localeCompare(b.name))
 
         return {
             props: {
