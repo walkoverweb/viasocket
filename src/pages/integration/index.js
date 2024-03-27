@@ -153,7 +153,10 @@ const IntegrationSlugPage = ({ responseData, pathArray }) => {
     ]
     const renderFilterOptions = () => {
         return uniqueCategories.slice(0, visibleCategories).map((category) => (
-            <Link href={`/integration?currentcategory=${category}`}>
+            <Link
+                href={`/integration?currentcategory=${category}`}
+                aria-label="select category"
+            >
                 <h6
                     key={category}
                     onClick={() => {

@@ -67,7 +67,11 @@ const Experts = ({ agencies, rawPageData, pathArray }) => {
             </div>
             {/* </div> */}
 
-            <button id="interfaceEmbed" class="popup-interfaceEmbed">
+            <button
+                id="interfaceEmbed"
+                class="popup-interfaceEmbed"
+                aria-label="interface"
+            >
                 Interface
             </button>
             <div className="container">
@@ -107,7 +111,10 @@ const Experts = ({ agencies, rawPageData, pathArray }) => {
                         />
                     )}
                     <div className="mt-10 text-center">
-                        <button className="px-3.5 sm:px-6 py-4 font-bold text-xs sm:text-lg md:text-xl  lg:text-2xl border border-black text-black rounded">
+                        <button
+                            className="px-3.5 sm:px-6 py-4 font-bold text-xs sm:text-lg md:text-xl  lg:text-2xl border border-black text-black rounded"
+                            aria-label="Suggest an agency or get listed if you are one"
+                        >
                             Suggest an agency or get listed if you are one
                         </button>
                     </div>

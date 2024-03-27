@@ -22,6 +22,7 @@ const SelectedAlphabetPage = ({ apps, pathArray }) => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block"
+                                aria-label="app"
                             >
                                 <p className="text-base py-1 ">{app.name}</p>
                             </a>
