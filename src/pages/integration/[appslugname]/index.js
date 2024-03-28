@@ -5,6 +5,13 @@ import Link from 'next/link'
 import { MdOutlineArrowRightAlt } from 'react-icons/md'
 import IntegrationSearch from '@/components/integration/integrationApps'
 import ErrorComp from '@/components/404/404Comp'
+import {
+    MdOutlineTaskAlt,
+    MdOutlineAdsClick,
+    MdAdd,
+    MdOutlineKeyboardArrowDown,
+} from 'react-icons/md'
+import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa'
 
 const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     //defined states
@@ -201,6 +208,22 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     const openChatWidget = () => {
         window.chatWidget.open()
     }
+    //find actions and trigers
+    const actionEvents = []
+    const triggerEvent = []
+    if (pathArray.length > 2) {
+        ;[pathArray[2]].forEach((path) => {
+            if (combos?.plugins?.[path]?.events) {
+                combos.plugins[path].events.forEach((event) => {
+                    if (event.type === 'action') {
+                        actionEvents.push(event)
+                    } else if (event.type === 'trigger') {
+                        triggerEvent.push(event)
+                    }
+                })
+            }
+        })
+    }
     if (combos && !combos.error) {
         return (
             <div>
@@ -349,20 +372,190 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                 })}
                         </div>
                     ) : (
-                        <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
-                            No matching combination was found. Please try again
-                            with different parameters or reach out to support
-                            for assistance.
-                            <div>
-                                <button
-                                    className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded"
-                                    onClick={openChatWidget}
-                                    aria-label="live chat button"
-                                >
-                                    Live chat
-                                </button>
+                        // <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
+                        //     No matching combination was found. Please try again
+                        //         with different parameters or reach out to support
+                        //         for assistance.
+                        //     <div>
+                        //         <button
+                        //             className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded"
+                        //             onClick={openChatWidget}
+                        //             aria-label="live chat button"
+                        //         >
+                        //             Live chat
+                        //         </button>
+                        //     </div>
+                        // </div>
+                        <>
+                            <div className="container pt-10 ">
+                                <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
+                                    {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
+                                </h1>
+                                <div className="flex flex-col py-10 gap-10">
+                                    {/* Trigger */}
+                                    {triggerEvent.length > 0 && (
+                                        <div className="flex flex-col gap-6">
+                                            <div className="flex items-center gap-4">
+                                                {/* <MdOutlineAdsClick size={24} />
+                                            <h5 className="lg:text-3xl md:text-2xl text-xl font-bold text-white ">
+                                                When this happens
+                                            </h5> */}
+                                                <p className="text-lg text-red-600 bg-red-200 px-3 py-1 rounded-full font-medium">
+                                                    Triggers
+                                                </p>
+                                            </div>
+                                            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+                                                {triggerEvent.map(
+                                                    (card, index) => (
+                                                        <div
+                                                            key={index}
+                                                            className="flex gap-6 justify-between items-center bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
+                                                        >
+                                                            <div className="flex flex-col gap-4">
+                                                                <Image
+                                                                    src={
+                                                                        combos
+                                                                            ?.plugins[
+                                                                            card
+                                                                                ?.pluginslugname
+                                                                        ]
+                                                                            ?.iconurl
+                                                                            ? combos
+                                                                                  ?.plugins[
+                                                                                  card
+                                                                                      ?.pluginslugname
+                                                                              ]
+                                                                                  ?.iconurl
+                                                                            : 'https://placehold.co/40x40'
+                                                                    }
+                                                                    width={26}
+                                                                    height={26}
+                                                                    className="w-[26px] h-[26px]"
+                                                                    alt={
+                                                                        combos
+                                                                            ?.plugins[
+                                                                            card
+                                                                                ?.pluginslugname
+                                                                        ]
+                                                                    }
+                                                                />
+                                                                <div className="flex flex-col gap-2">
+                                                                    <h6 className="md:text-xl font-semibold ">
+                                                                        {card.name
+                                                                            .charAt(
+                                                                                0
+                                                                            )
+                                                                            .toUpperCase() +
+                                                                            card.name
+                                                                                .slice(
+                                                                                    1
+                                                                                )
+                                                                                .toLowerCase()}
+                                                                    </h6>
+                                                                    <p className="md:text-lg text-base font-normal ">
+                                                                        {card.description
+                                                                            .charAt(
+                                                                                0
+                                                                            )
+                                                                            .toUpperCase() +
+                                                                            card.description
+                                                                                .slice(
+                                                                                    1
+                                                                                )
+                                                                                .toLowerCase()}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Action */}
+                                    {actionEvents.length > 0 && (
+                                        <div className="flex flex-col gap-6">
+                                            <div className="flex items-center gap-4">
+                                                {/* <MdOutlineTaskAlt
+                size={24}
+                className="text-white"
+            /> */}
+                                                {/* <h5 className="lg:text-3xl md:text-2xl text-xl font-bold text-white">
+                Do
+            </h5> */}
+                                                <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-medium">
+                                                    Actions
+                                                </p>
+                                            </div>
+                                            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+                                                {actionEvents.map((card, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="flex gap-6 justify-between items-center bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
+                                                    >
+                                                        <div className="flex flex-col gap-4">
+                                                            <Image
+                                                                src={
+                                                                    combos
+                                                                        ?.plugins[
+                                                                        card
+                                                                            ?.pluginslugname
+                                                                    ]?.iconurl
+                                                                        ? combos
+                                                                              ?.plugins[
+                                                                              card
+                                                                                  ?.pluginslugname
+                                                                          ]
+                                                                              ?.iconurl
+                                                                        : 'https://placehold.co/40x40'
+                                                                }
+                                                                width={26}
+                                                                height={26}
+                                                                className="w-[26px] h-[26px]"
+                                                                alt={
+                                                                    combos
+                                                                        ?.plugins[
+                                                                        card
+                                                                            ?.pluginslugname
+                                                                    ]
+                                                                }
+                                                            />
+                                                            <div className="flex flex-col">
+                                                                <h6 className="md:text-xl text-lg font-semibold ">
+                                                                    {card.name
+                                                                        .charAt(
+                                                                            0
+                                                                        )
+                                                                        .toUpperCase() +
+                                                                        card.name
+                                                                            .slice(
+                                                                                1
+                                                                            )
+                                                                            .toLowerCase()}
+                                                                </h6>
+                                                                <p className="md:text-lg text-base font-normal ">
+                                                                    {card.description
+                                                                        .charAt(
+                                                                            0
+                                                                        )
+                                                                        .toUpperCase() +
+                                                                        card.description
+                                                                            .slice(
+                                                                                1
+                                                                            )
+                                                                            .toLowerCase()}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        </div>
+                        </>
                     )}
 
                     <div className="flex flex-row justify-center items-center">
