@@ -231,11 +231,12 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                         width={40}
                                         height={40}
                                         alt={
-                                            combos?.plugins?.[pathArray[3]].name
+                                            combos?.plugins?.[pathArray[3]]
+                                                ?.name
                                         }
                                     />
                                     <h6 className="md:text-2xl text-base font-bold capitalize">
-                                        {combos?.plugins?.[pathArray[3]].name}
+                                        {combos?.plugins?.[pathArray[3]]?.name}
                                     </h6>
                                     <MdOutlineKeyboardArrowDown size={25} />
                                 </div>
@@ -335,7 +336,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             <div className="bg-[#00A68B] pt-14">
                 <div className="flex container">
                     <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
-                        {`Create integrations between ${combos?.plugins?.[pathArray[2]].name} and ${combos?.plugins?.[pathArray[3]].name}.`}
+                        {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and ${combos?.plugins?.[pathArray[3]]?.name}.`}
                     </h1>
                 </div>
             </div>
@@ -873,13 +874,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                             }
                             width={34}
                             height={34}
-                            alt={combos?.plugins?.[pathArray[2]].name}
+                            alt={combos?.plugins?.[pathArray[2]]?.name}
                         />
                         <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                            {`About ${combos?.plugins?.[pathArray[2]].name}`}
+                            {`About ${combos?.plugins?.[pathArray[2]]?.name}`}
                         </h6>
                         <p className="md:text-xl text-base">
-                            {combos?.plugins?.[pathArray[2]].description}
+                            {combos?.plugins?.[pathArray[2]]?.description}
                         </p>
                         <div>
                             {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
@@ -896,13 +897,13 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                             }
                             width={34}
                             height={34}
-                            alt={combos?.plugins?.[pathArray[3]].name}
+                            alt={combos?.plugins?.[pathArray[3]]?.name}
                         />
                         <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                            {`About ${combos?.plugins?.[pathArray[3]].name}`}
+                            {`About ${combos?.plugins?.[pathArray[3]]?.name}`}
                         </h6>
                         <p className="md:text-xl text-base">
-                            {combos?.plugins?.[pathArray[3]].description}
+                            {combos?.plugins?.[pathArray[3]]?.description}
                         </p>
                         <div>
                             {/* <button className='border border-black text-black bg-white px-4 py-2 rounded text-base '>
@@ -945,6 +946,7 @@ export async function getServerSideProps(context) {
 
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray)
+    console.log(combos)
     const apps = await fetchApps('All', 25) // Example: fetching with default category "All" and 25 items
 
     return {

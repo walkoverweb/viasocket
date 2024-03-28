@@ -1,9 +1,9 @@
 import ErrorComp from '@/components/404/404Comp'
 
-const NoPage = () => {
+const NoPage = ({ pathArray }) => {
     return (
         <>
-            <ErrorComp />
+            <ErrorComp pathArray={pathArray} />
         </>
     )
 }

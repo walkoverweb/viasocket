@@ -764,7 +764,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
     } else {
         return (
             <>
-                <ErrorComp />
+                <ErrorComp pathArray={pathArray} />
             </>
         )
     }
