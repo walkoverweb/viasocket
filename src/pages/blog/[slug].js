@@ -58,6 +58,7 @@ export default function TestPage({
                     className=" btn-sm btn btn-outline"
                     href="#"
                     onClick={handleClick}
+                    aria-label="back"
                 >
                     <MdKeyboardArrowLeft /> Back
                 </a>
