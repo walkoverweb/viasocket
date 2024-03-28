@@ -2,9 +2,9 @@ import { getDbdashData } from '@/pages/api'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import AlphabeticalComponent from '../alphabetSort/alphabetSort'
+// import AlphabeticalComponent from '../alphabetSort/alphabetSort'
 
-const Footer = ({ showAppsByTitle }) => {
+const Footer = () => {
     const [data, setData] = useState(null)
     useEffect(() => {
         getDbdashDataa()
@@ -59,14 +59,14 @@ const Footer = ({ showAppsByTitle }) => {
         })
     return (
         <>
-            {showAppsByTitle && (
+            {/* {showAppsByTitle && (
                 <div className="container mt-20">
                     <h1 className="text-base font-medium text-center py-4">
                         Apps by title
                     </h1>
                     <AlphabeticalComponent />
                 </div>
-            )}
+            )} */}
 
             <div className="container flex sm:flex-row flex-col-reverse my-12 py-8 gap-12 ">
                 <div className="flex w-full lg:max-w-[260px] md:max-w-[140px] max-w-[200px] flex-col justify-between ">
