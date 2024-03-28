@@ -63,7 +63,7 @@ export default function TestPage({
                     <MdKeyboardArrowLeft /> Back
                 </a>
                 <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
-                    <div className="  flex flex-col justify-center gap-2">
+                    <div className="  flex flex-col justify-center gap-2 w-1/2">
                         <div className=" capitalize">
                             {author}, {date}
                         </div>
@@ -71,7 +71,7 @@ export default function TestPage({
                     </div>
                     {thumbnailImage !== '' && (
                         <Image
-                            className="md:w-1/2 w-full"
+                            className="w-1/2 "
                             src={thumbnailImage}
                             width={1080}
                             height={1080}
