@@ -95,9 +95,7 @@ export default function ErrorComp({ pathArray }) {
                         </div>
                     </div>
                 </div>
-                {showNav && (
-                    <Footer showAppsByTitle={router.pathname === '/'} />
-                )}
+                {showNav && <Footer />}
             </div>
         </>
     )
