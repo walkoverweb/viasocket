@@ -333,7 +333,11 @@ const Privacy = () => {
                                     Learn more about&nbsp;
                                 </span>
                             </span>
-                            <a data-custom-class="link" href="#personalinfo">
+                            <a
+                                data-custom-class="link"
+                                href="#personalinfo"
+                                aria-label="personal info"
+                            >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         personal information you disclose to us
@@ -395,7 +399,11 @@ const Privacy = () => {
                                     reason to do so. Learn more about&nbsp;
                                 </span>
                             </span>
-                            <a data-custom-class="link" href="#infouse">
+                            <a
+                                data-custom-class="link"
+                                href="#infouse"
+                                aria-label="how we process your info"
+                            >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         how we process your information
@@ -422,7 +430,12 @@ const Privacy = () => {
                                     third parties. Learn more about&nbsp;
                                 </span>
                             </span>
-                            <a data-custom-class="link" href="#whoshare">
+                            <a
+                                data-custom-class="link"
+                                href="#whoshare"
+                                aria-label="when and with whom we share your
+                                        personal information"
+                            >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         when and with whom we share your
@@ -464,7 +477,11 @@ const Privacy = () => {
                                     more about&nbsp;
                                 </span>
                             </span>
-                            <a data-custom-class="link" href="#infosafe">
+                            <a
+                                data-custom-class="link"
+                                href="#infosafe"
+                                aria-label="how we keep your information safe"
+                            >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         how we keep your information safe
@@ -492,7 +509,11 @@ const Privacy = () => {
                                     about&nbsp;
                                 </span>
                             </span>
-                            <a data-custom-class="link" href="#privacyrights">
+                            <a
+                                data-custom-class="link"
+                                href="#privacyrights"
+                                aria-label="privacy"
+                            >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         your privacy rights
@@ -522,6 +543,7 @@ const Privacy = () => {
                                 href="https://app.termly.io/notify/460fffde-6178-4b51-93d0-7f48ea5c93b9"
                                 rel="noopener noreferrer"
                                 target="_blank"
+                                aria-label="data subject"
                             >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
@@ -548,7 +570,11 @@ const Privacy = () => {
                                     information we collect?&nbsp;
                                 </span>
                             </span>
-                            <a data-custom-class="link" href="#toc">
+                            <a
+                                data-custom-class="link"
+                                href="#toc"
+                                aria-label="review"
+                            >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         Review the privacy notice in full
@@ -583,7 +609,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#infocollect">
+                                <a
+                                    data-custom-class="link"
+                                    href="#infocollect"
+                                    aria-label="what info we collect"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         1. WHAT INFORMATION DO WE COLLECT?
                                     </span>
@@ -592,7 +622,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#infouse">
+                                <a
+                                    data-custom-class="link"
+                                    href="#infouse"
+                                    aria-label="process information"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         2. HOW DO WE PROCESS YOUR INFORMATION?
                                         <bdt className="block-component" />
@@ -602,7 +636,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#legalbases">
+                                <a
+                                    data-custom-class="link"
+                                    href="#legalbases"
+                                    aria-label="legal base do we rely on to process"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         3.{' '}
                                         <span style={{ fontSize: '15px' }}>
@@ -627,6 +665,7 @@ const Privacy = () => {
                                     <a
                                         data-custom-class="link"
                                         href="#whoshare"
+                                        aria-label="whom do we share your personal info"
                                     >
                                         4. WHEN AND WITH WHOM DO WE SHARE YOUR
                                         PERSONAL INFORMATION?
@@ -652,7 +691,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#cookies">
+                                <a
+                                    data-custom-class="link"
+                                    href="#cookies"
+                                    aria-label="cookies and other tracking technologies"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         5. DO WE USE COOKIES AND OTHER TRACKING
                                         TECHNOLOGIES?
@@ -699,6 +742,7 @@ const Privacy = () => {
                                 <a
                                     data-custom-class="link"
                                     href="#sociallogins"
+                                    aria-label="privacy"
                                 >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         <span
@@ -745,7 +789,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#inforetain">
+                                <a
+                                    data-custom-class="link"
+                                    href="#inforetain"
+                                    aria-label="how long do we keep your information"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         7. HOW LONG DO WE KEEP YOUR INFORMATION?
                                     </span>
@@ -773,7 +821,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#infosafe">
+                                <a
+                                    data-custom-class="link"
+                                    href="#infosafe"
+                                    aria-label="keep your information safe"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         8. HOW DO WE KEEP YOUR INFORMATION SAFE?
                                     </span>
@@ -800,6 +852,7 @@ const Privacy = () => {
                                     <a
                                         data-custom-class="link"
                                         href="#privacyrights"
+                                        aria-label="privacy rights"
                                     >
                                         9. WHAT ARE YOUR PRIVACY RIGHTS?
                                     </a>
@@ -808,7 +861,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#DNT">
+                                <a
+                                    data-custom-class="link"
+                                    href="#DNT"
+                                    aria-label="don-not track features"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         10. CONTROLS FOR DO-NOT-TRACK FEATURES
                                         <bdt className="block-component" />
@@ -818,7 +875,11 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a data-custom-class="link" href="#uslaws">
+                                <a
+                                    data-custom-class="link"
+                                    href="#uslaws"
+                                    aria-label="specific privacy rights"
+                                >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         11. DO UNITED STATES RESIDENTS HAVE
                                         SPECIFIC PRIVACY RIGHTS?
@@ -850,6 +911,7 @@ const Privacy = () => {
                                 <a
                                     data-custom-class="link"
                                     href="#policyupdates"
+                                    aria-label="privacy"
                                 >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         12. DO WE MAKE UPDATES TO THIS NOTICE?
@@ -858,7 +920,11 @@ const Privacy = () => {
                             </span>
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
-                            <a data-custom-class="link" href="#contact">
+                            <a
+                                data-custom-class="link"
+                                href="#contact"
+                                aria-label="contact"
+                            >
                                 <span
                                     style={{
                                         color: 'rgb(89, 89, 89)',
@@ -871,7 +937,11 @@ const Privacy = () => {
                             </a>
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
-                            <a data-custom-class="link" href="#request">
+                            <a
+                                data-custom-class="link"
+                                href="#request"
+                                aria-label="privacy"
+                            >
                                 <span style={{ color: 'rgb(89, 89, 89)' }}>
                                     14. HOW CAN YOU REVIEW, UPDATE, OR DELETE
                                     THE DATA WE COLLECT FROM YOU?
@@ -1284,6 +1354,7 @@ const Privacy = () => {
                                                         <a
                                                             data-custom-class="link"
                                                             href="#sociallogins"
+                                                            aria-label="handle social login"
                                                         >
                                                             HOW DO WE HANDLE
                                                             YOUR SOCIAL LOGINS?
@@ -2626,6 +2697,7 @@ const Privacy = () => {
                                                                                                                         <a
                                                                                                                             data-custom-class="link"
                                                                                                                             href="#withdrawconsent"
+                                                                                                                            aria-label="privacy"
                                                                                                                         >
                                                                                                                             <span
                                                                                                                                 style={{
@@ -2986,6 +3058,7 @@ const Privacy = () => {
                                                                                                                         <a
                                                                                                                             data-custom-class="link"
                                                                                                                             href="#withdrawconsent"
+                                                                                                                            aria-label="privacy"
                                                                                                                         >
                                                                                                                             <span data-custom-class="body_text">
                                                                                                                                 <span
@@ -5915,6 +5988,7 @@ const Privacy = () => {
                                                                                                                                         </span>
                                                                                                                                         <a
                                                                                                                                             data-custom-class="link"
+                                                                                                                                            aria-label="privacy"
                                                                                                                                             href="#contact"
                                                                                                                                         >
                                                                                                                                             <span
@@ -6104,6 +6178,7 @@ const Privacy = () => {
                                                                                                                                                                             href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
                                                                                                                                                                             rel="noopener noreferrer"
                                                                                                                                                                             target="_blank"
+                                                                                                                                                                            aria-label="privacy"
                                                                                                                                                                         >
                                                                                                                                                                             <span
                                                                                                                                                                                 style={{
@@ -6131,6 +6206,7 @@ const Privacy = () => {
                                                                                                                                             href="https://ico.org.uk/make-a-complaint/data-protection-complaints/data-protection-complaints/"
                                                                                                                                             rel="noopener noreferrer"
                                                                                                                                             target="_blank"
+                                                                                                                                            aria-label="privacy"
                                                                                                                                         >
                                                                                                                                             <span data-custom-class="link">
                                                                                                                                                 <span
@@ -6245,6 +6321,7 @@ const Privacy = () => {
                                                                                                                                                                                 href="https://www.edoeb.admin.ch/edoeb/en/home.html"
                                                                                                                                                                                 rel="noopener noreferrer"
                                                                                                                                                                                 target="_blank"
+                                                                                                                                                                                aria-label="privacy"
                                                                                                                                                                             >
                                                                                                                                                                                 Federal
                                                                                                                                                                                 Data
@@ -6368,6 +6445,7 @@ const Privacy = () => {
                                                                                                                                         <a
                                                                                                                                             data-custom-class="link"
                                                                                                                                             href="#contact"
+                                                                                                                                            aria-label="privacy"
                                                                                                                                         >
                                                                                                                                             <span
                                                                                                                                                 style={{
@@ -9809,7 +9887,10 @@ const Privacy = () => {
                                                                                                                                                                                         "
                                                                                                                                                                                         <bdt className="statement-end-if-in-editor" />
                                                                                                                                                                                     </span>
-                                                                                                                                                                                    <a href="#infouse">
+                                                                                                                                                                                    <a
+                                                                                                                                                                                        href="#infouse"
+                                                                                                                                                                                        aria-label="privacy"
+                                                                                                                                                                                    >
                                                                                                                                                                                         <span
                                                                                                                                                                                             data-custom-class="link"
                                                                                                                                                                                             style={{
@@ -9995,7 +10076,10 @@ const Privacy = () => {
                                                                                                                                                                                             </span>
                                                                                                                                                                                         </span>
                                                                                                                                                                                     </span>
-                                                                                                                                                                                    <a href="#whoshare">
+                                                                                                                                                                                    <a
+                                                                                                                                                                                        href="#whoshare"
+                                                                                                                                                                                        aria-label="privacy"
+                                                                                                                                                                                    >
                                                                                                                                                                                         <span
                                                                                                                                                                                             style={{
                                                                                                                                                                                                 fontSize:
@@ -11302,6 +11386,7 @@ const Privacy = () => {
                                                                                                                                                                                                         <a
                                                                                                                                                                                                             data-custom-class="link"
                                                                                                                                                                                                             href="https://app.termly.io/notify/460fffde-6178-4b51-93d0-7f48ea5c93b9"
+                                                                                                                                                                                                            aria-label="privacy"
                                                                                                                                                                                                             rel="noopener noreferrer"
                                                                                                                                                                                                             target="_blank"
                                                                                                                                                                                                         >
