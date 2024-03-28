@@ -409,7 +409,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                     (card, index) => (
                                                         <div
                                                             key={index}
-                                                            className="flex gap-6 justify-between items-center bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
+                                                            className=" bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
                                                         >
                                                             <div className="flex flex-col gap-4">
                                                                 <Image
@@ -492,7 +492,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                 {actionEvents.map((card, i) => (
                                                     <div
                                                         key={i}
-                                                        className="flex gap-6 justify-between items-center bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
+                                                        className="bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
                                                     >
                                                         <div className="flex flex-col gap-4">
                                                             <Image
