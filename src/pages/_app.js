@@ -65,7 +65,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
                 pathArray={pathArray}
                 rawpathArray={rawpathArray}
             />
-            {showNavbar && <Footer showAppsByTitle={router.pathname === '/'} />}
+            {showNavbar && <Footer />}
         </>
     )
 }
