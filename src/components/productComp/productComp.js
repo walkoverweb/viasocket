@@ -95,8 +95,9 @@ export default function ProductComp(props) {
                         </div>
                     </div>
                 )}
-
-                <GetStarted data={props?.getStartedData} />
+                {/* <div className="container">
+                    <GetStarted data={props?.getStartedData} />
+                </div> */}
             </div>
         </>
     )

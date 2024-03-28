@@ -256,7 +256,9 @@ const Index = ({
                 </div>
 
                 {getStartedData && (
-                    <GetStarted data={getStartedData} isHero={'false'} />
+                    <div className="container">
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    </div>
                 )}
             </div>
         </>
