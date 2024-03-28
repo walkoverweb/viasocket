@@ -421,7 +421,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                             (action, actionIndex) => (
                                                 <Link
                                                     key={actionIndex}
-                                                    href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
+                                                    href={`https://flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
                                                     target="_blank"
                                                     aria-label="try the combination"
                                                 >
@@ -757,7 +757,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                 </div>
                                 <div>
                                     <Link
-                                        href={`https://dev-flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
+                                        href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
                                         target="_blank"
                                         aria-label="try the combination"
                                     >

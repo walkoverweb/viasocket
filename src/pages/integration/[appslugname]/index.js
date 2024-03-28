@@ -349,7 +349,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                 (action, actionIndex) => (
                                                     <Link
                                                         key={actionIndex}
-                                                        href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
+                                                        href={`https://flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
                                                         target="_blank"
                                                         aria-label="try the app combination"
                                                     >
@@ -409,7 +409,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                     (card, index) => (
                                                         <div
                                                             key={index}
-                                                            className="flex gap-6 justify-between items-center bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
+                                                            className=" bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
                                                         >
                                                             <div className="flex flex-col gap-4">
                                                                 <Image
@@ -492,7 +492,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                 {actionEvents.map((card, i) => (
                                                     <div
                                                         key={i}
-                                                        className="flex gap-6 justify-between items-center bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
+                                                        className="bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
                                                     >
                                                         <div className="flex flex-col gap-4">
                                                             <Image
@@ -778,7 +778,6 @@ export async function getServerSideProps(context) {
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray)
     const apps = await fetchApps('All', 25)
-    console.log(combos)
 
     return {
         props: {
