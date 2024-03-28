@@ -68,7 +68,7 @@ const Footer = ({ showAppsByTitle }) => {
                 </div>
             )}
 
-            <div className="container flex sm:flex-row flex-col-reverse my-20 py-8 gap-12 ">
+            <div className="container flex sm:flex-row flex-col-reverse my-12 py-8 gap-12 ">
                 <div className="flex w-full lg:max-w-[260px] md:max-w-[140px] max-w-[200px] flex-col justify-between ">
                     <div className="flex flex-col gap-2">
                         <Link href="/" aria-label="socket fav icon">

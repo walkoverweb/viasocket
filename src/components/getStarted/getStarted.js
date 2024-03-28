@@ -4,7 +4,7 @@ import { MdOutlineArrowForward } from 'react-icons/md'
 export default function GetStarted({ data, isHero }) {
     return (
         <>
-            <div className="grid gap-10 container">
+            <div className="grid gap-10">
                 {isHero === 'false' && (
                     <h2 className="md:text-6xl text-4xl font-semibold">
                         We'll help you get

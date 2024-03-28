@@ -21,7 +21,8 @@ export default function MyApp({ Component, pageProps, pagesData }) {
             script.removeEventListener('load', handleLoad)
         }
     }, [])
-
+    const rawpathArray = browserPath.split(/[?#]/)
+    const pathArray = rawpathArray[0].split('/')
     var showNavbar = false
     if (
         browserPath !== '/login' &&
@@ -30,8 +31,6 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     ) {
         showNavbar = true
     }
-    const rawpathArray = browserPath.split(/[?#]/)
-    const pathArray = rawpathArray[0].split('/')
 
     useEffect(() => {
         const helloConfig = {
