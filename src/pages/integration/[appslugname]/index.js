@@ -778,7 +778,6 @@ export async function getServerSideProps(context) {
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray)
     const apps = await fetchApps('All', 25)
-    console.log(combos)
 
     return {
         props: {
