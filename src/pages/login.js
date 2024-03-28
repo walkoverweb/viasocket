@@ -68,7 +68,7 @@ const Login = ({ features }) => {
     return (
         <>
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
-                <div className="md:w-3/5 w-full p-6 py-12 md:px-10">
+                <div className="md:w-3/5 w-full  py-6 px-3 md:p-10  flex flex-col gap-6">
                     <a href="/">
                         <Image
                             className="hidden md:block"
@@ -79,13 +79,13 @@ const Login = ({ features }) => {
                         />
                     </a>
 
-                    <div className=" mt-6 text-2xl font-bold">Features</div>
-                    <div className=" grid  grid-cols-2 gap-4">
+                    <div className="  text-2xl font-bold">Features</div>
+                    <div className=" grid  grid-cols-2 gap-6">
                         {featuresArrTwo.length > 0 &&
                             featuresArrTwo.map((feature) => {
                                 {
                                     return (
-                                        <div className="signup_img my-6 w-full relative col-span-2">
+                                        <div className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 rounded">
                                             <Image
                                                 className=""
                                                 src={
@@ -97,7 +97,7 @@ const Login = ({ features }) => {
                                                 height={800}
                                                 alt="viasocket"
                                             />
-                                            <p className="absolute bottom-6 left-6 font-medium text-black text-xl">
+                                            <p className=" font-medium text-black text-xl">
                                                 {feature?.name}
                                             </p>
                                         </div>
@@ -108,7 +108,7 @@ const Login = ({ features }) => {
                             featuresArrOne.map((feature) => {
                                 {
                                     return (
-                                        <div className="w-auto md:col-span-1 col-span-2">
+                                        <div className="md:p-6 p-2 bg-[#F7F7F8] flex flex-col  w-auto md:col-span-1 col-span-2">
                                             <Image
                                                 src={
                                                     feature?.icon[0]
@@ -134,10 +134,9 @@ const Login = ({ features }) => {
                     </p> */}
                 </div>
 
-                <div className="md:w-2/5 w-full bg-white py-10 px-6 md:px-10 flex flex-col gap-4">
-                    <a href="/">
+                <div className="md:w-2/5 w-full bg-white  py-6 px-3 md:p-10 flex flex-col gap-4">
+                    <a href="/" className="md:hidden block">
                         <Image
-                            className="md:hidden block"
                             src="/assets/brand/logo.svg"
                             width={158.6}
                             height={40}
@@ -146,8 +145,10 @@ const Login = ({ features }) => {
                     </a>
 
                     <div className="text-2xl font-bold">Login</div>
-                    <div className="text-sm ">Login with</div>
-                    <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} />
+                    <div
+                        id={process.env.NEXT_PUBLIC_REFERENCE_ID}
+                        className="loginBtn_google"
+                    />
                     <div className="flex ">
                         <span className="text-sm">Create a new Account,</span>
                         <Link
