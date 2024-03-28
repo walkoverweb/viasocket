@@ -319,7 +319,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                             (action, actionIndex) => (
                                                 <Link
                                                     key={actionIndex}
-                                                    href={`https://dev-flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
+                                                    href={`https://flow.viasocket.com/makeflow/trigger/${card.trigger.id}/action/${action.id}`}
                                                     target="_blank"
                                                 >
                                                     <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
