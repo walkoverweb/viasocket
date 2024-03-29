@@ -3,8 +3,10 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import IntegrationSearch from '@/components/integration/integrationApps'
+import GetStarted from '@/components/getStarted/getStarted'
+import { getDbdashData } from '../api'
 
-const IntegrationSlugPage = ({ responseData, pathArray }) => {
+const IntegrationSlugPage = ({ getStartedData, responseData, pathArray }) => {
     //defined states
     const [apps, setApps] = useState(responseData)
     const [filteredData, setFilteredData] = useState([])
@@ -242,6 +244,11 @@ const IntegrationSlugPage = ({ responseData, pathArray }) => {
                 </div>
             </div>
 
+            <div className="container py-8">
+                {getStartedData && (
+                    <GetStarted data={getStartedData} isHero={'false'} />
+                )}
+            </div>
             {/* footer */}
 
             {/* <div className="bg-[#E6E6E6] py-10">
@@ -287,8 +294,14 @@ export async function getServerSideProps(context) {
     const response = await fetch(fetchUrl, apiHeaders)
     const responseData = await response.json()
 
+    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my']
+
+    const dataPromises = IDs.map((id) => getDbdashData(id))
+    const results = await Promise.all(dataPromises)
+
     return {
         props: {
+            getStartedData: results[1].data.rows,
             responseData,
             pathArray,
         },
