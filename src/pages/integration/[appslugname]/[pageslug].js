@@ -362,61 +362,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                 }
                                 const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map((desc) => desc.toLowerCase())} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${triggerDescription.toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`
                                 return (
-                                    <div
-                                        key={index}
-                                        className="card rounded-lg bg-white justify-between border relative "
-                                    >
-                                        <div className="flex flex-col justify-between gap-4 ">
-                                            <div className="flex flex-row justify-between items-center pt-6 px-6 ">
-                                                <div className="flex gap-2">
-                                                    {getIconUrl(
-                                                        card?.trigger?.name
-                                                    ) && (
-                                                        <Image
-                                                            src={getIconUrl(
-                                                                card?.trigger
-                                                                    ?.name
-                                                            )}
-                                                            width={26}
-                                                            height={26}
-                                                            alt={
-                                                                card?.trigger
-                                                                    ?.name
-                                                            }
-                                                        />
-                                                    )}
-
-                                                    {card?.action?.map(
-                                                        (
-                                                            action,
-                                                            actionIndex
-                                                        ) => (
-                                                            <Image
-                                                                key={
-                                                                    actionIndex
-                                                                }
-                                                                alt={
-                                                                    action?.name
-                                                                }
-                                                                src={getIconUrl(
-                                                                    action.name
-                                                                )}
-                                                                width={26}
-                                                                height={26}
-                                                            />
-                                                        )
-                                                    )}
-                                                </div>
-                                                {/* <div className='flex gap-4 items-center'>
-                        <p className='text-base'>Details</p>
-                      </div> */}
-                                            </div>
-                                            <div className="flex px-6 mb-4 pb-6 ">
-                                                <p className="md:text-xl text-lg font-medium">
-                                                    {combinedDescription}
-                                                </p>
-                                            </div>
-                                        </div>
+                                    <div key={index}>
                                         {card.action.map(
                                             (action, actionIndex) => (
                                                 <Link
@@ -425,16 +371,84 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                                     target="_blank"
                                                     aria-label="try the combination"
                                                 >
-                                                    <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg">
-                                                        <button
-                                                            className="flex justify-end flex-row gap-2 text-base font-medium w-full"
-                                                            aria-label="try combination button"
-                                                        >
-                                                            Try it
-                                                            <MdOutlineArrowRightAlt
-                                                                size={25}
-                                                            />{' '}
-                                                        </button>
+                                                    <div className="card rounded-lg bg-white justify-between h-full border relative hover:shadow-2xl ">
+                                                        <div className="flex flex-col justify-between gap-4 ">
+                                                            <div className="flex flex-row justify-between items-center pt-6 px-6 ">
+                                                                <div className="flex gap-2">
+                                                                    {getIconUrl(
+                                                                        card
+                                                                            ?.trigger
+                                                                            ?.name
+                                                                    ) && (
+                                                                        <Image
+                                                                            src={getIconUrl(
+                                                                                card
+                                                                                    ?.trigger
+                                                                                    ?.name
+                                                                            )}
+                                                                            width={
+                                                                                26
+                                                                            }
+                                                                            height={
+                                                                                26
+                                                                            }
+                                                                            alt={
+                                                                                card
+                                                                                    ?.trigger
+                                                                                    ?.name
+                                                                            }
+                                                                        />
+                                                                    )}
+
+                                                                    {card?.action?.map(
+                                                                        (
+                                                                            action,
+                                                                            actionIndex
+                                                                        ) => (
+                                                                            <Image
+                                                                                key={
+                                                                                    actionIndex
+                                                                                }
+                                                                                alt={
+                                                                                    action?.name
+                                                                                }
+                                                                                src={getIconUrl(
+                                                                                    action.name
+                                                                                )}
+                                                                                width={
+                                                                                    26
+                                                                                }
+                                                                                height={
+                                                                                    26
+                                                                                }
+                                                                            />
+                                                                        )
+                                                                    )}
+                                                                </div>
+                                                                {/* <div className='flex gap-4 items-center'>
+                        <p className='text-base'>Details</p>
+                      </div> */}
+                                                            </div>
+                                                            <div className="flex px-6 mb-4 pb-6 ">
+                                                                <p className="md:text-xl text-lg font-medium">
+                                                                    {
+                                                                        combinedDescription
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto ">
+                                                            <button
+                                                                className="flex justify-end flex-row gap-2 text-base font-medium w-full"
+                                                                aria-label="try combination button"
+                                                            >
+                                                                Try it
+                                                                <MdOutlineArrowRightAlt
+                                                                    size={25}
+                                                                />{' '}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </Link>
                                             )
@@ -499,7 +513,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                         triggerEvent.map((card, index) => (
                                             <div
                                                 key={index}
-                                                className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative ${
+                                                className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
                                                     selectedCardIndex === index
                                                         ? 'selected-card'
                                                         : ''
@@ -591,7 +605,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                                         actionEvents.map((card, i) => (
                                             <div
                                                 key={i}
-                                                className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative ${
+                                                className={`flex gap-6 justify-between items-center bg-white px-6 py-4 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
                                                     selectedActionCardIndex ===
                                                     i
                                                         ? 'selected-card'
