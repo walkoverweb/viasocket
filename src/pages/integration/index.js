@@ -188,7 +188,7 @@ const IntegrationSlugPage = ({ responseData, pathArray }) => {
     }
 
     return (
-        <div className="mt-24">
+        <div className="pt-14">
             {/* nav start */}
             {/* <div className="bg-[#00A68B] pt-6">
         <div className="flex flex-row justify-between items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
