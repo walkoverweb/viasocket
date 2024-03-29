@@ -16,7 +16,7 @@ export default function ProductComp(props) {
 
     return (
         <>
-            <div className="mx-auto grid mt-14 gap-24 w-full  md:pt-48 pt-24">
+            <div className="mx-auto grid gap-24 w-full  md:pt-48 pt-24">
                 <div className="grid gap-14 container">
                     <div className="grid gap-4 md:gap-10">
                         {pageData?.h3 && (

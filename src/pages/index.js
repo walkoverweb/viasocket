@@ -47,7 +47,7 @@ const Index = ({
     return (
         <>
             <div className="grid gap-20 ">
-                <div className="flex flex-col gap-10 container lg:pb-8 pt-48">
+                <div className="flex flex-col gap-10 container lg:pb-8 md:pt-48 pt-24">
                     <div className="grid gap-4 mt-auto">
                         {productData &&
                             productData.map((page) => {
