@@ -10,8 +10,10 @@ import {
     MdOutlineKeyboardArrowDown,
 } from 'react-icons/md'
 import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa'
+import GetStarted from '@/components/getStarted/getStarted'
+import { getDbdashData } from '@/pages/api'
 
-const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray }) => {
     //defined states
     const [pluginOne, setPluginOne] = useState()
     const [pluginTwo, setPluginTwo] = useState()
@@ -863,7 +865,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             {/* blogg section starts here */}
 
             {/* abouttttt */}
-            <div className=" py-10 my-auto">
+            <div className=" py-10 my-auto bg-[#F5F5F5]">
                 <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
                     <div className="flex flex-1 flex-col justify-start gap-4">
                         <Image
@@ -915,6 +917,14 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
             </div>
             {/* ------------------------------------------------------------------------------------------------------ */}
 
+            <div className=" py-8 bg-[#F5F5F5]">
+                <div className="container">
+                    {getStartedData && (
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    )}
+                </div>
+            </div>
+
             {/* footer */}
 
             <footer className="bg-[#E6E6E6] py-10 h-full">
@@ -949,8 +959,14 @@ export async function getServerSideProps(context) {
     console.log(combos)
     const apps = await fetchApps('All', 25) // Example: fetching with default category "All" and 25 items
 
+    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my']
+
+    const dataPromises = IDs.map((id) => getDbdashData(id))
+    const results = await Promise.all(dataPromises)
+
     return {
         props: {
+            getStartedData: results[1].data.rows,
             combos,
             apps,
             pathArray, // Pass other necessary data as props

@@ -5,15 +5,10 @@ import Link from 'next/link'
 import { MdOutlineArrowRightAlt } from 'react-icons/md'
 import IntegrationSearch from '@/components/integration/integrationApps'
 import ErrorComp from '@/components/404/404Comp'
-import {
-    MdOutlineTaskAlt,
-    MdOutlineAdsClick,
-    MdAdd,
-    MdOutlineKeyboardArrowDown,
-} from 'react-icons/md'
-import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa'
+import GetStarted from '@/components/getStarted/getStarted'
+import { getDbdashData } from '@/pages/api'
 
-const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray }) => {
     //defined states
     const [plugin, setPlugin] = useState()
     const [filteredData, setFilteredData] = useState([])
@@ -739,6 +734,16 @@ const IntegrationSlugPage = ({ combos, apps, pathArray }) => {
                     </div>
                 </div>
                 {/* ------------------------------------------------------------------------------------------------------ */}
+                <div className=" py-8 bg-[#F5F5F5]">
+                    <div className="container">
+                        {getStartedData && (
+                            <GetStarted
+                                data={getStartedData}
+                                isHero={'false'}
+                            />
+                        )}
+                    </div>
+                </div>
 
                 {/* footer */}
 
@@ -779,8 +784,14 @@ export async function getServerSideProps(context) {
     const combos = await fetchCombos(pathArray)
     const apps = await fetchApps('All', 25)
 
+    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my']
+
+    const dataPromises = IDs.map((id) => getDbdashData(id))
+    const results = await Promise.all(dataPromises)
+
     return {
         props: {
+            getStartedData: results[1].data.rows,
             combos,
             apps,
             pathArray, // Pass other necessary data as props
