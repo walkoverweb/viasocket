@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { getDbdashData } from './api'
 import AgencyList from '@/components/agencyList/agnecyList'
 import Script from 'next/script'
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 
 export async function getServerSideProps() {
-    const IDs = ['tblajmg8e', 'tblmsw3ci']
+    const IDs = ['tblajmg8e', 'tblmsw3ci', 'tbl2bk656']
 
     const dataPromises = IDs.map((id) => getDbdashData(id))
     const results = await Promise.all(dataPromises)
@@ -15,11 +16,12 @@ export async function getServerSideProps() {
         props: {
             agencies: results[0].data.rows,
             rawPageData: results[1].data.rows,
+            metaData: results[2].data.rows,
         },
     }
 }
 
-const Experts = ({ agencies, rawPageData, pathArray }) => {
+const Experts = ({ agencies, rawPageData, pathArray, metaData }) => {
     let pageData = rawPageData.find(
         (page) => page?.name?.toLowerCase() === pathArray[1]
     )
@@ -57,7 +59,12 @@ const Experts = ({ agencies, rawPageData, pathArray }) => {
     }
     return (
         <>
-            <Head></Head>
+            <MetaHeadComp
+                metaData={metaData}
+                page={'/experts'}
+                pathArray={pathArray}
+            />
+
             {/* <div id='form-parent' class='form-parent'> */}
             <div id="iframe-parent-container" class="popup-parent-container">
                 <div className="header">

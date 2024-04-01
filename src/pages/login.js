@@ -3,9 +3,10 @@ import Image from 'next/image'
 import { MdArrowForward } from 'react-icons/md'
 import Link from 'next/link'
 import { getDbdashData } from './api'
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 
 export async function getServerSideProps() {
-    const IDs = ['tblvo36my']
+    const IDs = ['tblvo36my', 'tbl2bk656']
 
     const dataPromises = IDs.map((id) => getDbdashData(id))
     const results = await Promise.all(dataPromises)
@@ -13,11 +14,12 @@ export async function getServerSideProps() {
     return {
         props: {
             features: results[0].data.rows,
+            metaData: results[1].data.rows,
         },
     }
 }
 
-const Login = ({ features }) => {
+const Login = ({ features, metaData, pathArray }) => {
     let featuresArrOne = []
     let featuresArrTwo = []
     features.map((feature) => {
@@ -67,6 +69,11 @@ const Login = ({ features }) => {
 
     return (
         <>
+            <MetaHeadComp
+                metaData={metaData}
+                page={'/login'}
+                pathArray={pathArray}
+            />
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
                 <div className="md:w-3/5 w-full  py-6 px-3 md:p-10  flex flex-col gap-6">
                     <a href="/" aria-label="Logo viaSocket">

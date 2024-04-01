@@ -181,7 +181,7 @@ const IntegrationSlugPage = ({ combos, apps, pathArray, metaData }) => {
         <>
             <MetaHeadComp
                 metaData={metaData}
-                page={'/integration/app/app'}
+                page={'/integration/AppOne/AppTwo'}
                 pathArray={pathArray}
             />
             <div className="flex flex-col min-h-screen ">
