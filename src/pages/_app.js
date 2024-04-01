@@ -1,6 +1,5 @@
 import '@/scss/global.scss'
 
-import HeadComp from '@/components/head/headComp'
 import Navbar from '@/components/navbar/navbar'
 import { useRouter } from 'next/router'
 import Footer from '@/components/footer/footer'
@@ -52,7 +51,6 @@ export default function MyApp({ Component, pageProps, pagesData }) {
 
     return (
         <>
-            <HeadComp />
             {showNavbar && (
                 <Navbar
                     productData={pageProps?.productData}

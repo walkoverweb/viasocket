@@ -1,13 +1,14 @@
 import ProductComp from '@/components/productComp/productComp'
 import { getDbdashData } from './api'
 import GetStarted from '@/components/getStarted/getStarted'
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 export async function getServerSideProps() {
     const IDs = [
         'tblsaw4zp',
         'tblvgm05y',
         'tblmsw3ci',
         'tblvo36my',
-        'tbl7lj8ev',
+        'tbl2bk656',
     ]
 
     const dataPromises = IDs.map((id) => getDbdashData(id))
@@ -19,7 +20,7 @@ export async function getServerSideProps() {
             getStartedData: results[1].data.rows,
             productData: results[2].data.rows,
             features: results[3].data.rows,
-            navbarData: results[4].data.rows,
+            metaData: results[4].data.rows,
         },
     }
 }
@@ -29,11 +30,16 @@ const Table = ({
     getStartedData,
     productData,
     features,
-    navbarData,
+    metaData,
     pathArray,
 }) => {
     return (
         <>
+            <MetaHeadComp
+                metaData={metaData}
+                page={'/table'}
+                pathArray={pathArray}
+            />
             <ProductComp
                 trustedBy={trustedBy}
                 getStartedData={getStartedData}
