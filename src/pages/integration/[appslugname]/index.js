@@ -10,7 +10,6 @@ import { getDbdashData } from '@/pages/api'
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 
 const IntegrationSlugPage = ({ combos, apps, pathArray, metaData }) => {
-    console.log('🚀 ~ IntegrationSlugPage ~ metaData:', metaData)
     const [plugin, setPlugin] = useState()
     const [filteredData, setFilteredData] = useState([])
     const [visibleItems, setVisibleItems] = useState(25)

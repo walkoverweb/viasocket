@@ -235,9 +235,6 @@ const IntegrationSlugPage = ({ responseData, pathArray, metaData }) => {
         </>
     )
 }
-console.log('🚀 ~ IntegrationSlugPage ~ MetaHeadComp:', MetaHeadComp)
-console.log('🚀 ~ IntegrationSlugPage ~ MetaHeadComp:', MetaHeadComp)
-console.log('🚀 ~ IntegrationSlugPage ~ MetaHeadComp:', MetaHeadComp)
 
 export default IntegrationSlugPage
 
