@@ -46,9 +46,7 @@ const Index = ({
     trustedData,
     features,
     metaData,
-    pathArray,
 }) => {
-    console.log('🚀 ~ metaData:', metaData)
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
