@@ -10,6 +10,9 @@ import { useRouter } from 'next/router'
 import { getTag } from '@/components/lib/tags'
 import TagButton from '@/components/blogs/tags/tagButton'
 import dynamic from 'next/dynamic'
+import GetStarted from '@/components/getStarted/getStarted'
+import { getDbdashData } from '../api'
+
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 // const components = { Test }
 const component = { ReactPlayer }
@@ -31,6 +34,7 @@ const slugToPostContent = ((postContents) => {
 })(fetchPostContent())
 
 export default function TestPage({
+    getStartedData,
     source,
     title,
     date,
@@ -82,7 +86,6 @@ export default function TestPage({
                 <div className="body">
                     <MDXRemote {...source} components={component} />
                 </div>
-
                 <footer className="pt-3 grid gap-4">
                     <div className="blog-card-tags">
                         <ul className="blog-page-tags d-flex gap-3 ps-0 mb-1">
@@ -97,13 +100,13 @@ export default function TestPage({
                                 ))}
                         </ul>
                     </div>
-                    <button
-                        className="btn btn-primary btn-sm w-fit"
-                        onClick={handleClick}
-                    >
-                        <MdKeyboardArrowLeft /> Back
-                    </button>
                 </footer>
+
+                <div className="container py-8">
+                    {getStartedData && (
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    )}
+                </div>
             </div>
         </>
     )
@@ -138,8 +141,14 @@ export async function getStaticProps(slug) {
     const thumbnailImage = matterResult?.data?.thumbnail
     const mdxSource = await serialize(content)
 
+    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my']
+
+    const dataPromises = IDs.map((id) => getDbdashData(id))
+    const results = await Promise.all(dataPromises)
+
     return {
         props: {
+            getStartedData: results[1].data.rows,
             source: mdxSource,
             date: date || '',
             title: title || '',
