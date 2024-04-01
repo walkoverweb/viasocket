@@ -60,7 +60,7 @@ const Login = ({ testimonials, trustedBy }) => {
         <>
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
                 <div className="md:py-10 md:pl-10 py-4 pl-3 md:pr-0 pr-3 flex flex-col md:w-3/5 w-full overflow-x-hidden overflow-y-scroll gap-6 bg-[#EDE8DE] ">
-                    <a href="/">
+                    <a href="/" aria-label="brand logo">
                         <Image
                             className="hidden md:block"
                             src="/assets/brand/logo.svg"
@@ -99,6 +99,7 @@ const Login = ({ testimonials, trustedBy }) => {
                                                 src={testimonial?.client_img[0]}
                                                 width={36}
                                                 height={36}
+                                                alt={testimonial?.given_by}
                                             />
                                             <div>
                                                 <p className="font-inter font-semibold leading-4 tracking-normal text-left">
@@ -116,7 +117,11 @@ const Login = ({ testimonials, trustedBy }) => {
                 </div>
 
                 <div className="md:w-2/5 w-full bg-white  py-6 px-3 md:p-10 flex flex-col gap-6 ">
-                    <a href="/" className="md:hidden block">
+                    <a
+                        href="/"
+                        className="md:hidden block"
+                        aria-label="brand logo"
+                    >
                         <Image
                             className="md:hidden block"
                             src="/assets/brand/logo.svg"

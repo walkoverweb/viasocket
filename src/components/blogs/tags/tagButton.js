@@ -6,6 +6,7 @@ export default function TagButton({ tag }) {
                 legacyBehavior
                 href={'/blog/tags/[[...slug]]'}
                 as={`/blog/tags/${tag}`}
+                aria-label="blog"
             >
                 {tag}
             </Link>

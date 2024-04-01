@@ -20,8 +20,9 @@ export default function NotificationBar() {
                         href={data[1]?.details && data[1]?.details}
                         target="_blank"
                         className=" text-white text-sm flex items-center flex-wrap gap-1"
+                        aria-label="update"
                     >
-                        <span className="bg-[#FFD672]  text-xs rounded-md px-1 h-fit">
+                        <span className="bg-green-700  text-xs rounded-md px-2 h-fit">
                             Update
                         </span>
                         {data[0]?.details}{' '}
