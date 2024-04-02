@@ -5,8 +5,8 @@ import { MdOutlineArrowForward } from 'react-icons/md'
 import { getDbdashData } from './api/index'
 import { MdArrowForward } from 'react-icons/md'
 import GetStarted from '@/components/getStarted/getStarted'
-import HeadComp from '@/components/head/headComp'
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid'
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 
 export async function getServerSideProps() {
     const IDs = [
@@ -17,6 +17,7 @@ export async function getServerSideProps() {
         'tblmsw3ci',
         'tblsaw4zp',
         'tblvo36my',
+        'tbl2bk656',
     ]
 
     const dataPromises = IDs.map((id) => getDbdashData(id))
@@ -31,6 +32,7 @@ export async function getServerSideProps() {
             productData: results[4].data.rows,
             trustedData: results[5].data.rows,
             features: results[6].data.rows,
+            metaData: results[7].data.rows,
         },
     }
 }
@@ -43,9 +45,11 @@ const Index = ({
     productData,
     trustedData,
     features,
+    metaData,
 }) => {
     return (
         <>
+            <MetaHeadComp metaData={metaData} page={'/'} />
             <div className="grid gap-20 ">
                 <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
                     <div className="grid gap-4 mt-auto">
@@ -54,7 +58,6 @@ const Index = ({
                                 if (page?.name === 'Index') {
                                     return (
                                         <>
-                                            <HeadComp data={page} />
                                             <h1 className="md:text-6xl text-4xl font-semibold">
                                                 {page?.h1}
                                             </h1>

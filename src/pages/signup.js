@@ -3,9 +3,10 @@ import Image from 'next/image'
 import TrustedBy from '@/components/trustedBy/trustedBy'
 import { getDbdashData } from './api'
 import Link from 'next/link'
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 
 export async function getServerSideProps() {
-    const IDs = ['tblsaw4zp', 'tblwql8n1']
+    const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656']
 
     const dataPromises = IDs.map((id) => getDbdashData(id))
     const results = await Promise.all(dataPromises)
@@ -14,11 +15,12 @@ export async function getServerSideProps() {
         props: {
             trustedBy: results[0].data.rows,
             testimonials: results[1].data.rows,
+            metaData: results[2].data.rows,
         },
     }
 }
 
-const Login = ({ testimonials, trustedBy }) => {
+const Login = ({ metaData, testimonials, trustedBy, pathArray }) => {
     useLayoutEffect(() => {
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
@@ -58,6 +60,12 @@ const Login = ({ testimonials, trustedBy }) => {
 
     return (
         <>
+            <MetaHeadComp
+                metaData={metaData}
+                page={'/signup'}
+                pathArray={pathArray}
+            />
+
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
                 <div className="md:py-10 md:pl-10 py-4 pl-3 md:pr-0 pr-3 flex flex-col md:w-3/5 w-full overflow-x-hidden overflow-y-scroll gap-6 bg-[#EDE8DE] ">
                     <a href="/" aria-label="brand logo">

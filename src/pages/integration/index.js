@@ -5,8 +5,14 @@ import Link from 'next/link'
 import IntegrationSearch from '@/components/integration/integrationApps'
 import GetStarted from '@/components/getStarted/getStarted'
 import { getDbdashData } from '../api'
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
 
-const IntegrationSlugPage = ({ getStartedData, responseData, pathArray }) => {
+const IntegrationSlugPage = ({
+    getStartedData,
+    responseData,
+    pathArray,
+    metaData,
+}) => {
     //defined states
     const [apps, setApps] = useState(responseData)
     const [filteredData, setFilteredData] = useState([])
@@ -190,9 +196,16 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray }) => {
     }
 
     return (
-        <div className="pt-14">
-            {/* nav start */}
-            {/* <div className="bg-[#00A68B] pt-6">
+        <>
+            {' '}
+            <MetaHeadComp
+                metaData={metaData}
+                page={'/integration'}
+                pathArray={pathArray}
+            />
+            <div className="pt-14">
+                {/* nav start */}
+                {/* <div className="bg-[#00A68B] pt-6">
         <div className="flex flex-row justify-between items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
         <div className='flex gap-1 items-center'>
             <Image
@@ -209,49 +222,49 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray }) => {
           </div>
         </div>
       </div> */}
-            <div className="flex flex-col gap-6 container pt-10">
-                <h1 className="lg:text-5xl text-3xl  font-bold">
-                    5000+ viaSocket Integrations
-                </h1>
-                <p className="text-lg  lg:w-[900px] ">
-                    Viasocket is your all-in-one solution, seamlessly
-                    integrating CRM, Marketing, E-Commerce, Helpdesk, Payments,
-                    Web forms, Collaboration, and more for streamlined business
-                    success.
-                </p>
-            </div>
-            <div className=" ">
-                <div className="container">
-                    <IntegrationSearch
-                        loading={loading}
-                        searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm}
-                        renderFilterOptions={renderFilterOptions}
-                        isCategoryDropdownOpen={isCategoryDropdownOpen}
-                        handleCategoryClick={handleCategoryClick}
-                        selectedCategory={selectedCategory}
-                        handleCategoryItemClick={handleCategoryItemClick}
-                        filteredData={filteredData}
-                        handleLocalStore={handleLocalStore}
-                        visibleItems={visibleItems}
-                        apps={apps}
-                        handleLoadMore={handleLoadMore}
-                        uniqueCategories={uniqueCategories}
-                        visibleCategories={visibleCategories}
-                        handleCategoryLoadMore={handleCategoryLoadMore}
-                        pathArray={pathArray}
-                    />
+                <div className="flex flex-col gap-6 container pt-10">
+                    <h1 className="lg:text-5xl text-3xl  font-bold">
+                        5000+ viaSocket Integrations
+                    </h1>
+                    <p className="text-lg  lg:w-[900px] ">
+                        Viasocket is your all-in-one solution, seamlessly
+                        integrating CRM, Marketing, E-Commerce, Helpdesk,
+                        Payments, Web forms, Collaboration, and more for
+                        streamlined business success.
+                    </p>
                 </div>
-            </div>
+                <div className=" ">
+                    <div className="container">
+                        <IntegrationSearch
+                            loading={loading}
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                            renderFilterOptions={renderFilterOptions}
+                            isCategoryDropdownOpen={isCategoryDropdownOpen}
+                            handleCategoryClick={handleCategoryClick}
+                            selectedCategory={selectedCategory}
+                            handleCategoryItemClick={handleCategoryItemClick}
+                            filteredData={filteredData}
+                            handleLocalStore={handleLocalStore}
+                            visibleItems={visibleItems}
+                            apps={apps}
+                            handleLoadMore={handleLoadMore}
+                            uniqueCategories={uniqueCategories}
+                            visibleCategories={visibleCategories}
+                            handleCategoryLoadMore={handleCategoryLoadMore}
+                            pathArray={pathArray}
+                        />
+                    </div>
+                </div>
 
-            <div className="container py-8">
-                {getStartedData && (
-                    <GetStarted data={getStartedData} isHero={'false'} />
-                )}
-            </div>
-            {/* footer */}
+                <div className="container py-8">
+                    {getStartedData && (
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    )}
+                </div>
+                {/* footer */}
 
-            {/* <div className="bg-[#E6E6E6] py-10">
+                {/* <div className="bg-[#E6E6E6] py-10">
         <div className="flex flex-row gap-4 justify-center items-center">
           <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">
             Integrations run at
@@ -264,8 +277,9 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray }) => {
         </div>
       </div> */}
 
-            {/* ------------------------------------------------------------------------------------------------------ */}
-        </div>
+                {/* ------------------------------------------------------------------------------------------------------ */}
+            </div>
+        </>
     )
 }
 
@@ -294,13 +308,14 @@ export async function getServerSideProps(context) {
     const response = await fetch(fetchUrl, apiHeaders)
     const responseData = await response.json()
 
-    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my']
+    const IDs = ['tbl2bk656', 'tblvgm05y']
 
     const dataPromises = IDs.map((id) => getDbdashData(id))
     const results = await Promise.all(dataPromises)
 
     return {
         props: {
+            metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             responseData,
             pathArray,
