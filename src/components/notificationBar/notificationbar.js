@@ -14,21 +14,31 @@ export default function NotificationBar() {
     }
     if (data && data[0]?.details) {
         return (
-            <div className=" bg-accent p-2  w-full ">
+            <div
+                className="  p-2  w-full "
+                style={{
+                    backgroundColor: data[5]?.details,
+                    color: data[6]?.details,
+                }}
+            >
                 <div className="container flex flex-wrap items-center justify-center  ">
                     <Link
                         href={data[1]?.details && data[1]?.details}
                         target="_blank"
-                        className=" text-white text-sm flex items-center flex-wrap gap-1"
+                        className=" text-white text-sm flex items-center flex-wrap gap-2"
                         aria-label="update"
                     >
-                        <span className="bg-green-700  text-xs rounded-md px-2 h-fit">
-                            Update
+                        <span
+                            className="  text-xs rounded-full px-2 h-fit"
+                            style={{
+                                backgroundColor: data[3]?.details,
+                                color: data[4]?.details,
+                            }}
+                        >
+                            {data[2]?.details}
                         </span>
                         {data[0]?.details}{' '}
-                        <div className="underline text-white text-xs">
-                            Learn More
-                        </div>
+                        <div className="underline text-xs">Learn More</div>
                     </Link>
                 </div>
             </div>
