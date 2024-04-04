@@ -188,7 +188,7 @@ const IntegrationSlugPage = ({
         <>
             <MetaHeadComp
                 metaData={metaData}
-                page={'/integration/AppOne/AppTwo'}
+                page={'/integrations/AppOne/AppTwo'}
                 pathArray={pathArray}
             />
             <div className="flex flex-col min-h-screen ">
@@ -196,9 +196,7 @@ const IntegrationSlugPage = ({
                 <div className="bg-[#00A68B] pt-6">
                     <div className="flex flex-row justify-start gap-3 items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
                         <Link
-                            href={`/integration/${encodeURIComponent(
-                                pluginOne?.name
-                            )
+                            href={`/s/${encodeURIComponent(pluginOne?.name)
                                 .replace(/\s/g, '-')
                                 ?.toLowerCase()}`}
                             aria-label="app"
@@ -297,7 +295,7 @@ const IntegrationSlugPage = ({
                                                                         }
                                                                         href={
                                                                             app?.appslugname
-                                                                                ? `/integration${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
+                                                                                ? `/integrations${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
                                                                                 : `/experts`
                                                                         }
                                                                         aria-label="app"
@@ -1022,7 +1020,6 @@ export async function getServerSideProps(context) {
 
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray)
-    console.log(combos)
     const apps = await fetchApps('All', 25) // Example: fetching with default category "All" and 25 items
 
     const IDs = ['tbl2bk656', 'tblvgm05y']

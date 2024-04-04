@@ -185,7 +185,7 @@ const IntegrationSearch = ({
                                                         key={app?.rowid}
                                                         href={
                                                             app?.appslugname
-                                                                ? `/integration${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
+                                                                ? `/integrations${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
                                                                 : `/noplugin`
                                                         }
                                                         target={

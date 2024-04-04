@@ -16,7 +16,7 @@ const SelectedAlphabetPage = ({ apps, pathArray }) => {
                                 key={app?.rowid}
                                 href={
                                     app?.appslugname
-                                        ? `/integration/${app?.appslugname}`
+                                        ? `/integrations/${app?.appslugname}`
                                         : `/noplugin`
                                 }
                                 target="_blank"
