@@ -10,7 +10,7 @@ export default function ErrorComp({ pathArray }) {
         window.chatWidget.open()
     }
     var showNav = false
-    if (pathArray[1] && pathArray[1] === 'integration') {
+    if (pathArray[1] && pathArray[1] === 'integrations') {
         showNav = true
     }
 

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { MdOutlineArrowRightAlt } from 'react-icons/md'
-import IntegrationSearch from '@/components/integration/integrationApps'
+import IntegrationSearch from '@/components/integrations/integrationApps'
 import ErrorComp from '@/components/404/404Comp'
 import GetStarted from '@/components/getStarted/getStarted'
 import { getDbdashData } from '@/pages/api'
@@ -231,7 +231,7 @@ const IntegrationSlugPage = ({
             <>
                 <MetaHeadComp
                     metaData={metaData}
-                    page={'/integration/AppOne'}
+                    page={'/integrations/AppOne'}
                     pathArray={pathArray}
                 />
                 <div>
@@ -239,7 +239,7 @@ const IntegrationSlugPage = ({
                     <div className="bg-[#00A68B] pt-6">
                         <div className="flex flex-row justify-between items-center container bg-[#f5f5f5] py-4 px-6 rounded-lg">
                             <Link
-                                href={`/integration/${encodeURIComponent(
+                                href={`/integrations/${encodeURIComponent(
                                     pathArray[2]
                                 )
                                     .replace(/\s/g, '-')
