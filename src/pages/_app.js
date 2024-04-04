@@ -4,6 +4,7 @@ import Navbar from '@/components/navbar/navbar'
 import { useRouter } from 'next/router'
 import Footer from '@/components/footer/footer'
 import { useEffect, useLayoutEffect } from 'react'
+import HeadComp from '@/components/headComp/headComp'
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter()
@@ -51,6 +52,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
 
     return (
         <>
+            <HeadComp />
             {showNavbar && (
                 <Navbar
                     productData={pageProps?.productData}
