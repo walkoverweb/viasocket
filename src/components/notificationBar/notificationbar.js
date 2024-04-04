@@ -38,7 +38,11 @@ export default function NotificationBar() {
                             {data[2]?.details}
                         </span>
                         {data[0]?.details}{' '}
-                        <div className="underline text-xs">Learn More</div>
+                        {data[7]?.details && (
+                            <div className="underline text-xs">
+                                {data[7]?.details}
+                            </div>
+                        )}
                     </Link>
                 </div>
             </div>
