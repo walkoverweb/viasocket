@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import IntegrationSearch from '@/components/integration/integrationApps'
+import IntegrationSearch from '@/components/integrations/integrationApps'
 import GetStarted from '@/components/getStarted/getStarted'
 import { getDbdashData } from '../api'
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
@@ -26,7 +26,7 @@ const IntegrationSlugPage = ({
     const { currentcategory } = router.query
 
     useEffect(() => {
-        router.push('/integration?currentcategory=All')
+        router.push('/integrations?currentcategory=All')
     }, [])
 
     //fetch apps
@@ -162,7 +162,7 @@ const IntegrationSlugPage = ({
     const renderFilterOptions = () => {
         return uniqueCategories.slice(0, visibleCategories).map((category) => (
             <Link
-                href={`/integration?currentcategory=${category}`}
+                href={`/integrations?currentcategory=${category}`}
                 aria-label="select category"
             >
                 <h6
@@ -200,7 +200,7 @@ const IntegrationSlugPage = ({
             {' '}
             <MetaHeadComp
                 metaData={metaData}
-                page={'/integration'}
+                page={'/integrations'}
                 pathArray={pathArray}
             />
             <div className="pt-14">
@@ -288,7 +288,7 @@ export default IntegrationSlugPage
 export async function getServerSideProps(context) {
     const { currentcategory } = context.query
 
-    const pathArray = ['', 'integration']
+    const pathArray = ['', 'integrations']
 
     const fetchUrl =
         currentcategory && currentcategory !== 'All'
