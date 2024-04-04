@@ -296,7 +296,7 @@ const IntegrationSlugPage = ({
                                                                         href={
                                                                             app?.appslugname
                                                                                 ? `/integrations${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
-                                                                                : `/experts`
+                                                                                : `/noplugin`
                                                                         }
                                                                         aria-label="app"
                                                                     >

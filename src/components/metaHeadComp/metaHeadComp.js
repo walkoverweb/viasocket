@@ -36,11 +36,6 @@ export default function MetaHeadComp({ metaData, page, pathArray }) {
                             name="description"
                             content={description && description}
                         />
-                        <link
-                            rel="icon"
-                            type="image/x-icon"
-                            href="/assets/brand/fav_ico.svg"
-                        />
                     </Head>
                 </>
             )
