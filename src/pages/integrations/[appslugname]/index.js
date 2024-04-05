@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { MdChevronRight } from 'react-icons/md';
+import { MdAdd, MdChevronRight } from 'react-icons/md';
 import IntegrationSearch from '@/components/integrations/integrationApps';
 import ErrorComp from '@/components/404/404Comp';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -14,7 +14,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     const [plugin, setPlugin] = useState();
     const [filteredData, setFilteredData] = useState([]);
     const [visibleItems, setVisibleItems] = useState(25);
-    const [visibleComboItems, setVisibleComboItems] = useState(6);
+    const [visibleComboItems, setVisibleComboItems] = useState(9);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [loading, setLoading] = useState(false);
@@ -223,7 +223,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                 <div>
                     <div className="bg-[#00A68B] py-20">
                         <div className=" container flex flex-col gap-9">
-                            <div className="flex  gap-2 justify-center align bg-[#f5f5f5] py-4 px-6 rounded-md w-fit">
+                            <div className="flex  gap-2 justify-center items-center bg-[#f5f5f5] py-4 px-6 rounded-md w-fit">
                                 <Image
                                     className="w-[26px] h-[26px]"
                                     src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
@@ -417,30 +417,48 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     </div>
 
                     <div className="bg-[#F5F5F5] py-14">
-                        <div className="container">
-                            <h1 className="lg:text-5xl  text-3xl md:text-4xl font-semibold">
+                        <div className="container flex  flex-col gap-8">
+                            <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
                                 Integrate with specific service
                             </h1>
-                            <IntegrationSearch
-                                loading={loading}
-                                selectedApp={pathArray[2]}
-                                searchTerm={searchTerm}
-                                setSearchTerm={setSearchTerm}
-                                renderFilterOptions={renderFilterOptions}
-                                isCategoryDropdownOpen={isCategoryDropdownOpen}
-                                handleCategoryClick={handleCategoryClick}
-                                selectedCategory={selectedCategory}
-                                handleCategoryItemClick={handleCategoryItemClick}
-                                filteredData={filteredData}
-                                handleLocalStore={handleLocalStore}
-                                visibleItems={visibleItems}
-                                apps={apps}
-                                handleLoadMore={handleLoadMore}
-                                uniqueCategories={uniqueCategories}
-                                visibleCategories={visibleCategories}
-                                handleCategoryLoadMore={handleCategoryLoadMore}
-                                pathArray={pathArray}
-                            />
+                            <div className="flex flex-col gap-9">
+                                <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
+                                    <Image
+                                        className="w-[26px] h-[26px]"
+                                        src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
+                                        width={40}
+                                        height={40}
+                                        alt={combos?.plugins?.[pathArray[2]]?.name}
+                                    />
+                                    <h6 className="text-2xl font-bold capitalize">
+                                        {combos?.plugins?.[pathArray[2]]?.name}
+                                    </h6>
+                                </div>
+                                <div className="px-8">
+                                    <MdAdd fontSize={46} />
+                                </div>
+
+                                <IntegrationSearch
+                                    loading={loading}
+                                    selectedApp={pathArray[2]}
+                                    searchTerm={searchTerm}
+                                    setSearchTerm={setSearchTerm}
+                                    renderFilterOptions={renderFilterOptions}
+                                    isCategoryDropdownOpen={isCategoryDropdownOpen}
+                                    handleCategoryClick={handleCategoryClick}
+                                    selectedCategory={selectedCategory}
+                                    handleCategoryItemClick={handleCategoryItemClick}
+                                    filteredData={filteredData}
+                                    handleLocalStore={handleLocalStore}
+                                    visibleItems={visibleItems}
+                                    apps={apps}
+                                    handleLoadMore={handleLoadMore}
+                                    uniqueCategories={uniqueCategories}
+                                    visibleCategories={visibleCategories}
+                                    handleCategoryLoadMore={handleCategoryLoadMore}
+                                    pathArray={pathArray}
+                                />
+                            </div>
                         </div>
                     </div>
 
