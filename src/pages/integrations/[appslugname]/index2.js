@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { MdChevronRight } from 'react-icons/md';
+import { MdOutlineArrowRightAlt } from 'react-icons/md';
 import IntegrationSearch from '@/components/integrations/integrationApps';
 import ErrorComp from '@/components/404/404Comp';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -34,6 +34,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     useEffect(() => {
         setPlugin(combos?.plugins?.[pathArray[2]]);
     }, [combos, pathArray[2]]);
+
+    //fetch icons
 
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
@@ -207,22 +209,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             }
         });
     }
-
-    //get Icon URL
-    const getIconUrl = (pluginName) => {
-        if (cardsData) {
-            const plugin = combos?.plugins[pluginName];
-            return plugin ? plugin?.iconurl : null;
-        }
-    };
-
     if (combos && !combos.error) {
         return (
             <>
                 <MetaHeadComp metaData={metaData} page={'/integrations/AppOne'} pathArray={pathArray} />
                 <div>
                     <div className="bg-[#00A68B] py-20">
-                        <div className=" container flex flex-col gap-9">
+                        <div className=" container">
                             <div className="flex  gap-2 justify-center align bg-[#f5f5f5] py-4 px-6 rounded-md w-fit">
                                 <Image
                                     className="w-[26px] h-[26px]"
@@ -236,84 +229,118 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 </h6>
                             </div>
 
-                            <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
-                                {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and your favorite app.`}
-                            </h1>
+                            <div className=" ">
+                                <div className="flex ">
+                                    <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
+                                        {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and your favorite app.`}
+                                    </h1>
+                                </div>
+                            </div>
 
                             <div className="">
                                 {cardsData?.length > 0 ? (
-                                    <div className="flex flex-col gap-8">
-                                        <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
-                                            {cardsData.map((card, index) => {
-                                                return (
-                                                    <>
+                                    <div className=" grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-10 ">
+                                        {cardsData.slice(0, visibleComboItems).map((card, index) => {
+                                            const triggerDescription = getEventDescription(card?.trigger?.id);
+                                            const actionDescriptions = card.action.map((action) =>
+                                                getEventDescription(action?.id)
+                                            );
+                                            const capitalizeFirstLetter = (string) => {
+                                                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+                                            };
+                                            const combinedDescription = `${capitalizeFirstLetter(actionDescriptions[0])} ${actionDescriptions.slice(1).map((desc) => desc.toLowerCase())} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${triggerDescription.toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`;
+                                            return (
+                                                <div key={index}>
+                                                    {card?.action?.map((action, actionIndex) => (
                                                         <Link
-                                                            className={index >= visibleComboItems ? 'hidden' : ''}
-                                                            key={index}
-                                                            href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}`}
+                                                            key={actionIndex}
+                                                            href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${action?.id}`}
                                                             target="_blank"
                                                             aria-label="try the app combination"
                                                         >
-                                                            <div className="bg-white rounded-md overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out">
-                                                                <div className="p-8 flex flex-col gap-4 h-full">
-                                                                    <div className="flex gap-3">
-                                                                        <Image
-                                                                            src={
-                                                                                getIconUrl(card?.trigger?.name)
-                                                                                    ? getIconUrl(card?.trigger?.name)
-                                                                                    : 'https://placehold.co/40x40'
-                                                                            }
-                                                                            height={30}
-                                                                            width={30}
-                                                                            alt="ico"
-                                                                        />
-                                                                        <Image
-                                                                            src={
-                                                                                getIconUrl(card?.action[0]?.name)
-                                                                                    ? getIconUrl(card?.action[0]?.name)
-                                                                                    : 'https://placehold.co/40x40'
-                                                                            }
-                                                                            height={30}
-                                                                            width={30}
-                                                                            alt="ico"
-                                                                        />
+                                                            <div className="card rounded-lg bg-white border h-full relative justify-between hover:shadow-2xl shadow-gray-900 transition duration-300 ease-in-out">
+                                                                <div className="flex flex-col justify-between gap-4 ">
+                                                                    <div className="flex flex-row justify-between items-center pt-6 px-6 ">
+                                                                        <div className="flex gap-2">
+                                                                            {getIconUrl(card?.trigger?.name) && (
+                                                                                <Image
+                                                                                    src={getIconUrl(
+                                                                                        card?.trigger?.name
+                                                                                    )}
+                                                                                    width={26}
+                                                                                    height={26}
+                                                                                    alt={card?.trigger?.name}
+                                                                                />
+                                                                            )}
+
+                                                                            {card?.action?.map(
+                                                                                (action, actionIndex) => (
+                                                                                    <Image
+                                                                                        key={actionIndex}
+                                                                                        alt={action?.name}
+                                                                                        src={getIconUrl(action?.name)}
+                                                                                        width={26}
+                                                                                        height={26}
+                                                                                    />
+                                                                                )
+                                                                            )}
+                                                                        </div>
+                                                                        {/* <div className='flex gap-4 items-center'>
+   <p className='text-base'>Details</p>
+ </div> */}
                                                                     </div>
-                                                                    <h2 className="text-xl int-card-des ">
-                                                                        {`${getEventDescription(card?.action[0]?.id).toLowerCase()} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when${getEventDescription(card?.trigger?.id).toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`}
-                                                                    </h2>
+                                                                    <div className="flex px-6 mb-4 pb-6 ">
+                                                                        <p className="md:text-xl text-lg font-medium ">
+                                                                            {combinedDescription}
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="bg-gray-300 gap-1 px-8 py-4 flex items-center justify-end">
-                                                                    Try It
-                                                                    <MdChevronRight fontSize={20} />
+
+                                                                <div className="flex justify-end items-center gap-2 py-4 px-6 bg-[#E6E6E6] rounded-bl-lg rounded-br-lg shadow cursor-pointer mt-auto transition duration-300 ease-in-out">
+                                                                    <button
+                                                                        className="flex justify-end flex-row gap-2 text-base font-medium w-full"
+                                                                        aria-label="try the combination"
+                                                                    >
+                                                                        Try it
+                                                                        <MdOutlineArrowRightAlt size={25} />{' '}
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                    </>
-                                                );
-                                            })}
-                                        </div>
-                                        {visibleComboItems < cardsData?.length && (
-                                            <div className="flex flex-row justify-center items-center">
-                                                <button
-                                                    onClick={handleComboLoadMore}
-                                                    className="border border-white px-4 py-2 rounded-md text-white text-base"
-                                                    aria-label="load more button"
-                                                >
-                                                    Load More
-                                                </button>
-                                            </div>
-                                        )}
+                                                    ))}
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 ) : (
+                                    // <div className="lg:text-3xl md:text-2xl text-lg text-white font-semibold w-full flex flex-col gap-4 container py-10 ">
+                                    //     No matching combination was found. Please try again
+                                    //         with different parameters or reach out to support
+                                    //         for assistance.
+                                    //     <div>
+                                    //         <button
+                                    //             className="border border-[#ffffff] text-white text-lg px-4 py-2 rounded"
+                                    //             onClick={openChatWidget}
+                                    //             aria-label="live chat button"
+                                    //         >
+                                    //             Live chat
+                                    //         </button>
+                                    //     </div>
+                                    // </div>
                                     <>
                                         <div className="container pt-10 ">
                                             <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
                                                 {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
                                             </h1>
                                             <div className="flex flex-col py-10 gap-10">
+                                                {/* Trigger */}
                                                 {triggerEvent.length > 0 && (
                                                     <div className="flex flex-col gap-6">
                                                         <div className="flex items-center gap-4">
+                                                            {/* <MdOutlineAdsClick size={24} />
+                                            <h5 className="lg:text-3xl md:text-2xl text-xl font-bold text-white ">
+                                                When this happens
+                                            </h5> */}
                                                             <p className="text-lg text-red-600 bg-red-200 px-3 py-1 rounded-full font-medium">
                                                                 Triggers
                                                             </p>
@@ -360,6 +387,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                                     </div>
                                                 )}
 
+                                                {/* Action */}
                                                 {actionEvents.length > 0 && (
                                                     <div className="flex flex-col gap-6">
                                                         <div className="flex items-center gap-4">
@@ -412,6 +440,18 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                         </div>
                                     </>
                                 )}
+
+                                <div className="flex flex-row justify-center items-center">
+                                    {visibleComboItems < cardsData?.length && (
+                                        <button
+                                            onClick={handleComboLoadMore}
+                                            className="border border-white px-4 py-2 rounded-md text-white text-base"
+                                            aria-label="load more button"
+                                        >
+                                            Load More
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
