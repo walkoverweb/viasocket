@@ -461,75 +461,74 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                             </div>
                         </div>
                     </div>
+                    <div className="py-20 bg-white">
+                        <div className="flex flex-col gap-9 container">
+                            <h2 className="text-3xl">Actions and Triggers</h2>
+                            {combos?.plugins?.[pathArray[2]]?.events.some((event) => event.type === 'trigger') && (
+                                <div className="flex-col flex gap-3">
+                                    <h3 className="text-xl font-semibold">Triggers</h3>
+                                    <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
+                                        {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
+                                            if (event.type === 'trigger') {
+                                                return (
+                                                    <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                        <Image
+                                                            width={24}
+                                                            height={24}
+                                                            className="w-auto h-[28px]"
+                                                            src={
+                                                                combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                    ? combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                    : 'https://placehold.co/40x40'
+                                                            }
+                                                            alt={combos?.plugins?.[pathArray[2]]?.name}
+                                                        />
 
-                    {/* blogg section starts here */}
-                    <div className="bg-[#F5F5F5] py-10 hidden">
-                        {/* heading */}
-                        <div className="flex flex-col gap-6 justify-center items-center container">
-                            <h1 className="lg:text-4xl md:text-3xl text-2xl  font-semibold">
-                                Blogs to help you automate things using Interakt
-                            </h1>
-                            <p className="md:text-lg text-base ">
-                                Interakt templates to make quick automation, just in few click away to automate your
-                                tasks
-                            </p>
+                                                        <div>
+                                                            <h4 className="font-semibold">{event?.name}</h4>
+                                                            <p>{event?.description}</p>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                            {combos?.plugins?.[pathArray[2]]?.events.some((event) => event?.type === 'action') && (
+                                <div className="flex-col flex gap-3">
+                                    <h3 className="text-xl font-semibold">Actions</h3>
+                                    <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
+                                        {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
+                                            if (event.type === 'action') {
+                                                return (
+                                                    <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                        <Image
+                                                            width={24}
+                                                            height={24}
+                                                            className="w-auto h-[28px]"
+                                                            src={
+                                                                combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                    ? combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                    : 'https://placehold.co/40x40'
+                                                            }
+                                                            alt={combos?.plugins?.[pathArray[2]]?.name}
+                                                        />
+
+                                                        <div>
+                                                            <h4 className="font-semibold">{event?.name}</h4>
+                                                            <p>{event?.description}</p>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
+                                        })}
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        {/* blogs */}
-
-                        <div className="container grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 py-10">
-                            {/* 1 */}
-                            <div className="card bg-white border border-[#CCCCCC] p-5 justify-between rounded-lg  h-64 ">
-                                <div className="flex flex-col gap-2">
-                                    <h1 className="text-lg font-semibold">How to automate your task using Interakt</h1>
-                                    <p className="text-base">
-                                        Interakt templates to make quick automation, just in few click away to automate
-                                        your tasks
-                                    </p>
-                                </div>
-
-                                <div className="flex flex-col gap-2">
-                                    <h1 className="text-lg font-semibold">viaSocket</h1>
-                                    <p className="text-base">01/03/2024</p>
-                                </div>
-                            </div>
-                            {/* 2 */}
-                            <div className="card bg-white border border-[#CCCCCC] p-5 justify-between rounded-lg  h-64 ">
-                                <div className="flex flex-col gap-2">
-                                    <h1 className="text-lg font-semibold">How to automate your task using Interakt</h1>
-                                    <p className="text-base">
-                                        Interakt templates to make quick automation, just in few click away to automate
-                                        your tasks
-                                    </p>
-                                </div>
-
-                                <div className="flex flex-col gap-2">
-                                    <h1 className="text-lg font-semibold">viaSocket</h1>
-                                    <p className="text-base">01/03/2024</p>
-                                </div>
-                            </div>
-                            {/* 3 */}
-                            <div className="card bg-white border border-[#CCCCCC] p-5 justify-between rounded-lg  h-64 ">
-                                <div className="flex flex-col gap-2">
-                                    <h1 className="text-lg font-semibold">How to automate your task using Interakt</h1>
-                                    <p className="text-base">
-                                        Interakt templates to make quick automation, just in few click away to automate
-                                        your tasks
-                                    </p>
-                                </div>
-
-                                <div className="flex flex-col gap-2">
-                                    <h1 className="text-lg font-semibold">viaSocket</h1>
-                                    <p className="text-base">01/03/2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        {/* blogs */}
                     </div>
-                    {/* blogg section starts here */}
 
-                    {/* ------------------------------------------------------------------------------------------------------ */}
-
-                    {/* ------------------------------------------------------------------------------------------------------ */}
                     {/* abouttttt */}
                     <div className="bg-[#F5F5F5] py-10">
                         <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
