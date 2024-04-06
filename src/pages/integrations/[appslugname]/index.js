@@ -537,23 +537,36 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                     src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
                                     width={34}
                                     height={34}
-                                    alt={combos?.plugins?.[pathArray[2]].name}
+                                    alt={combos?.plugins?.[pathArray[2]]?.name}
                                 />
                                 <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                                    {`About ${combos?.plugins?.[pathArray[2]].name}`}
+                                    {`About ${combos?.plugins?.[pathArray[2]]?.name}`}
                                 </h6>
                                 <p className="md:text-xl text-base">{plugin?.description}</p>
                                 <div>
-                                    {/* <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
-                  Learn more
-                </button> */}
+                                    <Link
+                                        href={
+                                            combos?.plugins?.[pathArray[2]]?.domain.startsWith('http')
+                                                ? combos?.plugins?.[pathArray[2]]?.domain
+                                                : 'http://' + combos?.plugins?.[pathArray[2]]?.domain
+                                        }
+                                        target="_blank"
+                                    >
+                                        <button
+                                            className="font-medium text-[#2D81F7] flex items-center"
+                                            aria-label="load more apps"
+                                        >
+                                            Learn More
+                                            <MdChevronRight fontSize={22} />
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
 
                             <div className="flex flex-1 flex-col gap-4">
                                 <Link href="/" aria-label="main link">
                                     <Image
-                                        src="../../../assets/brand/socket_fav_dark.svg"
+                                        src="/assets/brand/socket_fav_dark.svg"
                                         width={34}
                                         height={34}
                                         alt="viasocket"
@@ -565,11 +578,15 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                     streamline and simplify the integration of your favorite applications and tools.
                                 </p>
                                 <div>
-                                    {/* <Link href="/">
-                <button className="border border-black text-black bg-white px-4 py-2 rounded text-base ">
-                  Learn more
-                </button>
-              </Link> */}
+                                    <Link href="/" target="_blank">
+                                        <button
+                                            className="font-medium text-[#2D81F7] flex items-center"
+                                            aria-label="load more apps"
+                                        >
+                                            Learn More
+                                            <MdChevronRight fontSize={22} />
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
