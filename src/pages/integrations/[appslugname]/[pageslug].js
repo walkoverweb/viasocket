@@ -150,7 +150,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             <div>
                 <div className="bg-[#00A68B] py-20 ">
                     <div className="container p-6 flex flex-col gap-8 ">
-                        <div className="flex gap-6 justify-center items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
+                        <div className="flex md:gap-8  gap-2 flex-col md:flex-row justify-center items-start md:items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
                             <Link href={'/integrations/' + pluginOne?.appslugname} aria-label="app">
                                 <div className="flex gap-3 justify-center items-center w-fit">
                                     <Image
