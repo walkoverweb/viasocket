@@ -6,6 +6,7 @@ import IntegrationSearch from '@/components/integrations/integrationApps';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import FAQSection from '@/components/faqSection/faqSection';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData }) => {
     //defined states
@@ -184,8 +185,8 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         <>
             {' '}
             <MetaHeadComp metaData={metaData} page={'/integrations'} pathArray={pathArray} />
-            <div className="pt-14">
-                <div className="flex flex-col gap-6 container pt-10">
+            <div className="">
+                <div className="flex flex-col gap-6 container py-20">
                     <h1 className="lg:text-5xl text-3xl  font-bold">5000+ viaSocket Integrations</h1>
                     <p className="text-lg  lg:w-[900px] ">
                         Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing, E-Commerce,
@@ -212,7 +213,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                     />
                 </div>
 
-                <div className="container py-8">
+                <div className="bg-white py-20 ">
+                    <div className="container">
+                        <FAQSection />
+                    </div>
+                </div>
+                <div className="container py-20">
                     {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                 </div>
             </div>
