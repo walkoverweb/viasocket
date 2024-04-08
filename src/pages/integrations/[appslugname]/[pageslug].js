@@ -149,7 +149,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             <MetaHeadComp metaData={metaData} page={'/integrations/AppOne/AppTwo'} pathArray={pathArray} />
             <div>
                 <div className="bg-[#00A68B] py-20 ">
-                    <div className="container p-6 flex flex-col gap-8 ">
+                    <div className="container  flex flex-col gap-8 ">
                         <div className="flex md:gap-8  gap-2 flex-col md:flex-row justify-center items-start md:items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
                             <Link href={'/integrations/' + pluginOne?.appslugname} aria-label="app">
                                 <div className="flex gap-3 justify-center items-center w-fit">
@@ -322,11 +322,11 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                             </div>
                         ) : (
                             <>
-                                <div className="container pt-10 ">
+                                <div className="flex flex-col gap-10 ">
                                     <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
                                         {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
                                     </h1>
-                                    <div className="flex flex-col py-10 gap-10">
+                                    <div className="flex flex-col  gap-10">
                                         {triggerEvent.length > 0 && (
                                             <div className="flex flex-col gap-6">
                                                 <div className="flex items-center gap-4">

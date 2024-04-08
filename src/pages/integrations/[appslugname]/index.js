@@ -241,7 +241,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 </div>
                             </div>
 
-                            <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
+                            <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold ">
                                 {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and your favorite app.`}
                             </h1>
 
@@ -311,11 +311,11 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                     </div>
                                 ) : (
                                     <>
-                                        <div className="container pt-10 ">
+                                        <div className="flex flex-col gap-10 ">
                                             <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
                                                 {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
                                             </h1>
-                                            <div className="flex flex-col py-10 gap-10">
+                                            <div className="flex flex-col  gap-10">
                                                 {triggerEvent.length > 0 && (
                                                     <div className="flex flex-col gap-6">
                                                         <div className="flex items-center gap-4">
