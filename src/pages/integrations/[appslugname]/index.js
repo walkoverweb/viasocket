@@ -223,17 +223,22 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                 <div>
                     <div className="bg-[#00A68B] py-20">
                         <div className=" container flex flex-col gap-9">
-                            <div className="flex  gap-2 justify-center items-center bg-[#f5f5f5] py-4 px-6 rounded-md w-fit">
+                            <div className="flex gap-3 justify-center items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
                                 <Image
-                                    className="w-[26px] h-[26px]"
+                                    className="w-[40px] h-[40px]"
                                     src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
                                     width={40}
                                     height={40}
                                     alt={combos?.plugins?.[pathArray[2]]?.name}
                                 />
-                                <h6 className="text-2xl font-bold capitalize">
-                                    {combos?.plugins?.[pathArray[2]]?.name}
-                                </h6>
+                                <div className="flex flex-col ">
+                                    <h6 className="text-2xl font-bold capitalize">
+                                        {combos?.plugins?.[pathArray[2]]?.name}
+                                    </h6>
+                                    <span className="text-sm uppercase text-gray-400">
+                                        {combos?.plugins?.[pathArray[2]]?.category}
+                                    </span>
+                                </div>
                             </div>
 
                             <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
