@@ -284,7 +284,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                                                         />
                                                                     </div>
                                                                     <h2 className="text-xl int-card-des ">
-                                                                        {`${getEventDescription(card?.action[0]?.id) && getEventDescription(card?.action[0]?.id).toLowerCase()} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${getEventDescription(card?.trigger?.id).toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`}
+                                                                        {`${getEventDescription(card?.action[0]?.id) && getEventDescription(card?.action[0]?.id).toLowerCase()} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${getEventDescription(card?.trigger?.id) && getEventDescription(card?.trigger?.id).toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`}
                                                                     </h2>
                                                                 </div>
                                                                 <div className="bg-gray-300 gap-1 px-8 py-4 flex items-center justify-end">
