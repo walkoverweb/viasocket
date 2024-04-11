@@ -38,6 +38,16 @@
     }
 }
 
-.text-6xl {
-    line-height: 80px !important;
+.py-container {
+    @apply py-24;
+
+    @media only screen and (max-width: 1280px) {
+        @apply py-20;
+    }
+    @media only screen and (max-width: 780px) {
+        @apply py-12;
+    }
+    @media only screen and (max-width: 480px) {
+        @apply py-8;
+    }
 }
