@@ -46,28 +46,30 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
             <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
 
             <div className="">
-                <div className="grid gap-9 md:w-5/6 w=1/1 py-24 container">
-                    {pageData?.h3 && <h3 className="text-2xl">{pageData?.h3}</h3>}
-                    {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
-                    {pageData?.h2 && <h3 className="text-2xl">{pageData?.h2}</h3>}
+                <div className=" py-container container">
+                    <div className="flex flex-col gap-9 md:w-2/3 w-full">
+                        {pageData?.h3 && <h3 className="text-2xl">{pageData?.h3}</h3>}
+                        {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
+                        {pageData?.h2 && <h3 className="text-2xl">{pageData?.h2}</h3>}
+                    </div>
                 </div>
 
-                <div className="flex flex-col gap-9 py-24 container">
+                <div className="flex flex-col gap-9 py-container container">
                     <h2 className="text-3xl font-semibold ">Verified automation agencies by viaSocket</h2>
                     {verifiedArr.length > 0 && <AgencyList agencies={verifiedArr} type={'verified'} />}
                 </div>
-                <div className="flex flex-col gap-9 py-24 container">
+                <div className="flex flex-col gap-9 py-container container">
                     <h2 className="text-3xl font-semibold ">Non-verified automation agencies</h2>
                     {nonVerifiedArr.length > 0 && <AgencyList agencies={nonVerifiedArr} type={'nonverified'} />}
                 </div>
-                <div className="py-24  bg-white">
+                <div className="py-container  bg-white">
                     <div className="container flex flex-col gap-9 ">
                         <h2 className="text-3xl font-semibold ">
                             Register your agency as our verified <br />
                             Experts for automations.
                         </h2>
-                        <div className="flex justify-between items-center">
-                            <div className="flex flex-col gap-9 w-1/2 h-full justify-center">
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between items-center">
+                            <div className="flex flex-col gap-9  h-full justify-center">
                                 <p>
                                     As a viaSocket expert, you'll empower clients with tailor-made automation solutions,
                                     training, and unwavering support every step of the way. 
@@ -86,7 +88,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                             </div>
                             <Image
                                 src={'https://placehold.co/600x600'}
-                                className="w-auto max-w-1/2 h-full max-h-[500px]"
+                                className=""
                                 width={1080}
                                 height={1080}
                                 alt="be an expert image"
@@ -94,7 +96,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-9 my-24 container">
+                <div className="flex flex-col gap-9 py-container container">
                     <h2 className="text-3xl font-semibold">How experts can help?</h2>
                     <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-6">
                         {expertsHelp &&
