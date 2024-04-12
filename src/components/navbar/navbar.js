@@ -1,51 +1,43 @@
-import { MdMenu } from 'react-icons/md'
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { getDbdashData } from '@/pages/api'
-import styles from './navbar.module.scss'
-import NotificationBar from '../notificationBar/notificationbar'
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
+import { MdMenu } from 'react-icons/md';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { getDbdashData } from '@/pages/api';
+import styles from './navbar.module.scss';
+import NotificationBar from '../notificationBar/notificationbar';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const Navbar = ({ productData, pathArray }) => {
-    let pageData =
-        productData &&
-        productData.find((page) => page?.name?.toLowerCase() === pathArray[1])
+    let pageData = productData && productData.find((page) => page?.name?.toLowerCase() === pathArray[1]);
 
     const openChatWidget = () => {
-        window.chatWidget.open()
-    }
+        window.chatWidget.open();
+    };
 
-    const [data, setData] = useState(null)
+    const [data, setData] = useState(null);
     useEffect(() => {
-        getDbdashDataa()
-    }, [])
+        getDbdashDataa();
+    }, []);
 
     const getDbdashDataa = async () => {
-        const dbdashData = await getDbdashData('tbl7lj8ev')
-        setData(dbdashData.data.rows)
-    }
-    var shorterData
+        const dbdashData = await getDbdashData('tbl7lj8ev');
+        setData(dbdashData.data.rows);
+    };
+    var shorterData;
     if (data?.length > 0) {
         shorterData = data?.sort((a, b) => {
-            return parseInt(a.priority) - parseInt(b.priority)
-        })
+            return parseInt(a.priority) - parseInt(b.priority);
+        });
     }
     return (
         <>
-            <div className={`${styles.navbar_cont} flex w-full flex-col`}>
+            <div className={`${styles.navbar_cont} flex w-full flex-col `}>
                 <NotificationBar />
-                <div
-                    className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}
-                >
+                <div className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}>
                     <Link href="/" aria-label="logo">
                         <Image
-                            className="w-[120px]"
-                            src={
-                                pageData?.logo[0]
-                                    ? pageData.logo[0]
-                                    : '/assets/brand/logo.svg'
-                            }
+                            className="h-[40px] w-auto"
+                            src={pageData?.logo[0] ? pageData.logo[0] : '/assets/brand/logo.svg'}
                             width={1080}
                             height={400}
                             alt="viasocket"
@@ -55,78 +47,52 @@ const Navbar = ({ productData, pathArray }) => {
                     <div className="gap-6 lg:flex hidden items-center">
                         {shorterData &&
                             shorterData.map((option, index) => {
-                                if (
-                                    option.group_name === null &&
-                                    option.is_mininavonly === null
-                                ) {
+                                if (option.group_name === null && option.is_mininavonly === null) {
                                     return (
                                         <>
                                             {option.is_parent ? (
                                                 <>
-                                                    <div
-                                                        className="dropdown dropdown-bottom"
-                                                        key={index}
-                                                    >
+                                                    <div className="dropdown dropdown-bottom" key={index}>
                                                         <div
                                                             tabIndex={0}
                                                             role="button"
                                                             className=" flex items-center gap-1 hover:underline"
                                                             aria-label="nav option"
                                                         >
-                                                            <span>
-                                                                {option?.name}
-                                                            </span>
-                                                            <MdOutlineKeyboardArrowDown
-                                                                size={20}
-                                                            />
+                                                            <span>{option?.name}</span>
+                                                            <MdOutlineKeyboardArrowDown size={20} />
                                                         </div>
                                                         <ul
                                                             tabIndex={0}
                                                             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                                                         >
-                                                            {shorterData.map(
-                                                                (
-                                                                    child,
-                                                                    childIndex
-                                                                ) => {
-                                                                    if (
-                                                                        child.group_name &&
-                                                                        child.group_name ===
-                                                                            option.name
-                                                                    ) {
-                                                                        return (
-                                                                            <li
-                                                                                key={
-                                                                                    childIndex
-                                                                                }
-                                                                            >
-                                                                                {child.name ===
-                                                                                'Live Chat' ? (
-                                                                                    <button
-                                                                                        onClick={
-                                                                                            openChatWidget
-                                                                                        }
-                                                                                        aria-label="Chat"
-                                                                                    >
-                                                                                        Live
-                                                                                        Chat
-                                                                                    </button>
-                                                                                ) : (
-                                                                                    <Link
-                                                                                        href={`${child.link ? child.link : ''}`}
-                                                                                        target="_blank"
-                                                                                        aria-label="logo"
-                                                                                    >
-                                                                                        {
-                                                                                            child.name
-                                                                                        }
-                                                                                    </Link>
-                                                                                )}
-                                                                            </li>
-                                                                        )
-                                                                    }
+                                                            {shorterData.map((child, childIndex) => {
+                                                                if (
+                                                                    child.group_name &&
+                                                                    child.group_name === option.name
+                                                                ) {
+                                                                    return (
+                                                                        <li key={childIndex}>
+                                                                            {child.name === 'Live Chat' ? (
+                                                                                <button
+                                                                                    onClick={openChatWidget}
+                                                                                    aria-label="Chat"
+                                                                                >
+                                                                                    Live Chat
+                                                                                </button>
+                                                                            ) : (
+                                                                                <Link
+                                                                                    href={`${child.link ? child.link : ''}`}
+                                                                                    target="_blank"
+                                                                                    aria-label="logo"
+                                                                                >
+                                                                                    {child.name}
+                                                                                </Link>
+                                                                            )}
+                                                                        </li>
+                                                                    );
                                                                 }
-                                                            )}
+                                                            })}
                                                         </ul>
                                                     </div>
                                                 </>
@@ -136,22 +102,15 @@ const Navbar = ({ productData, pathArray }) => {
                                                         key={index}
                                                         href={`${option.link ? option.link : '#'}`}
                                                         className="  hover:underline"
-                                                        target={
-                                                            option.name.toLowerCase() ===
-                                                            'home'
-                                                                ? ''
-                                                                : '_blank'
-                                                        }
-                                                        aria-label={
-                                                            option?.name
-                                                        }
+                                                        target={option.name.toLowerCase() === 'home' ? '' : '_blank'}
+                                                        aria-label={option?.name}
                                                     >
                                                         {option?.name}
                                                     </Link>
                                                 </>
                                             )}
                                         </>
-                                    )
+                                    );
                                 }
                             })}
                         <Link
@@ -170,12 +129,7 @@ const Navbar = ({ productData, pathArray }) => {
             </Link> */}
                     </div>
                     <div className="dropdown dropdown-end lg:hidden block">
-                        <div
-                            tabIndex={0}
-                            role="button"
-                            className=""
-                            aria-label="dropdown nav"
-                        >
+                        <div tabIndex={0} role="button" className="" aria-label="dropdown nav">
                             <MdMenu className="w-[24px] h-[24px]" />
                         </div>
                         <ul
@@ -191,16 +145,14 @@ const Navbar = ({ productData, pathArray }) => {
                                                     <Link
                                                         href={`${option.link ? option.link : '#'}`}
                                                         target="_blank"
-                                                        aria-label={
-                                                            option?.name
-                                                        }
+                                                        aria-label={option?.name}
                                                     >
                                                         {' '}
                                                         {option?.name}
                                                     </Link>
                                                 </li>
                                             </>
-                                        )
+                                        );
                                     }
                                 })}
                         </ul>
@@ -214,7 +166,7 @@ const Navbar = ({ productData, pathArray }) => {
                 Talk to an expert
             </button>
         </>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
