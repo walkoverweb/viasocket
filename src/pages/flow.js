@@ -22,7 +22,6 @@ export async function getServerSideProps() {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`, apiHeaders);
     const apps = await response.json();
-    console.log('🚀 ~ getServerSideProps ~ apps:', apps);
 
     return {
         props: {
@@ -37,14 +36,13 @@ export async function getServerSideProps() {
 }
 
 const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps }) => {
+    let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
     const [slectedApps, setSelectedApps] = useState([]);
     const handleOnSelect = (item) => {
         setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
     };
 
-    const handleGeneration = () => {
-        console.log('hello');
-    };
+    const handleGeneration = () => {};
     const removeAppFromArray = (indexToRemove) => {
         if (indexToRemove >= 0 && indexToRemove < slectedApps.length) {
             const newSelectedApps = slectedApps.filter((_, index) => index !== indexToRemove);
@@ -63,12 +61,12 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
             <div>
                 <div className="py-container container flex flex-col gap-14">
                     <div className="gap-4 flex flex-col md:w-2/3">
-                        <h1 className="md:text-6xl text-4xl font-medium ">Let your apps talk</h1>
-                        <h2 className="text-2xl">Automate mundane tasks with AI in few clicks</h2>
+                        {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
+                        {pageData?.h2 && <h2 className="text-2xl">{pageData?.h2}</h2>}
                     </div>
 
                     <div className=" flex flex-col gap-6">
-                        <h2 className="text-2xl font-bold">Explore topautomations for the software you use</h2>
+                        <h2 className="text-2xl">Explore topautomations for the software you use</h2>
                         <div className="flex flex-wrap gap-4">
                             {slectedApps.map((app, index) => {
                                 return (
