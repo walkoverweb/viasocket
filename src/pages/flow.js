@@ -39,7 +39,9 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
     const [slectedApps, setSelectedApps] = useState([]);
     const handleOnSelect = (item) => {
-        setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
+        if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
+            setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
+        }
     };
 
     const handleGeneration = () => {};
@@ -92,7 +94,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             onSelect={handleOnSelect}
                             autoFocus
                         />
-                        <button className="btn btn-primary w-fit btn-md rounded" onClick={handleGeneration}>
+                        <button className="btn btn-accent w-fit  rounded" onClick={handleGeneration}>
                             Generate recommendations by AI
                         </button>
                     </div>
