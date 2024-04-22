@@ -88,15 +88,8 @@ export default function TestPage({ getStartedData, source, title, date, author, 
     );
 }
 
-export async function getServerSideProps() {
-    const paths = fetchPostContent().map((it) => '/blog/' + it.staticPath);
-
-    return {
-        paths,
-        fallback: false,
-    };
-}
 export async function getServerSideProps(slug) {
+    const paths = fetchPostContent().map((it) => '/blog/' + it.staticPath);
     const slugData = slug.params.slug;
     const source = fs.readFileSync(slugToPostContent[slugData]?.fullPath, 'utf8');
     const matterResult = matter(source, {
@@ -129,5 +122,7 @@ export async function getServerSideProps(slug) {
             tags: tags || '',
             thumbnailImage: thumbnailImage || '',
         },
+        paths,
+        fallback: false,
     };
 }
