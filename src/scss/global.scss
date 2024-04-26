@@ -65,3 +65,16 @@
 .wrapper {
     border-radius: 4px !important;
 }
+.rmsc {
+    .dropdown-container {
+        height: 44px;
+        display: flex;
+        @apply items-center;
+    }
+}
+.jiMOeR {
+    z-index: 99;
+    .wrapper {
+        box-shadow: none;
+    }
+}

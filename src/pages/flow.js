@@ -1,4 +1,3 @@
-import ProductComp from '@/components/productComp/productComp';
 import { getDbdashData } from './api';
 import GetStarted from '@/components/getStarted/getStarted';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
@@ -7,6 +6,7 @@ import { MdClose } from 'react-icons/md';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { useEffect, useState } from 'react';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
+import ComboGrid from '@/components/comboGrid/comboGrid';
 
 export async function getServerSideProps() {
     const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my', 'tbl2bk656'];
@@ -38,13 +38,29 @@ export async function getServerSideProps() {
 const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps }) => {
     let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
     const [slectedApps, setSelectedApps] = useState([]);
+    const [comboData, setComboData] = useState();
     const handleOnSelect = (item) => {
         if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
             setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
         }
     };
 
-    const handleGeneration = () => {};
+    const handleGeneration = async () => {
+        const serviceParams = slectedApps.map((app) => app?.appslugname);
+
+        const queryString = serviceParams.map((service) => `service=${service}`).join('&');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${queryString}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+            },
+        });
+
+        const data = await response.json();
+        if (data?.data) {
+            setComboData(data?.data);
+        }
+    };
     const removeAppFromArray = (indexToRemove) => {
         if (indexToRemove >= 0 && indexToRemove < slectedApps.length) {
             const newSelectedApps = slectedApps.filter((_, index) => index !== indexToRemove);
@@ -52,23 +68,22 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
         }
     };
 
-    useEffect(() => {
-        if (apps.length > 0) {
-            setSelectedApps(apps.slice(0, 5));
-        }
-    }, [apps]);
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/flow'} pathArray={pathArray} />
             <div>
                 <div className="py-container container flex flex-col gap-14">
                     <div className="gap-4 flex flex-col md:w-2/3">
-                        {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
-                        {pageData?.h2 && <h2 className="text-2xl">{pageData?.h2}</h2>}
+                        <h1 className="md:text-6xl text-4xl font-bold ">
+                            Ask AI to find out all the <span className="text-link"> automation </span>use cases tailored
+                            for your business
+                        </h1>
+                        {/* {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
+                        {pageData?.h2 && <h2 className="text-2xl">{pageData?.h2}</h2>} */}
                     </div>
 
                     <div className=" flex flex-col gap-6">
-                        <h2 className="text-2xl">Explore topautomations for the software you use</h2>
+                        <h2 className="text-3xl font-semibold">Lets find top automations</h2>
                         <div className="flex flex-wrap gap-4">
                             {slectedApps.map((app, index) => {
                                 return (
@@ -89,15 +104,18 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             })}
                         </div>
                         <ReactSearchAutocomplete
+                            placeholder="Search apps"
                             items={apps}
                             className="lg:w-1/3 sm:w-2/3 w-full"
                             onSelect={handleOnSelect}
                             autoFocus
                         />
+
                         <button className="btn btn-accent w-fit  rounded" onClick={handleGeneration}>
                             Generate recommendations by AI
                         </button>
                     </div>
+                    {comboData && <ComboGrid combos={comboData} />}
                 </div>
             </div>
             {features && <FeaturesGrid features={features} page={pathArray[1]} />}
