@@ -74,7 +74,8 @@
 }
 .jiMOeR {
     z-index: 99;
+    @apply hover:shadow-md;
     .wrapper {
-        box-shadow: none;
+        box-shadow: none !important;
     }
 }

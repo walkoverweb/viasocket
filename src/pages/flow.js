@@ -2,11 +2,13 @@ import { getDbdashData } from './api';
 import GetStarted from '@/components/getStarted/getStarted';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import Image from 'next/image';
-import { MdClose } from 'react-icons/md';
+import { MdArrowForward, MdClose } from 'react-icons/md';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { useEffect, useState } from 'react';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import ComboGrid from '@/components/comboGrid/comboGrid';
+import Multiselect from 'multiselect-react-dropdown';
+import Industries from '@/assets/data/categories.json';
 
 export async function getServerSideProps() {
     const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my', 'tbl2bk656'];
@@ -38,17 +40,28 @@ export async function getServerSideProps() {
 const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps }) => {
     let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
     const [slectedApps, setSelectedApps] = useState([]);
+    const [slectedIndus, setSelectedIndus] = useState([]);
     const [comboData, setComboData] = useState();
     const handleOnSelect = (item) => {
         if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
             setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
         }
     };
+    const handleIndusSelect = (item) => {
+        if (!slectedIndus.some((indus) => indus?.id === item?.id)) {
+            setSelectedIndus((prevSelectedIndus) => [...prevSelectedIndus, item]);
+        }
+    };
 
     const handleGeneration = async () => {
         const serviceParams = slectedApps.map((app) => app?.appslugname);
 
-        const queryString = serviceParams.map((service) => `service=${service}`).join('&');
+        const appQureyString = serviceParams.map((service) => `service=${service}`).join('&');
+        const indusQureyString = slectedIndus[0].map((indus) => `industry=${indus?.name?.toLowerCase()}`).join('&');
+        console.log(indusQureyString);
+        const queryString = `${appQureyString}${appQureyString && indusQureyString && '&'}${indusQureyString}`;
+
+        console.log('🚀 ~ handleGeneration ~ queryString:', queryString);
         const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${queryString}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -68,6 +81,8 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
         }
     };
 
+    const formattedIndustries = Industries.industries.map((name, id) => ({ name: name, id: id + 1 }));
+
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/flow'} pathArray={pathArray} />
@@ -83,7 +98,10 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                     </div>
 
                     <div className=" flex flex-col gap-6">
-                        <h2 className="text-3xl font-semibold">Lets find top automations</h2>
+                        <h2 className="text-3xl font-semibold flex flex-col sm:flex-row  sm:items-center items-start gap-2">
+                            Lets find top automations
+                            <MdArrowForward fontSize={28} />{' '}
+                        </h2>
                         <div className="flex flex-wrap gap-4">
                             {slectedApps.map((app, index) => {
                                 return (
@@ -110,9 +128,15 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             onSelect={handleOnSelect}
                             autoFocus
                         />
+                        <Multiselect
+                            options={formattedIndustries}
+                            onSelect={handleIndusSelect}
+                            displayValue="name"
+                            placeholder="Select industry"
+                        />
 
-                        <button className="btn btn-accent w-fit  rounded" onClick={handleGeneration}>
-                            Generate recommendations by AI
+                        <button className="btn btn-accent w-fit btn-md  rounded" onClick={handleGeneration}>
+                            Ask AI
                         </button>
                     </div>
                     {comboData && <ComboGrid combos={comboData} />}

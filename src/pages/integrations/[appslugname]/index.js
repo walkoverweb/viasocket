@@ -551,6 +551,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 </h6>
                                 <p className="md:text-xl text-base">{plugin?.description}</p>
                                 <div>
+                                    {console.log(combos?.plugins?.[pathArray[2]], 444)}
                                     <Link
                                         href={
                                             combos?.plugins?.[pathArray[2]]?.domain.startsWith('http')
