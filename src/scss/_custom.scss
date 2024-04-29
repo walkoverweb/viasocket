@@ -55,3 +55,32 @@
 .text-link {
     color: #4485f2;
 }
+
+.searchWrapper {
+    @apply lg:w-1/3 sm:w-2/3 w-full bg-white px-3 py-2 min-h-[46px] flex flex-wrap gap-1 items-center hover:shadow-lg;
+    min-height: 46px !important;
+    padding-left: 12px !important;
+    .chip {
+        @apply bg-accent rounded-md px-2;
+    }
+    .searchBox {
+        @apply text-gray-600 text-sm;
+    }
+}
+.optionListContainer {
+    // display: block !important;
+    width: fit-content;
+    .optionContainer {
+        .option {
+            @apply px-2 py-1  hover:bg-gray-500;
+            &.highlightOption {
+                @apply bg-accent;
+            }
+        }
+    }
+}
+
+.btn.btn-disabled,
+.btn:disabled {
+    @apply text-gray-500;
+}
