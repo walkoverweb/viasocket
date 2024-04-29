@@ -42,6 +42,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     const [slectedApps, setSelectedApps] = useState([]);
     const [slectedIndus, setSelectedIndus] = useState([]);
     const [comboData, setComboData] = useState();
+    const [loading, setLoading] = useState(false);
     const handleOnSelect = (item) => {
         if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
             setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
@@ -54,14 +55,17 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     };
 
     const handleGeneration = async () => {
+        setLoading(true);
         const serviceParams = slectedApps.map((app) => app?.appslugname);
 
         const appQureyString = serviceParams.map((service) => `service=${service}`).join('&');
-        const indusQureyString = slectedIndus[0].map((indus) => `industry=${indus?.name?.toLowerCase()}`).join('&');
-        console.log(indusQureyString);
+        let indusQureyString = '';
+        if (slectedIndus.length > 0) {
+            indusQureyString = slectedIndus[0].map((indus) => `industry=${indus?.name?.toLowerCase()}`).join('&');
+        }
+
         const queryString = `${appQureyString}${appQureyString && indusQureyString && '&'}${indusQureyString}`;
 
-        console.log('🚀 ~ handleGeneration ~ queryString:', queryString);
         const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${queryString}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -73,6 +77,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
         if (data?.data) {
             setComboData(data?.data);
         }
+        setLoading(false);
     };
     const removeAppFromArray = (indexToRemove) => {
         if (indexToRemove >= 0 && indexToRemove < slectedApps.length) {
@@ -134,12 +139,15 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             displayValue="name"
                             placeholder="Select industry"
                         />
-
-                        <button className="btn btn-accent w-fit btn-md  rounded" onClick={handleGeneration}>
-                            Ask AI
+                        <button
+                            className="btn btn-accent w-fit btn-md  rounded"
+                            onClick={handleGeneration}
+                            disabled={slectedApps.length === 0}
+                        >
+                            {loading ? 'Loading...' : 'Ask AI'}
                         </button>
                     </div>
-                    {comboData && <ComboGrid combos={comboData} />}
+                    <ComboGrid combos={comboData} loading={loading} />
                 </div>
             </div>
             {features && <FeaturesGrid features={features} page={pathArray[1]} />}
