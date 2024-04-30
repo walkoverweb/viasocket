@@ -32,7 +32,7 @@ export default function ComboGrid({ combos, loading }) {
         setVisibleComboItems(visibleComboItems + 3);
     };
     if (!loading) {
-        if (cardsData.length > 0) {
+        if (cardsData?.length > 0) {
             return (
                 <>
                     <div className="flex flex-col gap-8">
