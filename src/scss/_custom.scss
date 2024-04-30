@@ -71,12 +71,14 @@
 }
 .optionListContainer {
     // display: block !important;
-    width: fit-content;
+    // @apply w-[200px];
+    max-width: fit-content;
     .optionContainer {
+        width: 300px !important;
         .option {
-            @apply px-2 py-1  hover:bg-gray-500;
+            @apply px-2 py-2  hover:bg-gray-300 hover:text-gray-800;
             &.highlightOption {
-                @apply bg-accent;
+                @apply bg-accent text-white;
             }
         }
     }
