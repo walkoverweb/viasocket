@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { MdChevronRight } from 'react-icons/md';
 
-export default function ComboGrid({ combos, loading }) {
+export default function ComboGrid({ combos, loading, showNoData }) {
     const [visibleComboItems, setVisibleComboItems] = useState(9);
 
     const cardsData = combos?.combinations;
@@ -111,10 +111,14 @@ export default function ComboGrid({ combos, loading }) {
             );
         } else {
             return (
-                <div className=" rounded-md text-2xl font-semibold">
-                    Combination Unavailable. <br />
-                    Please explore other Apps or Industries.
-                </div>
+                <>
+                    {showNoData && (
+                        <div className=" rounded-md text-2xl font-semibold">
+                            Combination Unavailable. <br />
+                            Please explore other Apps or Industries.
+                        </div>
+                    )}
+                </>
             );
         }
     } else {

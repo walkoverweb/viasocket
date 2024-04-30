@@ -43,6 +43,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     const [slectedIndus, setSelectedIndus] = useState([]);
     const [comboData, setComboData] = useState();
     const [loading, setLoading] = useState(false);
+    const [showNoData, setShowNoData] = useState(false);
     const handleOnSelect = (item) => {
         if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
             setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
@@ -56,6 +57,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
 
     const handleGeneration = async () => {
         setLoading(true);
+        setShowNoData(true);
         const serviceParams = slectedApps.map((app) => app?.appslugname);
 
         const appQureyString = serviceParams.map((service) => `service=${service}`).join('&');
@@ -147,7 +149,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             {loading ? 'Loading...' : 'Ask AI'}
                         </button>
                     </div>
-                    <ComboGrid combos={comboData} loading={loading} />
+                    <ComboGrid combos={comboData} loading={loading} showNoData={showNoData} />
                 </div>
             </div>
             {features && <FeaturesGrid features={features} page={pathArray[1]} />}
