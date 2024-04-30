@@ -129,7 +129,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                         <ReactSearchAutocomplete
                             placeholder="Search apps"
                             items={apps}
-                            className="lg:w-1/3 sm:w-2/3 w-full"
+                            className="lg:w-1/3 sm:w-2/3 w-full jiMOeR"
                             onSelect={handleOnSelect}
                             autoFocus
                         />
