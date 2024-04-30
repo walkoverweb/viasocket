@@ -24,7 +24,11 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     const rawpathArray = browserPath.split(/[?#]/);
     const pathArray = rawpathArray[0].split('/');
     var showNavbar = false;
-    if (browserPath !== '/login' && browserPath !== '/signup' && !browserPath.includes('/integrations/')) {
+    if (
+        !browserPath.includes('/integrations/') &&
+        !browserPath.includes('/signup') &&
+        !browserPath.includes('/login')
+    ) {
         showNavbar = true;
     }
 
