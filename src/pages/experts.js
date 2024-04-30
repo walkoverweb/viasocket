@@ -78,18 +78,23 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                                     Register your agency as our verified <br />
                                     Experts for automations.
                                 </h2>
-                                <p>
-                                    As a viaSocket expert, you'll empower clients with tailor-made automation solutions,
-                                    training, and unwavering support every step of the way. 
-                                    <br />
-                                    <br />
-                                    With viaSocket in your arsenal, you can design, implement, and maintain innovative
-                                    solutions, ensuring you and your clients stay ahead of the curve. 
-                                    <br />
-                                    <br />
-                                    Let your agency's knowledge and skills set the foundation for countless success
-                                    stories.
-                                </p>
+                                <ul className="list-disc flex flex-col gap-3 ps-4">
+                                    <li>Lifetime free access To viasocket’s Team Plan with all advanced features</li>
+                                    <li>Assistance in creating and troubleshooting complex workflows</li>
+                                    <li>
+                                        Customized Training sessions tailored to your specific needs and skill level
+                                    </li>
+                                    <li>Free access to our comprehensive educational resources</li>
+                                    <li>Get your requested plugin live within 48 hours</li>
+                                    <li>
+                                        Showcase your expertise to a global audience by being featured on our dedicated
+                                        Expert page
+                                    </li>
+                                    <li>
+                                        Leverage our extensive network and client base to receive valuable referrals
+                                    </li>
+                                    <li>Offer your clients free credits worth your service charges.</li>
+                                </ul>
                                 <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
                                     <button className="btn btn-md btn-accent rounded-sm w-fit">Be an Expert</button>
                                 </Link>

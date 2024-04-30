@@ -45,11 +45,13 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     const [loading, setLoading] = useState(false);
     const [showNoData, setShowNoData] = useState(false);
     const handleOnSelect = (item) => {
+        setShowNoData(false);
         if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
             setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
         }
     };
     const handleIndusSelect = (item) => {
+        setShowNoData(false);
         if (!slectedIndus.some((indus) => indus?.id === item?.id)) {
             setSelectedIndus((prevSelectedIndus) => [...prevSelectedIndus, item]);
         }
