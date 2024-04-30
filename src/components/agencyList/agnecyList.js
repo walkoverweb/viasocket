@@ -86,7 +86,7 @@ const AgencyList = ({ agencies, type }) => {
             />
             <Script
                 id="interface-main-script"
-                embedToken={process.env.NEXT_PUBLIC_INTERFACE_TOKEN}
+                interface_id="661e755cc1d6c9e580f9b084"
                 src="https://interface-embed.viasocket.com/interface-prod.js"
             ></Script>
         </>

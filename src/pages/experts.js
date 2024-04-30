@@ -44,7 +44,15 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
-
+            <div id="iframe-parent-container" class="popup-parent-container">
+                <div className="header">
+                    <h4 id="title">Title</h4>
+                </div>
+                <iframe id="iframe-component" title="iframe"></iframe>
+            </div>
+            <button id="interfaceEmbed" class="popup-interfaceEmbed">
+                Interface
+            </button>
             <div className="">
                 <div className=" py-container container">
                     <div className="flex flex-col gap-9 md:w-2/3 w-full">
@@ -64,12 +72,12 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                 </div>
                 <div className="py-container  bg-white">
                     <div className="container flex flex-col gap-9 ">
-                        <h2 className="text-3xl font-semibold ">
-                            Register your agency as our verified <br />
-                            Experts for automations.
-                        </h2>
                         <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between items-center">
                             <div className="flex flex-col gap-9  h-full justify-center">
+                                <h2 className="text-3xl font-semibold ">
+                                    Register your agency as our verified <br />
+                                    Experts for automations.
+                                </h2>
                                 <p>
                                     As a viaSocket expert, you'll empower clients with tailor-made automation solutions,
                                     training, and unwavering support every step of the way. 
@@ -87,7 +95,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                                 </Link>
                             </div>
                             <Image
-                                src={'https://placehold.co/600x600'}
+                                src={'/assets/img/expertpage.svg'}
                                 className=""
                                 width={1080}
                                 height={1080}
