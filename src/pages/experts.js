@@ -100,7 +100,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                                 </Link>
                             </div>
                             <Image
-                                src={'/assets/img/expertpage.svg'}
+                                src={'/assets/img/expertpage.png'}
                                 className=""
                                 width={1080}
                                 height={1080}
