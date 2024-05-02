@@ -34,7 +34,9 @@
 
 // temp{
 #interfaceEmbed {
+    display: none !important;
     opacity: 0;
+    height: 0px !important;
 }
 .form-parent {
     position: fixed;
@@ -58,4 +60,22 @@
 
 .int-card-des:first-letter {
     text-transform: capitalize;
+}
+
+.wrapper {
+    border-radius: 4px !important;
+}
+.rmsc {
+    .dropdown-container {
+        height: 44px;
+        display: flex;
+        @apply items-center;
+    }
+}
+.jiMOeR {
+    z-index: 99;
+    @apply hover:shadow-md;
+    .wrapper {
+        box-shadow: none !important;
+    }
 }

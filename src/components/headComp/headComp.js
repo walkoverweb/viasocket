@@ -4,8 +4,6 @@ export default function HeadComp() {
     return (
         <>
             <Head>
-          
-
                 {!process.env.NEXT_PUBLIC_PRODUCTION_ENVIRONMENT ||
                     (process.env.NEXT_PUBLIC_PRODUCTION_ENVIRONMENT !== 'production' && (
                         <meta name="robots" content="noindex, nofollow" />

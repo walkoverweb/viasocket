@@ -1,154 +1,138 @@
-import Link from 'next/link'
-import { getDbdashData } from './api'
-import AgencyList from '@/components/agencyList/agnecyList'
-import Script from 'next/script'
-import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
+import { getDbdashData } from './api';
+import AgencyList from '@/components/agencyList/agnecyList';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { MdArticle, MdChevronRight, MdOutlineArticle } from 'react-icons/md';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export async function getServerSideProps() {
-    const IDs = ['tblajmg8e', 'tblmsw3ci', 'tbl2bk656']
+    const IDs = ['tblajmg8e', 'tblmsw3ci', 'tbl2bk656', 'tblirrj24'];
 
-    const dataPromises = IDs.map((id) => getDbdashData(id))
-    const results = await Promise.all(dataPromises)
+    const dataPromises = IDs.map((id) => getDbdashData(id));
+    const results = await Promise.all(dataPromises);
 
     return {
         props: {
             agencies: results[0].data.rows,
             rawPageData: results[1].data.rows,
             metaData: results[2].data.rows,
+            expertsHelp: results[3].data.rows,
         },
-    }
+    };
 }
 
-const Experts = ({ agencies, rawPageData, pathArray, metaData }) => {
-    let pageData = rawPageData.find(
-        (page) => page?.name?.toLowerCase() === pathArray[1]
-    )
-    const expertsHelp = [
-        {
-            help: 'Partner agencies collaborate with viaSocket users to streamline your workflows.',
-        },
-        {
-            help: 'Partner assess your needs, design custom automation using viaSocket.',
-        },
-        {
-            help: 'Partner implement also can provide training for viaSocket automation.',
-        },
-        {
-            help: 'Ongoing support ensures your optimize and scale automation efforts.',
-        },
-    ]
+const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) => {
+    let pageData = rawPageData.find((page) => page?.name?.toLowerCase() === pathArray[1]);
 
-    let verifiedArr = []
-    let nonVerifiedArr = []
+    let verifiedArr = [];
+    let nonVerifiedArr = [];
 
     // Iterate through the objects and categorize them
     if (agencies.length > 0) {
         agencies.forEach((obj) => {
             switch (obj.verified) {
                 case true:
-                    verifiedArr.push(obj)
-                    break
+                    verifiedArr.push(obj);
+                    break;
 
                 default:
-                    nonVerifiedArr.push(obj)
-                    break
+                    nonVerifiedArr.push(obj);
+                    break;
             }
-        })
+        });
     }
     return (
         <>
-            <MetaHeadComp
-                metaData={metaData}
-                page={'/experts'}
-                pathArray={pathArray}
-            />
-
+            <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
             <div id="iframe-parent-container" class="popup-parent-container">
                 <div className="header">
                     <h4 id="title">Title</h4>
                 </div>
                 <iframe id="iframe-component" title="iframe"></iframe>
             </div>
-            {/* </div> */}
-
-            <button
-                id="interfaceEmbed"
-                class="popup-interfaceEmbed"
-                aria-label="interface"
-            >
+            <button id="interfaceEmbed" class="popup-interfaceEmbed">
                 Interface
             </button>
-            <div className="container">
-                <div className=" grid mt-14 gap-8 w-full  md:pt-24 pt-24 ">
-                    {pageData?.h3 && (
-                        <h3 className="text-2xl">{pageData?.h3}</h3>
-                    )}
-                    <div className="grid gap-2 md:w-5/6 w=1/1">
-                        {pageData?.h1 && (
-                            <h1 className="md:text-6xl text-4xl font-medium ">
-                                {pageData?.h1}
-                            </h1>
-                        )}
-                        {pageData?.h2 && (
-                            <h3 className="text-2xl">{pageData?.h2}</h3>
-                        )}
+            <div className="">
+                <div className=" py-container container">
+                    <div className="flex flex-col gap-9 md:w-2/3 w-full">
+                        {pageData?.h3 && <h3 className="text-2xl">{pageData?.h3}</h3>}
+                        {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
+                        {pageData?.h2 && <h3 className="text-2xl">{pageData?.h2}</h3>}
                     </div>
                 </div>
 
-                <div className="grid gap-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-20 text-[#415765]">
-                        Verified automation agencies by viaSocket
-                    </h2>
-                    {verifiedArr.length > 0 && (
-                        <AgencyList agencies={verifiedArr} type={'verified'} />
-                    )}
-                    <div className="mt-10 text-center"></div>
+                <div className="flex flex-col gap-9 py-container container">
+                    <h2 className="text-3xl font-semibold ">Verified automation agencies by viaSocket</h2>
+                    {verifiedArr.length > 0 && <AgencyList agencies={verifiedArr} type={'verified'} />}
                 </div>
-                <div className="grid gap-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-20 text-[#415765]">
-                        Non-verified automation agencies
-                    </h2>
-                    {nonVerifiedArr.length > 0 && (
-                        <AgencyList
-                            agencies={nonVerifiedArr}
-                            type={'nonverified'}
-                        />
-                    )}
-                    <div className="mt-10 text-center">
-                        <button
-                            className="px-3.5 sm:px-6 py-4 font-bold text-xs sm:text-lg md:text-xl  lg:text-2xl border border-black text-black rounded"
-                            aria-label="Suggest an agency or get listed if you are one"
-                        >
-                            Suggest an agency or get listed if you are one
-                        </button>
+                <div className="flex flex-col gap-9 py-container container">
+                    <h2 className="text-3xl font-semibold ">Non-verified automation agencies</h2>
+                    {nonVerifiedArr.length > 0 && <AgencyList agencies={nonVerifiedArr} type={'nonverified'} />}
+                </div>
+                <div className="py-container  bg-white">
+                    <div className="container flex flex-col gap-9 ">
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-12 justify-between items-center">
+                            <div className="flex flex-col gap-9  h-full justify-center">
+                                <h2 className="text-3xl font-semibold ">
+                                    Register your agency as our verified <br />
+                                    Experts for automations.
+                                </h2>
+                                <ul className="list-disc flex flex-col gap-3 ps-4">
+                                    <li>Lifetime free access To viasocket’s Team Plan with all advanced features</li>
+                                    <li>Assistance in creating and troubleshooting complex workflows</li>
+                                    <li>
+                                        Customized Training sessions tailored to your specific needs and skill level
+                                    </li>
+                                    <li>Free access to our comprehensive educational resources</li>
+                                    <li>Get your requested plugin live within 48 hours</li>
+                                    <li>
+                                        Showcase your expertise to a global audience by being featured on our dedicated
+                                        Expert page
+                                    </li>
+                                    <li>
+                                        Leverage our extensive network and client base to receive valuable referrals
+                                    </li>
+                                    <li>Offer your clients free credits worth your service charges.</li>
+                                </ul>
+                                <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
+                                    <button className="btn btn-md btn-accent rounded-sm w-fit">Be an Expert</button>
+                                </Link>
+                            </div>
+                            <Image
+                                src={'/assets/img/expertpage.png'}
+                                className=""
+                                width={1080}
+                                height={1080}
+                                alt="be an expert image"
+                            />
+                        </div>
                     </div>
                 </div>
-                <h2
-                    className="text-base sm:text-xl lg:text-2xl mt-6 block underline text-[#415765]"
-                    rel="stylesheet"
-                    href="#"
-                >
-                    How experts can help?
-                </h2>
-                <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-6">
-                    {expertsHelp &&
-                        expertsHelp.map((expertsHelp, index) => {
-                            return (
-                                <Link
-                                    rel="stylesheet"
-                                    href={'#'}
-                                    key={index}
-                                    aria-label="expert"
-                                >
-                                    <p className="lg:p-6 p-4 border text-xl rounded  h-full  text-[#415765] border-black">
-                                        {expertsHelp?.help}
-                                    </p>
-                                </Link>
-                            )
-                        })}
+                <div className="flex flex-col gap-9 py-container container">
+                    <h2 className="text-3xl font-semibold">How experts can help?</h2>
+                    <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center md:justify-start gap-6">
+                        {expertsHelp &&
+                            expertsHelp.map((expertsHelpBlog, index) => {
+                                return (
+                                    <div key={index} className="flex flex-col gap-4 bg-white p-6 rounded-md">
+                                        <MdOutlineArticle color="#8F9396" fontSize={36} />
+                                        <p className="text-xl ">{expertsHelpBlog?.description}</p>
+                                        {expertsHelpBlog?.link && (
+                                            <Link
+                                                href={expertsHelpBlog?.link}
+                                                className="flex items-center mt-auto text-[#4485F2]"
+                                            >
+                                                Learn More <MdChevronRight fontSize={22} />
+                                            </Link>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                    </div>
                 </div>
             </div>
         </>
-    )
-}
-export default Experts
+    );
+};
+export default Experts;
