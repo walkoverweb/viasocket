@@ -213,13 +213,13 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                     />
                 </div>
 
-                <div className="bg-white py-20 ">
+                {/* <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
                             <FAQSection faqData={faqData} />
                         </div>
                     )}
-                </div>
+                </div> */}
                 <div className="container py-20">
                     {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                 </div>
