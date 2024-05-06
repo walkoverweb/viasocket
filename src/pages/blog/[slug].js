@@ -69,7 +69,7 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                 </div>
                 <footer className="pt-3 grid gap-4">
                     <div className="blog-card-tags">
-                        <ul className="blog-page-tags d-flex gap-3 ps-0 mb-1">
+                        <ul className="blog-page-tags flex gap-3 ps-0 mb-1">
                             {tags !== '' &&
                                 tags?.map((it, i) => (
                                     <li className="bg-gray-300  w-fit px-3 rounded-full" key={i}>
