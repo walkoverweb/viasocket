@@ -44,15 +44,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
-            <div id="iframe-parent-container" class="popup-parent-container">
-                <div className="header">
-                    <h4 id="title">Title</h4>
-                </div>
-                <iframe id="iframe-component" title="iframe"></iframe>
-            </div>
-            <button id="interfaceEmbed" class="popup-interfaceEmbed">
-                Interface
-            </button>
+
             <div className="">
                 <div className=" py-container container">
                     <div className="flex flex-col gap-9 md:w-2/3 w-full">
