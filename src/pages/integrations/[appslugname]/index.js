@@ -9,8 +9,20 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import ComboGrid from '@/components/comboGrid/comboGrid';
+import { GetColorMode } from '@/utils/getColorMode';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
+    const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
+    const [mode, setMode] = useState('dark');
+    useEffect(() => {
+        if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
+            setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
+        }
+    }, []);
+    useEffect(() => {
+        setMode(GetColorMode(newBrandColor));
+    }, [newBrandColor]);
+
     //defined states
     const [plugin, setPlugin] = useState();
     const [filteredData, setFilteredData] = useState([]);
@@ -208,9 +220,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             <>
                 <MetaHeadComp metaData={metaData} page={'/integrations/AppOne'} pathArray={pathArray} />
                 <div>
-                    <div className="bg-[#00A68B] py-20">
+                    <div className=" py-14" style={{ backgroundColor: `${newBrandColor}` }}>
                         <div className=" container flex flex-col gap-9">
-                            <div className="flex gap-3 justify-center items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
+                            <div className="flex gap-3 justify-center items-center bg-white border py-3 px-8 rounded-md w-fit">
                                 <Image
                                     className="w-[40px] h-[40px]"
                                     src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
@@ -228,7 +240,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 </div>
                             </div>
 
-                            <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold ">
+                            <h1
+                                className={`lg:text-6xl md:text-4xl text-2xl  font-bold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                            >
                                 {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and your favorite app.`}
                             </h1>
 
@@ -238,7 +252,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 ) : (
                                     <>
                                         <div className="flex flex-col gap-10 ">
-                                            <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
+                                            <h1
+                                                className={`flex lg:text-[40px] text-3xl md:text-3xl font-semibold  ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                                            >
                                                 {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
                                             </h1>
                                             <div className="flex flex-col  gap-10">
@@ -347,7 +363,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
 
-                    <div className="bg-[#F5F5F5] py-14">
+                    <div className="] py-14">
                         <div className="container flex  flex-col gap-8">
                             <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
                                 Integrate with specific service
@@ -392,7 +408,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                             </div>
                         </div>
                     </div>
-                    <div className="py-20 bg-white">
+                    <div className="py-14 bg-white">
                         <div className="flex flex-col gap-9 container">
                             <h2 className="text-3xl">Actions and Triggers</h2>
                             {combos?.plugins?.[pathArray[2]]?.events.some((event) => event.type === 'trigger') && (
@@ -461,7 +477,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     </div>
 
                     {/* abouttttt */}
-                    <div className="bg-[#F5F5F5] py-10">
+                    <div className="py-14">
                         <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
                             <div className="flex flex-1 flex-col justify-start gap-4">
                                 <Image
@@ -524,7 +540,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                     {/* ------------------------------------------------------------------------------------------------------ */}
-                    <div className=" py-8 bg-[#F5F5F5]">
+                    <div className=" py-14">
                         <div className="container">
                             {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                         </div>
@@ -532,7 +548,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
                     {/* footer */}
 
-                    <div className="bg-[#E6E6E6] py-10">
+                    <div className=" py-10">
                         <div className="flex flex-row gap-4 justify-center items-center">
                             <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">Integrations run at</h4>
                             <Link href="/" aria-label="main page">

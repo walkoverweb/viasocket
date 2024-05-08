@@ -8,8 +8,20 @@ import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { GetColorMode } from '@/utils/getColorMode';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
+    const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
+    const [mode, setMode] = useState('dark');
+    useEffect(() => {
+        if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
+            setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
+        }
+    }, []);
+    useEffect(() => {
+        setMode(GetColorMode(newBrandColor));
+    }, [newBrandColor]);
+
     //defined states
     const [pluginOne, setPluginOne] = useState();
     const [pluginTwo, setPluginTwo] = useState();
@@ -148,7 +160,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
         <>
             <MetaHeadComp metaData={metaData} page={'/integrations/AppOne/AppTwo'} pathArray={pathArray} />
             <div>
-                <div className="bg-[#00A68B] py-20 ">
+                <div className=" py-20 flex flex-col gap-8  " style={{ backgroundColor: `${newBrandColor}` }}>
                     <div className="container  flex flex-col gap-8 ">
                         <div className="flex md:gap-8  gap-2 flex-col md:flex-row justify-center items-start md:items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
                             <Link href={'/integrations/' + pluginOne?.appslugname} aria-label="app">
@@ -252,7 +264,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 )}
                             </div>
                         </div>
-                        <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
+                        <h1
+                            className={`lg:text-6xl md:text-4xl text-2xl  font-bold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                        >
                             {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and ${combos?.plugins?.[pathArray[3]]?.name}.`}
                         </h1>
                     </div>
@@ -312,7 +326,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                     <div className="flex flex-row justify-center items-center">
                                         <button
                                             onClick={handleComboLoadMore}
-                                            className="border border-white px-4 py-2 rounded-md text-white text-base"
+                                            className="btn btn-light-outline"
                                             aria-label="load more button"
                                         >
                                             Load More
