@@ -106,10 +106,10 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                         {pageData?.h2 && <h2 className="text-2xl">{pageData?.h2}</h2>} */}
                     </div>
 
-                    <div className=" flex flex-col gap-6">
+                    <div className=" flex flex-col gap-2">
                         <h2 className="text-3xl font-semibold flex flex-col sm:flex-row  sm:items-center items-start gap-2">
-                            Lets find top automations
-                            <MdArrowForward fontSize={28} />{' '}
+                            What Apps do you use?
+                            {/* <MdArrowForward fontSize={28} />{' '} */}
                         </h2>
                         <div className="flex flex-wrap gap-4">
                             {slectedApps.map((app, index) => {
@@ -131,7 +131,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             })}
                         </div>
                         <ReactSearchAutocomplete
-                            placeholder="Search apps"
+                            placeholder="Select Apps"
                             items={apps}
                             className="lg:w-1/3 sm:w-2/3 w-full jiMOeR"
                             onSelect={handleOnSelect}
