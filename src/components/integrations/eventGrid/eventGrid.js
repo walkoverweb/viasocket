@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import style from './eventGrid.module.scss';
 
 export default function EventGrid({ plugin, mode }) {
     const [actionEvents, setActionEvents] = useState([]);
@@ -69,7 +70,7 @@ export default function EventGrid({ plugin, mode }) {
 //Event Card
 export function EventCard({ card, plugin, index }) {
     return (
-        <div key={index} className="bg-white px-6 py-6 rounded-lg hover:shadow-xl ">
+        <div key={index} className={`${style.card} bg-white px-6 py-6 rounded-lg hover:shadow-xl`}>
             <div className="flex flex-col gap-4">
                 <Image
                     src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
