@@ -39,7 +39,6 @@ export async function getServerSideProps() {
 }
 
 const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps }) => {
-    // console.log('🚀 ~ Flow ~ apps:', apps);
     let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
     const [slectedApps, setSelectedApps] = useState([]);
     const [slectedIndus, setSelectedIndus] = useState();
@@ -47,12 +46,9 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     const [loading, setLoading] = useState(false);
     const [showNoData, setShowNoData] = useState(false);
     const [evalue, setEvalue] = useState('');
-    // console.log('🚀 ~ evalue:', evalue);
     const [filterredApps, setFilterredApps] = useState([]);
 
     const handleIndusSelect = (item) => {
-        // console.log('🚀 ~ handleIndusSelect ~ item:', item);
-        setSelectedIndus(item);
         setShowNoData(false);
     };
 
@@ -96,14 +92,12 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
         setSelectedApps((prevValues) => [...prevValues, filterApp]);
     };
     useEffect(() => {
-        console.log('Current evalue:', evalue);
         if (evalue) {
             const filtered = apps.filter(
                 (app) =>
                     app.name?.toLowerCase().includes(evalue.toLowerCase()) &&
                     !slectedApps.some((eapp) => eapp.name === app.name)
             );
-            console.log('Filtered apps:', filtered);
             setFilterredApps(filtered);
         } else {
             const filtered = apps.filter((app) => !slectedApps.some((eapp) => eapp.name === app.name));
@@ -129,7 +123,6 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                         </h2>
                         <div className="flex flex-wrap gap-4">
                             {slectedApps.map((app, index) => {
-                                // console.log('🚀 ~ {slectedApps.map ~ app:', app);
                                 return (
                                     <div
                                         key={index}

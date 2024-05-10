@@ -13,7 +13,6 @@ import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
-    console.log('🚀 ~ IntegrationSlugPage ~ apps:', apps);
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
 
@@ -196,22 +195,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     const openChatWidget = () => {
         window.chatWidget.open();
     };
-    //find actions and trigers
-    const actionEvents = [];
-    const triggerEvent = [];
-    if (pathArray.length > 2) {
-        [pathArray[2]].forEach((path) => {
-            if (combos?.plugins?.[path]?.events) {
-                combos.plugins[path].events.forEach((event) => {
-                    if (event.type === 'action') {
-                        actionEvents.push(event);
-                    } else if (event.type === 'trigger') {
-                        triggerEvent.push(event);
-                    }
-                });
-            }
-        });
-    }
 
     //get Icon URL
 
@@ -219,8 +202,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
         return (
             <>
                 <MetaHeadComp metaData={metaData} page={'/integrations/AppOne'} pathArray={pathArray} />
-
-                <IntegrationHero plugin={plugin} combos={combos} mode={mode} />
+                {plugin && <IntegrationHero plugin={[plugin]} combos={combos} mode={mode} />}
 
                 <div className="] py-14">
                     <div className="container flex  flex-col gap-8">
