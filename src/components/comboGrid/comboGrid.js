@@ -8,6 +8,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
     const [visibleComboItems, setVisibleComboItems] = useState(9);
 
     const cardsData = combos?.combinations;
+
     const plugins = combos?.plugins;
 
     const handleComboLoadMore = () => {
@@ -101,7 +102,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
     const getCardDescription = (card) => {
         const description = card?.description
             ? card.description
-            : `${plugins[card.action[0].name].events.find((action) => action.rowid === card.action[0].id)?.name} in ${plugins[card.action[0].name].name} when ${plugins[card.trigger.name].events.find((trigger) => trigger.rowid === card.trigger.id)?.name} in ${plugins[card.trigger.name].name}`;
+            : `${plugins[card.action[0].name].events.find((action) => action.rowid === card.action[0].id)?.name?.toLowerCase()} in ${plugins[card.action[0].name].name} when ${plugins[card.trigger.name].events.find((trigger) => trigger.rowid === card.trigger.id)?.name?.toLowerCase()} in ${plugins[card.trigger.name].name}`;
         return description;
     };
     return (

@@ -214,12 +214,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     }
 
     //get Icon URL
-    const getIconUrl = (pluginName) => {
-        if (cardsData) {
-            const plugin = combos?.plugins[pluginName];
-            return plugin ? plugin?.iconurl : null;
-        }
-    };
 
     if (combos && !combos.error) {
         return (

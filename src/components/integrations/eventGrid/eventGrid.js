@@ -9,13 +9,16 @@ export default function EventGrid({ plugin, mode }) {
     useEffect(() => {
         const newActionEvents = [];
         const newTriggerEvents = [];
-        plugin.events.forEach((event) => {
-            if (event.type === 'action') {
-                newActionEvents.push(event);
-            } else if (event.type === 'trigger') {
-                newTriggerEvents.push(event);
-            }
+        plugin.map((plug) => {
+            plug.events.forEach((event) => {
+                if (event.type === 'action') {
+                    newActionEvents.push(event);
+                } else if (event.type === 'trigger') {
+                    newTriggerEvents.push(event);
+                }
+            });
         });
+
         setActionEvents(newActionEvents);
         setTriggerEvent(newTriggerEvents);
     }, [plugin]);
@@ -26,7 +29,7 @@ export default function EventGrid({ plugin, mode }) {
                 <h1
                     className={`flex   lg:text-4xl md:text-2xl text-xl  w-2/3 font-semibold  ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
                 >
-                    {`Enable Integrations or automations with these events of ${plugin.name}`}
+                    {`Enable Integrations or automations with these events of ${plugin[0].name} ${plugin[1] && '& ' + plugin[1].name}`}
                 </h1>
                 <div className="flex flex-col  gap-10">
                     {triggerEvent.length > 0 && (
@@ -73,11 +76,14 @@ export function EventCard({ card, plugin, index }) {
         <div key={index} className={`${style.card} bg-white px-6 py-6 rounded-lg hover:shadow-xl`}>
             <div className="flex flex-col gap-4">
                 <Image
-                    src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
+                    src={
+                        plugin.find((slug) => slug?.appslugname === card?.pluginslugname)?.iconurl ||
+                        'https://placehold.co/40x40'
+                    }
                     width={26}
                     height={26}
                     className="w-[26px] h-[26px]"
-                    alt={plugin?.pluginslugname}
+                    alt={plugin.find((slug) => slug?.appslugname === card?.pluginslugname)?.name || ''}
                 />
                 <div className="flex flex-col">
                     <h6 className="md:text-xl text-lg font-semibold ">
