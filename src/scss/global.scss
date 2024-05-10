@@ -79,3 +79,19 @@
         box-shadow: none !important;
     }
 }
+
+.react-select-cont {
+    div {
+        position: relative;
+        @apply w-full;
+        input {
+            @apply p-3 w-full;
+        }
+    }
+}
+.react-autosuggest-item {
+    @apply py-1 px-3 flex gap-3 items-center cursor-pointer hover:bg-slate-200;
+    img {
+        width: 22px;
+    }
+}
