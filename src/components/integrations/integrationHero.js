@@ -3,6 +3,7 @@ import styles from './integrationHero.module.scss';
 import EventGrid from './eventGrid/eventGrid';
 import ComboGrid from '../comboGrid/comboGrid';
 export default function IntegrationHero({ plugin, combos, mode }) {
+    console.log('🚀 ~ IntegrationHero ~ mode:', mode);
     if (plugin) {
         return (
             <>

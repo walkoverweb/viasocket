@@ -13,6 +13,7 @@ import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
+    console.log('🚀 ~ IntegrationSlugPage ~ apps:', apps);
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
 
@@ -60,13 +61,16 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
     //search functions
     const applyFilters = () => {
-        let filteredItems = apps.filter((item) => {
-            const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-            const categoryMatches = selectedCategory === 'All' || item.category === selectedCategory || !item.category;
-            return nameMatches && categoryMatches;
-        });
+        if (apps.length > 0) {
+            let filteredItems = apps.filter((item) => {
+                const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches =
+                    selectedCategory === 'All' || item.category === selectedCategory || !item.category;
+                return nameMatches && categoryMatches;
+            });
 
-        setFilteredData(filteredItems);
+            setFilteredData(filteredItems);
+        }
     };
 
     useEffect(() => {
