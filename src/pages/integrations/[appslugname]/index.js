@@ -9,8 +9,22 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import ComboGrid from '@/components/comboGrid/comboGrid';
+import { GetColorMode } from '@/utils/getColorMode';
+import IntegrationHero from '@/components/integrations/integrationHero';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
+    const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
+    const [mode, setMode] = useState('dark');
+
+    useEffect(() => {
+        if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
+            setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
+        }
+    }, []);
+    useEffect(() => {
+        setMode(GetColorMode(newBrandColor));
+    }, [newBrandColor]);
+
     //defined states
     const [plugin, setPlugin] = useState();
     const [filteredData, setFilteredData] = useState([]);
@@ -46,13 +60,16 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
     //search functions
     const applyFilters = () => {
-        let filteredItems = apps.filter((item) => {
-            const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-            const categoryMatches = selectedCategory === 'All' || item.category === selectedCategory || !item.category;
-            return nameMatches && categoryMatches;
-        });
+        if (apps.length > 0) {
+            let filteredItems = apps.filter((item) => {
+                const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches =
+                    selectedCategory === 'All' || item.category === selectedCategory || !item.category;
+                return nameMatches && categoryMatches;
+            });
 
-        setFilteredData(filteredItems);
+            setFilteredData(filteredItems);
+        }
     };
 
     useEffect(() => {
@@ -178,221 +195,62 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     const openChatWidget = () => {
         window.chatWidget.open();
     };
-    //find actions and trigers
-    const actionEvents = [];
-    const triggerEvent = [];
-    if (pathArray.length > 2) {
-        [pathArray[2]].forEach((path) => {
-            if (combos?.plugins?.[path]?.events) {
-                combos.plugins[path].events.forEach((event) => {
-                    if (event.type === 'action') {
-                        actionEvents.push(event);
-                    } else if (event.type === 'trigger') {
-                        triggerEvent.push(event);
-                    }
-                });
-            }
-        });
-    }
 
     //get Icon URL
-    const getIconUrl = (pluginName) => {
-        if (cardsData) {
-            const plugin = combos?.plugins[pluginName];
-            return plugin ? plugin?.iconurl : null;
-        }
-    };
 
     if (combos && !combos.error) {
         return (
             <>
                 <MetaHeadComp metaData={metaData} page={'/integrations/AppOne'} pathArray={pathArray} />
-                <div>
-                    <div className="bg-[#00A68B] py-20">
-                        <div className=" container flex flex-col gap-9">
-                            <div className="flex gap-3 justify-center items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
+                {plugin && <IntegrationHero plugin={[plugin]} combos={combos} mode={mode} />}
+
+                <div className="] py-14">
+                    <div className="container flex  flex-col gap-8">
+                        <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
+                            Integrate with specific service
+                        </h1>
+                        <div className="flex flex-col gap-9">
+                            <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
                                 <Image
-                                    className="w-[40px] h-[40px]"
+                                    className="w-[26px] h-[26px]"
                                     src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
                                     width={40}
                                     height={40}
                                     alt={combos?.plugins?.[pathArray[2]]?.name}
                                 />
-                                <div className="flex flex-col ">
-                                    <h6 className="text-2xl font-bold capitalize">
-                                        {combos?.plugins?.[pathArray[2]]?.name}
-                                    </h6>
-                                    <span className="text-sm uppercase text-gray-400">
-                                        {combos?.plugins?.[pathArray[2]]?.category}
-                                    </span>
-                                </div>
+                                <h6 className="text-2xl font-bold capitalize">
+                                    {combos?.plugins?.[pathArray[2]]?.name}
+                                </h6>
+                            </div>
+                            <div className="px-8">
+                                <MdAdd fontSize={46} />
                             </div>
 
-                            <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold ">
-                                {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and your favorite app.`}
-                            </h1>
-
-                            <div className="">
-                                {cardsData?.length > 0 ? (
-                                    <ComboGrid combos={combos} />
-                                ) : (
-                                    <>
-                                        <div className="flex flex-col gap-10 ">
-                                            <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
-                                                {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
-                                            </h1>
-                                            <div className="flex flex-col  gap-10">
-                                                {triggerEvent.length > 0 && (
-                                                    <div className="flex flex-col gap-6">
-                                                        <div className="flex items-center gap-4">
-                                                            <p className="text-lg text-red-600 bg-red-200 px-3 py-1 rounded-full font-medium">
-                                                                Triggers
-                                                            </p>
-                                                        </div>
-                                                        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                                            {triggerEvent.map((card, index) => (
-                                                                <div
-                                                                    key={index}
-                                                                    className=" bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
-                                                                >
-                                                                    <div className="flex flex-col gap-4">
-                                                                        <Image
-                                                                            src={
-                                                                                combos?.plugins[card?.pluginslugname]
-                                                                                    ?.iconurl
-                                                                                    ? combos?.plugins[
-                                                                                          card?.pluginslugname
-                                                                                      ]?.iconurl
-                                                                                    : 'https://placehold.co/40x40'
-                                                                            }
-                                                                            width={26}
-                                                                            height={26}
-                                                                            className="w-[26px] h-[26px]"
-                                                                            alt={combos?.plugins[card?.pluginslugname]}
-                                                                        />
-                                                                        <div className="flex flex-col gap-2">
-                                                                            <h6 className="md:text-xl font-semibold ">
-                                                                                {card.name.charAt(0).toUpperCase() +
-                                                                                    card.name.slice(1).toLowerCase()}
-                                                                            </h6>
-                                                                            <p className="md:text-lg text-base font-normal ">
-                                                                                {card.description
-                                                                                    .charAt(0)
-                                                                                    .toUpperCase() +
-                                                                                    card.description
-                                                                                        .slice(1)
-                                                                                        .toLowerCase()}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {actionEvents.length > 0 && (
-                                                    <div className="flex flex-col gap-6">
-                                                        <div className="flex items-center gap-4">
-                                                            <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-medium">
-                                                                Actions
-                                                            </p>
-                                                        </div>
-                                                        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                                            {actionEvents.map((card, i) => (
-                                                                <div
-                                                                    key={i}
-                                                                    className="bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
-                                                                >
-                                                                    <div className="flex flex-col gap-4">
-                                                                        <Image
-                                                                            src={
-                                                                                combos?.plugins[card?.pluginslugname]
-                                                                                    ?.iconurl
-                                                                                    ? combos?.plugins[
-                                                                                          card?.pluginslugname
-                                                                                      ]?.iconurl
-                                                                                    : 'https://placehold.co/40x40'
-                                                                            }
-                                                                            width={26}
-                                                                            height={26}
-                                                                            className="w-[26px] h-[26px]"
-                                                                            alt={combos?.plugins[card?.pluginslugname]}
-                                                                        />
-                                                                        <div className="flex flex-col">
-                                                                            <h6 className="md:text-xl text-lg font-semibold ">
-                                                                                {card.name.charAt(0).toUpperCase() +
-                                                                                    card.name.slice(1).toLowerCase()}
-                                                                            </h6>
-                                                                            <p className="md:text-lg text-base font-normal ">
-                                                                                {card.description
-                                                                                    .charAt(0)
-                                                                                    .toUpperCase() +
-                                                                                    card.description
-                                                                                        .slice(1)
-                                                                                        .toLowerCase()}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
+                            <IntegrationSearch
+                                loading={loading}
+                                selectedApp={pathArray[2]}
+                                searchTerm={searchTerm}
+                                setSearchTerm={setSearchTerm}
+                                renderFilterOptions={renderFilterOptions}
+                                isCategoryDropdownOpen={isCategoryDropdownOpen}
+                                handleCategoryClick={handleCategoryClick}
+                                selectedCategory={selectedCategory}
+                                handleCategoryItemClick={handleCategoryItemClick}
+                                filteredData={filteredData}
+                                handleLocalStore={handleLocalStore}
+                                visibleItems={visibleItems}
+                                apps={apps}
+                                handleLoadMore={handleLoadMore}
+                                uniqueCategories={uniqueCategories}
+                                visibleCategories={visibleCategories}
+                                handleCategoryLoadMore={handleCategoryLoadMore}
+                                pathArray={pathArray}
+                            />
                         </div>
                     </div>
-
-                    <div className="bg-[#F5F5F5] py-14">
-                        <div className="container flex  flex-col gap-8">
-                            <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
-                                Integrate with specific service
-                            </h1>
-                            <div className="flex flex-col gap-9">
-                                <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
-                                    <Image
-                                        className="w-[26px] h-[26px]"
-                                        src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
-                                        width={40}
-                                        height={40}
-                                        alt={combos?.plugins?.[pathArray[2]]?.name}
-                                    />
-                                    <h6 className="text-2xl font-bold capitalize">
-                                        {combos?.plugins?.[pathArray[2]]?.name}
-                                    </h6>
-                                </div>
-                                <div className="px-8">
-                                    <MdAdd fontSize={46} />
-                                </div>
-
-                                <IntegrationSearch
-                                    loading={loading}
-                                    selectedApp={pathArray[2]}
-                                    searchTerm={searchTerm}
-                                    setSearchTerm={setSearchTerm}
-                                    renderFilterOptions={renderFilterOptions}
-                                    isCategoryDropdownOpen={isCategoryDropdownOpen}
-                                    handleCategoryClick={handleCategoryClick}
-                                    selectedCategory={selectedCategory}
-                                    handleCategoryItemClick={handleCategoryItemClick}
-                                    filteredData={filteredData}
-                                    handleLocalStore={handleLocalStore}
-                                    visibleItems={visibleItems}
-                                    apps={apps}
-                                    handleLoadMore={handleLoadMore}
-                                    uniqueCategories={uniqueCategories}
-                                    visibleCategories={visibleCategories}
-                                    handleCategoryLoadMore={handleCategoryLoadMore}
-                                    pathArray={pathArray}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="py-20 bg-white">
+                </div>
+                {cardsData.length > 0 && (
+                    <div className="py-14 bg-white">
                         <div className="flex flex-col gap-9 container">
                             <h2 className="text-3xl">Actions and Triggers</h2>
                             {combos?.plugins?.[pathArray[2]]?.events.some((event) => event.type === 'trigger') && (
@@ -459,94 +317,85 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                             )}
                         </div>
                     </div>
-
-                    {/* abouttttt */}
-                    <div className="bg-[#F5F5F5] py-10">
-                        <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
-                            <div className="flex flex-1 flex-col justify-start gap-4">
-                                <Image
-                                    src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
-                                    width={34}
-                                    height={34}
-                                    alt={combos?.plugins?.[pathArray[2]]?.name}
-                                />
-                                <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                                    {`About ${combos?.plugins?.[pathArray[2]]?.name}`}
-                                </h6>
-                                <p className="md:text-xl text-base">{plugin?.description}</p>
-                                <div>
-                                    {console.log(combos?.plugins?.[pathArray[2]], 444)}
-                                    <Link
-                                        href={
-                                            combos?.plugins?.[pathArray[2]]?.domain.startsWith('http')
-                                                ? combos?.plugins?.[pathArray[2]]?.domain
-                                                : 'http://' + combos?.plugins?.[pathArray[2]]?.domain
-                                        }
-                                        target="_blank"
+                )}
+                {/* abouttttt */}
+                <div className="py-14">
+                    <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
+                        <div className="flex flex-1 flex-col justify-start gap-4">
+                            <Image
+                                src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
+                                width={34}
+                                height={34}
+                                alt={combos?.plugins?.[pathArray[2]]?.name}
+                            />
+                            <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
+                                {`About ${combos?.plugins?.[pathArray[2]]?.name}`}
+                            </h6>
+                            <p className="md:text-xl text-base">{plugin?.description}</p>
+                            <div>
+                                <Link
+                                    href={
+                                        combos?.plugins?.[pathArray[2]]?.domain.startsWith('http')
+                                            ? combos?.plugins?.[pathArray[2]]?.domain
+                                            : 'http://' + combos?.plugins?.[pathArray[2]]?.domain
+                                    }
+                                    target="_blank"
+                                >
+                                    <button
+                                        className="font-medium text-[#2D81F7] flex items-center"
+                                        aria-label="load more apps"
                                     >
-                                        <button
-                                            className="font-medium text-[#2D81F7] flex items-center"
-                                            aria-label="load more apps"
-                                        >
-                                            Learn More
-                                            <MdChevronRight fontSize={22} />
-                                        </button>
-                                    </Link>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-1 flex-col gap-4">
-                                <Link href="/" aria-label="main link">
-                                    <Image
-                                        src="/assets/brand/socket_fav_dark.svg"
-                                        width={34}
-                                        height={34}
-                                        alt="viasocket"
-                                    />
+                                        Learn More
+                                        <MdChevronRight fontSize={22} />
+                                    </button>
                                 </Link>
-                                <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">About viaSocket</h6>
-                                <p className="md:text-xl text-base ">
-                                    viasocket is an innovative and versatile workflow automation platform designed to
-                                    streamline and simplify the integration of your favorite applications and tools.
-                                </p>
-                                <div>
-                                    <Link href="/" target="_blank">
-                                        <button
-                                            className="font-medium text-[#2D81F7] flex items-center"
-                                            aria-label="load more apps"
-                                        >
-                                            Learn More
-                                            <MdChevronRight fontSize={22} />
-                                        </button>
-                                    </Link>
-                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-1 flex-col gap-4">
+                            <Link href="/" aria-label="main link">
+                                <Image src="/assets/brand/socket_fav_dark.svg" width={34} height={34} alt="viasocket" />
+                            </Link>
+                            <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">About viaSocket</h6>
+                            <p className="md:text-xl text-base ">
+                                viasocket is an innovative and versatile workflow automation platform designed to
+                                streamline and simplify the integration of your favorite applications and tools.
+                            </p>
+                            <div>
+                                <Link href="/" target="_blank">
+                                    <button
+                                        className="font-medium text-[#2D81F7] flex items-center"
+                                        aria-label="load more apps"
+                                    >
+                                        Learn More
+                                        <MdChevronRight fontSize={22} />
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
-                    {/* ------------------------------------------------------------------------------------------------------ */}
-                    <div className=" py-8 bg-[#F5F5F5]">
-                        <div className="container">
-                            {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
-                        </div>
+                </div>
+                {/* ------------------------------------------------------------------------------------------------------ */}
+                <div className=" py-14">
+                    <div className="container">
+                        {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                     </div>
+                </div>
 
-                    {/* footer */}
+                {/* footer */}
 
-                    <div className="bg-[#E6E6E6] py-10">
-                        <div className="flex flex-row gap-4 justify-center items-center">
-                            <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">Integrations run at</h4>
-                            <Link href="/" aria-label="main page">
-                                <Image
-                                    src="../../../assets/brand/socket_fav_dark.svg"
-                                    width={40}
-                                    height={40}
-                                    alt="viasocket"
-                                />
-                            </Link>
-                        </div>
+                <div className=" py-10">
+                    <div className="flex flex-row gap-4 justify-center items-center">
+                        <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">Integrations run at</h4>
+                        <Link href="/" aria-label="main page">
+                            <Image
+                                src="../../../assets/brand/socket_fav_dark.svg"
+                                width={40}
+                                height={40}
+                                alt="viasocket"
+                            />
+                        </Link>
                     </div>
-
-                    {/* ------------------------------------------------------------------------------------------------------ */}
                 </div>
             </>
         );

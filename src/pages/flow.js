@@ -9,6 +9,7 @@ import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import ComboGrid from '@/components/comboGrid/comboGrid';
 import Multiselect from 'multiselect-react-dropdown';
 import Industries from '@/assets/data/categories.json';
+import Autocomplete from 'react-autocomplete';
 
 export async function getServerSideProps() {
     const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my', 'tbl2bk656'];
@@ -40,21 +41,15 @@ export async function getServerSideProps() {
 const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps }) => {
     let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
     const [slectedApps, setSelectedApps] = useState([]);
-    const [slectedIndus, setSelectedIndus] = useState([]);
+    const [slectedIndus, setSelectedIndus] = useState();
     const [comboData, setComboData] = useState();
     const [loading, setLoading] = useState(false);
     const [showNoData, setShowNoData] = useState(false);
-    const handleOnSelect = (item) => {
-        setShowNoData(false);
-        if (!slectedApps.some((app) => app?.rowid === item?.rowid)) {
-            setSelectedApps((prevSelectedApps) => [...prevSelectedApps, item]);
-        }
-    };
+    const [evalue, setEvalue] = useState('');
+    const [filterredApps, setFilterredApps] = useState([]);
+
     const handleIndusSelect = (item) => {
         setShowNoData(false);
-        if (!slectedIndus.some((indus) => indus?.id === item?.id)) {
-            setSelectedIndus((prevSelectedIndus) => [...prevSelectedIndus, item]);
-        }
     };
 
     const handleGeneration = async () => {
@@ -65,7 +60,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
         const appQureyString = serviceParams.map((service) => `service=${service}`).join('&');
         let indusQureyString = '';
         if (slectedIndus.length > 0) {
-            indusQureyString = slectedIndus[0].map((indus) => `industry=${indus?.name?.toLowerCase()}`).join('&');
+            indusQureyString = `industry=${slectedIndus.toLowerCase()}`;
         }
 
         const queryString = `${appQureyString}${appQureyString && indusQureyString && '&'}${indusQureyString}`;
@@ -92,6 +87,24 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
 
     const formattedIndustries = Industries.industries.map((name, id) => ({ name: name, id: id + 1 }));
 
+    const handleSelect = (val) => {
+        const filterApp = apps.find((app) => app.name === val);
+        setSelectedApps((prevValues) => [...prevValues, filterApp]);
+    };
+    useEffect(() => {
+        if (evalue) {
+            const filtered = apps.filter(
+                (app) =>
+                    app.name?.toLowerCase().includes(evalue.toLowerCase()) &&
+                    !slectedApps.some((eapp) => eapp.name === app.name)
+            );
+            setFilterredApps(filtered);
+        } else {
+            const filtered = apps.filter((app) => !slectedApps.some((eapp) => eapp.name === app.name));
+            setFilterredApps(filtered);
+        }
+    }, [evalue, apps, slectedApps]);
+
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/flow'} pathArray={pathArray} />
@@ -102,14 +115,11 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                             Ask AI to find out all the <span className="text-link"> automation </span>use cases tailored
                             for your business
                         </h1>
-                        {/* {pageData?.h1 && <h1 className="md:text-6xl text-4xl font-medium ">{pageData?.h1}</h1>}
-                        {pageData?.h2 && <h2 className="text-2xl">{pageData?.h2}</h2>} */}
                     </div>
 
-                    <div className=" flex flex-col gap-6">
+                    <div className=" flex flex-col gap-8">
                         <h2 className="text-3xl font-semibold flex flex-col sm:flex-row  sm:items-center items-start gap-2">
-                            Lets find top automations
-                            <MdArrowForward fontSize={28} />{' '}
+                            What Apps do you use?
                         </h2>
                         <div className="flex flex-wrap gap-4">
                             {slectedApps.map((app, index) => {
@@ -130,23 +140,57 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                                 );
                             })}
                         </div>
-                        <ReactSearchAutocomplete
-                            placeholder="Search apps"
-                            items={apps}
-                            className="lg:w-1/3 sm:w-2/3 w-full jiMOeR"
-                            onSelect={handleOnSelect}
-                            autoFocus
-                        />
-                        <Multiselect
-                            options={formattedIndustries}
-                            onSelect={handleIndusSelect}
-                            displayValue="name"
-                            placeholder="Select industry"
-                        />
+                        <div className="flex  md:gap-8 gap-4 md:w-2/3 w-full flex-col sm:flex-row">
+                            <div className="react-select-cont  w-full bg-white border rounded-sm">
+                                <Autocomplete
+                                    className="hello"
+                                    getItemValue={(item) => item.name}
+                                    value={evalue}
+                                    onChange={(e) => {
+                                        setEvalue(e.target.value);
+                                    }}
+                                    items={filterredApps}
+                                    renderItem={(item) => (
+                                        <div className="react-autosuggest-item">
+                                            <img src={item.iconurl} />
+                                            {item.name}
+                                        </div>
+                                    )}
+                                    inputProps={{ placeholder: 'Select Apps' }}
+                                    placeholder="selects"
+                                    onSelect={handleSelect}
+                                    menuStyle={{
+                                        background: 'white',
+                                        width: 'fit-content',
+                                        zIndex: '400',
+                                        top: '50px',
+                                        left: '0px',
+                                        position: 'absolute',
+                                        overflow: 'auto',
+                                        maxHeight: '600px',
+                                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                                    }}
+                                />
+                            </div>
+                            <select
+                                placeholder="Select an industry"
+                                className="select select-bordered rounded-sm w-full bg-white"
+                                onChange={(e) => handleIndusSelect(e.target.value)} // Fixing the onChange handler
+                            >
+                                <option value="">Select your industry</option>
+                                {formattedIndustries.length > 0 &&
+                                    formattedIndustries.map((indus, index) => {
+                                        return (
+                                            <option key={index}>{indus.name}</option> // Adding a unique key prop
+                                        );
+                                    })}
+                            </select>
+                        </div>
+
                         <button
                             className="btn btn-accent w-fit btn-md  rounded"
                             onClick={handleGeneration}
-                            disabled={slectedApps.length === 0}
+                            disabled={slectedApps.length < 2}
                         >
                             {loading ? 'Loading...' : 'Ask AI'}
                         </button>

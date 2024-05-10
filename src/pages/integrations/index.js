@@ -46,13 +46,16 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     //search functions
     const applyFilters = () => {
-        let filteredItems = apps.filter((item) => {
-            const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-            const categoryMatches = selectedCategory === 'All' || item.category === selectedCategory || !item.category;
-            return nameMatches && categoryMatches;
-        });
+        if (apps.length > 0) {
+            let filteredItems = apps.filter((item) => {
+                const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches =
+                    selectedCategory === 'All' || item.category === selectedCategory || !item.category;
+                return nameMatches && categoryMatches;
+            });
 
-        setFilteredData(filteredItems);
+            setFilteredData(filteredItems);
+        }
     };
 
     useEffect(() => {
@@ -213,13 +216,13 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                     />
                 </div>
 
-                <div className="bg-white py-20 ">
+                {/* <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
                             <FAQSection faqData={faqData} />
                         </div>
                     )}
-                </div>
+                </div> */}
                 <div className="container py-20">
                     {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                 </div>
