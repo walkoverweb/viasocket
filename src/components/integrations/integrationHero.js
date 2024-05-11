@@ -40,7 +40,7 @@ export default function IntegrationHero({ plugin, combos, mode }) {
                             className={`lg:text-6xl md:text-4xl text-3xl  font-bold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
                         >
                             {plugin.length > 0 &&
-                                `Create integrations between ${plugin[0]?.name} and your ${plugin[1]?.name || 'your favorite App'}`}
+                                `Create integrations between ${plugin[0]?.name} and ${plugin[1]?.name || 'your favorite App'}`}
                         </h1>
                         {combos?.combinations.length > 0 ? (
                             <ComboGrid combos={combos} mode={mode} />
