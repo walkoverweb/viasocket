@@ -3,6 +3,7 @@ export const getDbdashData = async (tableName) => {
     const apiUrl = `${process.env.NEXT_PUBLIC_DB_BASE_URL}/65d2ed33fa9d1a94a5224235/${tableName}`;
 
     try {
+        console.log(process.env.NEXT_PUBLIC_DB_KEY);
         const response = await fetch(apiUrl, {
             headers: {
                 'auth-key': `${process.env.NEXT_PUBLIC_DB_KEY}`,
