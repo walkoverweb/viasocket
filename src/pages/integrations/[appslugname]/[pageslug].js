@@ -8,19 +8,35 @@ import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { GetColorMode } from '@/utils/getColorMode';
+import IntegrationHero from '@/components/integrations/integrationHero';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
+    const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
+    const [mode, setMode] = useState('dark');
+    useEffect(() => {
+        if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
+            setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
+        }
+    }, []);
+    useEffect(() => {
+        setMode(GetColorMode(newBrandColor));
+    }, [newBrandColor]);
+
     //defined states
     const [pluginOne, setPluginOne] = useState();
     const [pluginTwo, setPluginTwo] = useState();
     const [filteredData, setFilteredData] = useState([]);
     const [visibleComboItems, setVisibleComboItems] = useState(6);
     const [searchTerm, setSearchTerm] = useState('');
+    const [plugin, setPlugin] = useState([]);
 
     const router = useRouter();
     const cardsData = combos?.combinations;
 
     useEffect(() => {
+        setPlugin([combos?.plugins?.[pathArray[2]], combos?.plugins?.[pathArray[3]]]);
+
         setPluginOne(combos?.plugins?.[pathArray[2]]);
         setPluginTwo(combos?.plugins?.[pathArray[3]]);
     }, [combos, pathArray[2]]);
@@ -147,278 +163,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/integrations/AppOne/AppTwo'} pathArray={pathArray} />
+            <IntegrationHero plugin={plugin} combos={combos} mode={mode} />
             <div>
-                <div className="bg-[#00A68B] py-20 ">
-                    <div className="container  flex flex-col gap-8 ">
-                        <div className="flex md:gap-8  gap-2 flex-col md:flex-row justify-center items-start md:items-center bg-[#f5f5f5] py-3 px-8 rounded-md w-fit">
-                            <Link href={'/integrations/' + pluginOne?.appslugname} aria-label="app">
-                                <div className="flex gap-3 justify-center items-center w-fit">
-                                    <Image
-                                        className="w-[40px] h-[40px]"
-                                        src={pluginOne?.iconurl ? pluginOne?.iconurl : 'https://placehold.co/40x40'}
-                                        width={40}
-                                        height={40}
-                                        alt={combos?.plugins?.[pathArray[2]].name}
-                                    />
-                                    <div className="flex flex-col ">
-                                        <h6 className="text-2xl font-bold capitalize">
-                                            {combos?.plugins?.[pathArray[2]]?.name}
-                                        </h6>
-                                        <span className="text-sm uppercase text-gray-400">
-                                            {combos?.plugins?.[pathArray[2]]?.category}
-                                        </span>
-                                    </div>
-                                </div>
-                            </Link>
-                            <span className="text-2xl font-bold">+</span>
-
-                            <div className="dropdown bg-[#F5F5F5]  items-center rounded ">
-                                <div
-                                    tabIndex={0}
-                                    role="button"
-                                    className="flex gap-3 justify-center items-center w-fit"
-                                    onClick={() => setCategoryDropdownOpen(!isCategoryDropdownOpen)}
-                                    aria-label="dropdown category"
-                                >
-                                    <Image
-                                        className="w-[40px] h-[40px]"
-                                        src={pluginTwo?.iconurl ? pluginTwo?.iconurl : 'https://placehold.co/40x40'}
-                                        width={40}
-                                        height={40}
-                                        alt={combos?.plugins?.[pathArray[3]]?.name}
-                                    />
-                                    <div className="flex flex-col ">
-                                        <h6 className="text-2xl font-bold capitalize">
-                                            {combos?.plugins?.[pathArray[3]]?.name}
-                                        </h6>
-                                        <span className="text-sm uppercase text-gray-400">
-                                            {combos?.plugins?.[pathArray[3]]?.category}
-                                        </span>
-                                    </div>
-                                    <MdOutlineKeyboardArrowDown size={25} />
-                                </div>
-                                {isCategoryDropdownOpen && (
-                                    <div
-                                        tabIndex={0}
-                                        className="dropdown-content md:w-[600px] gap-4 z-[1]  p-4 shadow bg-base-100 rounded border "
-                                    >
-                                        <div className="flex items-center border-b border-[#CCCCCC] mb-2">
-                                            <input
-                                                type="text"
-                                                placeholder="Search..."
-                                                value={searchDropdownTerm}
-                                                onChange={(e) => setSearchDropdownTerm(e.target.value)}
-                                                className="p-2  rounded w-full focus:outline-none focus:border-blue-500"
-                                            />
-                                        </div>
-                                        <div className="flex md:flex-row flex-col flex-wrap gap-2">
-                                            {filteredDropdownData.length > 0 ? (
-                                                filteredDropdownData
-                                                    .filter((app) => app.name !== pluginOne?.name)
-                                                    .map((app) => (
-                                                        <a
-                                                            key={app?.rowid}
-                                                            href={
-                                                                app?.appslugname
-                                                                    ? `/integrations${pathArray[2] ? '/' + pathArray[2] : ''}/${app?.appslugname}`
-                                                                    : `/noplugin`
-                                                            }
-                                                            aria-label="app"
-                                                        >
-                                                            <div
-                                                                className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white"
-                                                                onClick={() => handleAppClick(app)}
-                                                            >
-                                                                {app?.iconurl && (
-                                                                    <Image
-                                                                        src={app?.iconurl}
-                                                                        alt={app?.name}
-                                                                        height={23}
-                                                                        width={23}
-                                                                    />
-                                                                )}
-
-                                                                <h5 className="md:text-base text-sm font-medium">
-                                                                    {app?.name}
-                                                                </h5>
-                                                            </div>
-                                                        </a>
-                                                    ))
-                                            ) : (
-                                                <p className="text-sm text-gray-500 p-2">No results found.</p>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-bold pb-8">
-                            {`Create integrations between ${combos?.plugins?.[pathArray[2]]?.name} and ${combos?.plugins?.[pathArray[3]]?.name}.`}
-                        </h1>
-                    </div>
-                    <div className="container ">
-                        {cardsData?.length > 0 ? (
-                            <div className="flex flex-col gap-8">
-                                <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
-                                    {cardsData.map((card, index) => {
-                                        return (
-                                            <>
-                                                <Link
-                                                    className={index >= visibleComboItems ? 'hidden' : ''}
-                                                    key={index}
-                                                    href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}`}
-                                                    target="_blank"
-                                                    aria-label="try the app combination"
-                                                >
-                                                    <div className="bg-white rounded-md overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out">
-                                                        <div className="p-8 flex flex-col gap-4 h-full">
-                                                            <div className="flex gap-3">
-                                                                <Image
-                                                                    src={
-                                                                        getIconUrl(card?.trigger?.name)
-                                                                            ? getIconUrl(card?.trigger?.name)
-                                                                            : 'https://placehold.co/40x40'
-                                                                    }
-                                                                    height={30}
-                                                                    width={30}
-                                                                    alt="ico"
-                                                                />
-                                                                <Image
-                                                                    src={
-                                                                        getIconUrl(card?.action[0]?.name)
-                                                                            ? getIconUrl(card?.action[0]?.name)
-                                                                            : 'https://placehold.co/40x40'
-                                                                    }
-                                                                    height={30}
-                                                                    width={30}
-                                                                    alt="ico"
-                                                                />
-                                                            </div>
-                                                            <h2 className="text-xl int-card-des ">
-                                                                {`${getEventDescription(card?.action[0]?.id).toLowerCase()} in ${combos?.plugins?.[card?.action[0]?.name]?.name.toLowerCase()} when ${getEventDescription(card?.trigger?.id).toLowerCase()} in ${combos?.plugins?.[card?.trigger?.name]?.name.toLowerCase()}`}
-                                                            </h2>
-                                                        </div>
-                                                        <div className="bg-gray-300 gap-1 px-8 py-4 flex items-center justify-end">
-                                                            Try It
-                                                            <MdChevronRight fontSize={20} />
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </>
-                                        );
-                                    })}
-                                </div>
-                                {visibleComboItems < cardsData?.length && (
-                                    <div className="flex flex-row justify-center items-center">
-                                        <button
-                                            onClick={handleComboLoadMore}
-                                            className="border border-white px-4 py-2 rounded-md text-white text-base"
-                                            aria-label="load more button"
-                                        >
-                                            Load More
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <>
-                                <div className="flex flex-col gap-10 ">
-                                    <h1 className="flex lg:text-[40px] text-3xl md:text-3xl font-semibold text-white">
-                                        {`Enable Integrations or automations with these events of ${combos?.plugins?.[pathArray[2]].name}`}
-                                    </h1>
-                                    <div className="flex flex-col  gap-10">
-                                        {triggerEvent.length > 0 && (
-                                            <div className="flex flex-col gap-6">
-                                                <div className="flex items-center gap-4">
-                                                    <p className="text-lg text-red-600 bg-red-200 px-3 py-1 rounded-full font-medium">
-                                                        Triggers
-                                                    </p>
-                                                </div>
-                                                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                                    {triggerEvent.map((card, index) => (
-                                                        <div
-                                                            key={index}
-                                                            className=" bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
-                                                        >
-                                                            <div className="flex flex-col gap-4">
-                                                                <Image
-                                                                    src={
-                                                                        combos?.plugins[card?.pluginslugname]?.iconurl
-                                                                            ? combos?.plugins[card?.pluginslugname]
-                                                                                  ?.iconurl
-                                                                            : 'https://placehold.co/40x40'
-                                                                    }
-                                                                    width={26}
-                                                                    height={26}
-                                                                    className="w-[26px] h-[26px]"
-                                                                    alt={combos?.plugins[card?.pluginslugname]}
-                                                                />
-                                                                <div className="flex flex-col gap-2">
-                                                                    <h6 className="md:text-xl font-semibold ">
-                                                                        {card.name.charAt(0).toUpperCase() +
-                                                                            card.name.slice(1).toLowerCase()}
-                                                                    </h6>
-                                                                    <p className="md:text-lg text-base font-normal ">
-                                                                        {card.description.charAt(0).toUpperCase() +
-                                                                            card.description.slice(1).toLowerCase()}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {actionEvents.length > 0 && (
-                                            <div className="flex flex-col gap-6">
-                                                <div className="flex items-center gap-4">
-                                                    <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-medium">
-                                                        Actions
-                                                    </p>
-                                                </div>
-                                                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                                    {actionEvents.map((card, i) => (
-                                                        <div
-                                                            key={i}
-                                                            className="bg-white px-6 py-6 border border-[#CCCCCC] rounded-lg hover:shadow-xl "
-                                                        >
-                                                            <div className="flex flex-col gap-4">
-                                                                <Image
-                                                                    src={
-                                                                        combos?.plugins[card?.pluginslugname]?.iconurl
-                                                                            ? combos?.plugins[card?.pluginslugname]
-                                                                                  ?.iconurl
-                                                                            : 'https://placehold.co/40x40'
-                                                                    }
-                                                                    width={26}
-                                                                    height={26}
-                                                                    className="w-[26px] h-[26px]"
-                                                                    alt={combos?.plugins[card?.pluginslugname]}
-                                                                />
-                                                                <div className="flex flex-col">
-                                                                    <h6 className="md:text-xl text-lg font-semibold ">
-                                                                        {card.name.charAt(0).toUpperCase() +
-                                                                            card.name.slice(1).toLowerCase()}
-                                                                    </h6>
-                                                                    <p className="md:text-lg text-base font-normal ">
-                                                                        {card.description.charAt(0).toUpperCase() +
-                                                                            card.description.slice(1).toLowerCase()}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
-
                 <div className="bg-white">
                     {triggerEvent.length > 2 && actionEvents.length > 2 && (
                         <>
