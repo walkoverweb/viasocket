@@ -3,6 +3,7 @@ export function GetColorMode(hexColor) {
     let rgb = hexToRgb(hexColor);
 
     let hsl = rgbToHsl(rgb);
+    console.log('🚀 ~ GetColorMode ~ hsl:', hsl);
 
     let lightness = hsl[2];
 
