@@ -201,7 +201,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     if (combos && !combos.error) {
         return (
             <>
-                <MetaHeadComp metaData={metaData} page={'/integrations/AppOne'} pathArray={pathArray} />
+                <MetaHeadComp
+                    metaData={metaData}
+                    page={'/integrations/AppOne'}
+                    pathArray={pathArray}
+                    plugin={[plugin]}
+                />
                 {plugin && <IntegrationHero plugin={[plugin]} combos={combos} mode={mode} />}
 
                 <div className="] py-14">

@@ -39,7 +39,6 @@ export async function getServerSideProps() {
 }
 
 const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps }) => {
-    console.log('apps: ', apps);
     if (apps.length > 0) {
         let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
         const [slectedApps, setSelectedApps] = useState([]);

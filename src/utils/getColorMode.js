@@ -1,11 +1,13 @@
+import Color from 'color';
 export function GetColorMode(hexColor) {
     let rgb = hexToRgb(hexColor);
 
     let hsl = rgbToHsl(rgb);
+    console.log('🚀 ~ GetColorMode ~ hsl:', hsl);
 
     let lightness = hsl[2];
 
-    let threshold = 0.5;
+    let threshold = 0.6;
 
     if (lightness > threshold) {
         return 'light';
@@ -57,3 +59,24 @@ function rgbToHsl(color) {
 
     return [h, s, l];
 }
+
+//logign two
+function getContrastRatio(color1, color2) {
+    const luminance1 = color1.luminosity();
+    const luminance2 = color2.luminosity();
+    if (luminance1 > luminance2) {
+        return (luminance1 + 0.05) / (luminance2 + 0.05);
+    } else {
+        return (luminance2 + 0.05) / (luminance1 + 0.05);
+    }
+}
+
+function getContrastColor(bgColor) {
+    const color = Color(bgColor);
+    const blackContrast = getContrastRatio(color, Color('black'));
+    const whiteContrast = getContrastRatio(color, Color('white'));
+
+    return blackContrast > whiteContrast ? 'black' : 'white';
+}
+
+// const bgColor = '#ff6600';

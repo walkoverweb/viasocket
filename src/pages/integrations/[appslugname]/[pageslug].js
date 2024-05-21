@@ -162,7 +162,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
     return (
         <>
-            <MetaHeadComp metaData={metaData} page={'/integrations/AppOne/AppTwo'} pathArray={pathArray} />
+            <MetaHeadComp
+                metaData={metaData}
+                plugin={plugin}
+                page={'/integrations/AppOne/AppTwo'}
+                pathArray={pathArray}
+            />
             <IntegrationHero plugin={plugin} combos={combos} mode={mode} />
             <div>
                 <div className="bg-white">
