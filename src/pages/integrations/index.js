@@ -216,13 +216,13 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                     />
                 </div>
 
-                {/* <div className="bg-white py-20 ">
+                <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
-                            <FAQSection faqData={faqData} />
+                            <FAQSection faqData={faqData} faqName={'/integrations'} />
                         </div>
                     )}
-                </div> */}
+                </div>
                 <div className="container py-20">
                     {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                 </div>
@@ -254,41 +254,17 @@ export async function getServerSideProps(context) {
     const response = await fetch(fetchUrl, apiHeaders);
     const responseData = await response.json();
 
-    const IDs = ['tbl2bk656', 'tblvgm05y'];
+    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
-    const faqData = [
-        {
-            que: ' Click to open this one and close others',
-            ans: ' Drive customer acquisition seamlessly with Click-to-WhatsApp ads, strategically placed on Facebook and Instagram. Engage with potential customers in their preferred space, inviting them for a personalized conversation and enhancing your brand reach.',
-            link: '/',
-        },
-        {
-            que: ' Click to open this one and close others',
-            ans: ' Drive customer acquisition seamlessly with Click-to-WhatsApp ads, strategically placed on Facebook and Instagram. Engage with potential customers in their preferred space, inviting them for a personalized conversation and enhancing your brand reach.',
-            link: '/',
-        },
-        {
-            que: ' Click to open this one and close others',
-            ans: ' Drive customer acquisition seamlessly with Click-to-WhatsApp ads, strategically placed on Facebook and Instagram. Engage with potential customers in their preferred space, inviting them for a personalized conversation and enhancing your brand reach.',
-            link: '/',
-        },
-        {
-            que: ' Click to open this one and close others',
-            ans: ' Drive customer acquisition seamlessly with Click-to-WhatsApp ads, strategically placed on Facebook and Instagram. Engage with potential customers in their preferred space, inviting them for a personalized conversation and enhancing your brand reach.',
-            link: '/',
-        },
-    ];
-
     return {
         props: {
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
+            faqData: results[2].data.rows,
             responseData,
             pathArray,
-            faqData,
         },
     };
 }

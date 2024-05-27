@@ -10,8 +10,9 @@ import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
+import FAQSection from '@/components/faqSection/faqSection';
 
-const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
     useEffect(() => {
@@ -439,6 +440,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 </div>
+                <div className="bg-white py-20 ">
+                    {faqData && faqData.length > 0 && (
+                        <div className="container">
+                            <FAQSection faqData={faqData} faqName={`[doubleApp]`} />
+                        </div>
+                    )}
+                </div>
 
                 <div className="bg-[#E6E6E6] py-10">
                     <div className="flex flex-row gap-4 justify-center items-center">
@@ -467,7 +475,7 @@ export async function getServerSideProps(context) {
     const combos = await fetchCombos(pathArray);
     const apps = await fetchApps('All', 25);
 
-    const IDs = ['tbl2bk656', 'tblvgm05y'];
+    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
@@ -479,6 +487,7 @@ export async function getServerSideProps(context) {
             pathArray,
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
+            faqData: results[2].data.rows,
         },
     };
 }
