@@ -63,7 +63,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     const applyFilters = () => {
         if (apps.length > 0) {
             let filteredItems = apps.filter((item) => {
-                const nameMatches = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const nameMatches = item?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase());
                 const categoryMatches =
                     selectedCategory === 'All' || item.category === selectedCategory || !item.category;
                 return nameMatches && categoryMatches;
