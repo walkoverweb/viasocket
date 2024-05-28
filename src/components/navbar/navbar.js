@@ -113,20 +113,20 @@ const Navbar = ({ productData, pathArray }) => {
                                     );
                                 }
                             })}
-                        <Link
+                        {/* <Link
                             href="/experts"
                             className="btn btn-primary btn-sm"
                             target="_blank"
                             aria-label="Hire a No-code builder"
                         >
                             Hire a No-code builder
+                        </Link> */}
+                        <Link href="/login" className="btn btn-outline btn-sm ">
+                            Login
                         </Link>
-                        {/* <Link href='/login' className='btn btn-outline btn-sm '>
-              Login
-            </Link>
-            <Link href='/signup' className='btn btn-primary btn-sm'>
-              Get Started for free
-            </Link> */}
+                        <Link href="/signup" className="btn btn-primary btn-sm">
+                            Sign Up
+                        </Link>
                     </div>
                     <div className="dropdown dropdown-end lg:hidden block">
                         <div tabIndex={0} role="button" className="" aria-label="dropdown nav">

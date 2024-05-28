@@ -376,6 +376,14 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     </div>
                 )}
 
+                <div className="bg-white py-20 ">
+                    {faqData && faqData.length > 0 && (
+                        <div className="container">
+                            <FAQSection faqData={faqData} faqName={`[doubleApp]`} />
+                        </div>
+                    )}
+                </div>
+
                 <div className=" py-20">
                     <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
                         <div className="flex flex-1 flex-col justify-start gap-4">
@@ -439,13 +447,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="bg-white py-20 ">
-                    {faqData && faqData.length > 0 && (
-                        <div className="container">
-                            <FAQSection faqData={faqData} faqName={`[doubleApp]`} />
-                        </div>
-                    )}
                 </div>
 
                 <div className="bg-[#E6E6E6] py-10">
