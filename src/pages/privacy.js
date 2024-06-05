@@ -2059,8 +2059,10 @@ const Privacy = () => {
                                                                                                                                 }}
                                                                                                                             >
                                                                                                                                 Google
-                                                                                                                                Workspace
-                                                                                                                                APIs.
+                                                                                                                                <strong>
+                                                                                                                                    Workspace
+                                                                                                                                    APIs.
+                                                                                                                                </strong>
                                                                                                                                 We
                                                                                                                                 explicitly
                                                                                                                                 affirm
