@@ -186,7 +186,7 @@ const Flow = ({ getStartedData, features, pathArray, metaData, apps, faqData, bl
                 <div className="bg-white py-20 mt-20">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
-                            <FAQSection faqData={faqData} faqName={`/flow`} />
+                            <FAQSection faqData={faqData} faqName={'/flow'} />
                         </div>
                     )}
                 </div>

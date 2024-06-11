@@ -324,6 +324,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 )}
+                <div className="bg-white py-20 ">
+                    {faqData && faqData.length > 0 && (
+                        <div className="container">
+                            <FAQSection faqData={faqData} faqName={`[singleApp]`} />
+                        </div>
+                    )}
+                </div>
                 {/* abouttttt */}
                 <div className="py-14">
                     <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
@@ -382,13 +389,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     </div>
                 </div>
                 {/* ------------------------------------------------------------------------------------------------------ */}
-                <div className="bg-white py-20 ">
-                    {faqData && faqData.length > 0 && (
-                        <div className="container">
-                            <FAQSection faqData={faqData} faqName={`[singleApp]`} />
-                        </div>
-                    )}
-                </div>
+
                 <div className=" py-14">
                     <div className="container">
                         {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
