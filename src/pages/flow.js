@@ -2,47 +2,18 @@ import { getDbdashData } from './api';
 import GetStarted from '@/components/getStarted/getStarted';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import Image from 'next/image';
-import { MdArrowForward, MdClose } from 'react-icons/md';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import { MdClose } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import ComboGrid from '@/components/comboGrid/comboGrid';
-import Multiselect from 'multiselect-react-dropdown';
 import Industries from '@/assets/data/categories.json';
 import Autocomplete from 'react-autocomplete';
 import FAQSection from '@/components/faqSection/faqSection';
+import { getBlogs } from '@/utils/getBlogs';
 
-export async function getServerSideProps() {
-    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my', 'tbl2bk656', 'tblnoi7ng'];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`, apiHeaders);
-    const apps = await response.json();
-
-    return {
-        props: {
-            trustedBy: results[0].data.rows,
-            getStartedData: results[1].data.rows,
-            productData: results[2].data.rows,
-            features: results[3].data.rows,
-            metaData: results[4].data.rows,
-            faqData: results[5].data.rows,
-            apps,
-        },
-    };
-}
-
-const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, metaData, apps, faqData }) => {
+const Flow = ({ getStartedData, features, pathArray, metaData, apps, faqData, blogs }) => {
+    console.log('🚀 ~ Flow ~ blogs:', blogs);
     if (apps.length > 0) {
-        let pageData = productData.find((page) => page?.name?.toLowerCase() === 'newflow');
         const [slectedApps, setSelectedApps] = useState([]);
         const [slectedIndus, setSelectedIndus] = useState();
         const [comboData, setComboData] = useState();
@@ -88,6 +59,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
             }
             setLoading(false);
         };
+
         const removeAppFromArray = (indexToRemove) => {
             if (indexToRemove >= 0 && indexToRemove < slectedApps.length) {
                 const newSelectedApps = slectedApps.filter((_, index) => index !== indexToRemove);
@@ -101,6 +73,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
             const filterApp = apps.find((app) => app.name === val);
             setSelectedApps((prevValues) => [...prevValues, filterApp]);
         };
+
         useEffect(() => {
             if (evalue) {
                 const filtered = apps.filter(
@@ -213,7 +186,7 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
                 <div className="bg-white py-20 mt-20">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
-                            <FAQSection faqData={faqData} faqName={`/flow`} />
+                            <FAQSection faqData={faqData} faqName={'/flow'} />
                         </div>
                     )}
                 </div>
@@ -225,3 +198,35 @@ const Flow = ({ trustedBy, getStartedData, productData, features, pathArray, met
     }
 };
 export default Flow;
+
+export async function getServerSideProps() {
+    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my', 'tbl2bk656', 'tblnoi7ng'];
+
+    const dataPromises = IDs.map((id) => getDbdashData(id));
+    const results = await Promise.all(dataPromises);
+
+    const apiHeaders = {
+        headers: {
+            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        },
+    };
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`, apiHeaders);
+    const apps = await response.json();
+
+    const tag = 'viaSocket';
+    const blogs = getBlogs(tag);
+
+    return {
+        props: {
+            trustedBy: results[0].data.rows,
+            getStartedData: results[1].data.rows,
+            productData: results[2].data.rows,
+            features: results[3].data.rows,
+            metaData: results[4].data.rows,
+            faqData: results[5].data.rows,
+            apps,
+            blogs,
+        },
+    };
+}

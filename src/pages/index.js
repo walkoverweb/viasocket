@@ -1,12 +1,13 @@
-import TrustedBy from '@/components/trustedBy/trustedBy'
-import Image from 'next/image'
-import Link from 'next/link'
-import { MdOutlineArrowForward } from 'react-icons/md'
-import { getDbdashData } from './api/index'
-import { MdArrowForward } from 'react-icons/md'
-import GetStarted from '@/components/getStarted/getStarted'
-import { FeaturesGrid } from '@/components/featureGrid/featureGrid'
-import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
+import TrustedBy from '@/components/trustedBy/trustedBy';
+import Image from 'next/image';
+import Link from 'next/link';
+import { MdOutlineArrowForward } from 'react-icons/md';
+import { getDbdashData } from './api/index';
+import { MdArrowForward } from 'react-icons/md';
+import GetStarted from '@/components/getStarted/getStarted';
+import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import FAQSection from '@/components/faqSection/faqSection';
 
 export async function getServerSideProps() {
     const IDs = [
@@ -18,10 +19,11 @@ export async function getServerSideProps() {
         'tblsaw4zp',
         'tblvo36my',
         'tbl2bk656',
-    ]
+        'tblnoi7ng',
+    ];
 
-    const dataPromises = IDs.map((id) => getDbdashData(id))
-    const results = await Promise.all(dataPromises)
+    const dataPromises = IDs.map((id) => getDbdashData(id));
+    const results = await Promise.all(dataPromises);
 
     return {
         props: {
@@ -33,8 +35,9 @@ export async function getServerSideProps() {
             trustedData: results[5].data.rows,
             features: results[6].data.rows,
             metaData: results[7].data.rows,
+            faqData: results[8].data.rows,
         },
-    }
+    };
 }
 
 const Index = ({
@@ -46,6 +49,7 @@ const Index = ({
     trustedData,
     features,
     metaData,
+    faqData,
 }) => {
     return (
         <>
@@ -58,20 +62,14 @@ const Index = ({
                                 if (page?.name === 'Index') {
                                     return (
                                         <>
-                                            <h1 className="md:text-6xl text-4xl font-semibold">
-                                                {page?.h1}
-                                            </h1>
-                                            <h2 className="text-2xl w-3/4">
-                                                {page?.h2}
-                                            </h2>
+                                            <h1 className="md:text-6xl text-4xl font-semibold">{page?.h1}</h1>
+                                            <h2 className="text-2xl w-3/4">{page?.h2}</h2>
                                         </>
-                                    )
+                                    );
                                 }
                             })}
                     </div>
-                    {getStartedData && (
-                        <GetStarted data={getStartedData} isHero={'true'} />
-                    )}
+                    {getStartedData && <GetStarted data={getStartedData} isHero={'true'} />}
 
                     <TrustedBy data={trustedData} />
                 </div>
@@ -129,13 +127,11 @@ const Index = ({
                                             </div>
                                         </div>
                                     </Link>
-                                )
+                                );
                             })}
                     </div>
                 </div>
-                {features && (
-                    <FeaturesGrid features={features} page={'overall'} />
-                )}
+                {features && <FeaturesGrid features={features} page={'overall'} />}
                 <div className="grid gap-10 container w">
                     <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
                         What clients says
@@ -144,10 +140,7 @@ const Index = ({
                         {testimonials &&
                             testimonials.map((testimonial, index) => {
                                 return (
-                                    <div
-                                        className="flex flex-col rounded-md  p-8 gap-8 bg-[#FEFDFD] "
-                                        key={index}
-                                    >
+                                    <div className="flex flex-col rounded-md  p-8 gap-8 bg-[#FEFDFD] " key={index}>
                                         <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left ">
                                             " {testimonial?.testimonial}"
                                         </p>
@@ -169,7 +162,7 @@ const Index = ({
                                             </div>
                                         </div>
                                     </div>
-                                )
+                                );
                             })}
                     </div>
                 </div>
@@ -185,19 +178,14 @@ const Index = ({
                                     return (
                                         <>
                                             <Link
-                                                href={
-                                                    caseStudy?.link &&
-                                                    caseStudy?.link
-                                                }
+                                                href={caseStudy?.link && caseStudy?.link}
                                                 target="_blank"
                                                 className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
                                                 aria-label="casestudy"
                                             >
                                                 <div className="casestudy_img w-full h-full">
                                                     <Image
-                                                        src={
-                                                            caseStudy?.image[0]
-                                                        }
+                                                        src={caseStudy?.image[0]}
                                                         width={1080}
                                                         height={1080}
                                                         alt={caseStudy?.title}
@@ -207,20 +195,16 @@ const Index = ({
                                                     <p>{caseStudy?.title}</p>
                                                     <Link
                                                         target="_blank"
-                                                        href={
-                                                            caseStudy?.link &&
-                                                            caseStudy?.link
-                                                        }
+                                                        href={caseStudy?.link && caseStudy?.link}
                                                         className="flex items-center gap-1 text-[#0000ff] mt-6"
                                                         aria-label="case study"
                                                     >
-                                                        Learn More{' '}
-                                                        <MdOutlineArrowForward />
+                                                        Learn More <MdOutlineArrowForward />
                                                     </Link>
                                                 </div>
                                             </Link>
                                         </>
-                                    )
+                                    );
                                 } else {
                                     return (
                                         <>
@@ -231,9 +215,7 @@ const Index = ({
                                             >
                                                 <div className="casestudy_img w-full h-full ">
                                                     <Image
-                                                        src={
-                                                            caseStudy?.image[0]
-                                                        }
+                                                        src={caseStudy?.image[0]}
                                                         height={1080}
                                                         width={1080}
                                                         alt={caseStudy?.title}
@@ -246,16 +228,22 @@ const Index = ({
                                                         href={caseStudy?.link}
                                                         className="flex items-center gap-1 text-[#0000ff] mt-6"
                                                     >
-                                                        Learn More{' '}
-                                                        <MdOutlineArrowForward />
+                                                        Learn More <MdOutlineArrowForward />
                                                     </Link>
                                                 </div>
                                             </Link>
                                         </>
-                                    )
+                                    );
                                 }
                             })}
                     </div>
+                </div>
+                <div className="bg-white py-20 ">
+                    {faqData && faqData.length > 0 && (
+                        <div className="container">
+                            <FAQSection faqData={faqData} faqName={'/index'} />
+                        </div>
+                    )}
                 </div>
 
                 {getStartedData && (
@@ -265,7 +253,7 @@ const Index = ({
                 )}
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Index
+export default Index;
