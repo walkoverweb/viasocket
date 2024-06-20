@@ -199,7 +199,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
     //get Icon URL
 
-    if (combos && !combos.error) {
+    if (combos && !combos.error && combos?.plugins[pathArray[2]]?.events?.length) {
+        console.log('🚀 ~ IntegrationSlugPage ~ combos:', combos);
         return (
             <>
                 <MetaHeadComp
@@ -416,6 +417,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     } else {
         return (
             <>
+                <MetaHeadComp
+                    metaData={metaData}
+                    page={'/integrations/AppOne'}
+                    pathArray={pathArray}
+                    plugin={[plugin]}
+                />
                 <ErrorComp pathArray={pathArray} />
             </>
         );
