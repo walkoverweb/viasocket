@@ -255,7 +255,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 </div>
-                {cardsData.length > 0 && (
+                {cardsData?.length > 0 && (
                     <div className="py-14 bg-white">
                         <div className="flex flex-col gap-9 container">
                             <h2 className="text-3xl">Actions and Triggers</h2>
