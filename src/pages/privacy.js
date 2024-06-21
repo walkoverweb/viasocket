@@ -13,9 +13,7 @@ const Privacy = () => {
                             <span style={{ fontSize: '26px' }}>
                                 <span data-custom-class="title">
                                     <bdt className="block-component" />
-                                    <bdt className="question">
-                                        PRIVACY POLICY
-                                    </bdt>
+                                    <bdt className="question">PRIVACY POLICY</bdt>
                                     <bdt className="statement-end-if-in-editor" />
                                 </span>
                             </span>
@@ -29,10 +27,7 @@ const Privacy = () => {
                             <strong>
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="subtitle">
-                                        Last updated{' '}
-                                        <bdt className="question">
-                                            September 26, 2023
-                                        </bdt>
+                                        Last updated <bdt className="question">September 26, 2023</bdt>
                                     </span>
                                 </span>
                             </strong>
@@ -61,21 +56,16 @@ const Privacy = () => {
                                         Viasocket
                                         <bdt className="block-component" />
                                     </bdt>{' '}
-                                    (<bdt className="block-component" />"
-                                    <strong>we</strong>," "<strong>us</strong>,"
-                                    or "<strong>our</strong>"
+                                    (<bdt className="block-component" />"<strong>we</strong>," "<strong>us</strong>," or
+                                    "<strong>our</strong>"
                                     <bdt className="statement-end-if-in-editor" />
                                 </span>
                                 <span data-custom-class="body_text">
-                                    ), describes how and why we might collect,
-                                    store, use, and/or share (
-                                    <bdt className="block-component" />"
-                                    <strong>process</strong>"
+                                    ), describes how and why we might collect, store, use, and/or share (
+                                    <bdt className="block-component" />"<strong>process</strong>"
                                     <bdt className="statement-end-if-in-editor" />
-                                    ) your information when you use our services
-                                    (
-                                    <bdt className="block-component" />"
-                                    <strong>Services</strong>"
+                                    ) your information when you use our services (
+                                    <bdt className="block-component" />"<strong>Services</strong>"
                                     <bdt className="statement-end-if-in-editor" />
                                     ), such as when you:
                                 </span>
@@ -138,10 +128,8 @@ const Privacy = () => {
                                                             }}
                                                         >
                                                             <bdt className="statement-end-if-in-editor">
-                                                                , or any website
-                                                                of ours that
-                                                                links to this
-                                                                privacy notice
+                                                                , or any website of ours that links to this privacy
+                                                                notice
                                                             </bdt>
                                                         </span>
                                                     </span>
@@ -157,9 +145,7 @@ const Privacy = () => {
                         <bdt className="block-component">
                             <span style={{ fontSize: '15px' }}>
                                 <span style={{ fontSize: '15px' }}>
-                                    <span
-                                        style={{ color: 'rgb(127, 127, 127)' }}
-                                    >
+                                    <span style={{ color: 'rgb(127, 127, 127)' }}>
                                         <span data-custom-class="body_text">
                                             <span
                                                 style={{
@@ -179,9 +165,7 @@ const Privacy = () => {
                             <span style={{ fontSize: '15px' }}>
                                 <span style={{ color: 'rgb(127, 127, 127)' }}>
                                     <span data-custom-class="body_text">
-                                        <span
-                                            style={{ color: 'rgb(89, 89, 89)' }}
-                                        >
+                                        <span style={{ color: 'rgb(89, 89, 89)' }}>
                                             <span data-custom-class="body_text">
                                                 <bdt className="block-component" />
                                             </span>
@@ -205,9 +189,8 @@ const Privacy = () => {
                                         }}
                                     >
                                         <span data-custom-class="body_text">
-                                            Engage with us in other related
-                                            ways, including any sales,
-                                            marketing, or events
+                                            Engage with us in other related ways, including any sales, marketing, or
+                                            events
                                             <span style={{ fontSize: '15px' }}>
                                                 <span
                                                     style={{
@@ -217,8 +200,7 @@ const Privacy = () => {
                                                     <span data-custom-class="body_text">
                                                         <span
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
+                                                                fontSize: '15px',
                                                             }}
                                                         >
                                                             <span
@@ -241,20 +223,11 @@ const Privacy = () => {
                             <span style={{ fontSize: '15px' }}>
                                 <span style={{ color: 'rgb(127, 127, 127)' }}>
                                     <span data-custom-class="body_text">
-                                        <strong>
-                                            Questions or concerns?&nbsp;
-                                        </strong>
-                                        Reading this privacy notice will help
-                                        you understand your privacy rights and
-                                        choices. If you do not agree with our
-                                        policies and practices, please do not
-                                        use our Services. If you still have any
-                                        questions or concerns, please contact us
-                                        at{' '}
-                                        <bdt className="question">
-                                            support@viasocket.com
-                                        </bdt>
-                                        .
+                                        <strong>Questions or concerns?&nbsp;</strong>
+                                        Reading this privacy notice will help you understand your privacy rights and
+                                        choices. If you do not agree with our policies and practices, please do not use
+                                        our Services. If you still have any questions or concerns, please contact us at{' '}
+                                        <bdt className="question">support@viasocket.com</bdt>.
                                     </span>
                                 </span>
                             </span>
@@ -268,9 +241,7 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <strong>
                                 <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="heading_1">
-                                        SUMMARY OF KEY POINTS
-                                    </span>
+                                    <span data-custom-class="heading_1">SUMMARY OF KEY POINTS</span>
                                 </span>
                             </strong>
                         </div>
@@ -282,21 +253,14 @@ const Privacy = () => {
                                 <span data-custom-class="body_text">
                                     <strong>
                                         <em>
-                                            This summary provides key points
-                                            from our privacy notice, but you can
-                                            find out more details about any of
-                                            these topics by clicking the link
-                                            following each key point or by using
-                                            our&nbsp;
+                                            This summary provides key points from our privacy notice, but you can find
+                                            out more details about any of these topics by clicking the link following
+                                            each key point or by using our&nbsp;
                                         </em>
                                     </strong>
                                 </span>
                             </span>
-                            <a
-                                data-custom-class="link"
-                                href="#toc"
-                                aria-label="table of content"
-                            >
+                            <a data-custom-class="link" href="#toc" aria-label="table of content">
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
                                         <strong>
@@ -308,10 +272,7 @@ const Privacy = () => {
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
                                     <strong>
-                                        <em>
-                                            &nbsp;below to find the section you
-                                            are looking for.
-                                        </em>
+                                        <em>&nbsp;below to find the section you are looking for.</em>
                                     </strong>
                                 </span>
                             </span>
@@ -322,26 +283,61 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    <strong>
-                                        What personal information do we process?
-                                    </strong>{' '}
-                                    When you visit, use, or navigate our
-                                    Services, we may process personal
-                                    information depending on how you interact
-                                    with us and the Services, the choices you
-                                    make, and the products and features you use.
-                                    Learn more about&nbsp;
+                                    <strong>What personal information do we process?</strong> When you visit, use, or
+                                    navigate our Services, we may process personal information depending on how you
+                                    interact with us and the Services, the choices you make, and the products and
+                                    features you use. Learn more about&nbsp;
                                 </span>
                             </span>
-                            <a
-                                data-custom-class="link"
-                                href="#personalinfo"
-                                aria-label="personal info"
-                            >
+                            <a data-custom-class="link" href="#personalinfo" aria-label="personal info">
                                 <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="body_text">
-                                        personal information you disclose to us
-                                    </span>
+                                    <span data-custom-class="body_text">personal information you disclose to us</span>
+                                </span>
+                            </a>
+                            <span data-custom-class="body_text">.</span>
+                        </div>
+                        <div style={{ lineHeight: '1.5' }}>
+                            <br />
+                        </div>
+                        <div style={{ lineHeight: '1.5' }}>
+                            <span style={{ fontSize: '15px' }}>
+                                <span data-custom-class="body_text">
+                                    <strong>Do we process any sensitive personal information?</strong>{' '}
+                                    <bdt className="block-component" />
+                                    We do not process sensitive personal information.
+                                    <bdt className="else-block" />
+                                </span>
+                            </span>
+                        </div>
+                        <div style={{ lineHeight: '1.5' }}>
+                            <br />
+                        </div>
+                        <div style={{ lineHeight: '1.5' }}>
+                            <span style={{ fontSize: '15px' }}>
+                                <span data-custom-class="body_text">
+                                    <strong>Do we receive any information from third parties?</strong>{' '}
+                                    <bdt className="block-component" />
+                                    We do not receive any information from third parties.
+                                    <bdt className="else-block" />
+                                </span>
+                            </span>
+                        </div>
+                        <div style={{ lineHeight: '1.5' }}>
+                            <br />
+                        </div>
+                        <div style={{ lineHeight: '1.5' }}>
+                            <span style={{ fontSize: '15px' }}>
+                                <span data-custom-class="body_text">
+                                    <strong>How do we process your information?</strong> We process your information to
+                                    provide, improve, and administer our Services, communicate with you, for security
+                                    and fraud prevention, and to comply with law. We may also process your information
+                                    for other purposes with your consent. We process your information only when we have
+                                    a valid legal reason to do so. Learn more about&nbsp;
+                                </span>
+                            </span>
+                            <a data-custom-class="link" href="#infouse" aria-label="how we process your info">
+                                <span style={{ fontSize: '15px' }}>
+                                    <span data-custom-class="body_text">how we process your information</span>
                                 </span>
                             </a>
                             <span data-custom-class="body_text">.</span>
@@ -353,79 +349,10 @@ const Privacy = () => {
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
                                     <strong>
-                                        Do we process any sensitive personal
-                                        information?
+                                        In what situations and with which <bdt className="block-component" />
+                                        parties do we share personal information?
                                     </strong>{' '}
-                                    <bdt className="block-component" />
-                                    We do not process sensitive personal
-                                    information.
-                                    <bdt className="else-block" />
-                                </span>
-                            </span>
-                        </div>
-                        <div style={{ lineHeight: '1.5' }}>
-                            <br />
-                        </div>
-                        <div style={{ lineHeight: '1.5' }}>
-                            <span style={{ fontSize: '15px' }}>
-                                <span data-custom-class="body_text">
-                                    <strong>
-                                        Do we receive any information from third
-                                        parties?
-                                    </strong>{' '}
-                                    <bdt className="block-component" />
-                                    We do not receive any information from third
-                                    parties.
-                                    <bdt className="else-block" />
-                                </span>
-                            </span>
-                        </div>
-                        <div style={{ lineHeight: '1.5' }}>
-                            <br />
-                        </div>
-                        <div style={{ lineHeight: '1.5' }}>
-                            <span style={{ fontSize: '15px' }}>
-                                <span data-custom-class="body_text">
-                                    <strong>
-                                        How do we process your information?
-                                    </strong>{' '}
-                                    We process your information to provide,
-                                    improve, and administer our Services,
-                                    communicate with you, for security and fraud
-                                    prevention, and to comply with law. We may
-                                    also process your information for other
-                                    purposes with your consent. We process your
-                                    information only when we have a valid legal
-                                    reason to do so. Learn more about&nbsp;
-                                </span>
-                            </span>
-                            <a
-                                data-custom-class="link"
-                                href="#infouse"
-                                aria-label="how we process your info"
-                            >
-                                <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="body_text">
-                                        how we process your information
-                                    </span>
-                                </span>
-                            </a>
-                            <span data-custom-class="body_text">.</span>
-                        </div>
-                        <div style={{ lineHeight: '1.5' }}>
-                            <br />
-                        </div>
-                        <div style={{ lineHeight: '1.5' }}>
-                            <span style={{ fontSize: '15px' }}>
-                                <span data-custom-class="body_text">
-                                    <strong>
-                                        In what situations and with which{' '}
-                                        <bdt className="block-component" />
-                                        parties do we share personal
-                                        information?
-                                    </strong>{' '}
-                                    We may share information in specific
-                                    situations and with specific{' '}
+                                    We may share information in specific situations and with specific{' '}
                                     <bdt className="block-component" />
                                     third parties. Learn more about&nbsp;
                                 </span>
@@ -438,8 +365,7 @@ const Privacy = () => {
                             >
                                 <span style={{ fontSize: '15px' }}>
                                     <span data-custom-class="body_text">
-                                        when and with whom we share your
-                                        personal information
+                                        when and with whom we share your personal information
                                     </span>
                                 </span>
                             </a>
@@ -455,37 +381,23 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    <strong>
-                                        How do we keep your information safe?
-                                    </strong>{' '}
-                                    We have <bdt className="block-component" />
-                                    organizational
-                                    <bdt className="statement-end-if-in-editor" />{' '}
-                                    and technical processes and procedures in
-                                    place to protect your personal information.
-                                    However, no electronic transmission over the
-                                    internet or information storage technology
-                                    can be guaranteed to be 100% secure, so we
-                                    cannot promise or guarantee that hackers,
-                                    cybercriminals, or other{' '}
+                                    <strong>How do we keep your information safe?</strong> We have{' '}
                                     <bdt className="block-component" />
+                                    organizational
+                                    <bdt className="statement-end-if-in-editor" /> and technical processes and
+                                    procedures in place to protect your personal information. However, no electronic
+                                    transmission over the internet or information storage technology can be guaranteed
+                                    to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals,
+                                    or other <bdt className="block-component" />
                                     unauthorized
-                                    <bdt className="statement-end-if-in-editor" />{' '}
-                                    third parties will not be able to defeat our
-                                    security and improperly collect, access,
-                                    steal, or modify your information. Learn
-                                    more about&nbsp;
+                                    <bdt className="statement-end-if-in-editor" /> third parties will not be able to
+                                    defeat our security and improperly collect, access, steal, or modify your
+                                    information. Learn more about&nbsp;
                                 </span>
                             </span>
-                            <a
-                                data-custom-class="link"
-                                href="#infosafe"
-                                aria-label="how we keep your information safe"
-                            >
+                            <a data-custom-class="link" href="#infosafe" aria-label="how we keep your information safe">
                                 <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="body_text">
-                                        how we keep your information safe
-                                    </span>
+                                    <span data-custom-class="body_text">how we keep your information safe</span>
                                 </span>
                             </a>
                             <span data-custom-class="body_text">.</span>
@@ -501,23 +413,14 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    <strong>What are your rights?</strong>{' '}
-                                    Depending on where you are located
-                                    geographically, the applicable privacy law
-                                    may mean you have certain rights regarding
-                                    your personal information. Learn more
-                                    about&nbsp;
+                                    <strong>What are your rights?</strong> Depending on where you are located
+                                    geographically, the applicable privacy law may mean you have certain rights
+                                    regarding your personal information. Learn more about&nbsp;
                                 </span>
                             </span>
-                            <a
-                                data-custom-class="link"
-                                href="#privacyrights"
-                                aria-label="privacy"
-                            >
+                            <a data-custom-class="link" href="#privacyrights" aria-label="privacy">
                                 <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="body_text">
-                                        your privacy rights
-                                    </span>
+                                    <span data-custom-class="body_text">your privacy rights</span>
                                 </span>
                             </a>
                             <span data-custom-class="body_text">.</span>
@@ -528,14 +431,8 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    <strong>
-                                        How do you exercise your rights?
-                                    </strong>{' '}
-                                    The easiest way to exercise your rights is
-                                    by{' '}
-                                    <bdt className="block-component">
-                                        submitting a&nbsp;
-                                    </bdt>
+                                    <strong>How do you exercise your rights?</strong> The easiest way to exercise your
+                                    rights is by <bdt className="block-component">submitting a&nbsp;</bdt>
                                 </span>
                             </span>
                             <a
@@ -546,17 +443,14 @@ const Privacy = () => {
                                 aria-label="data subject"
                             >
                                 <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="body_text">
-                                        data subject access request
-                                    </span>
+                                    <span data-custom-class="body_text">data subject access request</span>
                                 </span>
                             </a>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    <bdt className="statement-end-if-in-editor" />
-                                    , or by contacting us. We will consider and
-                                    act upon any request in accordance with
-                                    applicable data protection laws.
+                                    <bdt className="statement-end-if-in-editor" />, or by contacting us. We will
+                                    consider and act upon any request in accordance with applicable data protection
+                                    laws.
                                 </span>
                             </span>
                         </div>
@@ -566,19 +460,12 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    Want to learn more about what we do with any
-                                    information we collect?&nbsp;
+                                    Want to learn more about what we do with any information we collect?&nbsp;
                                 </span>
                             </span>
-                            <a
-                                data-custom-class="link"
-                                href="#toc"
-                                aria-label="review"
-                            >
+                            <a data-custom-class="link" href="#toc" aria-label="review">
                                 <span style={{ fontSize: '15px' }}>
-                                    <span data-custom-class="body_text">
-                                        Review the privacy notice in full
-                                    </span>
+                                    <span data-custom-class="body_text">Review the privacy notice in full</span>
                                 </span>
                             </a>
                             <span style={{ fontSize: '15px' }}>
@@ -596,9 +483,7 @@ const Privacy = () => {
                                 <span style={{ color: 'rgb(127, 127, 127)' }}>
                                     <span style={{ color: 'rgb(0, 0, 0)' }}>
                                         <strong>
-                                            <span data-custom-class="heading_1">
-                                                TABLE OF CONTENTS
-                                            </span>
+                                            <span data-custom-class="heading_1">TABLE OF CONTENTS</span>
                                         </strong>
                                     </span>
                                 </span>
@@ -609,24 +494,14 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#infocollect"
-                                    aria-label="what info we collect"
-                                >
-                                    <span style={{ color: 'rgb(89, 89, 89)' }}>
-                                        1. WHAT INFORMATION DO WE COLLECT?
-                                    </span>
+                                <a data-custom-class="link" href="#infocollect" aria-label="what info we collect">
+                                    <span style={{ color: 'rgb(89, 89, 89)' }}>1. WHAT INFORMATION DO WE COLLECT?</span>
                                 </a>
                             </span>
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#infouse"
-                                    aria-label="process information"
-                                >
+                                <a data-custom-class="link" href="#infouse" aria-label="process information">
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         2. HOW DO WE PROCESS YOUR INFORMATION?
                                         <bdt className="block-component" />
@@ -649,9 +524,7 @@ const Privacy = () => {
                                                     color: 'rgb(89, 89, 89)',
                                                 }}
                                             >
-                                                WHAT LEGAL BASES DO WE RELY ON
-                                                TO PROCESS YOUR PERSONAL
-                                                INFORMATION?
+                                                WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR PERSONAL INFORMATION?
                                             </span>
                                         </span>
                                         <bdt className="statement-end-if-in-editor" />
@@ -667,8 +540,7 @@ const Privacy = () => {
                                         href="#whoshare"
                                         aria-label="whom do we share your personal info"
                                     >
-                                        4. WHEN AND WITH WHOM DO WE SHARE YOUR
-                                        PERSONAL INFORMATION?
+                                        4. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?
                                     </a>
                                 </span>
                                 <span data-custom-class="body_text">
@@ -697,8 +569,7 @@ const Privacy = () => {
                                     aria-label="cookies and other tracking technologies"
                                 >
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
-                                        5. DO WE USE COOKIES AND OTHER TRACKING
-                                        TECHNOLOGIES?
+                                        5. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
                                     </span>
                                 </a>
                                 <span style={{ color: 'rgb(127, 127, 127)' }}>
@@ -739,22 +610,15 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#sociallogins"
-                                    aria-label="privacy"
-                                >
+                                <a data-custom-class="link" href="#sociallogins" aria-label="privacy">
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
-                                        <span
-                                            style={{ color: 'rgb(89, 89, 89)' }}
-                                        >
+                                        <span style={{ color: 'rgb(89, 89, 89)' }}>
                                             <span
                                                 style={{
                                                     color: 'rgb(89, 89, 89)',
                                                 }}
                                             >
-                                                6. HOW DO WE HANDLE YOUR SOCIAL
-                                                LOGINS?
+                                                6. HOW DO WE HANDLE YOUR SOCIAL LOGINS?
                                             </span>
                                         </span>
                                     </span>
@@ -821,11 +685,7 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#infosafe"
-                                    aria-label="keep your information safe"
-                                >
+                                <a data-custom-class="link" href="#infosafe" aria-label="keep your information safe">
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         8. HOW DO WE KEEP YOUR INFORMATION SAFE?
                                     </span>
@@ -849,11 +709,7 @@ const Privacy = () => {
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span style={{ color: 'rgb(89, 89, 89)' }}>
-                                    <a
-                                        data-custom-class="link"
-                                        href="#privacyrights"
-                                        aria-label="privacy rights"
-                                    >
+                                    <a data-custom-class="link" href="#privacyrights" aria-label="privacy rights">
                                         9. WHAT ARE YOUR PRIVACY RIGHTS?
                                     </a>
                                 </span>
@@ -861,11 +717,7 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#DNT"
-                                    aria-label="don-not track features"
-                                >
+                                <a data-custom-class="link" href="#DNT" aria-label="don-not track features">
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         10. CONTROLS FOR DO-NOT-TRACK FEATURES
                                         <bdt className="block-component" />
@@ -875,14 +727,9 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#uslaws"
-                                    aria-label="specific privacy rights"
-                                >
+                                <a data-custom-class="link" href="#uslaws" aria-label="specific privacy rights">
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
-                                        11. DO UNITED STATES RESIDENTS HAVE
-                                        SPECIFIC PRIVACY RIGHTS?
+                                        11. DO UNITED STATES RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?
                                     </span>
                                 </a>
                             </span>
@@ -908,11 +755,7 @@ const Privacy = () => {
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
-                                <a
-                                    data-custom-class="link"
-                                    href="#policyupdates"
-                                    aria-label="privacy"
-                                >
+                                <a data-custom-class="link" href="#policyupdates" aria-label="privacy">
                                     <span style={{ color: 'rgb(89, 89, 89)' }}>
                                         12. DO WE MAKE UPDATES TO THIS NOTICE?
                                     </span>
@@ -920,31 +763,21 @@ const Privacy = () => {
                             </span>
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
-                            <a
-                                data-custom-class="link"
-                                href="#contact"
-                                aria-label="contact"
-                            >
+                            <a data-custom-class="link" href="#contact" aria-label="contact">
                                 <span
                                     style={{
                                         color: 'rgb(89, 89, 89)',
                                         fontSize: '15px',
                                     }}
                                 >
-                                    13. HOW CAN YOU CONTACT US ABOUT THIS
-                                    NOTICE?
+                                    13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
                                 </span>
                             </a>
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
-                            <a
-                                data-custom-class="link"
-                                href="#request"
-                                aria-label="privacy"
-                            >
+                            <a data-custom-class="link" href="#request" aria-label="privacy">
                                 <span style={{ color: 'rgb(89, 89, 89)' }}>
-                                    14. HOW CAN YOU REVIEW, UPDATE, OR DELETE
-                                    THE DATA WE COLLECT FROM YOU?
+                                    14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
                                 </span>
                             </a>
                         </div>
@@ -982,8 +815,7 @@ const Privacy = () => {
                                             >
                                                 <strong>
                                                     <span data-custom-class="heading_1">
-                                                        1. WHAT INFORMATION DO
-                                                        WE COLLECT?
+                                                        1. WHAT INFORMATION DO WE COLLECT?
                                                     </span>
                                                 </strong>
                                             </span>
@@ -996,14 +828,9 @@ const Privacy = () => {
                             <br />
                         </div>
                         <div id="personalinfo" style={{ lineHeight: '1.5' }}>
-                            <span
-                                data-custom-class="heading_2"
-                                style={{ color: 'rgb(0, 0, 0)' }}
-                            >
+                            <span data-custom-class="heading_2" style={{ color: 'rgb(0, 0, 0)' }}>
                                 <span style={{ fontSize: '15px' }}>
-                                    <strong>
-                                        Personal information you disclose to us
-                                    </strong>
+                                    <strong>Personal information you disclose to us</strong>
                                 </span>
                             </span>
                         </div>
@@ -1057,11 +884,7 @@ const Privacy = () => {
                                                         <strong>
                                                             <em>&nbsp;</em>
                                                         </strong>
-                                                        <em>
-                                                            We collect personal
-                                                            information that you
-                                                            provide to us.
-                                                        </em>
+                                                        <em>We collect personal information that you provide to us.</em>
                                                     </span>
                                                 </span>
                                             </span>
@@ -1087,8 +910,7 @@ const Privacy = () => {
                                     }}
                                 >
                                     <span data-custom-class="body_text">
-                                        We collect personal information that you
-                                        voluntarily provide to us when you{' '}
+                                        We collect personal information that you voluntarily provide to us when you{' '}
                                         <span style={{ fontSize: '15px' }}>
                                             <bdt className="block-component" />
                                         </span>
@@ -1101,11 +923,9 @@ const Privacy = () => {
                                             </span>
                                         </span>
                                         <span data-custom-class="body_text">
-                                            express an interest in obtaining
-                                            information about us or our products
-                                            and Services, when you participate
-                                            in activities on the Services, or
-                                            otherwise when you contact us.
+                                            express an interest in obtaining information about us or our products and
+                                            Services, when you participate in activities on the Services, or otherwise
+                                            when you contact us.
                                         </span>
                                     </span>
                                 </span>
@@ -1149,17 +969,10 @@ const Privacy = () => {
                                     }}
                                 >
                                     <span data-custom-class="body_text">
-                                        <strong>
-                                            Personal Information Provided by
-                                            You.
-                                        </strong>{' '}
-                                        The personal information that we collect
-                                        depends on the context of your
-                                        interactions with us and the Services,
-                                        the choices you make, and the products
-                                        and features you use. The personal
-                                        information we collect may include the
-                                        following:
+                                        <strong>Personal Information Provided by You.</strong> The personal information
+                                        that we collect depends on the context of your interactions with us and the
+                                        Services, the choices you make, and the products and features you use. The
+                                        personal information we collect may include the following:
                                         <span style={{ fontSize: '15px' }}>
                                             <span data-custom-class="body_text">
                                                 <bdt className="forloop-component" />
@@ -1186,9 +999,7 @@ const Privacy = () => {
                                         <span data-custom-class="body_text">
                                             <span style={{ fontSize: '15px' }}>
                                                 <span data-custom-class="body_text">
-                                                    <bdt className="question">
-                                                        names
-                                                    </bdt>
+                                                    <bdt className="question">names</bdt>
                                                 </span>
                                             </span>
                                         </span>
@@ -1236,9 +1047,7 @@ const Privacy = () => {
                                         <span data-custom-class="body_text">
                                             <span style={{ fontSize: '15px' }}>
                                                 <span data-custom-class="body_text">
-                                                    <bdt className="question">
-                                                        email addresses
-                                                    </bdt>
+                                                    <bdt className="question">email addresses</bdt>
                                                 </span>
                                             </span>
                                         </span>
@@ -1275,8 +1084,7 @@ const Privacy = () => {
                         <div id="sensitiveinfo" style={{ lineHeight: '1.5' }}>
                             <span style={{ fontSize: '15px' }}>
                                 <span data-custom-class="body_text">
-                                    <strong>Sensitive Information.</strong>{' '}
-                                    <bdt className="block-component" />
+                                    <strong>Sensitive Information.</strong> <bdt className="block-component" />
                                     We do not process sensitive information.
                                 </span>
                             </span>
@@ -1328,24 +1136,15 @@ const Privacy = () => {
                                     }}
                                 >
                                     <span data-custom-class="body_text">
-                                        <strong>
-                                            Social Media Login Data.&nbsp;
-                                        </strong>
-                                        We may provide you with the option to
-                                        register with us using your existing
-                                        social media account details, like your
-                                        Facebook, Twitter, or other social media
-                                        account. If you choose to register in
-                                        this way, we will collect the
-                                        information described in the section
-                                        called{' '}
-                                        <bdt className="block-component" />"
+                                        <strong>Social Media Login Data.&nbsp;</strong>
+                                        We may provide you with the option to register with us using your existing
+                                        social media account details, like your Facebook, Twitter, or other social media
+                                        account. If you choose to register in this way, we will collect the information
+                                        described in the section called <bdt className="block-component" />"
                                         <bdt className="statement-end-if-in-editor" />
                                         <span style={{ fontSize: '15px' }}>
                                             <span data-custom-class="body_text">
-                                                <span
-                                                    style={{ fontSize: '15px' }}
-                                                >
+                                                <span style={{ fontSize: '15px' }}>
                                                     <span
                                                         style={{
                                                             color: 'rgb(89, 89, 89)',
@@ -1356,16 +1155,14 @@ const Privacy = () => {
                                                             href="#sociallogins"
                                                             aria-label="handle social login"
                                                         >
-                                                            HOW DO WE HANDLE
-                                                            YOUR SOCIAL LOGINS?
+                                                            HOW DO WE HANDLE YOUR SOCIAL LOGINS?
                                                         </a>
                                                     </span>
                                                 </span>
                                             </span>
                                         </span>
                                         <bdt className="block-component" />"
-                                        <bdt className="statement-end-if-in-editor" />{' '}
-                                        below.
+                                        <bdt className="statement-end-if-in-editor" /> below.
                                     </span>
                                 </span>
                             </span>
@@ -1411,11 +1208,8 @@ const Privacy = () => {
                                     }}
                                 >
                                     <span data-custom-class="body_text">
-                                        All personal information that you
-                                        provide to us must be true, complete,
-                                        and accurate, and you must notify us of
-                                        any changes to such personal
-                                        information.
+                                        All personal information that you provide to us must be true, complete, and
+                                        accurate, and you must notify us of any changes to such personal information.
                                     </span>
                                 </span>
                             </span>
@@ -1443,14 +1237,9 @@ const Privacy = () => {
                             </span>
                         </div>
                         <div style={{ lineHeight: '1.5' }}>
-                            <span
-                                data-custom-class="heading_2"
-                                style={{ color: 'rgb(0, 0, 0)' }}
-                            >
+                            <span data-custom-class="heading_2" style={{ color: 'rgb(0, 0, 0)' }}>
                                 <span style={{ fontSize: '15px' }}>
-                                    <strong>
-                                        Information automatically collected
-                                    </strong>
+                                    <strong>Information automatically collected</strong>
                                 </span>
                             </span>
                         </div>
@@ -1505,16 +1294,9 @@ const Privacy = () => {
                                                             <em>&nbsp;</em>
                                                         </strong>
                                                         <em>
-                                                            Some information —
-                                                            such as your
-                                                            Internet Protocol
-                                                            (IP) address and/or
-                                                            browser and device
-                                                            characteristics — is
-                                                            collected
-                                                            automatically when
-                                                            you visit our
-                                                            Services.
+                                                            Some information — such as your Internet Protocol (IP)
+                                                            address and/or browser and device characteristics — is
+                                                            collected automatically when you visit our Services.
                                                         </em>
                                                     </span>
                                                 </span>
@@ -1541,23 +1323,15 @@ const Privacy = () => {
                                     }}
                                 >
                                     <span data-custom-class="body_text">
-                                        We automatically collect certain
-                                        information when you visit, use, or
-                                        navigate the Services. This information
-                                        does not reveal your specific identity
-                                        (like your name or contact information)
-                                        but may include device and usage
-                                        information, such as your IP address,
-                                        browser and device characteristics,
-                                        operating system, language preferences,
-                                        referring URLs, device name, country,
-                                        location, information about how and when
-                                        you use our Services, and other
-                                        technical information. This information
-                                        is primarily needed to maintain the
-                                        security and operation of our Services,
-                                        and for our internal analytics and
-                                        reporting purposes.
+                                        We automatically collect certain information when you visit, use, or navigate
+                                        the Services. This information does not reveal your specific identity (like your
+                                        name or contact information) but may include device and usage information, such
+                                        as your IP address, browser and device characteristics, operating system,
+                                        language preferences, referring URLs, device name, country, location,
+                                        information about how and when you use our Services, and other technical
+                                        information. This information is primarily needed to maintain the security and
+                                        operation of our Services, and for our internal analytics and reporting
+                                        purposes.
                                     </span>
                                 </span>
                             </span>
@@ -1598,10 +1372,8 @@ const Privacy = () => {
                                     }}
                                 >
                                     <span data-custom-class="body_text">
-                                        Like many businesses, we also collect
-                                        information through cookies and similar
-                                        technologies.{' '}
-                                        <bdt className="block-component" />
+                                        Like many businesses, we also collect information through cookies and similar
+                                        technologies. <bdt className="block-component" />
                                         <bdt className="block-component" />
                                     </span>
                                 </span>
@@ -1691,8 +1463,7 @@ const Privacy = () => {
                                             >
                                                 <strong>
                                                     <span data-custom-class="heading_1">
-                                                        2. HOW DO WE PROCESS
-                                                        YOUR INFORMATION?
+                                                        2. HOW DO WE PROCESS YOUR INFORMATION?
                                                     </span>
                                                 </strong>
                                             </span>
@@ -1728,25 +1499,14 @@ const Privacy = () => {
                                                 >
                                                     <span data-custom-class="body_text">
                                                         <strong>
-                                                            <em>
-                                                                In Short:&nbsp;
-                                                            </em>
+                                                            <em>In Short:&nbsp;</em>
                                                         </strong>
                                                         <em>
-                                                            We process your
-                                                            information to
-                                                            provide, improve,
-                                                            and administer our
-                                                            Services,
-                                                            communicate with
-                                                            you, for security
-                                                            and fraud
-                                                            prevention, and to
-                                                            comply with law. We
-                                                            may also process
-                                                            your information for
-                                                            other purposes with
-                                                            your consent.
+                                                            We process your information to provide, improve, and
+                                                            administer our Services, communicate with you, for security
+                                                            and fraud prevention, and to comply with law. We may also
+                                                            process your information for other purposes with your
+                                                            consent.
                                                         </em>
                                                     </span>
                                                 </span>
@@ -1774,10 +1534,8 @@ const Privacy = () => {
                                 >
                                     <span data-custom-class="body_text">
                                         <strong>
-                                            We process your personal information
-                                            for a variety of reasons, depending
-                                            on how you interact with our
-                                            Services, including:
+                                            We process your personal information for a variety of reasons, depending on
+                                            how you interact with our Services, including:
                                         </strong>
                                         <bdt className="block-component" />
                                     </span>
@@ -1800,14 +1558,11 @@ const Privacy = () => {
                                     >
                                         <span data-custom-class="body_text">
                                             <strong>
-                                                To facilitate account creation
-                                                and authentication and otherwise
-                                                manage user accounts.&nbsp;
+                                                To facilitate account creation and authentication and otherwise manage
+                                                user accounts.&nbsp;
                                             </strong>
-                                            We may process your information so
-                                            you can create and log in to your
-                                            account, as well as keep your
-                                            account in working order.
+                                            We may process your information so you can create and log in to your
+                                            account, as well as keep your account in working order.
                                             <span
                                                 style={{
                                                     fontSize: '15px',
@@ -1823,8 +1578,7 @@ const Privacy = () => {
                                                     <span data-custom-class="body_text">
                                                         <span
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
+                                                                fontSize: '15px',
                                                             }}
                                                         >
                                                             <span
@@ -1835,8 +1589,7 @@ const Privacy = () => {
                                                                 <span data-custom-class="body_text">
                                                                     <span
                                                                         style={{
-                                                                            fontSize:
-                                                                                '15px',
+                                                                            fontSize: '15px',
                                                                         }}
                                                                     >
                                                                         <span
@@ -1934,9 +1687,7 @@ const Privacy = () => {
                                         </span>
                                         <div style={{ lineHeight: '1.5' }}>
                                             <bdt className="block-component">
-                                                <span
-                                                    style={{ fontSize: '15px' }}
-                                                />
+                                                <span style={{ fontSize: '15px' }} />
                                             </bdt>
                                             <div style={{ lineHeight: '1.5' }}>
                                                 <bdt className="block-component">
@@ -1954,8 +1705,7 @@ const Privacy = () => {
                                                     <bdt className="block-component">
                                                         <span
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
+                                                                fontSize: '15px',
                                                             }}
                                                         />
                                                     </bdt>
@@ -1967,8 +1717,7 @@ const Privacy = () => {
                                                         <bdt className="block-component">
                                                             <span
                                                                 style={{
-                                                                    fontSize:
-                                                                        '15px',
+                                                                    fontSize: '15px',
                                                                 }}
                                                             >
                                                                 <span data-custom-class="body_text" />
@@ -1976,69 +1725,57 @@ const Privacy = () => {
                                                         </bdt>
                                                         <p
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
-                                                                lineHeight:
-                                                                    '1.5',
+                                                                fontSize: '15px',
+                                                                lineHeight: '1.5',
                                                             }}
                                                         >
                                                             <bdt className="block-component">
                                                                 <span
                                                                     style={{
-                                                                        fontSize:
-                                                                            '15px',
+                                                                        fontSize: '15px',
                                                                     }}
                                                                 />
                                                             </bdt>
                                                         </p>
                                                         <p
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
-                                                                lineHeight:
-                                                                    '1.5',
+                                                                fontSize: '15px',
+                                                                lineHeight: '1.5',
                                                             }}
                                                         >
                                                             <bdt className="block-component">
                                                                 <span
                                                                     style={{
-                                                                        fontSize:
-                                                                            '15px',
+                                                                        fontSize: '15px',
                                                                     }}
                                                                 />
                                                             </bdt>
                                                         </p>
                                                         <p
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
-                                                                lineHeight:
-                                                                    '1.5',
+                                                                fontSize: '15px',
+                                                                lineHeight: '1.5',
                                                             }}
                                                         >
                                                             <bdt className="block-component" />
                                                         </p>
                                                         <p
                                                             style={{
-                                                                fontSize:
-                                                                    '15px',
-                                                                lineHeight:
-                                                                    '1.5',
+                                                                fontSize: '15px',
+                                                                lineHeight: '1.5',
                                                             }}
                                                         >
                                                             <bdt className="block-component" />
                                                         </p>
                                                         <div
                                                             style={{
-                                                                lineHeight:
-                                                                    '1.5',
+                                                                lineHeight: '1.5',
                                                             }}
                                                         >
                                                             <bdt className="block-component">
                                                                 <span
                                                                     style={{
-                                                                        fontSize:
-                                                                            '15px',
+                                                                        fontSize: '15px',
                                                                     }}
                                                                 >
                                                                     <span data-custom-class="body_text" />
@@ -2046,42 +1783,36 @@ const Privacy = () => {
                                                             </bdt>
                                                             <div
                                                                 style={{
-                                                                    lineHeight:
-                                                                        '1.5',
+                                                                    lineHeight: '1.5',
                                                                 }}
                                                             >
                                                                 <bdt className="block-component">
                                                                     <span
                                                                         style={{
-                                                                            fontSize:
-                                                                                '15px',
+                                                                            fontSize: '15px',
                                                                         }}
                                                                     />
                                                                 </bdt>
                                                                 <div
                                                                     style={{
-                                                                        lineHeight:
-                                                                            '1.5',
+                                                                        lineHeight: '1.5',
                                                                     }}
                                                                 >
                                                                     <bdt className="block-component">
                                                                         <span
                                                                             style={{
-                                                                                fontSize:
-                                                                                    '15px',
+                                                                                fontSize: '15px',
                                                                             }}
                                                                         />
                                                                     </bdt>
                                                                     <div
                                                                         style={{
-                                                                            lineHeight:
-                                                                                '1.5',
+                                                                            lineHeight: '1.5',
                                                                         }}
                                                                     >
                                                                         <span
                                                                             style={{
-                                                                                fontSize:
-                                                                                    '15px',
+                                                                                fontSize: '15px',
                                                                             }}
                                                                         >
                                                                             <bdt className="block-component">
@@ -2090,15 +1821,13 @@ const Privacy = () => {
                                                                         </span>
                                                                         <div
                                                                             style={{
-                                                                                lineHeight:
-                                                                                    '1.5',
+                                                                                lineHeight: '1.5',
                                                                             }}
                                                                         >
                                                                             <bdt className="block-component">
                                                                                 <span
                                                                                     style={{
-                                                                                        fontSize:
-                                                                                            '15px',
+                                                                                        fontSize: '15px',
                                                                                     }}
                                                                                 >
                                                                                     <span data-custom-class="body_text" />
@@ -2106,15 +1835,13 @@ const Privacy = () => {
                                                                             </bdt>
                                                                             <div
                                                                                 style={{
-                                                                                    lineHeight:
-                                                                                        '1.5',
+                                                                                    lineHeight: '1.5',
                                                                                 }}
                                                                             >
                                                                                 <bdt className="block-component">
                                                                                     <span
                                                                                         style={{
-                                                                                            fontSize:
-                                                                                                '15px',
+                                                                                            fontSize: '15px',
                                                                                         }}
                                                                                     >
                                                                                         <span data-custom-class="body_text" />
@@ -2122,15 +1849,13 @@ const Privacy = () => {
                                                                                 </bdt>
                                                                                 <div
                                                                                     style={{
-                                                                                        lineHeight:
-                                                                                            '1.5',
+                                                                                        lineHeight: '1.5',
                                                                                     }}
                                                                                 >
                                                                                     <bdt className="block-component">
                                                                                         <span
                                                                                             style={{
-                                                                                                fontSize:
-                                                                                                    '15px',
+                                                                                                fontSize: '15px',
                                                                                             }}
                                                                                         >
                                                                                             <span data-custom-class="body_text" />
@@ -2138,15 +1863,13 @@ const Privacy = () => {
                                                                                     </bdt>
                                                                                     <div
                                                                                         style={{
-                                                                                            lineHeight:
-                                                                                                '1.5',
+                                                                                            lineHeight: '1.5',
                                                                                         }}
                                                                                     >
                                                                                         <bdt className="block-component">
                                                                                             <span
                                                                                                 style={{
-                                                                                                    fontSize:
-                                                                                                        '15px',
+                                                                                                    fontSize: '15px',
                                                                                                 }}
                                                                                             >
                                                                                                 <span data-custom-class="body_text" />
@@ -2154,8 +1877,7 @@ const Privacy = () => {
                                                                                         </bdt>
                                                                                         <div
                                                                                             style={{
-                                                                                                lineHeight:
-                                                                                                    '1.5',
+                                                                                                lineHeight: '1.5',
                                                                                             }}
                                                                                         >
                                                                                             <bdt className="block-component">
@@ -2170,8 +1892,7 @@ const Privacy = () => {
                                                                                             </bdt>
                                                                                             <div
                                                                                                 style={{
-                                                                                                    lineHeight:
-                                                                                                        '1.5',
+                                                                                                    lineHeight: '1.5',
                                                                                                 }}
                                                                                             >
                                                                                                 <bdt className="block-component">
@@ -2309,6 +2030,59 @@ const Privacy = () => {
                                                                                                                                 to
                                                                                                                                 prevent
                                                                                                                                 harm.
+                                                                                                                            </span>
+                                                                                                                        </span>
+                                                                                                                        <bdt className="statement-end-if-in-editor">
+                                                                                                                            <span
+                                                                                                                                style={{
+                                                                                                                                    fontSize:
+                                                                                                                                        '15px',
+                                                                                                                                }}
+                                                                                                                            >
+                                                                                                                                <span data-custom-class="body_text" />
+                                                                                                                            </span>
+                                                                                                                        </bdt>
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                                <ul>
+                                                                                                                    <li
+                                                                                                                        style={{
+                                                                                                                            lineHeight:
+                                                                                                                                '1.5',
+                                                                                                                        }}
+                                                                                                                    >
+                                                                                                                        <span data-custom-class="body_text">
+                                                                                                                            <span
+                                                                                                                                style={{
+                                                                                                                                    fontSize:
+                                                                                                                                        '15px',
+                                                                                                                                }}
+                                                                                                                            >
+                                                                                                                                Google
+                                                                                                                                <strong>
+                                                                                                                                    Workspace
+                                                                                                                                    APIs.
+                                                                                                                                </strong>
+                                                                                                                                We
+                                                                                                                                explicitly
+                                                                                                                                affirm
+                                                                                                                                that
+                                                                                                                                Google
+                                                                                                                                Workspace
+                                                                                                                                APIs
+                                                                                                                                are
+                                                                                                                                not
+                                                                                                                                used
+                                                                                                                                to
+                                                                                                                                develop,
+                                                                                                                                improve,
+                                                                                                                                or
+                                                                                                                                train
+                                                                                                                                generalized
+                                                                                                                                AI
+                                                                                                                                and/or
+                                                                                                                                ML
+                                                                                                                                models.
                                                                                                                             </span>
                                                                                                                         </span>
                                                                                                                         <bdt className="statement-end-if-in-editor">
@@ -11461,6 +11235,6 @@ const Privacy = () => {
                 </div>
             </div>
         </>
-    )
-}
-export default Privacy
+    );
+};
+export default Privacy;

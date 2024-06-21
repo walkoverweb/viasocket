@@ -42,7 +42,7 @@ export default function IntegrationHero({ plugin, combos, mode }) {
                             {plugin.length > 0 &&
                                 `Create integrations between ${plugin[0]?.name} and ${plugin[1]?.name || 'your favorite App'}`}
                         </h1>
-                        {combos?.combinations.length > 0 ? (
+                        {combos?.combinations?.length > 0 ? (
                             <ComboGrid combos={combos} mode={mode} />
                         ) : (
                             <EventGrid plugin={plugin} mode={mode} />
