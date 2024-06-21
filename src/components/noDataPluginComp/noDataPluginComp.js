@@ -96,7 +96,6 @@ export default function NoDataPluginComp({ plugin, mode }) {
                     </div>
                 </div>
             </div>
-            <button className="btn">open modal</button>
             <dialog id="beta_request" className="modal">
                 <div className="modal-box">
                     <form method="dialog">
