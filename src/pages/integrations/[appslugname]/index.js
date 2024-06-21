@@ -199,7 +199,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
     //get Icon URL
 
-    if (combos && !combos.error) {
+    if (combos && !combos.error && combos?.plugins[pathArray[2]]?.events?.length) {
+        console.log('🚀 ~ IntegrationSlugPage ~ combos:', combos);
         return (
             <>
                 <MetaHeadComp
@@ -255,7 +256,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 </div>
-                {cardsData.length > 0 && (
+                {cardsData?.length > 0 && (
                     <div className="py-14 bg-white">
                         <div className="flex flex-col gap-9 container">
                             <h2 className="text-3xl">Actions and Triggers</h2>
@@ -416,6 +417,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     } else {
         return (
             <>
+                <MetaHeadComp
+                    metaData={metaData}
+                    page={'/integrations/AppOne'}
+                    pathArray={pathArray}
+                    plugin={[plugin]}
+                />
                 <ErrorComp pathArray={pathArray} />
             </>
         );
