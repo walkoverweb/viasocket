@@ -9,6 +9,7 @@ import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import axios from 'axios';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -25,29 +26,9 @@ export async function getServerSideProps() {
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
-    const cardData = [
-        {
-            title: 'blog1',
-            content: 'blog content',
-            image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg',
-            alt: 'blog 1',
-            link: '',
-        },
-        {
-            title: 'Blog 2!',
-            content: "It's details of our second Blog",
-            image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg',
-            alt: 'Blog 2',
-            link: '',
-        },
-        {
-            title: 'Blog 3!',
-            content: "It's details of our third blog",
-            image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg',
-            alt: 'Blog 3',
-            link: '',
-        },
-    ];
+    const tags = 'Mailchimp';
+    const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tags}`); // Adjust the URL based on your setup
+    const posts = await res.data;
 
     return {
         props: {
@@ -60,7 +41,7 @@ export async function getServerSideProps() {
             features: results[6]?.data?.rows,
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
-            cardData: cardData,
+            posts: posts,
         },
     };
 }
@@ -75,7 +56,7 @@ const Index = ({
     features,
     metaData,
     faqData,
-    cardData,
+    posts,
 }) => {
     return (
         <>
@@ -264,9 +245,9 @@ const Index = ({
                             })}
                     </div>
                 </div>
-                {cardData?.length && (
+                {posts?.length && (
                     <div>
-                        <BlogGrid cardData={cardData} />
+                        <BlogGrid posts={posts} />
                     </div>
                 )}
 
