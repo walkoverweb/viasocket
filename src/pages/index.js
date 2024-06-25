@@ -8,7 +8,7 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
-
+import BlogGrid from '@/components/blogGrid/blogGrid';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -25,17 +25,42 @@ export async function getServerSideProps() {
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
+    const cardData = [
+        {
+            title: 'blog1',
+            content: 'blog content',
+            image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg',
+            alt: 'blog 1',
+            link: '',
+        },
+        {
+            title: 'Blog 2!',
+            content: "It's details of our second Blog",
+            image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg',
+            alt: 'Blog 2',
+            link: '',
+        },
+        {
+            title: 'Blog 3!',
+            content: "It's details of our third blog",
+            image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg',
+            alt: 'Blog 3',
+            link: '',
+        },
+    ];
+
     return {
         props: {
-            products: results[0].data.rows,
-            testimonials: results[1].data.rows,
-            caseStudies: results[2].data.rows,
-            getStartedData: results[3].data.rows,
-            productData: results[4].data.rows,
-            trustedData: results[5].data.rows,
-            features: results[6].data.rows,
-            metaData: results[7].data.rows,
-            faqData: results[8].data.rows,
+            products: results[0]?.data?.rows,
+            testimonials: results[1]?.data?.rows,
+            caseStudies: results[2]?.data?.rows,
+            getStartedData: results[3]?.data?.rows,
+            productData: results[4]?.data?.rows,
+            trustedData: results[5]?.data?.rows,
+            features: results[6]?.data?.rows,
+            metaData: results[7]?.data?.rows,
+            faqData: results[8]?.data?.rows,
+            cardData: cardData,
         },
     };
 }
@@ -50,6 +75,7 @@ const Index = ({
     features,
     metaData,
     faqData,
+    cardData,
 }) => {
     return (
         <>
@@ -238,6 +264,12 @@ const Index = ({
                             })}
                     </div>
                 </div>
+                {cardData?.length && (
+                    <div>
+                        <BlogGrid cardData={cardData} />
+                    </div>
+                )}
+
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
