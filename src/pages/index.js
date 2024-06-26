@@ -26,8 +26,10 @@ export async function getServerSideProps() {
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
-    const tags = 'Mailchimp';
-    const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tags}`); // Adjust the URL based on your setup
+    const tag = 'via-socket';
+    const defaultTag = 'integrations';
+    const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
+
     const posts = await res.data;
 
     return {

@@ -2,24 +2,31 @@ import React from 'react';
 import Link from 'next/link';
 import { MdOutlineArrowForward } from 'react-icons/md';
 import Temp from './temp';
+import Color from 'color';
 
 const BlogGrid = ({ posts }) => {
-    console.log(posts, 'posttt from blogg grid');
     return (
         <>
-            <div className="container mx-auto p-4">
-                <div className="flex justify-center m-10">
-                    <h1 className="m-5 font-extrabold text-5xl">Blog Grid</h1>
+            <div className="container mx-auto  ">
+                <div className="flex justify-left m-5 mr-10">
+                    <h1 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
+                        Know More About Viasocket Integrations
+                    </h1>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                     {posts.map((post, index) => (
                         <CardComponent key={index} card={post} />
                     ))}
                 </div>
                 <div className="flex justify-center mt-10">
-                    {/* <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                    <Link
+                        href="https://viasocket.com/blog"
+                        target="_blank"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                    >
+                        {/* <a  target='blank' class=" color: rgb(255 255 255);">Read More</a> */}
                         Read More
-                    </button> */}
+                    </Link>
                 </div>
             </div>
         </>
@@ -27,15 +34,14 @@ const BlogGrid = ({ posts }) => {
 };
 
 const CardComponent = ({ card }) => {
-    console.log(card, 'cardddddd');
     return (
-        <div className="card card-compact bg-base-100 w-70 mr-5 ml-5 hover:shadow-2xl">
-            <figure>
+        <div className="card card-compact bg-white-100 w-70 mr-5 ml-5 hover:shadow-2xl bg-white">
+            <figure className="h-60">
                 <img src={card?.thumbnail} alt={card?.title} />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{card?.title}</h2>
-                <p>{card?.description}</p>
+                <p className="text-base">{card?.description}</p>
                 <div className="card-actions justify-start">
                     <Link
                         target="_blank"
