@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import styles from './noDataPluginComp.module.scss';
+import styles from './noDataGrid.module.scss';
 import { useState } from 'react';
-export default function NoDataPluginComp({ plugin, mode }) {
+export default function noDataGrid({ plugin, mode }) {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -28,7 +28,9 @@ export default function NoDataPluginComp({ plugin, mode }) {
             });
 
             const data = await response.json();
-            if (data?.success) {
+
+            if (data?.data?.success) {
+                document.getElementById('beta_request').close();
             }
         } catch (error) {
             console.error('Failed to submit:', error);
@@ -38,37 +40,9 @@ export default function NoDataPluginComp({ plugin, mode }) {
     };
     return (
         <>
-            <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12 min-h-dvh">
+            <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12 ">
                 <div className={`container flex flex-col md:gap-12 gap-6 `}>
-                    <div
-                        className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit`}
-                    >
-                        {plugin.map((plug, index) => {
-                            return (
-                                <div key={index} className="flex items-center gap-3  w-fit">
-                                    {index > 0 && <span className="text-3xl mx-4"> + </span>}
-                                    {plug?.iconurl && (
-                                        <Image
-                                            src={plug.iconurl}
-                                            width={40}
-                                            height={40}
-                                            className="h-auto w-[30px] md:w-[36px]"
-                                            alt="notion"
-                                        />
-                                    )}
-                                    <div className="flex flex-col">
-                                        {plug?.name && <p className="md:text-2xl text-lg font-bold">{plug?.name}</p>}
-                                        {plug?.category && (
-                                            <p className="text-[14px] font-semibold  uppercase text-gray-500">
-                                                {plug?.category}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <div className="flex flex-col gap-8 flex-grow justify-center mt-12 ">
+                    <div className="flex flex-col gap-8 flex-grow justify-center  ">
                         <h1
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
@@ -87,11 +61,6 @@ export default function NoDataPluginComp({ plugin, mode }) {
                             >
                                 Request Beta Access
                             </button>
-                            {/* <button
-                                className={`btn btn-link font-semibold  ${mode === 'dark' ? 'btn-light' : 'btn-primary'}`}
-                            >
-                                Get Help
-                            </button> */}
                         </div>
                     </div>
                 </div>
@@ -156,7 +125,12 @@ export default function NoDataPluginComp({ plugin, mode }) {
                                 <button disabled={isLoading} className="btn btn-md btn-primary" onClick={handleSubmit}>
                                     {isLoading ? 'Submiting...' : 'Submit'}
                                 </button>
-                                <button className="btn btn-md btn-link">Cancel</button>
+                                <button
+                                    className="btn btn-md btn-link"
+                                    onClick={() => document.getElementById('beta_request').close()}
+                                >
+                                    Cancel
+                                </button>
                             </div>
                         </div>
                     </div>
