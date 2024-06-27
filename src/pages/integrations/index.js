@@ -6,10 +6,11 @@ import IntegrationSearch from '@/components/integrations/integrationApps';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 import FAQSection from '@/components/faqSection/faqSection';
+import axios from 'axios';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
-    //defined states
     const [apps, setApps] = useState(responseData);
     const [filteredData, setFilteredData] = useState([]);
     const [visibleItems, setVisibleItems] = useState(25);
@@ -17,34 +18,41 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
+    const [posts, setPosts] = useState([]);
 
     const router = useRouter();
     const { currentcategory } = router.query;
 
     useEffect(() => {
+        console.log('inside use effect');
+        const fetchPosts = async () => {
+            const tag = 'via-socket';
+            const defaultTag = 'integrations';
+            const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
+    }, []);
+
+    useEffect(() => {
         router.push('/integrations?currentcategory=All');
     }, []);
 
-    //fetch apps
     useEffect(() => {
         setApps(responseData);
         setLoading(false);
         setSelectedCategory(currentcategory);
     }, [currentcategory, visibleItems]);
 
-    //fetch apps
-
     useEffect(() => {
         setVisibleItems(25);
     }, [selectedCategory]);
-
-    //fetch icons
 
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
     };
 
-    //search functions
     const applyFilters = () => {
         if (apps.length > 0) {
             let filteredItems = apps.filter((item) => {
@@ -67,7 +75,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         setCategoryDropdownOpen(!isCategoryDropdownOpen);
     };
 
-    // const uniqueCategories = ["All", "Human Resources", "Productivity","Marketing", "IT Operations", "Support", "Website Building","E-commerce platform", "Social media ", "Communication", "Other"];
     const uniqueCategories = [
         'All',
         'Engineering',
@@ -153,11 +160,11 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         'Video Conferencing',
         'Webinars',
     ];
+
     const renderFilterOptions = () => {
         return uniqueCategories.slice(0, visibleCategories).map((category) => (
-            <Link href={`/integrations?currentcategory=${category}`} aria-label="select category">
+            <Link key={category} href={`/integrations?currentcategory=${category}`} aria-label="select category">
                 <h6
-                    key={category}
                     onClick={() => {
                         setSelectedCategory(category);
                         category !== selectedCategory ? setLoading(true) : '';
@@ -171,8 +178,9 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
             </Link>
         ));
     };
+
     const handleCategoryLoadMore = () => {
-        setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
+        setVisibleCategories(visibleCategories + 10);
     };
 
     const handleCategoryItemClick = (category) => {
@@ -186,7 +194,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     return (
         <>
-            {' '}
             <MetaHeadComp metaData={metaData} page={'/integrations'} pathArray={pathArray} />
             <div className="">
                 <div className="flex flex-col gap-6 container py-20">
@@ -215,6 +222,11 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                         pathArray={pathArray}
                     />
                 </div>
+                {posts?.length && (
+                    <div>
+                        <BlogGrid posts={posts} />
+                    </div>
+                )}
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
