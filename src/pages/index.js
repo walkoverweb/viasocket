@@ -248,7 +248,8 @@ const Index = ({
                     </div>
                 </div>
                 {posts?.length && (
-                    <div>
+                    <div className="container mx-auto  py-12">
+                        {' '}
                         <BlogGrid posts={posts} />
                     </div>
                 )}

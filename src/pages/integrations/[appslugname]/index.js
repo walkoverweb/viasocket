@@ -340,7 +340,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                         </div>
                     )}
                     {posts?.length && (
-                        <div>
+                        <div className="container mx-auto py-12 ">
+                            {' '}
                             <BlogGrid posts={posts} />
                         </div>
                     )}

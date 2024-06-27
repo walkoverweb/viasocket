@@ -7,7 +7,7 @@ import Color from 'color';
 const BlogGrid = ({ posts }) => {
     return (
         <>
-            <div className="container mx-auto  ">
+            <div className="">
                 <div className="flex justify-left m-5 mr-10">
                     <h1 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
                         Know More About Viasocket Integrations
