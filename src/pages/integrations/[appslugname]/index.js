@@ -13,11 +13,24 @@ import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
 import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
-
-const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
+import BlogGrid from '@/components/blogGrid/blogGrid';
+import axios from 'axios';
+const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, metaData, faqData }) => {
+    console.log(params.appslugname, 123);
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
-
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        console.log('inside use effect');
+        const fetchPosts = async () => {
+            const tag = params.appslugname;
+            const defaultTag = 'integrations';
+            const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
+    }, []);
     useEffect(() => {
         if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
             setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
@@ -326,6 +339,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                             </div>
                         </div>
                     )}
+                    {posts?.length && (
+                        <div>
+                            <BlogGrid posts={posts} />
+                        </div>
+                    )}
+
                     <div className="bg-white py-20 ">
                         {faqData && faqData.length > 0 && (
                             <div className="container">
@@ -455,6 +474,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
+            params,
             combos,
             apps,
             pathArray,
