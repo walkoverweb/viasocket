@@ -24,7 +24,6 @@ const BlogGrid = ({ posts }) => {
                         target="_blank"
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
                     >
-                        {/* <a  target='blank' class=" color: rgb(255 255 255);">Read More</a> */}
                         Read More
                     </Link>
                 </div>

@@ -1,8 +1,6 @@
-import { getPosts } from '../lib/postsss';
+import { getPosts } from '../lib/get_post';
 
 export default function Temp() {
-    // const posts = getPosts();
-    // console.log(posts, "loggeddd");
     return (
         <>
             <p>temppp</p>

@@ -45,7 +45,6 @@ function fetchPostContent(tags, defaultTag) {
 }
 
 function getPosts(tags, defaultTag) {
-    console.log(defaultTag, 'default taggggg');
     let posts = filterPostsByTag(postCache, tags);
     if (posts.length < 3) {
         const defaultPosts = filterPostsByTag(postCache, [defaultTag]);

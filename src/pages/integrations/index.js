@@ -22,9 +22,8 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     const router = useRouter();
     const { currentcategory } = router.query;
-
+    //To Map Tags
     useEffect(() => {
-        console.log('inside use effect');
         const fetchPosts = async () => {
             const tag = 'via-socket';
             const defaultTag = 'integrations';
