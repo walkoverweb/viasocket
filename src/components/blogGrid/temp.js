@@ -1,4 +1,4 @@
-import { getPosts } from '../lib/get_post';
+import { getPosts } from '../lib/getPost';
 
 export default function Temp() {
     return (

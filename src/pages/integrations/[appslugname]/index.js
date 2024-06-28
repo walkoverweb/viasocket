@@ -16,12 +16,10 @@ import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import axios from 'axios';
 const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, metaData, faqData }) => {
-    console.log(params.appslugname, 123);
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        console.log('inside use effect');
         const fetchPosts = async () => {
             const tag = params.appslugname;
             const defaultTag = 'integrations';
@@ -213,7 +211,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
 
     //get Icon URL
     if (combos && !combos.error) {
-        console.log('heyyy');
         if (combos?.plugins[pathArray[2]]?.events?.length) {
             return (
                 <>
@@ -441,7 +438,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                 </>
             );
         } else {
-            console.log('heklki there');
             return <NoDataPluginComp plugin={[plugin]} combos={combos} mode={mode} />;
         }
     } else {
