@@ -9,6 +9,7 @@ import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import UseCase from '@/components/useCases/useCases';
 import axios from 'axios';
 export async function getServerSideProps() {
     const IDs = [
@@ -253,7 +254,10 @@ const Index = ({
                         <BlogGrid posts={posts} />
                     </div>
                 )}
-
+                <div>
+                    {' '}
+                    <UseCase />
+                </div>
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">

@@ -1,0 +1,20 @@
+{
+    "usecases": [
+        {
+            "heading": "Use Case 1",
+            "content": ["Description 1 for Use Case 1", "Description 2 for Use Case 1"]
+        },
+        {
+            "heading": "Use Case 2",
+            "content": ["Description 1 for Use Case 2", "Description 3 for Use Case 2"]
+        },
+        {
+            "heading": "Use Case 3",
+            "content": ["Description 1 for Use Case 3", "Description 2 for Use Case 3"]
+        },
+        {
+            "heading": "Use Case 4",
+            "content": ["Description 1 for Use Case 4", "Description 2 for Use Case 4"]
+        }
+    ]
+}
