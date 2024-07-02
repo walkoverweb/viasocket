@@ -30,9 +30,23 @@ export default function UseCase() {
                 'Integrate Docker with AWS Lambda  to automatically scale Dockerized web applications using AWS Lambda triggers.',
             ],
         },
+        {
+            'heading': 'Scale web applications dynamically',
+            'content': [
+                'Integrate Docker with Azure Functions  to dynamically manage and scale Docker containers based on Azure Functions events',
+                'Integrate Docker with AWS Lambda  to automatically scale Dockerized web applications using AWS Lambda triggers.',
+            ],
+        },
+        {
+            'heading': 'Scale web applications dynamically',
+            'content': [
+                'Integrate Docker with Azure Functions  to dynamically manage and scale Docker containers based on Azure Functions events',
+                'Integrate Docker with AWS Lambda  to automatically scale Dockerized web applications using AWS Lambda triggers.',
+            ],
+        },
     ];
 
-    const [selectedUsecase, setSelectedUsecase] = useState(null);
+    const [selectedUsecase, setSelectedUsecase] = useState(0);
 
     const handleUsecaseClick = (index) => {
         setSelectedUsecase(index);
@@ -41,24 +55,26 @@ export default function UseCase() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex flex-row">
-                <div className="bg-gray p-4 rounded-md w-1/2">
-                    <h1 className="text-3xl font-bold mb-4">Use Cases for App Name</h1>
+                <div className=" p-4 rounded-md w-1/2">
+                    <h1 className="text-5xl font-bold mb-4">Use Cases for App Name</h1>
 
-                    <ul className="list-disc pl-4">
+                    <ul className="list-disc pl-4 ">
                         {usecases.map((usecase, index) => (
-                            <li
-                                key={usecase.index}
-                                className={`cursor-pointer hover:bg-gray-200 ${index === 0 ? 'bg-gray-100' : ''}`}
-                                onClick={() => handleUsecaseClick(index)}
-                            >
-                                {usecase.heading}
-                            </li>
+                            <div className="border-b-4 border-black-400  border-opacity-100 border-color:black;">
+                                <ul
+                                    key={usecase?.index}
+                                    className={`cursor-pointer hover:bg-gray-200  px-4 py-6 ${index === 0 ? 'bg-gray-100' : ''}`}
+                                    onClick={() => handleUsecaseClick(index)}
+                                >
+                                    {usecase?.heading}
+                                </ul>
+                            </div>
                         ))}
                     </ul>
                 </div>
                 {selectedUsecase !== null && (
-                    <div className="bg-gray p-4 rounded-md w-1/2">
-                        <h2 className="text-2xl font-bold mb-2"> {usecases[selectedUsecase].heading}</h2>
+                    <div className="bg-gray p-4 rounded-md w-1/2 ml-5 mx-auto content-center ">
+                        <h2 className="text-4xl font-bold mb-2 ">{usecases[selectedUsecase].heading}</h2>
                         <ul className="list-disc pl-4">
                             {usecases[selectedUsecase].content.map((description, index) => (
                                 <li key={index}>{description}</li>
