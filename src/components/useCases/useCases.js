@@ -51,19 +51,19 @@ export default function UseCase() {
     const handleUsecaseClick = (index) => {
         setSelectedUsecase(index);
     };
-
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="flex flex-row">
-                <div className=" p-4 rounded-md w-1/2">
-                    <h1 className="text-5xl font-bold mb-4">Use Cases for App Name</h1>
-
-                    <ul className="list-disc pl-4 ">
+            <div className="flex flex-col md:flex-row">
+                {' '}
+                <div className="p-4 rounded-md w-full md:w-1/2">
+                    {' '}
+                    <h1 className="text-5xl font-bold mb-4">Use Cases</h1>
+                    <ul className="list-disc pl-4">
                         {usecases.map((usecase, index) => (
-                            <div className="border-b-4 border-black-400  border-opacity-100 border-color:black;">
+                            <div className="border-b-4 border-black-400 border-opacity-100 border-color:black;">
                                 <ul
                                     key={usecase?.index}
-                                    className={`cursor-pointer hover:bg-gray-200  px-4 py-6 ${index === 0 ? 'bg-gray-100' : ''}`}
+                                    className={`cursor-pointer hover:bg-gray-200 px-4 py-6 ${index === 0 ? '' : ''}`}
                                     onClick={() => handleUsecaseClick(index)}
                                 >
                                     {usecase?.heading}
@@ -73,8 +73,8 @@ export default function UseCase() {
                     </ul>
                 </div>
                 {selectedUsecase !== null && (
-                    <div className="bg-gray p-4 rounded-md w-1/2 ml-5 mx-auto content-center ">
-                        <h2 className="text-4xl font-bold mb-2 ">{usecases[selectedUsecase].heading}</h2>
+                    <div className="bg-gray p-4 rounded-md w-full md:w-1/2 ml-5 mx-auto content-center">
+                        <h2 className="text-4xl font-bold mb-2">{usecases[selectedUsecase].heading}</h2>
                         <ul className="list-disc pl-4">
                             {usecases[selectedUsecase].content.map((description, index) => (
                                 <li key={index}>{description}</li>
