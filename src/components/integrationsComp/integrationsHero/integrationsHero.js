@@ -12,10 +12,10 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
     const [mode, setMode] = useState('dark');
 
     useEffect(() => {
-        if (plugins?.brandcolor) {
-            setNewBrandColor(plugins?.brandcolor);
+        if (plugins[0]?.brandcolor) {
+            setNewBrandColor(plugins[0]?.brandcolor);
         }
-    }, []);
+    }, [plugins[0]?.brandcolor]);
 
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
