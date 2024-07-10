@@ -366,7 +366,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                     </div>
                                     <div>
                                         <Link
-                                            href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
+                                            href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}?utm_source=integration_page`}
                                             target="_blank"
                                             aria-label="try the combination"
                                         >
