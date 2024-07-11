@@ -47,7 +47,9 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                 <p className="md:text-2xl text-lg font-bold">{plug?.name}</p>
                                             )}
                                             {plug?.category && (
-                                                <p className="text-[14px] uppercase text-gray-400">{plug?.category}</p>
+                                                <p className="text-[14px] uppercase text-gray-400">
+                                                    {plug?.category?.join(', ')}
+                                                </p>
                                             )}
                                         </div>
                                     </div>
