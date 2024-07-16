@@ -23,6 +23,8 @@ export default function MetaHeadComp({ metaData, page, pathArray, plugin }) {
             return (
                 <>
                     <Head>
+                        <title>{title && title}</title>
+                        <meta name="description" content={description && description} />
                         <meta property="og:title" content={title && title} />
                         <meta property="og:description" content={description && description} />
                         <script
