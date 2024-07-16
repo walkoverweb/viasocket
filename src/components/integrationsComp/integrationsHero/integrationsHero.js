@@ -12,10 +12,10 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
     const [mode, setMode] = useState('dark');
 
     useEffect(() => {
-        if (plugins?.brandcolor) {
-            setNewBrandColor(plugins?.brandcolor);
+        if (plugins[0]?.brandcolor) {
+            setNewBrandColor(plugins[0]?.brandcolor);
         }
-    }, []);
+    }, [plugins[0]?.brandcolor]);
 
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
@@ -47,7 +47,9 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                 <p className="md:text-2xl text-lg font-bold">{plug?.name}</p>
                                             )}
                                             {plug?.category && (
-                                                <p className="text-[14px] uppercase text-gray-400">{plug?.category}</p>
+                                                <p className="text-[14px] uppercase text-gray-400">
+                                                    {plug?.category?.join(', ')}
+                                                </p>
                                             )}
                                         </div>
                                     </div>
