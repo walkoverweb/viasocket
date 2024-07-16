@@ -110,7 +110,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}?utm_source=integration_page`}
                 target="_blank"
             >
                 <div
