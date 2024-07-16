@@ -56,10 +56,11 @@ const IntegrationSearch = ({
                             {uniqueCategories.length > visibleCategories && (
                                 <button
                                     onClick={handleCategoryLoadMore}
-                                    className="text-blue-500 font-medium cursor-pointer text-left"
+                                    className="text-blue-500 font-medium cursor-pointer text-left flex items-center"
                                     aria-label="load more categories"
                                 >
                                     Load More
+                                    <MdOutlineKeyboardArrowDown size={20} />
                                 </button>
                             )}
                         </div>
