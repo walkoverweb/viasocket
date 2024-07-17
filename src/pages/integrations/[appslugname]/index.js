@@ -15,25 +15,37 @@ import FAQSection from '@/components/faqSection/faqSection';
 import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import axios from 'axios';
-const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, metaData, faqData }) => {
+import { getUseCases } from '@/pages/api/fetch-usecases';
+import UseCase from '@/components/useCases/useCases';
+
+const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, metaData, faqData, usecase }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
     const [posts, setPosts] = useState([]);
+
     useEffect(() => {
         const fetchPosts = async () => {
-            const tag = params.appslugname;
+            const tag = params?.appslugname;
             const defaultTag = 'integrations';
-            const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
-            const posts = await res.data;
-            setPosts(posts);
+            try {
+                const res = await axios.get(`NEXT_PUBLIC_BASE_URL/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
+                const posts = await res.data;
+                setPosts(posts);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
         };
-        fetchPosts();
-    }, []);
+        if (params?.appslugname) {
+            fetchPosts();
+        }
+    }, [params?.appslugname]);
+
     useEffect(() => {
         if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
-            setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
+            setNewBrandColor(combos.plugins[pathArray[2]].brandcolor);
         }
-    }, []);
+    }, [combos, pathArray]);
+
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
     }, [newBrandColor]);
@@ -52,16 +64,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
 
     const cardsData = combos?.combinations;
 
-    //fetch apps
-
-    //fetch apps
-
     useEffect(() => {
         setVisibleItems(25);
     }, [selectedCategory]);
+
     useEffect(() => {
         setPlugin(combos?.plugins?.[pathArray[2]]);
-    }, [combos, pathArray[2]]);
+    }, [combos, pathArray]);
 
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
@@ -73,14 +82,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
 
     //search functions
     const applyFilters = () => {
-        if (apps.length > 0) {
-            let filteredItems = apps.filter((item) => {
+        if (apps?.length > 0) {
+            const filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase());
                 const categoryMatches =
                     selectedCategory === 'All' || item.category === selectedCategory || !item.category;
                 return nameMatches && categoryMatches;
             });
-
             setFilteredData(filteredItems);
         }
     };
@@ -179,6 +187,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
         'Video Conferencing',
         'Webinars',
     ];
+
     const renderFilterOptions = () => {
         return uniqueCategories.slice(0, visibleCategories).map((category) => (
             <h6
@@ -192,8 +201,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
             </h6>
         ));
     };
+
     const handleCategoryLoadMore = () => {
-        setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
+        setVisibleCategories(visibleCategories + 10);
     };
 
     const handleCategoryItemClick = (category) => {
@@ -209,7 +219,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
         window.chatWidget.open();
     };
 
-    //get Icon URL
     if (combos && !combos.error) {
         if (combos?.plugins[pathArray[2]]?.events?.length) {
             return (
@@ -222,13 +231,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                     />
                     {plugin && <IntegrationHero plugin={[plugin]} combos={combos} mode={mode} />}
 
-                    <div className="] py-14">
-                        <div className="container flex  flex-col gap-8">
-                            <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
+                    <div className="py-14">
+                        <div className="container flex flex-col gap-8">
+                            <h1 className="lg:text-3xl text-2xl md:text-3xl font-semibold">
                                 Integrate with specific service
                             </h1>
                             <div className="flex flex-col gap-9">
-                                <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
+                                <div className="flex gap-2 justify-center items-center bg-white border py-4 px-6 rounded-md w-fit">
                                     <Image
                                         className="w-[26px] h-[26px]"
                                         src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
@@ -290,7 +299,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                                                                 }
                                                                 alt={combos?.plugins?.[pathArray[2]]?.name}
                                                             />
-
                                                             <div>
                                                                 <h4 className="font-semibold">{event?.name}</h4>
                                                                 <p>{event?.description}</p>
@@ -321,7 +329,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                                                                 }
                                                                 alt={combos?.plugins?.[pathArray[2]]?.name}
                                                             />
-
                                                             <div>
                                                                 <h4 className="font-semibold">{event?.name}</h4>
                                                                 <p>{event?.description}</p>
@@ -336,21 +343,23 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                             </div>
                         </div>
                     )}
-                    {posts?.length && (
-                        <div className="container mx-auto py-12 ">
-                            {' '}
+                    {posts?.length > 0 && (
+                        <div className="container mx-auto py-12">
                             <BlogGrid posts={posts} />
                         </div>
                     )}
-
+                    {usecase?.length > 0 && (
+                        <div className="container mx-auto py-12">
+                            <UseCase usecases={usecase} />
+                        </div>
+                    )}
                     <div className="bg-white py-20 ">
-                        {faqData && faqData.length > 0 && (
+                        {faqData?.length > 0 && (
                             <div className="container">
                                 <FAQSection faqData={faqData} faqName={`[singleApp]`} />
                             </div>
                         )}
                     </div>
-                    {/* abouttttt */}
                     <div className="py-14">
                         <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
                             <div className="flex flex-1 flex-col justify-start gap-4">
@@ -383,7 +392,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                                     </Link>
                                 </div>
                             </div>
-
                             <div className="flex flex-1 flex-col gap-4">
                                 <Link href="/" aria-label="main link">
                                     <Image
@@ -412,15 +420,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, params, apps, pathArray, 
                             </div>
                         </div>
                     </div>
-                    {/* ------------------------------------------------------------------------------------------------------ */}
 
                     <div className=" py-14">
                         <div className="container">
                             {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                         </div>
                     </div>
-
-                    {/* footer */}
 
                     <div className=" py-10">
                         <div className="flex flex-row gap-4 justify-center items-center">
@@ -461,6 +466,7 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const pathArray = [params.appslugname];
     // Fetch data server-side here
+    const usecase = await getUseCases(pathArray[0]);
     const combos = await fetchCombos(pathArray);
     const apps = await fetchApps('All', 25);
 
@@ -475,9 +481,10 @@ export async function getServerSideProps(context) {
             combos,
             apps,
             pathArray,
-            metaData: results[0].data.rows,
-            getStartedData: results[1].data.rows,
-            faqData: results[2].data.rows,
+            metaData: results[0]?.data?.rows ?? [],
+            getStartedData: results[1]?.data?.rows ?? [],
+            faqData: results[2]?.data?.rows ?? [],
+            usecase: usecase ?? [],
         },
     };
 }

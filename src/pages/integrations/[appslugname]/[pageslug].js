@@ -416,6 +416,10 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 </Link>
                             </div>
                         </div>
+                        <div>
+                            {' '}
+                            <UseCase />
+                        </div>
                         <div className="flex flex-1 flex-col justify-start gap-4">
                             <Image
                                 src={pluginTwo?.iconurl ? pluginTwo?.iconurl : 'https://placehold.co/40x40'}
