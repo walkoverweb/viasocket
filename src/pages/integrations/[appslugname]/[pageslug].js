@@ -11,6 +11,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
+import ErrorComp from '@/components/404/404Comp';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
@@ -161,314 +162,320 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
         return null;
     };
 
-    return (
-        <>
-            <MetaHeadComp
-                metaData={metaData}
-                plugin={plugin}
-                page={'/integrations/AppOne/AppTwo'}
-                pathArray={pathArray}
-            />
-            <IntegrationHero plugin={plugin} combos={combos} mode={mode} />
-            <div>
-                <div className="bg-white">
-                    {triggerEvent.length > 2 && actionEvents.length > 2 && (
-                        <>
-                            <div className="container py-20">
-                                <h1 className="flex text-3xl font-semibold">
-                                    {`Automate anything with ${pathArray[2]} & ${pathArray[3]}${' '}Integrations!`}
-                                </h1>
+    if (plugin?.length && plugin[0]) {
+        return (
+            <>
+                <MetaHeadComp
+                    metaData={metaData}
+                    plugin={plugin}
+                    page={'/integrations/AppOne/AppTwo'}
+                    pathArray={pathArray}
+                />
+                <IntegrationHero plugin={plugin} combos={combos} mode={mode} />
+                <div>
+                    <div className="bg-white">
+                        {triggerEvent.length > 2 && actionEvents.length > 2 && (
+                            <>
+                                <div className="container py-20">
+                                    <h1 className="flex text-3xl font-semibold">
+                                        {`Automate anything with ${pathArray[2]} & ${pathArray[3]}${' '}Integrations!`}
+                                    </h1>
 
-                                <div className="grid md:grid-cols-2 grid-cols-1 gap-8 mt-20">
-                                    <div className="flex flex-col gap-6">
-                                        <div className="flex items-center gap-4">
-                                            <MdOutlineAdsClick size={24} />
-                                            <h5 className=" text-xl font-bold ">When this happens</h5>
-                                            <p className="text-sm text-red-600 bg-red-200 px-3 py-1 rounded-full font-normal">
-                                                Triggers
-                                            </p>
-                                        </div>
-                                        {triggerEvent.length > 0 &&
-                                            triggerEvent.map((card, index) => (
-                                                <div
-                                                    key={index}
-                                                    className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
-                                                        selectedCardIndex === index ? 'selected-card' : ''
-                                                    }`}
-                                                    onClick={() => {
-                                                        if (selectedCardIndex === index) {
-                                                            handleCardClick(null);
-                                                            setCnt(cnt - 1);
-                                                        } else {
-                                                            handleCardClick(index);
-                                                            setCnt(cnt + 1);
-                                                        }
-                                                    }}
-                                                    onMouseEnter={() => setHoveredCardIndex(index)}
-                                                    onMouseLeave={() => setHoveredCardIndex(null)}
-                                                >
-                                                    <div className="flex flex-1 flex-row items-center gap-4">
-                                                        <Image
-                                                            src={
-                                                                combos?.plugins[card?.pluginslugname]?.iconurl
-                                                                    ? combos?.plugins[card?.pluginslugname]?.iconurl
-                                                                    : 'https://placehold.co/40x40'
+                                    <div className="grid md:grid-cols-2 grid-cols-1 gap-8 mt-20">
+                                        <div className="flex flex-col gap-6">
+                                            <div className="flex items-center gap-4">
+                                                <MdOutlineAdsClick size={24} />
+                                                <h5 className=" text-xl font-bold ">When this happens</h5>
+                                                <p className="text-sm text-red-600 bg-red-200 px-3 py-1 rounded-full font-normal">
+                                                    Triggers
+                                                </p>
+                                            </div>
+                                            {triggerEvent.length > 0 &&
+                                                triggerEvent.map((card, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
+                                                            selectedCardIndex === index ? 'selected-card' : ''
+                                                        }`}
+                                                        onClick={() => {
+                                                            if (selectedCardIndex === index) {
+                                                                handleCardClick(null);
+                                                                setCnt(cnt - 1);
+                                                            } else {
+                                                                handleCardClick(index);
+                                                                setCnt(cnt + 1);
                                                             }
-                                                            width={38}
-                                                            height={38}
-                                                            className="w-[36px] h-[36px]"
-                                                            alt={combos?.plugins[card?.pluginslugname]}
-                                                        />
-                                                        <div className="flex flex-col ">
-                                                            <h6 className="text-lg font-semibold ">{card?.name}</h6>
-                                                            <p className=" text-md font-normal ">{card?.description}</p>
+                                                        }}
+                                                        onMouseEnter={() => setHoveredCardIndex(index)}
+                                                        onMouseLeave={() => setHoveredCardIndex(null)}
+                                                    >
+                                                        <div className="flex flex-1 flex-row items-center gap-4">
+                                                            <Image
+                                                                src={
+                                                                    combos?.plugins[card?.pluginslugname]?.iconurl
+                                                                        ? combos?.plugins[card?.pluginslugname]?.iconurl
+                                                                        : 'https://placehold.co/40x40'
+                                                                }
+                                                                width={38}
+                                                                height={38}
+                                                                className="w-[36px] h-[36px]"
+                                                                alt={combos?.plugins[card?.pluginslugname]}
+                                                            />
+                                                            <div className="flex flex-col ">
+                                                                <h6 className="text-lg font-semibold ">{card?.name}</h6>
+                                                                <p className=" text-md font-normal ">
+                                                                    {card?.description}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="w-[10px]">
+                                                            {selectedCardIndex === index ? (
+                                                                <FaCheckCircle className="text-[#1A73E8]" size={20} />
+                                                            ) : (
+                                                                hoveredCardIndex === index && (
+                                                                    <FaRegCheckCircle size={20} />
+                                                                )
+                                                            )}
                                                         </div>
                                                     </div>
-                                                    <div className="w-[10px]">
-                                                        {selectedCardIndex === index ? (
-                                                            <FaCheckCircle className="text-[#1A73E8]" size={20} />
-                                                        ) : (
-                                                            hoveredCardIndex === index && <FaRegCheckCircle size={20} />
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                    </div>
-
-                                    <div className="flex flex-col gap-6">
-                                        <div className="flex items-center gap-4">
-                                            <MdOutlineTaskAlt size={24} />
-                                            <h5 className="text-xl font-bold ">Do this</h5>
-                                            <p className="text-sm text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-normal">
-                                                Actions
-                                            </p>
+                                                ))}
                                         </div>
-                                        {actionEvents.length > 0 &&
-                                            actionEvents.map((card, i) => (
-                                                <div
-                                                    key={i}
-                                                    className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
-                                                        selectedActionCardIndex === i ? 'selected-card' : ''
-                                                    }`}
-                                                    onClick={() => {
-                                                        if (selectedActionCardIndex === i) {
-                                                            handleActionCardClick(null);
-                                                            setCnt(cnt - 1);
-                                                        } else {
-                                                            handleActionCardClick(i);
-                                                            setCnt(cnt + 1);
-                                                        }
-                                                    }}
-                                                    onMouseEnter={() => setHoveredActionCardIndex(i)}
-                                                    onMouseLeave={() => setHoveredActionCardIndex(null)}
-                                                >
-                                                    <div className="flex flex-1 flex-row items-center gap-4">
-                                                        <Image
-                                                            src={
-                                                                combos?.plugins[card?.pluginslugname]?.iconurl
-                                                                    ? combos?.plugins[card?.pluginslugname]?.iconurl
-                                                                    : 'https://placehold.co/40x40'
+
+                                        <div className="flex flex-col gap-6">
+                                            <div className="flex items-center gap-4">
+                                                <MdOutlineTaskAlt size={24} />
+                                                <h5 className="text-xl font-bold ">Do this</h5>
+                                                <p className="text-sm text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-normal">
+                                                    Actions
+                                                </p>
+                                            </div>
+                                            {actionEvents.length > 0 &&
+                                                actionEvents.map((card, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
+                                                            selectedActionCardIndex === i ? 'selected-card' : ''
+                                                        }`}
+                                                        onClick={() => {
+                                                            if (selectedActionCardIndex === i) {
+                                                                handleActionCardClick(null);
+                                                                setCnt(cnt - 1);
+                                                            } else {
+                                                                handleActionCardClick(i);
+                                                                setCnt(cnt + 1);
                                                             }
-                                                            width={38}
-                                                            height={38}
-                                                            className="w-[36px] h-[36px]"
-                                                            alt={combos?.plugins[card?.pluginslugname]}
-                                                        />
-                                                        <div className="flex flex-col ">
-                                                            <h6 className="text-lg font-semibold ">{card?.name}</h6>
-                                                            <p className=" text-md font-normal ">{card?.description}</p>
+                                                        }}
+                                                        onMouseEnter={() => setHoveredActionCardIndex(i)}
+                                                        onMouseLeave={() => setHoveredActionCardIndex(null)}
+                                                    >
+                                                        <div className="flex flex-1 flex-row items-center gap-4">
+                                                            <Image
+                                                                src={
+                                                                    combos?.plugins[card?.pluginslugname]?.iconurl
+                                                                        ? combos?.plugins[card?.pluginslugname]?.iconurl
+                                                                        : 'https://placehold.co/40x40'
+                                                                }
+                                                                width={38}
+                                                                height={38}
+                                                                className="w-[36px] h-[36px]"
+                                                                alt={combos?.plugins[card?.pluginslugname]}
+                                                            />
+                                                            <div className="flex flex-col ">
+                                                                <h6 className="text-lg font-semibold ">{card?.name}</h6>
+                                                                <p className=" text-md font-normal ">
+                                                                    {card?.description}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className=" w-[10px] ">
+                                                            {selectedActionCardIndex === i ? (
+                                                                <FaCheckCircle className="text-[#1A73E8] " size={20} />
+                                                            ) : (
+                                                                hoveredActionCardIndex === i && (
+                                                                    <FaRegCheckCircle size={20} />
+                                                                )
+                                                            )}
                                                         </div>
                                                     </div>
-                                                    <div className=" w-[10px] ">
-                                                        {selectedActionCardIndex === i ? (
-                                                            <FaCheckCircle className="text-[#1A73E8] " size={20} />
-                                                        ) : (
-                                                            hoveredActionCardIndex === i && (
-                                                                <FaRegCheckCircle size={20} />
-                                                            )
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </>
-                    )}
-                </div>
+                            </>
+                        )}
+                    </div>
 
-                {(selectedTrigger !== null || selectedAction !== null) && cnt >= 1 && showFixedSection && (
-                    <div className={`bg-white ${cnt < 1 ? 'hidden' : 'fixed'} bottom-0 w-[100%] z-30`}>
-                        <div className="container flex flex-wrap lg:justify-between gap-6 items-center py-4 ">
-                            <div className="flex flex-row flex-wrap items-center gap-4">
-                                <div className="flex flex-row gap-4 bg-white border px-5 py-2 rounded-lg w-[400px] items-center">
-                                    {selectedTrigger !== null ? (
-                                        <>
-                                            <Image
-                                                src={selectedTriggerImage}
-                                                alt="alt"
-                                                height={30}
-                                                width={30}
-                                                className="h-[30px] w-[30px]"
-                                            />
-                                            <h1 className="lg:text-xl md:text-lg text-base font-semibold">
-                                                {triggerEvent[selectedTrigger]?.name}
-                                            </h1>
-                                        </>
-                                    ) : (
-                                        <p className="text-xl font-semibold text-[#808080]">Select Trigger</p>
-                                    )}
+                    {(selectedTrigger !== null || selectedAction !== null) && cnt >= 1 && showFixedSection && (
+                        <div className={`bg-white ${cnt < 1 ? 'hidden' : 'fixed'} bottom-0 w-[100%] z-30`}>
+                            <div className="container flex flex-wrap lg:justify-between gap-6 items-center py-4 ">
+                                <div className="flex flex-row flex-wrap items-center gap-4">
+                                    <div className="flex flex-row gap-4 bg-white border px-5 py-2 rounded-lg w-[400px] items-center">
+                                        {selectedTrigger !== null ? (
+                                            <>
+                                                <Image
+                                                    src={selectedTriggerImage}
+                                                    alt="alt"
+                                                    height={30}
+                                                    width={30}
+                                                    className="h-[30px] w-[30px]"
+                                                />
+                                                <h1 className="lg:text-xl md:text-lg text-base font-semibold">
+                                                    {triggerEvent[selectedTrigger]?.name}
+                                                </h1>
+                                            </>
+                                        ) : (
+                                            <p className="text-xl font-semibold text-[#808080]">Select Trigger</p>
+                                        )}
+                                    </div>
+
+                                    <div className="lg:text-xl text-lg ">
+                                        <MdAdd size={20} />
+                                    </div>
+
+                                    <div className="flex flex-row items-center gap-4 bg-white border px-5 py-2 rounded-lg w-[400px]">
+                                        {selectedAction !== null ? (
+                                            <>
+                                                <Image
+                                                    src={selectedActionImage}
+                                                    alt={actionEvents[selectedAction]?.name}
+                                                    height={30}
+                                                    width={30}
+                                                    className="h-[30px] w-[30px]"
+                                                />
+                                                <h1 className="lg:text-xl md:text-lg text-base font-semibold">
+                                                    {actionEvents[selectedAction]?.name}
+                                                </h1>
+                                            </>
+                                        ) : (
+                                            <p className="lg:text-xl md:text-lg text-base font-semibold text-[#808080]">
+                                                Select Action
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
 
-                                <div className="lg:text-xl text-lg ">
-                                    <MdAdd size={20} />
-                                </div>
-
-                                <div className="flex flex-row items-center gap-4 bg-white border px-5 py-2 rounded-lg w-[400px]">
-                                    {selectedAction !== null ? (
-                                        <>
-                                            <Image
-                                                src={selectedActionImage}
-                                                alt={actionEvents[selectedAction]?.name}
-                                                height={30}
-                                                width={30}
-                                                className="h-[30px] w-[30px]"
-                                            />
-                                            <h1 className="lg:text-xl md:text-lg text-base font-semibold">
-                                                {actionEvents[selectedAction]?.name}
-                                            </h1>
-                                        </>
-                                    ) : (
-                                        <p className="lg:text-xl md:text-lg text-base font-semibold text-[#808080]">
-                                            Select Action
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="flex flex-row gap-3">
-                                <div>
-                                    <button
-                                        className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded"
-                                        onClick={handleCancelClick}
-                                        aria-label="cancel"
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                                <div>
-                                    <Link
-                                        href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}`}
-                                        target="_blank"
-                                        aria-label="try the combination"
-                                    >
+                                <div className="flex flex-row gap-3">
+                                    <div>
                                         <button
                                             className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded"
-                                            disabled={cnt !== 2}
+                                            onClick={handleCancelClick}
+                                            aria-label="cancel"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <Link
+                                            href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action/${actionEvents[selectedAction]?.rowid}?utm_source=integration_page`}
+                                            target="_blank"
                                             aria-label="try the combination"
                                         >
-                                            Try it now
+                                            <button
+                                                className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded"
+                                                disabled={cnt !== 2}
+                                                aria-label="try the combination"
+                                            >
+                                                Try it now
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="bg-white py-20 ">
+                        {faqData && faqData.length > 0 && (
+                            <div className="container">
+                                <FAQSection faqData={faqData} faqName={`[doubleApp]`} />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className=" py-20">
+                        <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
+                            <div className="flex flex-1 flex-col justify-start gap-4">
+                                <Image
+                                    src={pluginOne?.iconurl ? pluginOne?.iconurl : 'https://placehold.co/40x40'}
+                                    width={34}
+                                    height={34}
+                                    alt={combos?.plugins?.[pathArray[2]]?.name}
+                                />
+                                <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
+                                    {`About ${combos?.plugins?.[pathArray[2]]?.name}`}
+                                </h6>
+                                <p className="md:text-xl text-base">{pluginOne?.description}</p>
+                                <div>
+                                    <Link
+                                        href={
+                                            combos?.plugins?.[pathArray[2]]?.domain.startsWith('http')
+                                                ? combos?.plugins?.[pathArray[2]]?.domain
+                                                : 'http://' + combos?.plugins?.[pathArray[2]]?.domain
+                                        }
+                                        target="_blank"
+                                    >
+                                        <button
+                                            className="font-medium text-[#2D81F7] flex items-center"
+                                            aria-label="load more apps"
+                                        >
+                                            Learn More
+                                            <MdChevronRight fontSize={22} />
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="flex flex-1 flex-col justify-start gap-4">
+                                <Image
+                                    src={pluginTwo?.iconurl ? pluginTwo?.iconurl : 'https://placehold.co/40x40'}
+                                    width={34}
+                                    height={34}
+                                    alt={combos?.plugins?.[pathArray[3]]?.name}
+                                />
+                                <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
+                                    {`About ${combos?.plugins?.[pathArray[3]]?.name}`}
+                                </h6>
+                                <p className="md:text-xl text-base">{pluginTwo?.description}</p>
+                                <div>
+                                    <Link
+                                        href={
+                                            combos?.plugins?.[pathArray[3]]?.domain.startsWith('http')
+                                                ? combos?.plugins?.[pathArray[3]]?.domain
+                                                : 'http://' + combos?.plugins?.[pathArray[3]]?.domain
+                                        }
+                                        target="_blank"
+                                    >
+                                        <button
+                                            className="font-medium text-[#2D81F7] flex items-center"
+                                            aria-label="load more apps"
+                                        >
+                                            Learn More
+                                            <MdChevronRight fontSize={22} />
                                         </button>
                                     </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )}
 
-                <div className="bg-white py-20 ">
-                    {faqData && faqData.length > 0 && (
-                        <div className="container">
-                            <FAQSection faqData={faqData} faqName={`[doubleApp]`} />
-                        </div>
-                    )}
-                </div>
-
-                <div className=" py-20">
-                    <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
-                        <div className="flex flex-1 flex-col justify-start gap-4">
-                            <Image
-                                src={pluginOne?.iconurl ? pluginOne?.iconurl : 'https://placehold.co/40x40'}
-                                width={34}
-                                height={34}
-                                alt={combos?.plugins?.[pathArray[2]]?.name}
-                            />
-                            <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                                {`About ${combos?.plugins?.[pathArray[2]]?.name}`}
-                            </h6>
-                            <p className="md:text-xl text-base">{pluginOne?.description}</p>
-                            <div>
-                                <Link
-                                    href={
-                                        combos?.plugins?.[pathArray[2]]?.domain.startsWith('http')
-                                            ? combos?.plugins?.[pathArray[2]]?.domain
-                                            : 'http://' + combos?.plugins?.[pathArray[2]]?.domain
-                                    }
-                                    target="_blank"
-                                >
-                                    <button
-                                        className="font-medium text-[#2D81F7] flex items-center"
-                                        aria-label="load more apps"
-                                    >
-                                        Learn More
-                                        <MdChevronRight fontSize={22} />
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                        <div>
-                            {' '}
-                            <UseCase />
-                        </div>
-                        <div className="flex flex-1 flex-col justify-start gap-4">
-                            <Image
-                                src={pluginTwo?.iconurl ? pluginTwo?.iconurl : 'https://placehold.co/40x40'}
-                                width={34}
-                                height={34}
-                                alt={combos?.plugins?.[pathArray[3]]?.name}
-                            />
-                            <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                                {`About ${combos?.plugins?.[pathArray[3]]?.name}`}
-                            </h6>
-                            <p className="md:text-xl text-base">{pluginTwo?.description}</p>
-                            <div>
-                                <Link
-                                    href={
-                                        combos?.plugins?.[pathArray[3]]?.domain.startsWith('http')
-                                            ? combos?.plugins?.[pathArray[3]]?.domain
-                                            : 'http://' + combos?.plugins?.[pathArray[3]]?.domain
-                                    }
-                                    target="_blank"
-                                >
-                                    <button
-                                        className="font-medium text-[#2D81F7] flex items-center"
-                                        aria-label="load more apps"
-                                    >
-                                        Learn More
-                                        <MdChevronRight fontSize={22} />
-                                    </button>
-                                </Link>
-                            </div>
+                    <div className="bg-[#E6E6E6] py-10">
+                        <div className="flex flex-row gap-4 justify-center items-center">
+                            <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">Integrations run at</h4>
+                            <Link href="/" aria-label="main page">
+                                <Image
+                                    src="../../../assets/brand/socket_fav_dark.svg"
+                                    width={40}
+                                    height={40}
+                                    alt="viasocket"
+                                />
+                            </Link>
                         </div>
                     </div>
                 </div>
-
-                <div className="bg-[#E6E6E6] py-10">
-                    <div className="flex flex-row gap-4 justify-center items-center">
-                        <h4 className="lg:text-[32px] md:text-xl text-lg font-semibold">Integrations run at</h4>
-                        <Link href="/" aria-label="main page">
-                            <Image
-                                src="../../../assets/brand/socket_fav_dark.svg"
-                                width={40}
-                                height={40}
-                                alt="viasocket"
-                            />
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+            </>
+        );
+    } else {
+        return <ErrorComp pathArray={pathArray} />;
+    }
 };
 
 export default IntegrationSlugPage;
