@@ -13,8 +13,10 @@ import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
 import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
+import { getUseCases } from '@/pages/api/fetch-usecases';
+import UseCase from '@/components/useCases/useCases';
 
-const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData, usecase }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
 
@@ -324,6 +326,11 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 )}
+                {usecase?.length > 0 && (
+                    <div className="container mx-auto py-12">
+                        <UseCase usecases={usecase} />
+                    </div>
+                )}
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
@@ -436,6 +443,7 @@ export async function getServerSideProps(context) {
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray);
     const apps = await fetchApps('All', 25);
+    const usecase = await getUseCases(pathArray[0]);
 
     const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
@@ -450,6 +458,7 @@ export async function getServerSideProps(context) {
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            usecase: usecase ?? [],
         },
     };
 }
