@@ -11,6 +11,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
@@ -416,6 +417,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 </Link>
                             </div>
                         </div>
+                        {posts?.length && (
+                            <div className="container mx-auto  py-12">
+                                {' '}
+                                <BlogGrid posts={posts} />
+                            </div>
+                        )}
                         <div>
                             {' '}
                             <UseCase />
@@ -472,7 +479,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 };
 
 export default IntegrationSlugPage;
-
 export async function getServerSideProps(context) {
     const { params } = context;
     const pathArray = [params.appslugname, params.pageslug];
