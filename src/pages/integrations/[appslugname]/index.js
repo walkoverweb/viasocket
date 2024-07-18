@@ -15,15 +15,28 @@ import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import { getUseCases } from '@/pages/api/fetch-usecases';
 import UseCase from '@/components/useCases/useCases';
+import axios from 'axios';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 
-const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData, usecase }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData, usecase, params }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
             setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
         }
+    }, []);
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const tag = params.appslugname;
+            const defaultTag = 'integrations';
+            const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
     }, []);
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
@@ -331,6 +344,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         <UseCase usecases={usecase} />
                     </div>
                 )}
+                {posts?.length && (
+                    <div className="container mx-auto py-12 ">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )}
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
@@ -452,6 +471,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
+            params,
             combos,
             apps,
             pathArray,

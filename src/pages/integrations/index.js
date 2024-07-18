@@ -27,7 +27,9 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         const fetchPosts = async () => {
             const tag = 'via-socket';
             const defaultTag = 'integrations';
-            const res = await axios.get(`http://localhost:1111/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+            );
             const posts = await res.data;
             setPosts(posts);
         };

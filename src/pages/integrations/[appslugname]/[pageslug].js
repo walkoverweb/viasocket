@@ -12,6 +12,7 @@ import { GetColorMode } from '@/utils/getColorMode';
 import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import UseCase from '@/components/useCases/useCases';
 
 const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
@@ -416,11 +417,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                     </button>
                                 </Link>
                             </div>
-                        </div>
-
-                        <div>
-                            {' '}
-                            <UseCase />
                         </div>
                         <div className="flex flex-1 flex-col justify-start gap-4">
                             <Image

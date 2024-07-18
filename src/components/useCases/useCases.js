@@ -28,7 +28,7 @@ export default function UseCase({ usecases }) {
                 <div className="p-4 rounded-md w-full md:w-1/2">
                     <h1 className="text-5xl font-bold mb-4">Use Cases</h1>
                     <ul className="list-disc pl-4">
-                        {usecases.map((usecase, index) => (
+                        {usecases?.map((usecase, index) => (
                             <div
                                 key={index}
                                 className="border-b-4 border-black-400 border-opacity-100 border-color:black;"
