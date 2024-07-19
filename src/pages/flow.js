@@ -12,6 +12,7 @@ import FAQSection from '@/components/faqSection/faqSection';
 import { getBlogs } from '@/utils/getBlogs';
 
 const Flow = ({ getStartedData, features, pathArray, metaData, apps, faqData, blogs }) => {
+    console.log('🚀 ~ Flow ~ blogs:', blogs);
     if (apps.length > 0) {
         const [slectedApps, setSelectedApps] = useState([]);
         const [slectedIndus, setSelectedIndus] = useState();

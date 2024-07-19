@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { GetColorMode } from '@/utils/getColorMode';
 export default function IntegrationsHero({ combinationData, pluginData }) {
     const plugins = pluginData;
+    console.log('🚀 ~ IntegrationsHero ~ plugins:', plugins);
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
 
