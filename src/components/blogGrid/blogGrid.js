@@ -1,9 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { MdOutlineArrowForward } from 'react-icons/md';
-import Temp from './temp';
-import Color from 'color';
-
 const BlogGrid = ({ posts }) => {
     return (
         <>
@@ -20,7 +17,7 @@ const BlogGrid = ({ posts }) => {
                 </div>
                 <div className="flex justify-center mt-10">
                     <Link
-                        href="https://viasocket.com/blog"
+                        href="/blog"
                         target="_blank"
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
                     >
@@ -44,7 +41,7 @@ const CardComponent = ({ card }) => {
                 <div className="card-actions justify-start">
                     <Link
                         target="_blank"
-                        href={`blog/${card?.slug}`}
+                        href={`/blog/${card?.slug}`}
                         className="flex items-center gap-1 text-[#0000ff] mt-6"
                     >
                         Learn More <MdOutlineArrowForward />

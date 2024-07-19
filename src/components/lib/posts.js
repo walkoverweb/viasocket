@@ -1,6 +1,7 @@
 const matter = require('gray-matter');
 const path = require('path');
 const yaml = require('js-yaml');
+const fs = require('fs');
 
 const postsDirectory = path.join(process.cwd(), '_posts/blog');
 let postCache;

@@ -9,9 +9,6 @@ export default function Temp() {
 }
 
 export async function getStaticProps() {
-    console.log('inside props');
-
-    console.log(posts);
     return {
         props: {
             posts,
