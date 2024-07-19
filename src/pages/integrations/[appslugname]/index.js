@@ -346,12 +346,12 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         <UseCase usecases={usecase} />
                     </div>
                 )}
-                {posts?.length && (
+                {/* {posts?.length && (
                     <div className="container mx-auto py-12 ">
                         {' '}
                         <BlogGrid posts={posts} />
                     </div>
-                )}
+                )} */}
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">

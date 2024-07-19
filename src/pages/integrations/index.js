@@ -23,18 +23,18 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const router = useRouter();
     const { currentcategory } = router.query;
     //To Map Tags
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const tag = 'via-socket';
-            const defaultTag = 'integrations';
-            const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
-            );
-            const posts = await res.data;
-            setPosts(posts);
-        };
-        fetchPosts();
-    }, []);
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         const tag = 'via-socket';
+    //         const defaultTag = 'integrations';
+    //         const res = await axios.get(
+    //             `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+    //         );
+    //         const posts = await res.data;
+    //         setPosts(posts);
+    //     };
+    //     fetchPosts();
+    // }, []);
 
     useEffect(() => {
         router.push('/integrations?currentcategory=All');
@@ -223,12 +223,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                         pathArray={pathArray}
                     />
                 </div>
-                {posts?.length && (
+                {/* {posts?.length && (
                     <div className="container mx-auto py-12 ">
                         {' '}
                         <BlogGrid posts={posts} />
                     </div>
-                )}
+                )} */}
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
