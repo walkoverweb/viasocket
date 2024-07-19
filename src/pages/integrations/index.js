@@ -8,7 +8,7 @@ import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 
-const IntegrationSlugPage = ({ metaData, getStartedData, faqData, responseData, pathArray }) => {
+const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
     //defined states
     const [apps, setApps] = useState(responseData);
     const [filteredData, setFilteredData] = useState([]);
