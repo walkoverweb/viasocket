@@ -8,7 +8,7 @@ import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 
-const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
+const IntegrationSlugPage = ({ metaData, getStartedData, faqData, responseData, pathArray }) => {
     //defined states
     const [apps, setApps] = useState(responseData);
     const [filteredData, setFilteredData] = useState([]);
@@ -28,6 +28,7 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     //fetch apps
     useEffect(() => {
         setApps(responseData);
+
         setLoading(false);
         setSelectedCategory(currentcategory);
     }, [currentcategory, visibleItems]);
@@ -46,11 +47,26 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     //search functions
     const applyFilters = () => {
-        if (apps.length > 0) {
+        if (apps?.length > 0) {
             let filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
                 const categoryMatches =
                     selectedCategory === 'All' || item.category === selectedCategory || !item.category;
+
+                return nameMatches && categoryMatches;
+            });
+
+            setFilteredData(filteredItems);
+        }
+    };
+    // Filter on the basis of category
+
+    const applyFiltersOnCategory = () => {
+        let tempdata = apps;
+        if (tempdata?.length > 0) {
+            let filteredItems = tempdata.filter((item) => {
+                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches = item.category.includes(selectedCategory);
                 return nameMatches && categoryMatches;
             });
 
@@ -59,15 +75,18 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     };
 
     useEffect(() => {
-        applyFilters();
-    }, [apps, searchTerm, currentcategory]);
+        if (selectedCategory === 'All') {
+            applyFilters();
+            return;
+        }
+        applyFiltersOnCategory();
+    }, [apps, searchTerm, selectedCategory]);
 
     const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
     const handleCategoryClick = () => {
         setCategoryDropdownOpen(!isCategoryDropdownOpen);
     };
 
-    // const uniqueCategories = ["All", "Human Resources", "Productivity","Marketing", "IT Operations", "Support", "Website Building","E-commerce platform", "Social media ", "Communication", "Other"];
     const uniqueCategories = [
         'All',
         'Engineering',
@@ -160,6 +179,7 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                     key={category}
                     onClick={() => {
                         setSelectedCategory(category);
+
                         category !== selectedCategory ? setLoading(true) : '';
                     }}
                     className={`lg:text-[20px] text-base cursor-pointer ${
@@ -216,7 +236,7 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                     />
                 </div>
 
-                <div className="bg-white py-20 ">
+                <div className="bg-white py-20  ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
                             <FAQSection faqData={faqData} faqName={'/integrations'} />
@@ -240,10 +260,8 @@ export async function getServerSideProps(context) {
 
     const fetchUrl =
         currentcategory && currentcategory !== 'All'
-            ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
-                  currentcategory && currentcategory === 'Other' ? null : currentcategory
-              }&limit=200`
-            : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`;
+            ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${encodeURIComponent(currentcategory === 'Other' ? 'null' : currentcategory)}`
+            : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?&limit=200`;
 
     const apiHeaders = {
         headers: {
@@ -251,20 +269,37 @@ export async function getServerSideProps(context) {
         },
     };
 
-    const response = await fetch(fetchUrl, apiHeaders);
-    const responseData = await response.json();
+    try {
+        const response = await fetch(fetchUrl, apiHeaders);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const responseData = await response.json();
 
-    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
+        const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-    return {
-        props: {
-            metaData: results[0].data.rows,
-            getStartedData: results[1].data.rows,
-            faqData: results[2].data.rows,
-            responseData,
-            pathArray,
-        },
-    };
+        const dataPromises = IDs.map((id) => getDbdashData(id));
+        const results = await Promise.all(dataPromises);
+
+        return {
+            props: {
+                metaData: results[0].data.rows,
+                getStartedData: results[1].data.rows,
+                faqData: results[2].data.rows,
+                responseData,
+                pathArray,
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                metaData: [],
+                getStartedData: [],
+                faqData: [],
+                responseData: [],
+                pathArray,
+                error: 'Something went wrong... ' + error.message,
+            },
+        };
+    }
 }

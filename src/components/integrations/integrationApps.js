@@ -34,7 +34,9 @@ const IntegrationSearch = ({
 
     const handleCategoryItemClick = (category) => {
         // Update selected category immediately upon click
+
         handleCategoryClick();
+
         selectedCategory(category); // Update selected category
     };
 
@@ -56,10 +58,11 @@ const IntegrationSearch = ({
                             {uniqueCategories.length > visibleCategories && (
                                 <button
                                     onClick={handleCategoryLoadMore}
-                                    className="text-blue-500 font-medium cursor-pointer text-left"
+                                    className="text-blue-500 font-medium cursor-pointer flex items-center text-left"
                                     aria-label="load more categories"
                                 >
                                     Load More
+                                    <MdKeyboardArrowDown fontSize={22} />
                                 </button>
                             )}
                         </div>

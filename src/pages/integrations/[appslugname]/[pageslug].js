@@ -520,6 +520,7 @@ async function fetchApps(selectedCategory, visibleItems) {
 
     const response = await fetch(fetchUrl, apiHeaders);
     const responseData = await response.json();
+
     return responseData;
 }
 

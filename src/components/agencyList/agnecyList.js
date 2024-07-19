@@ -87,6 +87,7 @@ const AgencyList = ({ agencies, type }) => {
             <Script
                 id="interface-main-script"
                 interface_id="661e755cc1d6c9e580f9b084"
+                crossorigin
                 src="https://interface-embed.viasocket.com/interface-prod.js"
             ></Script>
         </>

@@ -33,7 +33,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     const [visibleItems, setVisibleItems] = useState(25);
     const [visibleComboItems, setVisibleComboItems] = useState(9);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [selectedCategory, setSelectedCategory] = useState('ALL');
     const [loading, setLoading] = useState(false);
     const [visibleCategories, setVisibleCategories] = useState(10);
 
@@ -62,7 +62,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
 
     //search functions
     const applyFilters = () => {
-        if (apps.length > 0) {
+        if (apps?.length > 0) {
             let filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase());
                 const categoryMatches =
