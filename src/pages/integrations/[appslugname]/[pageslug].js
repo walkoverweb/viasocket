@@ -209,7 +209,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                                         onMouseEnter={() => setHoveredCardIndex(index)}
                                                         onMouseLeave={() => setHoveredCardIndex(null)}
                                                     >
-                                                        <div className="flex flex-1 flex-row items-center gap-4">
+                                                        <div className="flex flex-1 flex-row items-center gap-4  ">
                                                             <Image
                                                                 src={
                                                                     combos?.plugins[card?.pluginslugname]?.iconurl

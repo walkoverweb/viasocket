@@ -211,7 +211,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                 {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />}
 
                 <div className="py-14">
-                    <div className="container flex  flex-col gap-8">
+                    <div className="container flex  flex-col gap-8 ">
                         <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
                             Integrate with specific service
                         </h1>
