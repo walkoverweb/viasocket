@@ -41,8 +41,8 @@ export default function EventGrid({ plugin, mode }) {
                                     </p>
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                    {triggerEvent.map((card, i) => (
-                                        <EventCard card={card} plugin={plugin} index={i} />
+                                    {triggerEvent.map((card, index) => (
+                                        <EventCard card={card} plugin={plugin} key={index} />
                                     ))}
                                 </div>
                             </div>
@@ -56,8 +56,8 @@ export default function EventGrid({ plugin, mode }) {
                                     </p>
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                    {actionEvents.map((card, i) => (
-                                        <EventCard card={card} plugin={plugin} index={i} />
+                                    {actionEvents.map((card, index) => (
+                                        <EventCard card={card} plugin={plugin} key={index} />
                                     ))}
                                 </div>
                             </div>
@@ -78,6 +78,7 @@ export function EventCard({ card, plugin, index }) {
         <div key={index} className={`${style.card} bg-white px-6 py-6 rounded-lg hover:shadow-xl`}>
             <div className="flex flex-col gap-4">
                 <Image
+                    key={index}
                     src={
                         plugin.find((slug) => slug?.appslugname === card?.pluginslugname)?.iconurl ||
                         'https://placehold.co/40x40'

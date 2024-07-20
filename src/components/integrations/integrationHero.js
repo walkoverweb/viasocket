@@ -17,6 +17,7 @@ export default function IntegrationHero({ plugin, combos, mode }) {
                                         {index > 0 && <span className="text-3xl mx-4"> + </span>}
                                         {plug?.iconurl && (
                                             <Image
+                                                key={index}
                                                 src={plug.iconurl}
                                                 width={40}
                                                 height={40}

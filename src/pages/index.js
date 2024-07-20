@@ -10,6 +10,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import axios from 'axios';
+
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -27,13 +28,6 @@ export async function getServerSideProps() {
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
-    // const tag = 'via-socket';
-    // const defaultTag = 'integrations';
-    // const res = await axios.get(
-    //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
-    // );
-    // const posts = await res.data;
-
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -45,7 +39,6 @@ export async function getServerSideProps() {
             features: results[6]?.data?.rows,
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
-            //  posts: posts,
         },
     };
 }
@@ -60,7 +53,6 @@ const Index = ({
     features,
     metaData,
     faqData,
-    //posts,
 }) => {
     return (
         <>
@@ -69,13 +61,13 @@ const Index = ({
                 <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
                     <div className="grid gap-4 mt-auto">
                         {productData &&
-                            productData.map((page) => {
+                            productData.map((page, index) => {
                                 if (page?.name === 'Index') {
                                     return (
-                                        <>
+                                        <div key={index} className="grid gap-4 mt-auto">
                                             <h1 className="md:text-6xl text-4xl font-semibold">{page?.h1}</h1>
                                             <h2 className="text-2xl w-3/4">{page?.h2}</h2>
-                                        </>
+                                        </div>
                                     );
                                 }
                             })}
@@ -94,18 +86,17 @@ const Index = ({
                             products.map((product, index) => {
                                 return (
                                     <Link
+                                        key={index}
                                         href={`/${product?.name && product.name}`}
                                         target="_blank"
                                         className="flex items-center justify-center w-full h-full"
                                         aria-label="products"
                                     >
-                                        <div
-                                            className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg"
-                                            key={index}
-                                        >
+                                        <div className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg">
                                             <div className="p-6 grid gap-2 h-full">
                                                 <div className="flex items-center gap-2 ">
                                                     <Image
+                                                        key={index}
                                                         className="h-[40px]"
                                                         src={`/assets/brand/${product?.name}_ico.svg`}
                                                         width={36}
@@ -119,7 +110,6 @@ const Index = ({
                                                 <p className="font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
                                                     {product?.description}
                                                 </p>
-                                                {/* If you need another Link here, ensure it follows the same pattern */}
                                                 <button
                                                     className="flex items-center gap-1 text-[#0000ff]"
                                                     aria-label="Explore"
@@ -187,75 +177,69 @@ const Index = ({
                             caseStudies.map((caseStudy, index) => {
                                 if (caseStudy?.priority == 1) {
                                     return (
-                                        <>
-                                            <Link
-                                                href={caseStudy?.link && caseStudy?.link}
-                                                target="_blank"
-                                                className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
-                                                aria-label="casestudy"
-                                            >
-                                                <div className="casestudy_img w-full h-full">
-                                                    <Image
-                                                        src={caseStudy?.image[0]}
-                                                        width={1080}
-                                                        height={1080}
-                                                        alt={caseStudy?.title}
-                                                    />
-                                                </div>
-                                                <div className="grid p-4">
-                                                    <p>{caseStudy?.title}</p>
-                                                    <Link
-                                                        target="_blank"
-                                                        href={caseStudy?.link && caseStudy?.link}
-                                                        className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                        aria-label="case study"
-                                                    >
-                                                        Learn More <MdOutlineArrowForward />
-                                                    </Link>
-                                                </div>
-                                            </Link>
-                                        </>
+                                        <Link
+                                            key={index}
+                                            href={caseStudy?.link && caseStudy?.link}
+                                            target="_blank"
+                                            className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
+                                            aria-label="casestudy"
+                                        >
+                                            <div className="casestudy_img w-full h-full">
+                                                <Image
+                                                    key={index}
+                                                    src={caseStudy?.image[0]}
+                                                    width={1080}
+                                                    height={1080}
+                                                    alt={caseStudy?.title}
+                                                />
+                                            </div>
+                                            <div className="grid p-4">
+                                                <p>{caseStudy?.title}</p>
+                                                <Link
+                                                    key={index}
+                                                    target="_blank"
+                                                    href={caseStudy?.link && caseStudy?.link}
+                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
+                                                    aria-label="case study"
+                                                >
+                                                    Learn More <MdOutlineArrowForward />
+                                                </Link>
+                                            </div>
+                                        </Link>
                                     );
                                 } else {
                                     return (
-                                        <>
-                                            <Link
-                                                target="_blank"
-                                                href={caseStudy?.link}
-                                                className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col  lg:flex-row  lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
-                                            >
-                                                <div className="casestudy_img w-full h-full ">
-                                                    <Image
-                                                        src={caseStudy?.image[0]}
-                                                        height={1080}
-                                                        width={1080}
-                                                        alt={caseStudy?.title}
-                                                    />
-                                                </div>
-                                                <div className="w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4">
-                                                    <p>{caseStudy?.title}</p>
-                                                    <Link
-                                                        target="_blank"
-                                                        href={caseStudy?.link}
-                                                        className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                    >
-                                                        Learn More <MdOutlineArrowForward />
-                                                    </Link>
-                                                </div>
-                                            </Link>
-                                        </>
+                                        <Link
+                                            key={index}
+                                            target="_blank"
+                                            href={caseStudy?.link}
+                                            className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col  lg:flex-row  lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
+                                        >
+                                            <div className="casestudy_img w-full h-full ">
+                                                <Image
+                                                    key={index}
+                                                    src={caseStudy?.image[0]}
+                                                    height={1080}
+                                                    width={1080}
+                                                    alt={caseStudy?.title}
+                                                />
+                                            </div>
+                                            <div className="w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4">
+                                                <p>{caseStudy?.title}</p>
+                                                <Link
+                                                    target="_blank"
+                                                    href={caseStudy?.link}
+                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
+                                                >
+                                                    Learn More <MdOutlineArrowForward />
+                                                </Link>
+                                            </div>
+                                        </Link>
                                     );
                                 }
                             })}
                     </div>
                 </div>
-                {/* {posts?.length && (
-                    <div className="container mx-auto  py-12">
-                        {' '}
-                        <BlogGrid posts={posts} />
-                    </div>
-                )} */}
-
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">

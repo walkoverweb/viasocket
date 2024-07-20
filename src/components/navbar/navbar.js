@@ -49,7 +49,7 @@ const Navbar = ({ productData, pathArray }) => {
                             shorterData.map((option, index) => {
                                 if (option.group_name === null && option.is_mininavonly === null) {
                                     return (
-                                        <>
+                                        <div key={index}>
                                             {option.is_parent ? (
                                                 <>
                                                     <div className="dropdown dropdown-bottom" key={index}>
@@ -109,7 +109,7 @@ const Navbar = ({ productData, pathArray }) => {
                                                     </Link>
                                                 </>
                                             )}
-                                        </>
+                                        </div>
                                     );
                                 }
                             })}
@@ -140,7 +140,7 @@ const Navbar = ({ productData, pathArray }) => {
                                 shorterData.map((option, index) => {
                                     if (!option.is_parent) {
                                         return (
-                                            <>
+                                            <div key={index}>
                                                 <li key={index}>
                                                     <Link
                                                         href={`${option.link ? option.link : '#'}`}
@@ -151,7 +151,7 @@ const Navbar = ({ productData, pathArray }) => {
                                                         {option?.name}
                                                     </Link>
                                                 </li>
-                                            </>
+                                            </div>
                                         );
                                     }
                                 })}

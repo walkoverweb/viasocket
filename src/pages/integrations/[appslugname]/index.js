@@ -186,9 +186,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
         'Webinars',
     ];
     const renderFilterOptions = () => {
-        return uniqueCategories.slice(0, visibleCategories).map((category) => (
+        return uniqueCategories.slice(0, visibleCategories).map((category, index) => (
             <h6
-                key={category}
+                key={index}
                 onClick={() => setSelectedCategory(category)}
                 className={`lg:text-[20px] text-base cursor-pointer ${
                     selectedCategory === category ? 'font-bold' : 'font-normal'
@@ -280,11 +280,15 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 <div className="flex-col flex gap-3">
                                     <h3 className="text-xl font-semibold">Triggers</h3>
                                     <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
-                                        {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
+                                        {combos?.plugins?.[pathArray[2]]?.events.map((event, index) => {
                                             if (event.type === 'trigger') {
                                                 return (
-                                                    <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                    <div
+                                                        className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center"
+                                                        key={index}
+                                                    >
                                                         <Image
+                                                            key={index}
                                                             width={24}
                                                             height={24}
                                                             className="w-auto h-[28px]"
@@ -311,11 +315,15 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 <div className="flex-col flex gap-3">
                                     <h3 className="text-xl font-semibold">Actions</h3>
                                     <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
-                                        {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
+                                        {combos?.plugins?.[pathArray[2]]?.events.map((event, index) => {
                                             if (event.type === 'action') {
                                                 return (
-                                                    <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                    <div
+                                                        className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center"
+                                                        key={index}
+                                                    >
                                                         <Image
+                                                            key={index}
                                                             width={24}
                                                             height={24}
                                                             className="w-auto h-[28px]"
