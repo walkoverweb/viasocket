@@ -225,7 +225,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     pathArray={pathArray}
                     plugin={[plugin]}
                 />
-                {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />}
+                {/* {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />} */}
+                <IntegrationsComp combinationData={combos} pluginData={combos?.plugins?.[pathArray[2]]} />
 
                 <div className="py-14">
                     <div className="container flex  flex-col gap-8">
