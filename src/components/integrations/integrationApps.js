@@ -83,9 +83,9 @@ const IntegrationSearch = ({
                                     tabIndex={0}
                                     className="dropdown-content z-[1] menu  py-4 shadow bg-white border-[#f5f5f5] rounded-md w-48"
                                 >
-                                    {renderFilterOptions().map((category) => (
+                                    {renderFilterOptions().map((category, index) => (
                                         <li
-                                            key={category}
+                                            key={index}
                                             onClick={() => {
                                                 handleCategoryItemClick(category);
                                                 category === selectedCategory ? setIsDataLoading(false) : '';
