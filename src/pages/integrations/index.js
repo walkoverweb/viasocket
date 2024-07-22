@@ -157,7 +157,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         return uniqueCategories.slice(0, visibleCategories).map((category, index) => (
             <Link href={`/integrations?currentcategory=${category}`} aria-label="select category" key={index}>
                 <h6
-                    key={category}
                     onClick={() => {
                         setSelectedCategory(category);
                         category !== selectedCategory ? setLoading(true) : '';
