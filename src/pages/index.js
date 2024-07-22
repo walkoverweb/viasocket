@@ -8,7 +8,8 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
-
+import BlogGrid from '@/components/blogGrid/blogGrid';
+import axios from 'axios';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -20,22 +21,31 @@ export async function getServerSideProps() {
         'tblvo36my',
         'tbl2bk656',
         'tblnoi7ng',
+        'tblvu0f6w',
     ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
+    // const tag = 'via-socket';
+    // const defaultTag = 'integrations';
+    // const res = await axios.get(
+    //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+    // );
+    // const posts = await res.data;
+
     return {
         props: {
-            products: results[0].data.rows,
-            testimonials: results[1].data.rows,
-            caseStudies: results[2].data.rows,
-            getStartedData: results[3].data.rows,
-            productData: results[4].data.rows,
-            trustedData: results[5].data.rows,
-            features: results[6].data.rows,
-            metaData: results[7].data.rows,
-            faqData: results[8].data.rows,
+            products: results[0]?.data?.rows,
+            testimonials: results[1]?.data?.rows,
+            caseStudies: results[2]?.data?.rows,
+            getStartedData: results[3]?.data?.rows,
+            productData: results[4]?.data?.rows,
+            trustedData: results[5]?.data?.rows,
+            features: results[6]?.data?.rows,
+            metaData: results[7]?.data?.rows,
+            faqData: results[8]?.data?.rows,
+            //  posts: posts,
         },
     };
 }
@@ -50,6 +60,7 @@ const Index = ({
     features,
     metaData,
     faqData,
+    //posts,
 }) => {
     return (
         <>
@@ -241,6 +252,13 @@ const Index = ({
                             })}
                     </div>
                 </div>
+                {/* {posts?.length && (
+                    <div className="container mx-auto  py-12">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )} */}
+
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">

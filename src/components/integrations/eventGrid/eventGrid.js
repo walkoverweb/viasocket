@@ -10,8 +10,8 @@ export default function EventGrid({ plugin, mode }) {
         useEffect(() => {
             const newActionEvents = [];
             const newTriggerEvents = [];
-            plugin.map((plug) => {
-                plug.events.forEach((event) => {
+            plugin?.map((plug) => {
+                plug?.events.forEach((event) => {
                     if (event.type === 'action') {
                         newActionEvents.push(event);
                     } else if (event.type === 'trigger') {

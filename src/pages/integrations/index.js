@@ -6,10 +6,11 @@ import IntegrationSearch from '@/components/integrations/integrationApps';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 import FAQSection from '@/components/faqSection/faqSection';
+import fi from 'date-fns/locale/fi/index';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
-    //defined states
     const [apps, setApps] = useState(responseData);
     const [filteredData, setFilteredData] = useState([]);
     const [visibleItems, setVisibleItems] = useState(25);
@@ -17,36 +18,44 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
+    const [posts, setPosts] = useState([]);
 
     const router = useRouter();
     const { currentcategory } = router.query;
+    //To Map Tags
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         const tag = 'via-socket';
+    //         const defaultTag = 'integrations';
+    //         const res = await axios.get(
+    //             `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+    //         );
+    //         const posts = await res.data;
+    //         setPosts(posts);
+    //     };
+    //     fetchPosts();
+    // }, []);
 
     useEffect(() => {
         router.push('/integrations?currentcategory=All');
     }, []);
 
-    //fetch apps
     useEffect(() => {
         setApps(responseData);
         setLoading(false);
         setSelectedCategory(currentcategory);
     }, [currentcategory, visibleItems]);
 
-    //fetch apps
-
     useEffect(() => {
         setVisibleItems(25);
     }, [selectedCategory]);
-
-    //fetch icons
 
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
     };
 
-    //search functions
     const applyFilters = () => {
-        if (apps.length > 0) {
+        if (apps?.length > 0) {
             let filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
                 const categoryMatches =
@@ -57,9 +66,23 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
             setFilteredData(filteredItems);
         }
     };
-
+    const applyFiltersOnCategory = () => {
+        let tempdata = apps;
+        if (tempdata?.length > 0) {
+            let filteredItems = tempdata.filter((item) => {
+                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches = item.category.includes(selectedCategory);
+                return nameMatches && categoryMatches;
+            });
+            setFilteredData(filteredItems);
+        }
+    };
     useEffect(() => {
-        applyFilters();
+        if (selectedCategory == 'All') {
+            applyFilters();
+            return;
+        }
+        applyFiltersOnCategory();
     }, [apps, searchTerm, currentcategory]);
 
     const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
@@ -67,7 +90,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         setCategoryDropdownOpen(!isCategoryDropdownOpen);
     };
 
-    // const uniqueCategories = ["All", "Human Resources", "Productivity","Marketing", "IT Operations", "Support", "Website Building","E-commerce platform", "Social media ", "Communication", "Other"];
     const uniqueCategories = [
         'All',
         'Engineering',
@@ -153,9 +175,11 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         'Video Conferencing',
         'Webinars',
     ];
+
     const renderFilterOptions = () => {
         return uniqueCategories.slice(0, visibleCategories).map((category, index) => (
             <Link href={`/integrations?currentcategory=${category}`} aria-label="select category" key={index}>
+
                 <h6
                     onClick={() => {
                         setSelectedCategory(category);
@@ -170,8 +194,9 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
             </Link>
         ));
     };
+
     const handleCategoryLoadMore = () => {
-        setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
+        setVisibleCategories(visibleCategories + 10);
     };
 
     const handleCategoryItemClick = (category) => {
@@ -185,7 +210,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     return (
         <>
-            {' '}
             <MetaHeadComp metaData={metaData} page={'/integrations'} pathArray={pathArray} />
             <div className="">
                 <div className="flex flex-col gap-6 container py-20">
@@ -214,6 +238,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                         pathArray={pathArray}
                     />
                 </div>
+                {/* {posts?.length && (
+                    <div className="container mx-auto py-12 ">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )} */}
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (

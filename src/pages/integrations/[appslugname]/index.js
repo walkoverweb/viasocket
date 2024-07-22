@@ -13,15 +13,32 @@ import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
 import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
+import { getUseCases } from '@/pages/api/fetch-usecases';
+import UseCase from '@/components/useCases/useCases';
+import axios from 'axios';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 
-const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData, usecase, params }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
             setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
         }
+    }, []);
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const tag = params.appslugname;
+            const defaultTag = 'integrations';
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+            );
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
     }, []);
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
@@ -208,7 +225,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     pathArray={pathArray}
                     plugin={[plugin]}
                 />
-                {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />}
+                {/* {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />} */}
+                <IntegrationsComp combinationData={combos} pluginData={combos?.plugins?.[pathArray[2]]} />
 
                 <div className="py-14">
                     <div className="container flex  flex-col gap-8">
@@ -324,6 +342,17 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 )}
+                {usecase?.length > 0 && (
+                    <div className="container mx-auto py-12">
+                        <UseCase usecases={usecase} />
+                    </div>
+                )}
+                {/* {posts?.length && (
+                    <div className="container mx-auto py-12 ">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )} */}
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
@@ -436,6 +465,7 @@ export async function getServerSideProps(context) {
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray);
     const apps = await fetchApps('All', 25);
+    const usecase = await getUseCases(pathArray[0]);
 
     const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
@@ -444,12 +474,14 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
+            params,
             combos,
             apps,
             pathArray,
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            usecase: usecase ?? [],
         },
     };
 }
