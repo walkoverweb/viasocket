@@ -36,7 +36,6 @@ const Flow = ({ getStartedData, features, pathArray, metaData, apps, faqData, bl
             const appQureyString = serviceParams.map((service) => `service=${service}`).join('&');
             let indusQureyString = '';
             if (slectedIndus) {
-                debugger;
                 indusQureyString = `industry=${slectedIndus.toLowerCase()}`;
             }
 
