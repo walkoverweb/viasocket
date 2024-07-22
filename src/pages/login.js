@@ -84,10 +84,13 @@ const Login = ({ features, metaData, pathArray }) => {
                     <div className="  text-2xl font-bold">Features</div>
                     <div className=" grid  grid-cols-2 gap-6">
                         {featuresArrTwo.length > 0 &&
-                            featuresArrTwo.map((feature) => {
+                            featuresArrTwo.map((feature, index) => {
                                 {
                                     return (
-                                        <div className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 rounded">
+                                        <div
+                                            className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 rounded"
+                                            key={index}
+                                        >
                                             <Image
                                                 className=""
                                                 src={
@@ -105,10 +108,13 @@ const Login = ({ features, metaData, pathArray }) => {
                                 }
                             })}
                         {featuresArrOne.length > 0 &&
-                            featuresArrOne.map((feature) => {
+                            featuresArrOne.map((feature, index) => {
                                 {
                                     return (
-                                        <div className="md:p-6 p-2 bg-[#F7F7F8] flex flex-col  w-auto md:col-span-1 col-span-2">
+                                        <div
+                                            className="md:p-6 p-2 bg-[#F7F7F8] flex flex-col  w-auto md:col-span-1 col-span-2"
+                                            key={index}
+                                        >
                                             <Image
                                                 src={
                                                     feature?.icon[0] ? feature?.icon[0] : '/assets/img/feature_ico.svg '

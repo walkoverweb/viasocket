@@ -25,6 +25,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                                     <>
                                         <>
                                             <RecomendedCard
+                                                key={index}
                                                 card={card}
                                                 index={index}
                                                 visibleComboItems={visibleComboItems}

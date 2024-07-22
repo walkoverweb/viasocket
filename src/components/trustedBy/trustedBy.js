@@ -1,18 +1,16 @@
-import { getDbdashData } from '@/pages/api'
-import Image from 'next/image'
+import { getDbdashData } from '@/pages/api';
+import Image from 'next/image';
 
 export default function TrustedBy(products) {
     return (
         <>
             <div className="grid gap-3">
-                <span className="text-xl font-medium text-gray-400">
-                    Trusted By
-                </span>
+                <span className="text-xl font-medium text-gray-400">Trusted By</span>
                 <div className="flex gap-5 flex-wrap">
                     {products &&
                         products?.data.map((img, index) => {
                             return (
-                                <>
+                                <div className="flex gap-5 flex-wrap" key={index}>
                                     {img?.icon[0] && (
                                         <Image
                                             key={index}
@@ -23,11 +21,11 @@ export default function TrustedBy(products) {
                                             alt={img?.name}
                                         />
                                     )}
-                                </>
-                            )
+                                </div>
+                            );
                         })}
                 </div>
             </div>
         </>
-    )
+    );
 }

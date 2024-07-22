@@ -54,9 +54,9 @@ export default function NotificationBar() {
             ) : (
                 <div className="container p-2 flex flex-wrap items-center justify-center animate-pulse  ">
                     <div className="w-[400px] flex gap-2 items-center justify-center">
-                        <div class="h-4 bg-gray-600 rounded w-[70px]"></div>
-                        <div class="h-4 bg-gray-600 rounded w-[300px]"></div>
-                        <div class="h-4 bg-gray-600 rounded w-[70px]"></div>
+                        <div className="h-4 bg-gray-600 rounded w-[70px]"></div>
+                        <div className="h-4 bg-gray-600 rounded w-[300px]"></div>
+                        <div className="h-4 bg-gray-600 rounded w-[70px]"></div>
                     </div>
                 </div>
             )}

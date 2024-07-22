@@ -48,79 +48,64 @@ const Navbar = ({ productData, pathArray }) => {
                         {shorterData &&
                             shorterData.map((option, index) => {
                                 if (option.group_name === null && option.is_mininavonly === null) {
-                                    return (
-                                        <>
-                                            {option.is_parent ? (
-                                                <>
-                                                    <div className="dropdown dropdown-bottom" key={index}>
-                                                        <div
-                                                            tabIndex={0}
-                                                            role="button"
-                                                            className=" flex items-center gap-1 hover:underline"
-                                                            aria-label="nav option"
-                                                        >
-                                                            <span>{option?.name}</span>
-                                                            <MdOutlineKeyboardArrowDown size={20} />
-                                                        </div>
-                                                        <ul
-                                                            tabIndex={0}
-                                                            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                                                        >
-                                                            {shorterData.map((child, childIndex) => {
-                                                                if (
-                                                                    child.group_name &&
-                                                                    child.group_name === option.name
-                                                                ) {
-                                                                    return (
-                                                                        <li key={childIndex}>
-                                                                            {child.name === 'Live Chat' ? (
-                                                                                <button
-                                                                                    onClick={openChatWidget}
-                                                                                    aria-label="Chat"
-                                                                                >
-                                                                                    Live Chat
-                                                                                </button>
-                                                                            ) : (
-                                                                                <Link
-                                                                                    href={`${child.link ? child.link : ''}`}
-                                                                                    target="_blank"
-                                                                                    aria-label="logo"
-                                                                                >
-                                                                                    {child.name}
-                                                                                </Link>
-                                                                            )}
-                                                                        </li>
-                                                                    );
-                                                                }
-                                                            })}
-                                                        </ul>
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Link
-                                                        key={index}
-                                                        href={`${option.link ? option.link : '#'}`}
-                                                        className="  hover:underline"
-                                                        target={option.name.toLowerCase() === 'home' ? '' : '_blank'}
-                                                        aria-label={option?.name}
-                                                    >
-                                                        {option?.name}
-                                                    </Link>
-                                                </>
-                                            )}
-                                        </>
-                                    );
+                                    if (option.is_parent) {
+                                        return (
+                                            <div className="dropdown dropdown-bottom" key={index}>
+                                                <div
+                                                    tabIndex={0}
+                                                    role="button"
+                                                    className=" flex items-center gap-1 hover:underline"
+                                                    aria-label="nav option"
+                                                >
+                                                    <span>{option?.name}</span>
+                                                    <MdOutlineKeyboardArrowDown size={20} />
+                                                </div>
+                                                <ul
+                                                    tabIndex={0}
+                                                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                                                >
+                                                    {shorterData.map((child, childIndex) => {
+                                                        if (child.group_name && child.group_name === option.name) {
+                                                            return (
+                                                                <li key={childIndex}>
+                                                                    {child.name === 'Live Chat' ? (
+                                                                        <button
+                                                                            onClick={openChatWidget}
+                                                                            aria-label="Chat"
+                                                                        >
+                                                                            Live Chat
+                                                                        </button>
+                                                                    ) : (
+                                                                        <Link
+                                                                            href={`${child.link ? child.link : ''}`}
+                                                                            target="_blank"
+                                                                            aria-label="logo"
+                                                                        >
+                                                                            {child.name}
+                                                                        </Link>
+                                                                    )}
+                                                                </li>
+                                                            );
+                                                        }
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        );
+                                    } else {
+                                        return (
+                                            <Link
+                                                key={index}
+                                                href={`${option.link ? option.link : '#'}`}
+                                                className="  hover:underline"
+                                                target={option.name.toLowerCase() === 'home' ? '' : '_blank'}
+                                                aria-label={option?.name}
+                                            >
+                                                {option?.name}
+                                            </Link>
+                                        );
+                                    }
                                 }
                             })}
-                        {/* <Link
-                            href="/experts"
-                            className="btn btn-primary btn-sm"
-                            target="_blank"
-                            aria-label="Hire a No-code builder"
-                        >
-                            Hire a No-code builder
-                        </Link> */}
                         <Link href="/login" className="btn btn-outline btn-sm ">
                             Login
                         </Link>
@@ -140,18 +125,16 @@ const Navbar = ({ productData, pathArray }) => {
                                 shorterData.map((option, index) => {
                                     if (!option.is_parent) {
                                         return (
-                                            <>
-                                                <li key={index}>
-                                                    <Link
-                                                        href={`${option.link ? option.link : '#'}`}
-                                                        target="_blank"
-                                                        aria-label={option?.name}
-                                                    >
-                                                        {' '}
-                                                        {option?.name}
-                                                    </Link>
-                                                </li>
-                                            </>
+                                            <li key={index}>
+                                                <Link
+                                                    href={`${option.link ? option.link : '#'}`}
+                                                    target="_blank"
+                                                    aria-label={option?.name}
+                                                >
+                                                    {' '}
+                                                    {option?.name}
+                                                </Link>
+                                            </li>
                                         );
                                     }
                                 })}
