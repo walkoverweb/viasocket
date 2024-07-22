@@ -7,6 +7,7 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
+import fi from 'date-fns/locale/fi/index';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
     //defined states
@@ -46,7 +47,7 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     //search functions
     const applyFilters = () => {
-        if (apps.length > 0) {
+        if (apps?.length > 0) {
             let filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
                 const categoryMatches =
@@ -57,9 +58,23 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
             setFilteredData(filteredItems);
         }
     };
-
+    const applyFiltersOnCategory = () => {
+        let tempdata = apps;
+        if (tempdata?.length > 0) {
+            let filteredItems = tempdata.filter((item) => {
+                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches = item.category.includes(selectedCategory);
+                return nameMatches && categoryMatches;
+            });
+            setFilteredData(filteredItems);
+        }
+    };
     useEffect(() => {
-        applyFilters();
+        if (selectedCategory == 'All') {
+            applyFilters();
+            return;
+        }
+        applyFiltersOnCategory();
     }, [apps, searchTerm, currentcategory]);
 
     const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
