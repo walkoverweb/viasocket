@@ -17,14 +17,43 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
-
+    const [offset, setOffset] = useState(0);
+    const [error, seterror] = useState(null);
     const router = useRouter();
     const { currentcategory } = router.query;
-
+    const limit = 200;
+    const datasize = 150;
     useEffect(() => {
         router.push('/integrations?currentcategory=All');
     }, []);
+    useEffect(() => {
+        getdata();
+    }, [offset]);
+    const getdata = async () => {
+        try {
+            const fetchUrl =
+                currentcategory && currentcategory !== 'All'
+                    ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
+                          currentcategory && currentcategory === 'Other' ? null : currentcategory
+                      }` // Update offset for next batch
+                    : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=${limit}&offset=${offset + limit}`;
 
+            const apiHeaders = {
+                headers: {
+                    'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+                },
+            };
+            const response = await fetch(fetchUrl, apiHeaders);
+            if (!response.ok) {
+                throw new Error('Failed to load more data');
+            }
+            const newData = await response.json();
+
+            setApps((prevdata) => [...prevdata, ...newData]);
+        } catch (error) {
+            seterror(error);
+        }
+    };
     //fetch apps
     useEffect(() => {
         setApps(responseData);
@@ -42,6 +71,10 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
+        if (visibleItems > datasize) {
+            getdata();
+            setOffset((offset) => offset + limit);
+        }
     };
 
     //search functions
