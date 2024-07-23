@@ -34,7 +34,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
             <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
                 <div className={`container flex flex-col md:gap-12 gap-6`}>
                     <div
-                        className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md flex items-center gap-8 w-fit`}
+                        className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md flex items-center gap-8 w-fit shadow-black shadow-sm`}
                     >
                         <div className="flex items-center gap-3 w-fit">
                             {pluginData.iconurl && (
