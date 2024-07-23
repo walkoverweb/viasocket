@@ -10,8 +10,8 @@ export default function EventGrid({ plugin, mode }) {
         useEffect(() => {
             const newActionEvents = [];
             const newTriggerEvents = [];
-            plugin.map((plug) => {
-                plug.events.forEach((event) => {
+            plugin?.map((plug) => {
+                plug?.events.forEach((event) => {
                     if (event.type === 'action') {
                         newActionEvents.push(event);
                     } else if (event.type === 'trigger') {
@@ -41,8 +41,8 @@ export default function EventGrid({ plugin, mode }) {
                                     </p>
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-                                    {triggerEvent.map((card, i) => (
-                                        <EventCard card={card} plugin={plugin} index={i} />
+                                    {triggerEvent.map((card, index) => (
+                                        <EventCard card={card} plugin={plugin} index={index} key={index} />
                                     ))}
                                 </div>
                             </div>

@@ -56,10 +56,11 @@ const IntegrationSearch = ({
                             {uniqueCategories.length > visibleCategories && (
                                 <button
                                     onClick={handleCategoryLoadMore}
-                                    className="text-blue-500 font-medium cursor-pointer text-left"
+                                    className="text-blue-500 font-medium cursor-pointer text-left flex items-center"
                                     aria-label="load more categories"
                                 >
                                     Load More
+                                    <MdKeyboardArrowDown fontSize={22} />
                                 </button>
                             )}
                         </div>
@@ -82,9 +83,9 @@ const IntegrationSearch = ({
                                     tabIndex={0}
                                     className="dropdown-content z-[1] menu  py-4 shadow bg-white border-[#f5f5f5] rounded-md w-48"
                                 >
-                                    {renderFilterOptions().map((category) => (
+                                    {renderFilterOptions().map((category, index) => (
                                         <li
-                                            key={category}
+                                            key={index}
                                             onClick={() => {
                                                 handleCategoryItemClick(category);
                                                 category === selectedCategory ? setIsDataLoading(false) : '';

@@ -5,17 +5,16 @@ import ComboGrid from './comboGrid/comboGrid';
 import NoDataGrid from './noDataGrid/noDataGrid';
 import { useEffect, useState } from 'react';
 import { GetColorMode } from '@/utils/getColorMode';
+
 export default function IntegrationsHero({ combinationData, pluginData }) {
-    const plugins = pluginData;
-    console.log('🚀 ~ IntegrationsHero ~ plugins:', plugins);
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
 
     useEffect(() => {
-        if (plugins[0]?.brandcolor) {
-            setNewBrandColor(plugins[0]?.brandcolor);
+        if (pluginData?.brandcolor) {
+            setNewBrandColor(pluginData.brandcolor);
         }
-    }, [plugins[0]?.brandcolor]);
+    }, [pluginData?.brandcolor]);
 
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
@@ -68,14 +67,40 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                     <ComboGrid combos={combinationData} mode={mode} />
                                 ) : (
                                     <EventGrid plugin={plugins} mode={mode} />
+
+
+
+
+
+
+
+
+
+
+
+
                                 )}
-                            </>
-                        ) : (
-                            <NoDataGrid plugin={plugins} mode={mode} />
-                        )}
+                            </div>
+                        </div>
                     </div>
+                    <h2
+                        className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                    >
+                        {integrationText}
+                    </h2>
+                    {pluginData.events?.length ? (
+                        <>
+                            {combinationData?.combinations?.length > 0 ? (
+                                <ComboGrid combos={combinationData} mode={mode} />
+                            ) : (
+                                <EventGrid plugin={pluginData} mode={mode} />
+                            )}
+                        </>
+                    ) : (
+                        <NoDataGrid plugin={pluginData} mode={mode} />
+                    )}
                 </div>
-            </>
-        );
-    }
+            </div>
+        </>
+    );
 }

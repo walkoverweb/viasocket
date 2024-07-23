@@ -5,7 +5,6 @@ export function GetColorMode(hexColor) {
     let hsl = rgbToHsl(rgb);
 
     let lightness = hsl[2];
-    console.log('lightness: ', lightness);
 
     let threshold = 0.5;
 

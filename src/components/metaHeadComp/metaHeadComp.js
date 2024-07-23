@@ -27,6 +27,7 @@ export default function MetaHeadComp({ metaData, page, pathArray, plugin }) {
                         <meta name="description" content={description && description} />
                         <meta property="og:title" content={title && title} />
                         <meta property="og:description" content={description && description} />
+                        <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
                         <script
                             dangerouslySetInnerHTML={{
                                 __html: `
