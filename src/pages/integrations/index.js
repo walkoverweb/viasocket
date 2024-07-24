@@ -22,7 +22,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const { currentcategory } = router.query;
 
     useEffect(() => {
-        router.push('/integrations?currentcategory=All');
+        if (!currentcategory) {
+            router.push('/integrations?currentcategory=All');
+            return;
+        }
+
+        router.push(`/integrations?currentcategory=${currentcategory}`);
     }, []);
 
     //fetch apps
