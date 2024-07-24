@@ -9,6 +9,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import FAQSection from '@/components/faqSection/faqSection';
 import fi from 'date-fns/locale/fi/index';
+import{limits ,datasetsize} from "../../utils/constant.js";
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
     const [apps, setApps] = useState(responseData);
@@ -19,23 +20,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
     const [posts, setPosts] = useState([]);
-
     const router = useRouter();
     const { currentcategory } = router.query;
-    //To Map Tags
-    // useEffect(() => {
-    //     const fetchPosts = async () => {
-    //         const tag = 'via-socket';
-    //         const defaultTag = 'integrations';
-    //         const res = await axios.get(
-    //             `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
-    //         );
-    //         const posts = await res.data;
-    //         setPosts(posts);
-    //     };
-    //     fetchPosts();
-    // }, []);
-
+    const [offset, setOffset] = useState(0);
+    const [error, seterror] = useState(null);
+    const limit = limits;
+    const datasize = datasetsize;
     useEffect(() => {
         if (!currentcategory) {
             router.push('/integrations?currentcategory=All');
@@ -44,6 +34,31 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
         router.push(`/integrations?currentcategory=${currentcategory}`);
     }, []);
+    const getdata = async () => {
+        try {
+            const fetchUrl =
+                currentcategory && currentcategory !== 'All'
+                    ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
+                          currentcategory && currentcategory === 'Other' ? null : currentcategory
+                      }` // Update offset for next batch
+                    : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=${limit}&offset=${offset + limit}`;
+
+            const apiHeaders = {
+                headers: {
+                    'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+                },
+            };
+            const response = await fetch(fetchUrl, apiHeaders);
+            if (!response.ok) {
+                throw new Error('Failed to load more data');
+            }
+            const newData = await response.json();
+            setApps((prevdata) => [...prevdata, ...newData]);
+        } catch (error) {
+            seterror(error);
+        }
+    };
+    //fetch apps
 
     useEffect(() => {
         setApps(responseData);
@@ -57,6 +72,10 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
+        if (visibleItems > datasize) {
+            getdata();
+            setOffset((offset) => offset + limit);
+        }
     };
 
     const applyFilters = () => {
@@ -184,7 +203,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const renderFilterOptions = () => {
         return uniqueCategories.slice(0, visibleCategories).map((category, index) => (
             <Link href={`/integrations?currentcategory=${category}`} aria-label="select category" key={index}>
-
                 <h6
                     onClick={() => {
                         setSelectedCategory(category);
