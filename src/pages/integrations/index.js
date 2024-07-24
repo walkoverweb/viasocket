@@ -37,7 +37,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     // }, []);
 
     useEffect(() => {
-        router.push('/integrations?currentcategory=All');
+        if (!currentcategory) {
+            router.push('/integrations?currentcategory=All');
+            return;
+        }
+
+        router.push(`/integrations?currentcategory=${currentcategory}`);
     }, []);
 
     useEffect(() => {
