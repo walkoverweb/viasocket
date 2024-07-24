@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import IntegrationSearch from '@/components/integrations/integrationApps';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import BlogGrid from '@/components/blogGrid/blogGrid';
 import FAQSection from '@/components/faqSection/faqSection';
-import fi from 'date-fns/locale/fi/index';
-import{limits ,datasetsize} from "../../utils/constant.js";
+import { limits, datasetsize } from '../../utils/constant.js';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
     const [apps, setApps] = useState(responseData);
@@ -19,7 +16,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
-    const [posts, setPosts] = useState([]);
     const router = useRouter();
     const { currentcategory } = router.query;
     const [offset, setOffset] = useState(0);
@@ -261,12 +257,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                         pathArray={pathArray}
                     />
                 </div>
-                {/* {posts?.length && (
-                    <div className="container mx-auto py-12 ">
-                        {' '}
-                        <BlogGrid posts={posts} />
-                    </div>
-                )} */}
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
