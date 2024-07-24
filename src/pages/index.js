@@ -8,7 +8,6 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
-
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -20,6 +19,7 @@ export async function getServerSideProps() {
         'tblvo36my',
         'tbl2bk656',
         'tblnoi7ng',
+        'tblvu0f6w',
     ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -27,15 +27,15 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            products: results[0].data.rows,
-            testimonials: results[1].data.rows,
-            caseStudies: results[2].data.rows,
-            getStartedData: results[3].data.rows,
-            productData: results[4].data.rows,
-            trustedData: results[5].data.rows,
-            features: results[6].data.rows,
-            metaData: results[7].data.rows,
-            faqData: results[8].data.rows,
+            products: results[0]?.data?.rows,
+            testimonials: results[1]?.data?.rows,
+            caseStudies: results[2]?.data?.rows,
+            getStartedData: results[3]?.data?.rows,
+            productData: results[4]?.data?.rows,
+            trustedData: results[5]?.data?.rows,
+            features: results[6]?.data?.rows,
+            metaData: results[7]?.data?.rows,
+            faqData: results[8]?.data?.rows,
         },
     };
 }
@@ -58,13 +58,17 @@ const Index = ({
                 <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
                     <div className="grid gap-4 mt-auto">
                         {productData &&
-                            productData.map((page) => {
+                            productData.map((page, index) => {
                                 if (page?.name === 'Index') {
                                     return (
-                                        <>
-                                            <h1 className="md:text-6xl text-4xl font-semibold">{page?.h1}</h1>
-                                            <h2 className="text-2xl w-3/4">{page?.h2}</h2>
-                                        </>
+                                        <div className="grid gap-4 mt-auto" key={index}>
+                                            <h1 className="md:text-6xl text-4xl font-semibold" key={index}>
+                                                {page?.h1}
+                                            </h1>
+                                            <h2 className="text-2xl w-3/4" key={index}>
+                                                {page?.h2}
+                                            </h2>
+                                        </div>
                                     );
                                 }
                             })}
@@ -83,6 +87,7 @@ const Index = ({
                             products.map((product, index) => {
                                 return (
                                     <Link
+                                        key={index}
                                         href={`/${product?.name && product.name}`}
                                         target="_blank"
                                         className="flex items-center justify-center w-full h-full"
@@ -171,73 +176,72 @@ const Index = ({
                         Client Stories
                     </h2>
 
-                    <div className="grid  grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px] ">
+                    <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
                         {caseStudies &&
                             caseStudies.map((caseStudy, index) => {
-                                if (caseStudy?.priority == 1) {
+                                if (caseStudy?.priority === 1) {
                                     return (
-                                        <>
-                                            <Link
-                                                href={caseStudy?.link && caseStudy?.link}
-                                                target="_blank"
-                                                className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
-                                                aria-label="casestudy"
-                                            >
-                                                <div className="casestudy_img w-full h-full">
-                                                    <Image
-                                                        src={caseStudy?.image[0]}
-                                                        width={1080}
-                                                        height={1080}
-                                                        alt={caseStudy?.title}
-                                                    />
-                                                </div>
-                                                <div className="grid p-4">
-                                                    <p>{caseStudy?.title}</p>
-                                                    <Link
-                                                        target="_blank"
-                                                        href={caseStudy?.link && caseStudy?.link}
-                                                        className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                        aria-label="case study"
-                                                    >
-                                                        Learn More <MdOutlineArrowForward />
-                                                    </Link>
-                                                </div>
-                                            </Link>
-                                        </>
+                                        <Link
+                                            key={index}
+                                            href={caseStudy?.link}
+                                            target="_blank"
+                                            className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
+                                            aria-label="casestudy"
+                                        >
+                                            <div className="casestudy_img w-full h-full">
+                                                <Image
+                                                    src={caseStudy?.image[0]}
+                                                    width={1080}
+                                                    height={1080}
+                                                    alt={caseStudy?.title}
+                                                />
+                                            </div>
+                                            <div className="grid p-4">
+                                                <p>{caseStudy?.title}</p>
+                                                <Link
+                                                    target="_blank"
+                                                    href={caseStudy?.link}
+                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
+                                                    aria-label="case study"
+                                                >
+                                                    Learn More <MdOutlineArrowForward />
+                                                </Link>
+                                            </div>
+                                        </Link>
                                     );
                                 } else {
                                     return (
-                                        <>
-                                            <Link
-                                                target="_blank"
-                                                href={caseStudy?.link}
-                                                className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col  lg:flex-row  lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
-                                            >
-                                                <div className="casestudy_img w-full h-full ">
-                                                    <Image
-                                                        src={caseStudy?.image[0]}
-                                                        height={1080}
-                                                        width={1080}
-                                                        alt={caseStudy?.title}
-                                                    />
-                                                </div>
-                                                <div className="w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4">
-                                                    <p>{caseStudy?.title}</p>
-                                                    <Link
-                                                        target="_blank"
-                                                        href={caseStudy?.link}
-                                                        className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                    >
-                                                        Learn More <MdOutlineArrowForward />
-                                                    </Link>
-                                                </div>
-                                            </Link>
-                                        </>
+                                        <Link
+                                            key={index}
+                                            target="_blank"
+                                            href={caseStudy?.link}
+                                            className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col lg:flex-row lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
+                                        >
+                                            <div className="casestudy_img w-full h-full">
+                                                <Image
+                                                    src={caseStudy?.image[0]}
+                                                    height={1080}
+                                                    width={1080}
+                                                    alt={caseStudy?.title}
+                                                />
+                                            </div>
+                                            <div className="w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4">
+                                                <p>{caseStudy?.title}</p>
+                                                <Link
+                                                    target="_blank"
+                                                    href={caseStudy?.link}
+                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
+                                                >
+                                                    Learn More <MdOutlineArrowForward />
+                                                </Link>
+                                            </div>
+                                        </Link>
                                     );
                                 }
                             })}
                     </div>
                 </div>
+
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">

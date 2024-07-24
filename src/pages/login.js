@@ -1,5 +1,7 @@
-import { useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import { MdArrowForward } from 'react-icons/md';
 import Link from 'next/link';
 import { getDbdashData } from './api';
@@ -30,6 +32,9 @@ const Login = ({ features, metaData, pathArray }) => {
             featuresArrTwo.push(feature);
         }
     });
+
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
@@ -40,28 +45,29 @@ const Login = ({ features, metaData, pathArray }) => {
                 console.log('failure reason', error);
             },
         };
+        const initializeVerification = () => {
+            if (typeof window.initVerification === 'function') {
+                window.initVerification(configuration);
+                setLoading(false); // Set loading to false after function is initialized
+            } else {
+                console.error('initVerification function not found');
+                setLoading(false); // Set loading to false if function is not found
+            }
+        };
+
         if (typeof window.initVerification === 'function') {
-            window.initVerification(configuration);
+            initializeVerification();
         } else {
             const script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = 'https://proxy.msg91.com/assets/proxy-auth/proxy-auth.js';
 
-            const handleLoad = () => {
-                if (typeof window.initVerification === 'function') {
-                    window.initVerification(configuration);
-                } else {
-                    console.error('initVerification function not found');
-                }
-            };
-
-            script.addEventListener('load', handleLoad);
+            script.onload = initializeVerification;
 
             document.body.appendChild(script);
 
             return () => {
                 document.body.removeChild(script);
-                script.removeEventListener('load', handleLoad);
             };
         }
     }, []);
@@ -70,8 +76,8 @@ const Login = ({ features, metaData, pathArray }) => {
         <>
             <MetaHeadComp metaData={metaData} page={'/login'} pathArray={pathArray} />
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
-                <div className="md:w-3/5 w-full  py-6 px-3 md:p-10  flex flex-col gap-6">
-                    <a href="/" aria-label="Logo viaSocket">
+                <div className="md:w-3/5 w-full py-6 px-3 md:p-10 flex flex-col gap-6">
+                    <Link href="/" aria-label="Logo viaSocket">
                         <Image
                             className="hidden md:block"
                             src="/assets/brand/logo.svg"
@@ -79,65 +85,63 @@ const Login = ({ features, metaData, pathArray }) => {
                             height={40}
                             alt="viasocket"
                         />
-                    </a>
+                    </Link>
 
-                    <div className="  text-2xl font-bold">Features</div>
-                    <div className=" grid  grid-cols-2 gap-6">
+                    <div className="text-2xl font-bold">Features</div>
+                    <div className="grid grid-cols-2 gap-6">
                         {featuresArrTwo.length > 0 &&
-                            featuresArrTwo.map((feature) => {
-                                {
-                                    return (
-                                        <div className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 rounded">
-                                            <Image
-                                                className=""
-                                                src={
-                                                    feature?.image[1]
-                                                        ? feature.image[1]
-                                                        : 'https://placehold.co/1200x400'
-                                                }
-                                                width={1000}
-                                                height={800}
-                                                alt="viasocket"
-                                            />
-                                            <p className=" font-medium text-black text-xl">{feature?.name}</p>
-                                        </div>
-                                    );
-                                }
-                            })}
+                            featuresArrTwo.map((feature, index) => (
+                                <div
+                                    key={index}
+                                    className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 rounded"
+                                >
+                                    <Image
+                                        className=""
+                                        src={feature?.image[1] ? feature.image[1] : 'https://placehold.co/1200x400'}
+                                        width={1000}
+                                        height={800}
+                                        alt="viasocket"
+                                    />
+                                    <p className="font-medium text-black text-xl">{feature?.name}</p>
+                                </div>
+                            ))}
                         {featuresArrOne.length > 0 &&
-                            featuresArrOne.map((feature) => {
-                                {
-                                    return (
-                                        <div className="md:p-6 p-2 bg-[#F7F7F8] flex flex-col  w-auto md:col-span-1 col-span-2">
-                                            <Image
-                                                src={
-                                                    feature?.icon[0] ? feature?.icon[0] : '/assets/img/feature_ico.svg '
-                                                }
-                                                width={36}
-                                                height={36}
-                                                alt="feature_ico"
-                                            />
-                                            <div className="text-xl font-semibold my-3">{feature?.name}</div>
-                                            <p>{feature?.description}</p>
-                                        </div>
-                                    );
-                                }
-                            })}
+                            featuresArrOne.map((feature, index) => (
+                                <div
+                                    key={index}
+                                    className="md:p-6 p-2 bg-[#F7F7F8] flex flex-col w-auto md:col-span-1 col-span-2"
+                                >
+                                    <Image
+                                        src={feature?.icon[0] ? feature?.icon[0] : '/assets/img/feature_ico.svg '}
+                                        width={36}
+                                        height={36}
+                                        alt="feature_ico"
+                                    />
+                                    <div className="text-xl font-semibold my-3">{feature?.name}</div>
+                                    <p>{feature?.description}</p>
+                                </div>
+                            ))}
                     </div>
-
-                    {/* <p className="font-medium flex items-center justify-end mt-6">
-                        Read all latest release <MdArrowForward />
-                    </p> */}
                 </div>
 
-                <div className="md:w-2/5 w-full bg-white  py-6 px-3 md:p-10 flex flex-col gap-4">
-                    <a href="/" className="md:hidden block" aria-label="logo">
+                <div className="md:w-2/5 w-full bg-white py-6 px-3 md:p-10 flex flex-col gap-4">
+                    <Link href="/" className="md:hidden block" aria-label="logo">
                         <Image src="/assets/brand/logo.svg" width={158.6} height={40} alt="viasocket" />
-                    </a>
+                    </Link>
 
                     <div className="text-2xl font-bold">Login</div>
-                    <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} className="loginBtn_google" />
-                    <div className="flex ">
+                    {loading ? (
+                        <>
+                            <Skeleton height={32} width={210} />
+                            <Skeleton height={32} width={210} style={{ marginTop: '10px' }} />
+                        </>
+                    ) : (
+                        <>
+                            <div id="googleLogin" className="loginBtn_google" />
+                            <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} className="loginBtn_msg91" />
+                        </>
+                    )}
+                    <div className="flex">
                         <span className="text-sm">Create a new Account,</span>
                         <Link href="/signup" className="ms-1 text-sm text-sky-700">
                             Sign Up
@@ -148,4 +152,5 @@ const Login = ({ features, metaData, pathArray }) => {
         </>
     );
 };
+
 export default Login;

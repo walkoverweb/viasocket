@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import IntegrationSearch from '@/components/integrations/integrationApps';
@@ -7,9 +6,9 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
+import { limits, datasetsize } from '../../utils/constant.js';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
-    //defined states
     const [apps, setApps] = useState(responseData);
     const [filteredData, setFilteredData] = useState([]);
     const [visibleItems, setVisibleItems] = useState(25);
@@ -17,36 +16,66 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
-
     const router = useRouter();
     const { currentcategory } = router.query;
-
+    const [offset, setOffset] = useState(0);
+    const [error, seterror] = useState(null);
+    const limit = limits;
+    const datasize = datasetsize;
     useEffect(() => {
-        router.push('/integrations?currentcategory=All');
-    }, []);
+        if (!currentcategory) {
+            router.push('/integrations?currentcategory=All');
+            return;
+        }
 
+        router.push(`/integrations?currentcategory=${currentcategory}`);
+    }, []);
+    const getdata = async () => {
+        try {
+            const fetchUrl =
+                currentcategory && currentcategory !== 'All'
+                    ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${
+                          currentcategory && currentcategory === 'Other' ? null : currentcategory
+                      }` // Update offset for next batch
+                    : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=${limit}&offset=${offset + limit}`;
+
+            const apiHeaders = {
+                headers: {
+                    'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+                },
+            };
+            const response = await fetch(fetchUrl, apiHeaders);
+            if (!response.ok) {
+                throw new Error('Failed to load more data');
+            }
+            const newData = await response.json();
+            setApps((prevdata) => [...prevdata, ...newData]);
+        } catch (error) {
+            seterror(error);
+        }
+    };
     //fetch apps
+
     useEffect(() => {
         setApps(responseData);
         setLoading(false);
         setSelectedCategory(currentcategory);
     }, [currentcategory, visibleItems]);
 
-    //fetch apps
-
     useEffect(() => {
         setVisibleItems(25);
     }, [selectedCategory]);
 
-    //fetch icons
-
     const handleLoadMore = () => {
         setVisibleItems(visibleItems + 25);
+        if (visibleItems > datasize) {
+            getdata();
+            setOffset((offset) => offset + limit);
+        }
     };
 
-    //search functions
     const applyFilters = () => {
-        if (apps.length > 0) {
+        if (apps?.length > 0) {
             let filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
                 const categoryMatches =
@@ -57,9 +86,23 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
             setFilteredData(filteredItems);
         }
     };
-
+    const applyFiltersOnCategory = () => {
+        let tempdata = apps;
+        if (tempdata?.length > 0) {
+            let filteredItems = tempdata.filter((item) => {
+                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+                const categoryMatches = item.category.includes(selectedCategory);
+                return nameMatches && categoryMatches;
+            });
+            setFilteredData(filteredItems);
+        }
+    };
     useEffect(() => {
-        applyFilters();
+        if (selectedCategory == 'All') {
+            applyFilters();
+            return;
+        }
+        applyFiltersOnCategory();
     }, [apps, searchTerm, currentcategory]);
 
     const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
@@ -67,7 +110,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         setCategoryDropdownOpen(!isCategoryDropdownOpen);
     };
 
-    // const uniqueCategories = ["All", "Human Resources", "Productivity","Marketing", "IT Operations", "Support", "Website Building","E-commerce platform", "Social media ", "Communication", "Other"];
     const uniqueCategories = [
         'All',
         'Engineering',
@@ -153,11 +195,11 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         'Video Conferencing',
         'Webinars',
     ];
+
     const renderFilterOptions = () => {
-        return uniqueCategories.slice(0, visibleCategories).map((category) => (
-            <Link href={`/integrations?currentcategory=${category}`} aria-label="select category">
+        return uniqueCategories.slice(0, visibleCategories).map((category, index) => (
+            <Link href={`/integrations?currentcategory=${category}`} aria-label="select category" key={index}>
                 <h6
-                    key={category}
                     onClick={() => {
                         setSelectedCategory(category);
                         category !== selectedCategory ? setLoading(true) : '';
@@ -171,8 +213,9 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
             </Link>
         ));
     };
+
     const handleCategoryLoadMore = () => {
-        setVisibleCategories(visibleCategories + 10); // Increase the number of visible categories by 10
+        setVisibleCategories(visibleCategories + 10);
     };
 
     const handleCategoryItemClick = (category) => {
@@ -186,7 +229,6 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
 
     return (
         <>
-            {' '}
             <MetaHeadComp metaData={metaData} page={'/integrations'} pathArray={pathArray} />
             <div className="">
                 <div className="flex flex-col gap-6 container py-20">

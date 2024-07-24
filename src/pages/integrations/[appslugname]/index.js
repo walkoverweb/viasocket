@@ -13,15 +13,32 @@ import IntegrationHero from '@/components/integrations/integrationHero';
 import FAQSection from '@/components/faqSection/faqSection';
 import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
+import { getUseCases } from '@/pages/api/fetch-usecases';
+import UseCase from '@/components/useCases/useCases';
+import axios from 'axios';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 
-const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData, faqData, usecase, params }) => {
     const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
     const [mode, setMode] = useState('dark');
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         if (combos?.plugins?.[pathArray[2]]?.brandcolor) {
             setNewBrandColor(combos?.plugins?.[pathArray[2]]?.brandcolor);
         }
+    }, []);
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const tag = params.appslugname;
+            const defaultTag = 'integrations';
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+            );
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
     }, []);
     useEffect(() => {
         setMode(GetColorMode(newBrandColor));
@@ -208,7 +225,11 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     pathArray={pathArray}
                     plugin={[plugin]}
                 />
-                {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />}
+                {/* {plugin && <IntegrationsComp combinationData={combos} pluginData={[plugin]} />} */}
+
+                {combos?.plugins?.[pathArray[2]] && (
+                    <IntegrationsComp combinationData={combos} pluginData={combos?.plugins?.[pathArray[2]]} />
+                )}
 
                 <div className="py-14">
                     <div className="container flex  flex-col gap-8">
@@ -255,75 +276,86 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         </div>
                     </div>
                 </div>
-                {cardsData?.length > 0 && (
-                    <div className="py-14 bg-white">
-                        <div className="flex flex-col gap-9 container">
-                            <h2 className="text-3xl">Actions and Triggers</h2>
-                            {combos?.plugins?.[pathArray[2]]?.events.some((event) => event.type === 'trigger') && (
-                                <div className="flex-col flex gap-3">
-                                    <h3 className="text-xl font-semibold">Triggers</h3>
-                                    <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
-                                        {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
-                                            if (event.type === 'trigger') {
-                                                return (
-                                                    <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
-                                                        <Image
-                                                            width={24}
-                                                            height={24}
-                                                            className="w-auto h-[28px]"
-                                                            src={
-                                                                combos?.plugins?.[pathArray[2]]?.iconurl
-                                                                    ? combos?.plugins?.[pathArray[2]]?.iconurl
-                                                                    : 'https://placehold.co/40x40'
-                                                            }
-                                                            alt={combos?.plugins?.[pathArray[2]]?.name}
-                                                        />
+                {/* {cardsData?.length > 0 && ( */}
+                <div className="py-14 bg-white">
+                    <div className="flex flex-col gap-9 container">
+                        <h2 className="text-3xl">Actions and Triggers</h2>
+                        {combos?.plugins?.[pathArray[2]]?.events.some((event) => event.type === 'trigger') && (
+                            <div className="flex-col flex gap-3">
+                                <h3 className="text-xl font-semibold">Triggers</h3>
+                                <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
+                                    {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
+                                        if (event.type === 'trigger') {
+                                            return (
+                                                <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                    <Image
+                                                        width={24}
+                                                        height={24}
+                                                        className="w-auto h-[28px]"
+                                                        src={
+                                                            combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                ? combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                : 'https://placehold.co/40x40'
+                                                        }
+                                                        alt={combos?.plugins?.[pathArray[2]]?.name}
+                                                    />
 
-                                                        <div>
-                                                            <h4 className="font-semibold">{event?.name}</h4>
-                                                            <p>{event?.description}</p>
-                                                        </div>
+                                                    <div>
+                                                        <h4 className="font-semibold">{event?.name}</h4>
+                                                        <p>{event?.description}</p>
                                                     </div>
-                                                );
-                                            }
-                                        })}
-                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    })}
                                 </div>
-                            )}
-                            {combos?.plugins?.[pathArray[2]]?.events.some((event) => event?.type === 'action') && (
-                                <div className="flex-col flex gap-3">
-                                    <h3 className="text-xl font-semibold">Actions</h3>
-                                    <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
-                                        {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
-                                            if (event.type === 'action') {
-                                                return (
-                                                    <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
-                                                        <Image
-                                                            width={24}
-                                                            height={24}
-                                                            className="w-auto h-[28px]"
-                                                            src={
-                                                                combos?.plugins?.[pathArray[2]]?.iconurl
-                                                                    ? combos?.plugins?.[pathArray[2]]?.iconurl
-                                                                    : 'https://placehold.co/40x40'
-                                                            }
-                                                            alt={combos?.plugins?.[pathArray[2]]?.name}
-                                                        />
+                            </div>
+                        )}
+                        {combos?.plugins?.[pathArray[2]]?.events.some((event) => event?.type === 'action') && (
+                            <div className="flex-col flex gap-3">
+                                <h3 className="text-xl font-semibold">Actions</h3>
+                                <div className="grid gap-6 md:grid-cols-2 grid-cols-1">
+                                    {combos?.plugins?.[pathArray[2]]?.events.map((event) => {
+                                        if (event.type === 'action') {
+                                            return (
+                                                <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                    <Image
+                                                        width={24}
+                                                        height={24}
+                                                        className="w-auto h-[28px]"
+                                                        src={
+                                                            combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                ? combos?.plugins?.[pathArray[2]]?.iconurl
+                                                                : 'https://placehold.co/40x40'
+                                                        }
+                                                        alt={combos?.plugins?.[pathArray[2]]?.name}
+                                                    />
 
-                                                        <div>
-                                                            <h4 className="font-semibold">{event?.name}</h4>
-                                                            <p>{event?.description}</p>
-                                                        </div>
+                                                    <div>
+                                                        <h4 className="font-semibold">{event?.name}</h4>
+                                                        <p>{event?.description}</p>
                                                     </div>
-                                                );
-                                            }
-                                        })}
-                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    })}
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {/* )} */}
+                {usecase?.length > 0 && (
+                    <div className="container mx-auto py-12">
+                        <UseCase usecases={usecase} />
                     </div>
                 )}
+                {/* {posts?.length && (
+                    <div className="container mx-auto py-12 ">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )} */}
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">
@@ -436,6 +468,7 @@ export async function getServerSideProps(context) {
     // Fetch data server-side here
     const combos = await fetchCombos(pathArray);
     const apps = await fetchApps('All', 25);
+    const usecase = await getUseCases(pathArray[0]);
 
     const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
@@ -444,12 +477,14 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
+            params,
             combos,
             apps,
             pathArray,
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            usecase: usecase ?? [],
         },
     };
 }
