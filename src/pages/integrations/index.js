@@ -9,6 +9,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import FAQSection from '@/components/faqSection/faqSection';
 import fi from 'date-fns/locale/fi/index';
+import{limits ,datasetsize} from "../../utils/constant.js";
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
     const [apps, setApps] = useState(responseData);
@@ -19,27 +20,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
     const [loading, setLoading] = useState();
     const [visibleCategories, setVisibleCategories] = useState(10);
     const [posts, setPosts] = useState([]);
-
     const router = useRouter();
     const { currentcategory } = router.query;
     const [offset, setOffset] = useState(0);
     const [error, seterror] = useState(null);
-    const limit = 200;
-    const datasize = 150;
-    //To Map Tags
-    // useEffect(() => {
-    //     const fetchPosts = async () => {
-    //         const tag = 'via-socket';
-    //         const defaultTag = 'integrations';
-    //         const res = await axios.get(
-    //             `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
-    //         );
-    //         const posts = await res.data;
-    //         setPosts(posts);
-    //     };
-    //     fetchPosts();
-    // }, []);
-
+    const limit = limits;
+    const datasize = datasetsize;
     useEffect(() => {
         router.push('/integrations?currentcategory=All');
     }, []);
