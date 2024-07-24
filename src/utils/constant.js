@@ -1,2 +1,2 @@
-const limits = 200;
-const datasetsize = 150;
+export const limits = 200;
+export const datasetsize = 150;
