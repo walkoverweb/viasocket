@@ -1,2 +1,2 @@
-const limit = 200;
-const datasize = 150;
+const limits = 200;
+const datasetsize = 150;
