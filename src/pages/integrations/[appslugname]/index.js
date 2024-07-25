@@ -31,7 +31,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     useEffect(() => {
         const fetchPosts = async () => {
             const tag = params.appslugname;
-            const defaultTag = 'integrations';
+            const defaultTag = 'via-socket';
             const res = await axios.get(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
             );
