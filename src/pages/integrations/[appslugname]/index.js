@@ -346,6 +346,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         <UseCase usecases={usecase} />
                     </div>
                 )}
+
                 {posts?.length && (
                     <div className="container mx-auto py-12 ">
                         {' '}
