@@ -9,11 +9,11 @@ export default function IntegrationHero({ plugin, combos, mode }) {
                 <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12">
                     <div className={`container flex flex-col md:gap-12 gap-6`}>
                         <div
-                            className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit`}
+                            className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-black shadow-sm`}
                         >
                             {plugin.map((plug, index) => {
                                 return (
-                                    <div key={index} className="flex items-center gap-3  w-fit">
+                                    <div key={index} className="flex items-center justify-center gap-4 w-auto">
                                         {index > 0 && <span className="text-3xl mx-4"> + </span>}
                                         {plug?.iconurl && (
                                             <Image
