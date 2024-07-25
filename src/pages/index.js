@@ -25,6 +25,14 @@ export async function getServerSideProps() {
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
+    const tag = 'via-socket';
+    const defaultTag = 'integrations';
+    const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+    );
+    const posts = await res.data;
+
+
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -36,6 +44,9 @@ export async function getServerSideProps() {
             features: results[6]?.data?.rows,
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
+
+            posts: posts,
+
         },
     };
 }
@@ -50,6 +61,9 @@ const Index = ({
     features,
     metaData,
     faqData,
+
+    posts,
+
 }) => {
     return (
         <>
@@ -241,6 +255,14 @@ const Index = ({
                             })}
                     </div>
                 </div>
+
+                {posts?.length && (
+                    <div className="container mx-auto  py-12">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )}
+
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
