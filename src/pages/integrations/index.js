@@ -9,7 +9,8 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import FAQSection from '@/components/faqSection/faqSection';
 import fi from 'date-fns/locale/fi/index';
-import{limits ,datasetsize} from "../../utils/constant.js";
+import { limits, datasetsize } from '../../utils/constant.js';
+import axios from 'axios';
 
 const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData, faqData }) => {
     const [apps, setApps] = useState(responseData);
@@ -33,6 +34,18 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
         }
 
         router.push(`/integrations?currentcategory=${currentcategory}`);
+    }, []);
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const tag = 'via-socket';
+            const defaultTag = 'integrations';
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+            );
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
     }, []);
     const getdata = async () => {
         try {
@@ -261,12 +274,12 @@ const IntegrationSlugPage = ({ getStartedData, responseData, pathArray, metaData
                         pathArray={pathArray}
                     />
                 </div>
-                {/* {posts?.length && (
+                {posts?.length && (
                     <div className="container mx-auto py-12 ">
                         {' '}
                         <BlogGrid posts={posts} />
                     </div>
-                )} */}
+                )}
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (

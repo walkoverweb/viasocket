@@ -31,7 +31,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
     useEffect(() => {
         const fetchPosts = async () => {
             const tag = params.appslugname;
-            const defaultTag = 'integrations';
+            const defaultTag = 'via-socket';
             const res = await axios.get(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
             );
@@ -350,12 +350,13 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                         <UseCase usecases={usecase} />
                     </div>
                 )}
-                {/* {posts?.length && (
+
+                {posts?.length && (
                     <div className="container mx-auto py-12 ">
                         {' '}
                         <BlogGrid posts={posts} />
                     </div>
-                )} */}
+                )}
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
                         <div className="container">

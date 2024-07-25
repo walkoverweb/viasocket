@@ -34,7 +34,6 @@ export default function EventGrid({ plugin, mode }) {
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                                     {triggerEvents.map((card, i) => (
                                         <EventCard card={card} plugin={plugin} key={i} />
-
                                     ))}
                                 </div>
                             </div>
@@ -48,10 +47,8 @@ export default function EventGrid({ plugin, mode }) {
                                     </p>
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-
                                     {actionEvents.map((card, i) => (
                                         <EventCard card={card} plugin={plugin} key={i} />
-
                                     ))}
                                 </div>
                             </div>
