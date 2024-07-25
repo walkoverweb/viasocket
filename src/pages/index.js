@@ -8,6 +8,8 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
+import axios from 'axios';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -32,7 +34,6 @@ export async function getServerSideProps() {
     );
     const posts = await res.data;
 
-
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -46,7 +47,6 @@ export async function getServerSideProps() {
             faqData: results[8]?.data?.rows,
 
             posts: posts,
-
         },
     };
 }
@@ -63,7 +63,6 @@ const Index = ({
     faqData,
 
     posts,
-
 }) => {
     return (
         <>
@@ -262,7 +261,6 @@ const Index = ({
                         <BlogGrid posts={posts} />
                     </div>
                 )}
-
 
                 <div className="bg-white py-20 ">
                     {faqData && faqData.length > 0 && (
