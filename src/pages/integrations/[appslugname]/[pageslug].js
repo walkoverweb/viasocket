@@ -245,6 +245,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                                 Actions
                                             </p>
                                         </div>
+
                                         {actionEvents.length > 0 &&
                                             actionEvents.map((card, i) => (
                                                 <div
