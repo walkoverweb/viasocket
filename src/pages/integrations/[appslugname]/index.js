@@ -35,7 +35,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             const res = await axios.get(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
             );
-            console.log(res, 'responseee');
+
             const posts = await res.data;
             setPosts(posts);
         };
