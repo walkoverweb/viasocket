@@ -35,6 +35,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             const res = await axios.get(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
             );
+            console.log(res, 'responseee');
             const posts = await res.data;
             setPosts(posts);
         };
@@ -351,7 +352,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     </div>
                 )}
 
-                {posts?.length && (
+                {posts?.length > 0 && (
                     <div className="container mx-auto py-12 ">
                         {' '}
                         <BlogGrid posts={posts} />
