@@ -30,12 +30,18 @@
 
 //     const router = useRouter();
 //     const { currentcategory } = router.query;
+//     console.log(currentcategory, "currentcateehjhjdfjchgsdhjg");
 
 //     const pathArray = ['', 'integrations'];
 
 //     // Fetch integration data
 //     const fetchIntegrationData = async (category, offset = 0) => {
-//         debugger
+//         if(typeof(category)!== 'string'){
+//             debugger
+//             console.log(category.props.href, "hrefff");
+//             const newCategory = category.props.href.split('?')[1].split('=')[1];
+//             category = newCategory
+//         }
 //         console.log(category, "categoryyy");
 //         setLoading(true);
 //         try {
@@ -59,7 +65,14 @@
 //             const newData = await response.json();
 //             console.log(newData , "newdata");
 //             console.log(offset , "offset");
-//             setApps((prevData) => (offset === 0 ? newData : [...prevData, ...newData]));
+//             // setApps((prevData) => (offset === 0 ? newData : [...prevData, ...newData]));
+//             if(offset === 0){
+//                 setApps(newData)
+//             }
+//             else{
+//                 setApps([...apps, ...newData])
+//             }
+//             console.log();
 //             setLoading(false);
 //         } catch (error) {
 //             console.log("insie eeroro");
@@ -115,6 +128,7 @@
 //     };
 
 //     const applyFilters = () => {
+//         debugger
 //         if (apps?.length > 0) {
 //             const filteredItems = apps.filter((item) => {
 //                 const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -272,6 +286,7 @@
 //                         isCategoryDropdownOpen={isCategoryDropdownOpen}
 //                         handleCategoryClick={handleCategoryClick}
 //                         selectedCategory={selectedCategory}
+//                         setSelectedCategory={setSelectedCategory}
 //                         handleCategoryItemClick={handleCategoryItemClick}
 //                         filteredData={filteredData}
 //                         handleLocalStore={handleLocalStore}
@@ -306,6 +321,7 @@
 // };
 
 // export default IntegrationSlugPage;
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -343,14 +359,16 @@ const IntegrationSlugPage = () => {
 
     // Fetch integration data
     const fetchIntegrationData = async (category, offset = 0) => {
-        debugger;
-        console.log(category, 'categoryyy');
+        let finalCategory = category;
+        if (typeof category !== 'string') {
+            finalCategory = category.props.href.split('?')[1].split('=')[1];
+        }
+
         setLoading(true);
         try {
-            console.log('inside try');
             const fetchUrl =
-                category && category !== 'All'
-                    ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${category}`
+                finalCategory && finalCategory !== 'All'
+                    ? `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?category=${finalCategory}`
                     : `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=${limit}&offset=${offset}`;
 
             const apiHeaders = {
@@ -361,16 +379,14 @@ const IntegrationSlugPage = () => {
 
             const response = await fetch(fetchUrl, apiHeaders);
             if (!response.ok) {
-                console.log('eroor ');
                 throw new Error('Failed to load data');
             }
             const newData = await response.json();
-            console.log(newData, 'newdata');
-            console.log(offset, 'offset');
-            setApps((prevData) => (offset === 0 ? newData : [...prevData, ...newData]));
+            console.log('🚀 ~ fetchIntegrationData ~ newData:', newData);
+            setApps(offset === 0 ? newData : [...apps, ...newData]);
+            console.log('🚀 ~ fetchIntegrationData ~ newData:', apps);
             setLoading(false);
         } catch (error) {
-            console.log('insie eeroro');
             setError(error.message);
             setLoading(false);
         }
@@ -408,27 +424,24 @@ const IntegrationSlugPage = () => {
 
     // Initial data fetch
     useEffect(() => {
+        setOffset(0); // Reset offset when category changes
         fetchIntegrationData(selectedCategory); // Fetch initial data with offset 0
         fetchDashboardData(); // Fetch dashboard data
         fetchPosts(); // Fetch blog posts
-    }, [currentcategory, selectedCategory]);
+    }, [selectedCategory]);
 
     // Handle Load More action
     const handleLoadMore = () => {
-        setVisibleItems((prevVisibleItems) => prevVisibleItems + 25);
-        if ((visibleItems + 25) % datasetsize === 0) {
-            setOffset((prevOffset) => prevOffset + limit);
-            fetchIntegrationData(currentcategory, offset + limit);
-        }
+        const newOffset = offset + limit;
+        setOffset(newOffset);
+        fetchIntegrationData(selectedCategory, newOffset);
     };
 
     const applyFilters = () => {
         if (apps?.length > 0) {
             const filteredItems = apps.filter((item) => {
                 const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
-                const categoryMatches =
-                    selectedCategory === 'All' || item.category === selectedCategory || !item.category;
-                return nameMatches && categoryMatches;
+                return nameMatches;
             });
 
             setFilteredData(filteredItems);
@@ -537,9 +550,6 @@ const IntegrationSlugPage = () => {
                 <h6
                     onClick={() => {
                         setSelectedCategory(category);
-                        if (category !== selectedCategory) {
-                            setLoading(true);
-                        }
                     }}
                     className={`lg:text-[20px] text-base cursor-pointer ${
                         selectedCategory === category ? 'font-bold' : 'font-normal'
@@ -582,6 +592,7 @@ const IntegrationSlugPage = () => {
                         isCategoryDropdownOpen={isCategoryDropdownOpen}
                         handleCategoryClick={handleCategoryClick}
                         selectedCategory={selectedCategory}
+                        setSelectedCategory={setSelectedCategory}
                         handleCategoryItemClick={handleCategoryItemClick}
                         filteredData={filteredData}
                         handleLocalStore={handleLocalStore}
