@@ -7,8 +7,8 @@ export default function IntegrationsComp({ combinationData, pluginData }) {
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
-            {/* <IntegrationsApps />
-            <FAQSection />
+            <IntegrationsApps pluginData={pluginData} />
+            {/*  <FAQSection />
             <IntegrationsAbout /> */}
         </>
     );

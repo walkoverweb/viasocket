@@ -253,7 +253,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 <MdAdd fontSize={46} />
                             </div>
 
-                            <IntegrationSearch
+                            {/* <IntegrationSearch
                                 loading={loading}
                                 selectedApp={pathArray[2]}
                                 searchTerm={searchTerm}
@@ -272,7 +272,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                                 visibleCategories={visibleCategories}
                                 handleCategoryLoadMore={handleCategoryLoadMore}
                                 pathArray={pathArray}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>

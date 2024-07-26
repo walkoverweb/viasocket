@@ -382,9 +382,7 @@ const IntegrationSlugPage = () => {
                 throw new Error('Failed to load data');
             }
             const newData = await response.json();
-            console.log('🚀 ~ fetchIntegrationData ~ newData:', newData);
             setApps(offset === 0 ? newData : [...apps, ...newData]);
-            console.log('🚀 ~ fetchIntegrationData ~ newData:', apps);
             setLoading(false);
         } catch (error) {
             setError(error.message);
