@@ -10,6 +10,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import Image from 'next/image';
 import UpgradeSaas from './saas';
+import TagImageDisplay from './features';
 import { MdAlarm, MdTrendingUp, MdShowChart } from 'react-icons/md';
 
 export async function getServerSideProps() {
@@ -93,6 +94,10 @@ const embed = ({ getStartedData, productData, metaData, faqData }) => {
                             />
                         </div>
                     </div>
+                </div>
+
+                <div className=" flex items-center justify-center bg-F6F4EE">
+                    <TagImageDisplay />
                 </div>
                 <div className="min-h-screen flex items-center justify-center bg-white">
                     <HowItWorks />
