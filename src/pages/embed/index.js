@@ -12,6 +12,7 @@ import Image from 'next/image';
 import UpgradeSaas from './saas';
 import TagImageDisplay from './features';
 import { MdAlarm, MdTrendingUp, MdShowChart } from 'react-icons/md';
+import CustomComponent from './embedUsecases';
 
 export async function getServerSideProps() {
     const IDs = [
@@ -24,7 +25,7 @@ export async function getServerSideProps() {
         'tblvo36my',
         'tbl2bk656',
         'tblnoi7ng',
-        'tblvu0f6w',
+        'tbld6tbln',
     ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -41,11 +42,13 @@ export async function getServerSideProps() {
             features: results[6]?.data?.rows,
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
+            useCases: results[9]?.data?.rows,
         },
     };
 }
 
-const embed = ({ getStartedData, productData, metaData, faqData }) => {
+const embed = ({ getStartedData, productData, metaData, faqData, useCases }) => {
+    console.log(useCases, 'usecseee');
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
@@ -104,6 +107,9 @@ const embed = ({ getStartedData, productData, metaData, faqData }) => {
                 </div>
                 <div className=" flex items-center justify-center bg-white py-28">
                     <UpgradeSaas />
+                </div>
+                <div>
+                    <CustomComponent useCases={useCases} slugname="example-slugname" />
                 </div>
                 <div className="bg-white py-20">
                     {faqData && faqData.length > 0 && (
