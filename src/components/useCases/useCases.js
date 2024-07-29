@@ -1,23 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function UseCase({ usecases }) {
-    // const [usecases, setUsecases] = useState([]);
     const [selectedUsecase, setSelectedUsecase] = useState(0);
-
-    // useEffect(() => {
-    //     const fetchUsecases = async () => {
-    //         try {
-    //             const response = await axios.get('/api/getUseCases');
-    //             setUsecases(response.data);
-    //         } catch (error) {
-    //             console.error('Error fetching use cases:', error);
-    //         }
-    //     };
-
-    //     fetchUsecases();
-    // }, []);
-
     const handleUsecaseClick = (index) => {
         setSelectedUsecase(index);
     };
