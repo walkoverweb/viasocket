@@ -21,7 +21,7 @@ const BlogGrid = ({ posts }) => {
                         target="_blank"
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
                     >
-                        Read More
+                        Read More Blogs
                     </Link>
                 </div>
             </div>
@@ -44,7 +44,7 @@ const CardComponent = ({ card }) => {
                         href={`/blog/${card?.slug}`}
                         className="flex items-center gap-1 text-[#0000ff] mt-6"
                     >
-                        Learn More <MdOutlineArrowForward />
+                        Read more <MdOutlineArrowForward />
                     </Link>
                 </div>
             </div>
