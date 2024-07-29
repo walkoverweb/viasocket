@@ -33,7 +33,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             const tag = params.appslugname;
             const defaultTag = 'via-socket';
             const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
             );
 
             const posts = await res.data;
