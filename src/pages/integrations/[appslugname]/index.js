@@ -37,6 +37,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             );
 
             const posts = await res.data;
+
             setPosts(posts);
         };
         fetchPosts();
