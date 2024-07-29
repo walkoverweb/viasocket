@@ -7,9 +7,9 @@ const postsDirectory = path.join(process.cwd(), '_posts/blog');
 
 let postCache;
 
-function fetchPostContent(tags, defaultTag) {
+function fetchPostContent(tags, defaulttag) {
     if (postCache) {
-        return getPosts(tags);
+        return getPosts(tags, defaulttag);
     }
     try {
         const fileNames = fs.readdirSync(postsDirectory, { withFileTypes: false });
@@ -37,17 +37,17 @@ function fetchPostContent(tags, defaultTag) {
 
         postCache = allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
 
-        return getPosts(tags, defaultTag);
+        return getPosts(tags, defaulttag);
     } catch (err) {
         console.error('Error reading directory or files:', err);
         throw err;
     }
 }
 
-function getPosts(tags, defaultTag) {
+function getPosts(tags, defaulttag) {
     let posts = filterPostsByTag(postCache, tags);
     if (posts.length < 3) {
-        const defaultPosts = filterPostsByTag(postCache, [defaultTag]);
+        const defaultPosts = filterPostsByTag(postCache, [defaulttag]);
         const combinedPosts = [...posts, ...defaultPosts];
         posts = Array.from(new Set(combinedPosts.map((post) => post.fullPath)))
             .map((fullPath) => combinedPosts.find((post) => post.fullPath === fullPath))
@@ -67,11 +67,11 @@ function filterPostsByTag(posts, tags) {
     });
 }
 export default async function (req, res) {
-    const { tag, defaultTag } = req.query;
+    const { tag, defaulttag } = req.query;
     const tags = tag ? tag.split(',') : [];
 
     try {
-        const data = fetchPostContent(tags, defaultTag);
+        const data = fetchPostContent(tags, defaulttag);
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch post content' });

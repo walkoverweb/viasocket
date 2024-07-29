@@ -33,8 +33,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
             const tag = params.appslugname;
             const defaultTag = 'via-socket';
             const res = await axios.get(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
             );
+
             const posts = await res.data;
             setPosts(posts);
         };
@@ -351,7 +352,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     </div>
                 )}
 
-                {posts?.length && (
+                {posts?.length > 0 && (
                     <div className="container mx-auto py-12 ">
                         {' '}
                         <BlogGrid posts={posts} />

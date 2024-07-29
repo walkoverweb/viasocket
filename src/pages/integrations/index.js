@@ -365,6 +365,22 @@ const IntegrationSlugPage = () => {
         }
 
         setLoading(true);
+        router.push(`/integrations?currentcategory=${currentcategory}`);
+    };
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const tag = 'via-socket';
+            const defaultTag = 'integrations';
+            const res = await axios.get(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
+            );
+            const posts = await res.data;
+            setPosts(posts);
+        };
+        fetchPosts();
+    }, []);
+    const getdata = async () => {
         try {
             const fetchUrl =
                 finalCategory && finalCategory !== 'All'
