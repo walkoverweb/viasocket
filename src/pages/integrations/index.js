@@ -364,8 +364,7 @@ const IntegrationSlugPage = () => {
             finalCategory = category.props.href.split('?')[1].split('=')[1];
         }
 
-        setLoading(true);
-        router.push(`/integrations?currentcategory=${currentcategory}`);
+        router.push(`/integrations?currentcategory=ALL`);
     };
 
     useEffect(() => {

@@ -232,51 +232,6 @@ const IntegrationSlugPage = ({ getStartedData, combos, apps, pathArray, metaData
                     <IntegrationsComp combinationData={combos} pluginData={combos?.plugins?.[pathArray[2]]} />
                 )}
 
-                <div className="py-14">
-                    <div className="container flex  flex-col gap-8">
-                        <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">
-                            Integrate with specific service
-                        </h1>
-                        <div className="flex flex-col gap-9">
-                            <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
-                                <Image
-                                    className="w-[26px] h-[26px]"
-                                    src={plugin?.iconurl ? plugin?.iconurl : 'https://placehold.co/40x40'}
-                                    width={40}
-                                    height={40}
-                                    alt={combos?.plugins?.[pathArray[2]]?.name}
-                                />
-                                <h6 className="text-2xl font-bold capitalize">
-                                    {combos?.plugins?.[pathArray[2]]?.name}
-                                </h6>
-                            </div>
-                            <div className="px-8">
-                                <MdAdd fontSize={46} />
-                            </div>
-
-                            {/* <IntegrationSearch
-                                loading={loading}
-                                selectedApp={pathArray[2]}
-                                searchTerm={searchTerm}
-                                setSearchTerm={setSearchTerm}
-                                renderFilterOptions={renderFilterOptions}
-                                isCategoryDropdownOpen={isCategoryDropdownOpen}
-                                handleCategoryClick={handleCategoryClick}
-                                selectedCategory={selectedCategory}
-                                handleCategoryItemClick={handleCategoryItemClick}
-                                filteredData={filteredData}
-                                handleLocalStore={handleLocalStore}
-                                visibleItems={visibleItems}
-                                apps={apps}
-                                handleLoadMore={handleLoadMore}
-                                uniqueCategories={uniqueCategories}
-                                visibleCategories={visibleCategories}
-                                handleCategoryLoadMore={handleCategoryLoadMore}
-                                pathArray={pathArray}
-                            /> */}
-                        </div>
-                    </div>
-                </div>
                 {/* {cardsData?.length > 0 && ( */}
                 <div className="py-14 bg-white">
                     <div className="flex flex-col gap-9 container">
