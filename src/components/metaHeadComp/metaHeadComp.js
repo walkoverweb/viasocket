@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { useState } from 'react';
 
-export default function MetaHeadComp({ metaData, page, pathArray, plugin }) {
+export default function MetaHeadComp({ metaData, page, plugin }) {
     if (metaData) {
         let meta = metaData.find((item) => item.name === page);
         let title, description;

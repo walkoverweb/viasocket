@@ -19,7 +19,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, pathArray, metaData, faqD
                 {combos?.plugins?.[pathArray[2]] && (
                     <IntegrationsComp
                         combinationData={combos}
-                        pluginData={combos?.plugins?.[pathArray[2]]}
+                        pluginData={[combos?.plugins?.[pathArray[2]]]}
                         faqData={faqData}
                         faqName={`[singleApp]`}
                         blogs={posts}
@@ -49,9 +49,9 @@ export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
     const { params } = context;
-    const pathArray = [params.appslugname];
-    const combos = await fetchCombos(pathArray);
-    const usecase = await getUseCases(pathArray[0]);
+    const pathSlugs = [params.appslugname];
+    const combos = await fetchCombos(pathSlugs);
+    const usecase = await getUseCases(pathSlugs[0]);
 
     const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
 
@@ -69,7 +69,7 @@ export async function getServerSideProps(context) {
         props: {
             params,
             combos,
-            pathArray,
+            pathSlugs,
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,

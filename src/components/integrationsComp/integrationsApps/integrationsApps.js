@@ -71,9 +71,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const handleLoadMoreApps = () => {
         setVisibleApps(visibleApps + 40);
-        console.log('🚀 ~ handleLoadMoreApps ~ visibleApps:searchedApps', visibleApps, searchedApps.length);
         if (visibleApps >= searchedApps.length && hasMoreApps) {
-            console.log('🚀 ~ handleLoadMoreApps ~ visibleApps:', visibleApps);
             setOffset(offset + 200);
             fetchApps(selectedCategory, offset + 200);
         }
