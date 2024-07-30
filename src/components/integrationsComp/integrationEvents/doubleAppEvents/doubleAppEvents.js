@@ -5,6 +5,7 @@ import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa';
 import { MdAdd, MdOutlineAdsClick, MdOutlineTaskAlt } from 'react-icons/md';
 
 export default function DoubleAppEvents({ pathSlugs, plugins }) {
+    console.log('🚀 ~ DoubleAppEvents ~ pathSlugs:', pathSlugs);
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
     const [hoveredActionCardIndex, setHoveredActionCardIndex] = useState(null);

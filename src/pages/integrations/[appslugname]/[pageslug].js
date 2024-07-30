@@ -79,7 +79,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugin
                     faqName={`[doubleApp]`}
                     getStartedData={getStartedData}
                     isHero={'false'}
-                    pathArray={pathSlugs}
+                    pathSlugs={pathSlugs}
                 />
             )}
         </>
