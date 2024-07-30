@@ -5,8 +5,19 @@ import IntegrationsAbout from './integrationsAbout/integrationsAbout';
 import BlogGrid from '../blogGrid/blogGrid';
 import UseCase from '../useCases/useCases';
 import IntegrationEvents from './integrationEvents/integrationEvents';
+import GetStarted from '../getStarted/getStarted';
+import IntegrationFooter from './integrationsFooter/integrationsFooter';
 
-export default function IntegrationsComp({ combinationData, pluginData, type, faqData, faqName, blogs, usecases }) {
+export default function IntegrationsComp({
+    combinationData,
+    pluginData,
+    type,
+    faqData,
+    faqName,
+    blogs,
+    usecases,
+    getStartedData,
+}) {
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
@@ -16,7 +27,7 @@ export default function IntegrationsComp({ combinationData, pluginData, type, fa
             {pluginData && <IntegrationEvents pluginData={pluginData} />}
 
             {usecases?.length > 0 && (
-                <div className="container mx-auto py-12">
+                <div className="container mx-auto py-24">
                     <UseCase usecases={usecases} />
                 </div>
             )}
@@ -31,6 +42,8 @@ export default function IntegrationsComp({ combinationData, pluginData, type, fa
             {faqData && faqName && <FAQSection faqData={faqData} faqName={`[singleApp]`} />}
 
             <IntegrationsAbout pluginData={pluginData} />
+
+            <IntegrationFooter getStartedData={getStartedData} />
         </>
     );
 }

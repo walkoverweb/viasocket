@@ -5,7 +5,7 @@ import { MdChevronRight } from 'react-icons/md';
 export default function IntegrationsAbout({ pluginData }) {
     return (
         <>
-            <div className="py-14">
+            <div className="py-24">
                 <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
                     <div className="flex flex-1 flex-col justify-start gap-4">
                         <Image
