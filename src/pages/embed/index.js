@@ -140,6 +140,7 @@ const embed = ({ getStartedData, productData, metaData, faqData, useCases }) => 
                                 <p>No use cases available.</p>
                             )}
                         </div>
+
                         <div className="container bg-white py-20">
                             {faqData && faqData.length > 0 ? (
                                 <div className="container">
