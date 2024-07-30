@@ -3,8 +3,8 @@ import { MdArrowForward } from 'react-icons/md';
 
 const UpgradeSaas = () => {
     return (
-        <div className="container mx-auto ">
-            <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="container  mx-auto ">
+            <div className="bg-white rounded-lg  p-4">
                 <h1 className="text-3xl font-bold m-4">Upgrade your SaaS today, 100% free </h1>
                 <p className="text-gray-700 mb-6">
                     Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin charging{' '}
