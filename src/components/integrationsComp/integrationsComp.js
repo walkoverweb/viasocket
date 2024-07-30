@@ -19,14 +19,17 @@ export default function IntegrationsComp({
     getStartedData,
     pathArray,
     hideApps,
+    showCategories,
 }) {
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
 
-            {type !== 'doubleApp' && !hideApps && <IntegrationsApps pluginData={pluginData} showCategories={false} />}
+            {type !== 'doubleApp' && !hideApps && (
+                <IntegrationsApps pluginData={pluginData} showCategories={showCategories} />
+            )}
 
-            {pluginData && <IntegrationEvents plugins={pluginData} pathArray={pathArray} />}
+            {pluginData?.length && <IntegrationEvents plugins={pluginData} pathArray={pathArray} />}
 
             {usecases?.length > 0 && (
                 <div className="container mx-auto py-24">
@@ -43,7 +46,7 @@ export default function IntegrationsComp({
 
             {faqData && faqName && <FAQSection faqData={faqData} faqName={faqName} />}
 
-            <IntegrationsAbout plugins={pluginData} />
+            {pluginData?.length && <IntegrationsAbout plugins={pluginData} />}
 
             <IntegrationFooter getStartedData={getStartedData} />
         </>

@@ -86,19 +86,19 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     };
 
     return (
-        <div className="container flex flex-col gap-9 py-24">
-            {pluginData && (
+        <div className="container flex flex-col gap-9 py-12">
+            {pluginData?.length && (
                 <>
                     <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">Integrate with specific service</h1>
                     <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
                         <Image
                             className="w-[26px] h-[26px]"
-                            src={pluginData?.iconurl || 'https://placehold.co/40x40'}
+                            src={pluginData[0]?.iconurl || 'https://placehold.co/40x40'}
                             width={40}
                             height={40}
-                            alt={pluginData?.name}
+                            alt={pluginData[0]?.name}
                         />
-                        <h6 className="text-2xl font-bold capitalize">{pluginData?.name}</h6>
+                        <h6 className="text-2xl font-bold capitalize">{pluginData[0]?.name}</h6>
                     </div>
                     <div className="px-8">
                         <MdAdd fontSize={46} />
@@ -172,7 +172,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
                     </div>
                     <div className="flex flex-row flex-wrap gap-5">
-                        {searchedApps?.length ? (
+                        {searchedApps?.length || loading ? (
                             searchedApps.slice(0, visibleApps).map((app) => {
                                 if (app?.appslugname) {
                                     return (
@@ -182,7 +182,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                             aria-label="apps"
                                             href={
                                                 app?.appslugname
-                                                    ? `/integrations${pluginData.appslugname ? '/' + pluginData.appslugname : ''}/${app?.appslugname}`
+                                                    ? `/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`
                                                     : `/noplugin`
                                             }
                                         >
