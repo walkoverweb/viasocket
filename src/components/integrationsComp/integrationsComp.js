@@ -17,7 +17,7 @@ export default function IntegrationsComp({
     blogs,
     usecases,
     getStartedData,
-    pathArray,
+    pathSlugs,
     hideApps,
     showCategories,
 }) {
@@ -29,7 +29,7 @@ export default function IntegrationsComp({
                 <IntegrationsApps pluginData={pluginData} showCategories={showCategories} />
             )}
 
-            {pluginData?.length && <IntegrationEvents plugins={pluginData} pathArray={pathArray} />}
+            {pluginData?.length && <IntegrationEvents plugins={pluginData} pathSlugs={pathSlugs} />}
 
             {usecases?.length > 0 && (
                 <div className="container mx-auto py-24">

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa';
 import { MdAdd, MdOutlineAdsClick, MdOutlineTaskAlt } from 'react-icons/md';
 
-export default function DoubleAppEvents({ pathArray, plugins }) {
+export default function DoubleAppEvents({ pathSlugs, plugins }) {
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
     const [hoveredActionCardIndex, setHoveredActionCardIndex] = useState(null);
@@ -70,7 +70,7 @@ export default function DoubleAppEvents({ pathArray, plugins }) {
                     <>
                         <div className="container py-20">
                             <h1 className="flex text-3xl font-semibold">
-                                {`Automate anything with ${pathArray[0]} & ${pathArray[1]}${' '}Integrations!`}
+                                {`Automate anything with ${pathSlugs[0]} & ${pathSlugs[1]}${' '}Integrations!`}
                             </h1>
 
                             <div className="grid md:grid-cols-2 grid-cols-1 gap-8 mt-20">

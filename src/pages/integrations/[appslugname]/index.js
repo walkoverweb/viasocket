@@ -5,27 +5,27 @@ import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import { getUseCases } from '@/pages/api/fetch-usecases';
 import axios from 'axios';
 
-const IntegrationSlugPage = ({ getStartedData, combos, pathArray, metaData, faqData, usecase, posts }) => {
+const IntegrationSlugPage = ({ getStartedData, combos, pathSlugs, metaData, faqData, usecase, posts }) => {
     if (combos && !combos.error) {
         return (
             <>
                 <MetaHeadComp
                     metaData={metaData}
                     page={'/integrations/AppOne'}
-                    pathArray={pathArray}
-                    plugin={[combos?.plugins?.[pathArray[2]]]}
+                    plugin={[combos?.plugins?.[pathSlugs[0]]]}
                 />
 
-                {combos?.plugins?.[pathArray[2]] && (
+                {combos?.plugins?.[pathSlugs[0]] && (
                     <IntegrationsComp
                         combinationData={combos}
-                        pluginData={[combos?.plugins?.[pathArray[2]]]}
+                        pluginData={[combos?.plugins?.[pathSlugs[0]]]}
                         faqData={faqData}
                         faqName={`[singleApp]`}
                         blogs={posts}
                         usecases={usecase}
                         getStartedData={getStartedData}
                         isHero={'false'}
+                        pathSlugs={pathSlugs}
                     />
                 )}
             </>
