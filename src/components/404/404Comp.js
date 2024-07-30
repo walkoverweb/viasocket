@@ -1,17 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { MdArrowBackIos, MdOutlineKeyboardArrowDown } from 'react-icons/md'
-import Footer from '../footer/footer'
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { MdArrowBackIos, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import Footer from '../footer/footer';
 
-export default function ErrorComp({ pathArray }) {
-    const router = useRouter()
+export default function ErrorComp({ pathArray, page }) {
+    const router = useRouter();
     const openChatWidget = () => {
-        window.chatWidget.open()
-    }
-    var showNav = false
-    if (pathArray[1] && pathArray[1] === 'integrations') {
-        showNav = true
+        window.chatWidget.open();
+    };
+    var showNav = false;
+    if (page === '/integration') {
+        showNav = true;
     }
 
     return (
@@ -27,11 +27,7 @@ export default function ErrorComp({ pathArray }) {
                             className="h-[40px] w-auto"
                         />
                         <div className="dropdown dropdown-bottom dropdown-hover">
-                            <div
-                                tabIndex={0}
-                                role="button"
-                                className="flex items-center gap-1"
-                            >
+                            <div tabIndex={0} role="button" className="flex items-center gap-1">
                                 Support
                                 <MdOutlineKeyboardArrowDown size={20} />
                             </div>
@@ -47,18 +43,12 @@ export default function ErrorComp({ pathArray }) {
                                     Live Chat
                                 </button>
                                 <li>
-                                    <Link
-                                        target="_blank"
-                                        href="https://calendly.com/rpaliwal71/15-mins?month=2024-03"
-                                    >
+                                    <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
                                         Book a meeting
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        target="_blank"
-                                        href="https://viasocket.com/faq"
-                                    >
+                                    <Link target="_blank" href="https://viasocket.com/faq">
                                         Help Doc
                                     </Link>
                                 </li>
@@ -76,21 +66,15 @@ export default function ErrorComp({ pathArray }) {
                     />
                     <div className="flex flex-col items-center gap-6">
                         <h1 className="md:text-3xl text-xl text-center font-semibold">
-                            The page you're trying to reach isn't available or
-                            doesn't exist.
+                            The page you're trying to reach isn't available or doesn't exist.
                         </h1>
                         <div className="flex gap-4">
-                            <button
-                                className="btn btn-accent btn-md"
-                                onClick={() => router.back()}
-                            >
+                            <button className="btn btn-accent btn-md" onClick={() => router.back()}>
                                 <MdArrowBackIos />
                                 Back
                             </button>
                             <Link href="/">
-                                <button className="btn btn-md btn-accent btn-outline">
-                                    Go to home
-                                </button>
+                                <button className="btn btn-md btn-accent btn-outline">Go to home</button>
                             </Link>
                         </div>
                     </div>
@@ -98,5 +82,5 @@ export default function ErrorComp({ pathArray }) {
                 {showNav && <Footer />}
             </div>
         </>
-    )
+    );
 }

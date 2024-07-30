@@ -36,10 +36,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, pathSlugs, metaData, faqD
                 <MetaHeadComp
                     metaData={metaData}
                     page={'/integrations/AppOne'}
-                    pathArray={pathArray}
-                    plugin={[combos?.plugins?.[pathArray[2]]]}
+                    plugin={[combos?.plugins?.[pathSlugs[0]]]}
                 />
-                <ErrorComp pathArray={pathArray} />
+                <ErrorComp pathSlugs={pathSlugs} page="/integration" />
             </>
         );
     }
@@ -50,6 +49,7 @@ export default IntegrationSlugPage;
 export async function getServerSideProps(context) {
     const { params } = context;
     const pathSlugs = [params.appslugname];
+    console.log('🚀 ~ getServerSideProps ~ pathSlugs:', pathSlugs);
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases(pathSlugs[0]);
 
