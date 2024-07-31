@@ -1,8 +1,10 @@
 import Image from 'next/image';
+
 import { useEffect, useState } from 'react';
 import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Link from 'next/link';
+import { Router, useRouter } from 'next/router';
 
 export default function IntegrationsApps({ pluginData, showCategories }) {
     const [apps, setApps] = useState([]);
@@ -16,7 +18,17 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
 
+    const router = useRouter();
+    const currentcategory = router?.query?.currentcategory;
+
     useEffect(() => {
+        if (currentcategory) setSelectedCategory(currentcategory);
+    }, [currentcategory]);
+
+    useEffect(() => {
+        if (selectedCategory != 'All') {
+            setOffset(0);
+        }
         fetchApps(selectedCategory, offset);
     }, [offset, selectedCategory]);
 
@@ -40,6 +52,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         if (typeof category !== 'string') {
             finalCategory = category?.props?.href?.split('?')[1].split('=')[1];
         }
+
         setLoading(true);
         try {
             const fetchUrl =
@@ -60,8 +73,11 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             }
 
             const newData = await response.json();
+
             setApps(offset === 0 ? newData : [...apps, ...newData]);
+
             setHasMoreApps(newData.length > 0);
+
             setLoading(false);
         } catch (error) {
             setError(error.message);
@@ -70,10 +86,14 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     };
 
     const handleLoadMoreApps = () => {
-        setVisibleApps(visibleApps + 40);
-        if (visibleApps >= searchedApps.length && hasMoreApps) {
-            setOffset(offset + 200);
-            fetchApps(selectedCategory, offset + 200);
+        if (apps.length < 40) {
+            return;
+        } else {
+            setVisibleApps(visibleApps + 40);
+            if (visibleApps >= searchedApps.length && hasMoreApps) {
+                setOffset(offset + 200);
+                fetchApps(selectedCategory, offset + 200);
+            }
         }
     };
 
@@ -106,11 +126,16 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 </>
             )}
 
-            <div className=" flex gap-5 ">
+            <div className=" flex gap-5 lg:flex-row flex-col ">
                 {showCategories && (
                     <div className="flex flex-col gap-5">
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
-                        <div className="lg:flex flex-col lg:w-[240px] md:w-[240px] hidden gap-4">
+                        <select className="select w-full max-w-xs block lg:hidden bg-white">
+                            {categories?.industries?.length &&
+                                categories?.industries?.map((category, index) => <option>{category}</option>)}
+                        </select>
+
+                        <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
                             {categories?.industries?.length &&
                                 categories?.industries?.slice(0, visibleCategories).map((category, index) => {
                                     return (
@@ -222,7 +247,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                 if (visibleApps >= searchedApps.length) {
                                     handleLoadMoreApps();
                                 } else {
-                                    setVisibleApps(visibleApps + 90);
+                                    setVisibleApps(visibleApps + 45);
                                 }
                             }}
                             className="font-medium text-[#2D81F7] flex items-center"
