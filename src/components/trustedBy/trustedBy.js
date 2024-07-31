@@ -1,4 +1,3 @@
-import { getDbdashData } from '@/pages/api';
 import Image from 'next/image';
 
 export default function TrustedBy(products) {
