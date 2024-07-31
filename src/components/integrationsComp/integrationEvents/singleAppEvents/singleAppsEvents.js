@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 export default function SingleAppsEvents({ plugins }) {
-    console.log('🚀 ~ SingleAppsEvents ~ plugins:', plugins);
     return (
         <>
             <div className="py-24 bg-white">

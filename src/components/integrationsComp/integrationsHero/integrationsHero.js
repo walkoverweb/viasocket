@@ -32,7 +32,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                         <div
                             className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
                         >
-                            {pluginData.length &&
+                            {pluginData?.length &&
                                 pluginData.map((plug, index) => {
                                     return (
                                         <div key={index} className="flex items-center gap-3  w-fit">

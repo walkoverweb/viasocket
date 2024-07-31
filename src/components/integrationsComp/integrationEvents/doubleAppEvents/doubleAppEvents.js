@@ -5,7 +5,6 @@ import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa';
 import { MdAdd, MdOutlineAdsClick, MdOutlineTaskAlt } from 'react-icons/md';
 
 export default function DoubleAppEvents({ pathSlugs, plugins }) {
-    console.log('🚀 ~ DoubleAppEvents ~ pathSlugs:', pathSlugs);
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
     const [hoveredActionCardIndex, setHoveredActionCardIndex] = useState(null);
@@ -35,14 +34,14 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
         setSelectedCardIndex(index === selectedCardIndex ? null : index);
         setSelectedTrigger(index);
         setShowFixedSection(true);
-        setSelectedTriggerImage(index !== null ? getIconUrl(triggerEvent[index].pluginslugname) : null);
+        setSelectedTriggerImage(index !== null ? getIconUrl(triggerEvent[index]?.pluginslugname) : null);
     };
 
     const handleActionCardClick = (index) => {
         setSelectedActionCardIndex(index === selectedActionCardIndex ? null : index);
         setSelectedAction(index);
         setShowFixedSection(true);
-        setSelectedActionImage(index !== null ? getIconUrl(actionEvents[index].pluginslugname) : null);
+        setSelectedActionImage(index !== null ? getIconUrl(actionEvents[index]?.pluginslugname) : null);
     };
 
     useEffect(() => {
@@ -67,7 +66,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
     return (
         <>
             <div className="bg-white">
-                {triggerEvent.length > 2 && actionEvents.length > 2 && (
+                {triggerEvent?.length > 2 && actionEvents?.length > 2 && (
                     <>
                         <div className="container py-20">
                             <h1 className="flex text-3xl font-semibold">

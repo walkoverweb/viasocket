@@ -20,7 +20,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
-    console.log(router);
 
     useEffect(() => {
         if (currentCategory) {
