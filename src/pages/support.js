@@ -69,9 +69,9 @@ export default function Support({ metaData }) {
                         the industry's standard dummy text ever since the 1500s,
                     </p>
                 </div>
-                <div className="py-12 ">
-                    <div className="container flex flex-row gap-8 ">
-                        <div className="flex flex-col gap-10 w-1/2 ">
+                <div className="py-12">
+                    <div className="container flex flex-col items-center gap-8 mx-auto sm:flex sm:flex-row  ">
+                        <div className="flex flex-col gap-10 w-1/2 sm:flex items-center justify-center ">
                             <div className="flex flex-col gap-1">
                                 <h2 className="text-3xl font-semibold">Get In Touch</h2>
                                 <p className="fext-lg font-medium md:w-2/3">
@@ -120,50 +120,54 @@ export default function Support({ metaData }) {
                                 </Link>
                             </div>
                         </div>
-                        {issubmit ? (
-                            <div className="flex  flex-col gap-5 w-1/3 bg-[#EDE8DE] p-12 rounded">
-                                <Image
-                                    className="h-[100%] w-[100%]"
-                                    src={`/assets/img/check.png`}
-                                    width={100}
-                                    height={100}
-                                    alt={'img'}
-                                />
-                            </div>
-                        ) : (
-                            <div className="flex  flex-col gap-5 w-1/3 bg-[#EDE8DE] p-12 rounded ">
-                                <h2 className="text-3xl font-semibold">Send a message</h2>
-                                <input
-                                    required
-                                    type="text"
-                                    name="name"
-                                    placeholder="Name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    className="input bg-white w-full max-w-sm outline-none focus:outline-none"
-                                />
-                                <input
-                                    required
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email address"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    className="input bg-white w-full max-w-sm outline-none focus:outline-none"
-                                />
-                                <textarea
-                                    required
-                                    name="message"
-                                    placeholder="Message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    className="input bg-white w-full min-h-[170px] max-w-sm outline-none focus:outline-none"
-                                />
-                                <button className="btn btn-accent" onClick={handleSubmit}>
-                                    {isSend ? <p>Sending </p> : <p> Send Message </p>}
-                                </button>
-                            </div>
-                        )}
+
+                        <div className="flex flex-col items-center gap-5 w-[85%] bg-[#EDE8DE] p-12 rounded sm:w-[50%]">
+                            {issubmit ? (
+                                <div className="flex flex-col items-center">
+                                    <Image
+                                        className="h-1/3 w-1/3"
+                                        src={`/assets/img/check.png`}
+                                        width={100}
+                                        height={100}
+                                        alt={'img'}
+                                    />
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>{' '}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col gap-3 ">
+                                    <h2 className="text-3xl font-semibold">Send a message</h2>
+                                    <input
+                                        required
+                                        type="text"
+                                        name="name"
+                                        placeholder="Name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        className="input bg-white w-full  outline-none focus:outline-none"
+                                    />
+                                    <input
+                                        required
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email address"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="input bg-white w-full outline-none focus:outline-none"
+                                    />
+                                    <textarea
+                                        required
+                                        name="message"
+                                        placeholder="Message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        className="input bg-white w-full min-h-[170px] outline-none focus:outline-none"
+                                    />
+                                    <button className="btn btn-accent rounded-md " onClick={handleSubmit}>
+                                        {isSend ? <p>Sending </p> : <p> Send Message </p>}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
