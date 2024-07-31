@@ -2,12 +2,12 @@ import Image from 'next/image';
 import style from './eventGrid.module.scss';
 
 export default function EventGrid({ plugin, mode }) {
-    if (plugin) {
+    if (plugin?.length) {
         const actionEvents = [];
         const triggerEvents = [];
 
         // Extract events from the plugin object
-        plugin.events.forEach((event) => {
+        plugin[0].events.forEach((event) => {
             if (event.type === 'action') {
                 actionEvents.push(event);
             } else if (event.type === 'trigger') {
@@ -21,7 +21,7 @@ export default function EventGrid({ plugin, mode }) {
                     <h1
                         className={`flex lg:text-4xl md:text-2xl text-xl w-2/3 font-semibold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
                     >
-                        {`Enable Integrations or automations with these events of ${plugin.name}`}
+                        {`Enable Integrations or automations with these events of ${plugin[0].name}`}
                     </h1>
                     <div className="flex flex-col gap-10">
                         {triggerEvents.length > 0 && (
@@ -33,7 +33,7 @@ export default function EventGrid({ plugin, mode }) {
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                                     {triggerEvents.map((card, i) => (
-                                        <EventCard card={card} plugin={plugin} key={i} />
+                                        <EventCard card={card} plugin={plugin[0]} key={i} />
                                     ))}
                                 </div>
                             </div>
@@ -48,7 +48,7 @@ export default function EventGrid({ plugin, mode }) {
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                                     {actionEvents.map((card, i) => (
-                                        <EventCard card={card} plugin={plugin} key={i} />
+                                        <EventCard card={card} plugin={plugin[0]} key={i} />
                                     ))}
                                 </div>
                             </div>
