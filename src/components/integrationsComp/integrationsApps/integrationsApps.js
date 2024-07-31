@@ -19,13 +19,14 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [hasMoreApps, setHasMoreApps] = useState(true);
 
     const router = useRouter();
-    const currentcategory = router?.query?.currentcategory;
+    const currentCategory = router?.query?.currentcategory;
+    console.log(router);
 
     useEffect(() => {
-        if (currentcategory) {
-            setSelectedCategory(currentcategory);
+        if (currentCategory) {
+            setSelectedCategory(currentCategory);
         }
-    }, [currentcategory]);
+    }, [currentCategory]);
 
     useEffect(() => {
         if (selectedCategory != 'All') {
