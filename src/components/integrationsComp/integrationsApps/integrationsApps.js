@@ -28,10 +28,12 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     }, [currentCategory]);
 
     useEffect(() => {
-        if (selectedCategory != 'All') {
-            setOffset(0);
+        if (selectedCategory) {
+            if (selectedCategory != 'All') {
+                setOffset(0);
+            }
+            fetchApps(selectedCategory, offset);
         }
-        fetchApps(selectedCategory, offset);
     }, [offset, selectedCategory]);
 
     useEffect(() => {
