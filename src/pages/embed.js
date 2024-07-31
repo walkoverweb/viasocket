@@ -44,18 +44,18 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
 
     const images = {
         tag1: '/assets/img/embedfeature/libraries.svg',
-        tag2: '/assets/img/embedfeature/mainFlow.svg',
-        tag3: '/assets/img/embedfeature/mainFlow.svg',
-        tag4: '/assets/img/embedfeature/mainFlow.svg',
-        tag5: '/assets/img/embedfeature/mainFlow.svg',
-        tag6: '/assets/img/embedfeature/mainFlow.svg',
-        tag7: '/assets/img/embedfeature/mainFlow.svg',
-        tag8: '/assets/img/embedfeature/mainFlow.svg',
+        tag2: '/assets/img/embedfeature/mainflow.svg',
+        tag3: '/assets/img/embedfeature/mainflow.svg',
+        tag4: '/assets/img/embedfeature/mainflow.svg',
+        tag5: '/assets/img/embedfeature/mainflow.svg',
+        tag6: '/assets/img/embedfeature/mainflow.svg',
+        tag7: '/assets/img/embedfeature/mainflow.svg',
+        tag8: '/assets/img/embedfeature/mainflow.svg',
         tag9: '/assets/img/embedfeature/Integrationtemplates.png',
-        tag10: '/assets/img/embedfeature/mainFlow.svg',
-        tag11: '/assets/img/embedfeature/mainFlow.svg',
-        tag12: '/assets/img/embedfeature/mainFlow.svg',
-        tag13: '/assets/img/embedfeature/mainFlow.svg',
+        tag10: '/assets/img/embedfeature/mainflow.svg',
+        tag11: '/assets/img/embedfeature/mainflow.svg',
+        tag12: '/assets/img/embedfeature/mainflow.svg',
+        tag13: '/assets/img/embedfeature/mainflow.svg',
         tag14: '/assets/img/embedfeature/scheduleTask.svg',
     };
 
@@ -134,7 +134,7 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
 
                         <div className="w-full md:w-1/2">
                             <Image
-                                src="/assets/img/embedfeature/EmbedHeroImage.png"
+                                src="/public/assets/img/embedfeature/embedheroimage.png"
                                 alt="Example Image"
                                 layout="responsive"
                                 width={1200}
