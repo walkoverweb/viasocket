@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { MdCall, MdMail } from 'react-icons/md';
 import { getDbdashData } from './api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import Image from 'next/image';
 
 export async function getServerSideProps() {
     const IDs = ['tbl2bk656'];
@@ -18,6 +19,8 @@ export async function getServerSideProps() {
 }
 
 export default function Support({ metaData }) {
+    const [issubmit, setisSubmit] = useState(false);
+    const [isSend, setisSend] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -32,8 +35,28 @@ export default function Support({ metaData }) {
         }));
     };
 
-    const handleSubmit = () => {
-        console.log(JSON.stringify(formData));
+    const handleSubmit = async () => {
+        setisSend(true);
+
+        try {
+            const response = await fetch(`https://flow.sokt.io/func/scrir501xRzP`, {
+                method: 'POST',
+                headers: {},
+                body: JSON.stringify(formData),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setisSubmit(true);
+                setisSend(false);
+                console.log('Form submitted successfully:', data);
+            } else {
+                console.log('erroor');
+                setisSend(false);
+            }
+        } catch (error) {
+            setisSend(false);
+            console.log(error, 'eror');
+        }
     };
     return (
         <>
@@ -47,7 +70,7 @@ export default function Support({ metaData }) {
                     </p>
                 </div>
                 <div className="py-12 ">
-                    <div className="container flex flex-row gap-8 justify-between">
+                    <div className="container flex flex-row gap-8 ">
                         <div className="flex flex-col gap-10 w-1/2 ">
                             <div className="flex flex-col gap-1">
                                 <h2 className="text-3xl font-semibold">Get In Touch</h2>
@@ -97,38 +120,50 @@ export default function Support({ metaData }) {
                                 </Link>
                             </div>
                         </div>
-                        <div className="flex  flex-col gap-5 w-1/3 bg-[#EDE8DE] p-12 rounded">
-                            <h2 className="text-3xl font-semibold">Send a message</h2>
-                            <input
-                                required
-                                type="text"
-                                name="name"
-                                placeholder="Name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="input bg-white w-full max-w-sm outline-none focus:outline-none"
-                            />
-                            <input
-                                required
-                                type="email"
-                                name="email"
-                                placeholder="Email address"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="input bg-white w-full max-w-sm outline-none focus:outline-none"
-                            />
-                            <textarea
-                                required
-                                name="message"
-                                placeholder="Message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                className="input bg-white w-full min-h-[170px] max-w-sm outline-none focus:outline-none"
-                            />
-                            <button className="btn btn-accent" onClick={handleSubmit}>
-                                Send Message
-                            </button>
-                        </div>
+                        {issubmit ? (
+                            <div className="flex  flex-col gap-5 w-1/3 bg-[#EDE8DE] p-12 rounded">
+                                <Image
+                                    className="h-[100%] w-[100%]"
+                                    src={`/assets/img/check.png`}
+                                    width={100}
+                                    height={100}
+                                    alt={'img'}
+                                />
+                            </div>
+                        ) : (
+                            <div className="flex  flex-col gap-5 w-1/3 bg-[#EDE8DE] p-12 rounded ">
+                                <h2 className="text-3xl font-semibold">Send a message</h2>
+                                <input
+                                    required
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="input bg-white w-full max-w-sm outline-none focus:outline-none"
+                                />
+                                <input
+                                    required
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email address"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="input bg-white w-full max-w-sm outline-none focus:outline-none"
+                                />
+                                <textarea
+                                    required
+                                    name="message"
+                                    placeholder="Message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    className="input bg-white w-full min-h-[170px] max-w-sm outline-none focus:outline-none"
+                                />
+                                <button className="btn btn-accent" onClick={handleSubmit}>
+                                    {isSend ? <p>Sending </p> : <p> Send Message </p>}
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
