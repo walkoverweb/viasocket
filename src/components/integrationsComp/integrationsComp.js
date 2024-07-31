@@ -21,7 +21,6 @@ export default function IntegrationsComp({
     hideApps,
     showCategories,
 }) {
-    console.log('🚀 ~ pathSlugs:', pathSlugs);
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
