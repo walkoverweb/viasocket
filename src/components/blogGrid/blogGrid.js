@@ -4,24 +4,21 @@ import { MdOutlineArrowForward } from 'react-icons/md';
 const BlogGrid = ({ posts }) => {
     return (
         <>
-            <div className="">
-                <div className="flex justify-left m-5 mr-10">
-                    <h1 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
-                        Know More About Viasocket Integrations
-                    </h1>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+            <div className="flex flex-col gap-9">
+                <h1 className="text-3xl font-bold">Know More About Viasocket Integrations</h1>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                     {posts.map((post, index) => (
                         <CardComponent key={index} card={post} />
                     ))}
                 </div>
-                <div className="flex justify-center mt-10">
+                <div className="flex justify-center ">
                     <Link
                         href="/blog"
                         target="_blank"
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
                     >
-                        Read More
+                        Read More Blogs
                     </Link>
                 </div>
             </div>
@@ -31,7 +28,7 @@ const BlogGrid = ({ posts }) => {
 
 const CardComponent = ({ card }) => {
     return (
-        <div className="card card-compact bg-white-100 w-70 mr-5 ml-5 hover:shadow-2xl bg-white">
+        <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-white">
             <figure className="h-60">
                 <img src={card?.thumbnail} alt={card?.title} />
             </figure>
@@ -44,7 +41,7 @@ const CardComponent = ({ card }) => {
                         href={`/blog/${card?.slug}`}
                         className="flex items-center gap-1 text-[#0000ff] mt-6"
                     >
-                        Learn More <MdOutlineArrowForward />
+                        Read More <MdOutlineArrowForward />
                     </Link>
                 </div>
             </div>
