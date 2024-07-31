@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Link from 'next/link';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 export default function IntegrationsApps({ pluginData, showCategories }) {
     const [apps, setApps] = useState([]);
@@ -22,7 +22,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const currentcategory = router?.query?.currentcategory;
 
     useEffect(() => {
-        if (currentcategory) setSelectedCategory(currentcategory);
+        if (currentcategory) {
+            setSelectedCategory(currentcategory);
+        }
     }, [currentcategory]);
 
     useEffect(() => {
@@ -76,7 +78,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
             setApps(offset === 0 ? newData : [...apps, ...newData]);
 
-            setHasMoreApps(newData.length > 0);
+            setHasMoreApps(newData?.length > 0);
 
             setLoading(false);
         } catch (error) {
@@ -86,7 +88,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     };
 
     const handleLoadMoreApps = () => {
-        if (apps.length < 40) {
+        if (apps?.length < 40) {
             return;
         } else {
             setVisibleApps(visibleApps + 40);
@@ -244,7 +246,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                     {(visibleApps < searchedApps?.length || hasMoreApps) && (
                         <button
                             onClick={() => {
-                                if (visibleApps >= searchedApps.length) {
+                                if (visibleApps >= searchedApps?.length) {
                                     handleLoadMoreApps();
                                 } else {
                                     setVisibleApps(visibleApps + 45);

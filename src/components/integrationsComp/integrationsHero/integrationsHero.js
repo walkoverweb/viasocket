@@ -52,8 +52,8 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                 )}
                                                 {plug?.category && (
                                                     <p className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
-                                                        {plug.category && plug.category.map((item) => <p> {item} </p>)}
-                                                        {/* {plug?.category} */}
+                                                        {plug?.category &&
+                                                            plug?.category.map((item) => <p> {item} </p>)}
                                                     </p>
                                                 )}
                                             </div>
