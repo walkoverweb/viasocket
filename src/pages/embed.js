@@ -143,8 +143,6 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                             />
                         </div>
                     </div>
-
-                    {/* Tag and Image Section */}
                     <div className="bg-[#F6F4EE] py-8">
                         <div className="container mx-auto flex flex-col md:flex-row p-0 md:p-8">
                             {/* Image Section */}
