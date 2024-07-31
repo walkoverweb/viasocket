@@ -30,7 +30,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
                     <div className={`container flex flex-col md:gap-12 gap-6`}>
                         <div
-                            className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit`}
+                            className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
                         >
                             {pluginData.length &&
                                 pluginData.map((plug, index) => {
@@ -51,8 +51,9 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                     <p className="md:text-2xl text-lg font-bold">{plug?.name}</p>
                                                 )}
                                                 {plug?.category && (
-                                                    <p className="text-[14px] uppercase text-gray-400">
-                                                        {plug?.category}
+                                                    <p className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
+                                                        {plug?.category &&
+                                                            plug?.category.map((item) => <p> {item} </p>)}
                                                     </p>
                                                 )}
                                             </div>
