@@ -51,12 +51,12 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
         tag6: '/assets/img/embedfeature/mainflow.svg',
         tag7: '/assets/img/embedfeature/mainflow.svg',
         tag8: '/assets/img/embedfeature/mainflow.svg',
-        tag9: '/assets/img/embedfeature/Integrationtemplates.png',
+        tag9: '/public/assets/img/embedfeature/integrationtemplate.png',
         tag10: '/assets/img/embedfeature/mainflow.svg',
         tag11: '/assets/img/embedfeature/mainflow.svg',
         tag12: '/assets/img/embedfeature/mainflow.svg',
         tag13: '/assets/img/embedfeature/mainflow.svg',
-        tag14: '/assets/img/embedfeature/scheduleTask.svg',
+        tag14: '/assets/img/embedfeature/scheduletask.svg',
     };
 
     const tags = [
@@ -99,13 +99,13 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
             <div className="">
                 <MetaHeadComp metaData={metaData} page={'/embed'} />
                 {/* Hero Section */}
-                <div className="container flex flex-col md:flex-row items-center justify-center  rounded-lg py-12">
-                    <div className="w-full md:w-1/2 mb-8 md:mb-0 mt-4">
-                        <h5 className="text-3xl font-bold mb-4">Embed</h5>
-                        <h1 className="text-4xl md:text-6xl font-bold mb-8">
+                <div className="container flex flex-col md:flex-row items-center justify-center gap-y-4  rounded-lg py-12">
+                    <div className=" flex flex-col gap-y-3 w-full md:w-1/2   ">
+                        <h5 className="flex flex-col gap-y-3 text-3xl font-bold ">Embed</h5>
+                        <h1 className="text-4xl md:text-6xl font-bold flex flex-col gap-y-3">
                             Bring third-party app integration into your SaaS
                         </h1>
-                        <p className=" text-lg mb-6">
+                        <p className=" text-lg flex flex-col gap-y-3">
                             With Viasocket embedding, your users can easily connect third-party apps with your SaaS
                             tools to automate tasks without leaving your platform.
                         </p>
@@ -113,16 +113,16 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                             <button className="btn btn-accent ">Talk to us</button>
                             <button className="btn btn-accent btn-outline">See how it works</button>
                         </div>
-                        <div className="mt-6 space-y-2">
-                            <div className="flex items-center space-x-2">
+                        <div className=" gap-y-16">
+                            <div className="flex items-center gap-x-2	">
                                 <MdAlarm className="text-xl text-gray-700" />
                                 <span className="text-lg">30 Mins of code to bring embedding</span>
                             </div>
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center gap-x-2	">
                                 <MdTrendingUp className="text-xl text-gray-700" />
                                 <span className="text-lg">Higher retention rate</span>
                             </div>
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center gap-x-2	">
                                 <MdShowChart className="text-xl text-gray-700" />
                                 <span className="text-lg">Competitive benefit</span>
                             </div>
@@ -131,7 +131,7 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
 
                     <div className="w-full md:w-1/2">
                         <Image
-                            src="/assets/img/embedfeature/EmbedHeroImage.png"
+                            src="/assets/img/embedfeature/embedheroimage.png"
                             alt="Example Image"
                             layout="responsive"
                             width={1200}
@@ -140,12 +140,12 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                         />
                     </div>
                 </div>
-                <div className="bg-[#F6F4EE] py-8">
-                    <div className="container mx-auto flex flex-col md:flex-row p-0 md:p-8">
+                <div className="bg-white py-12">
+                    <div className="container mx-auto flex flex-col md:flex-row ">
                         {/* Image Section */}
                         <div className="flex-1 flex items-center justify-center bg-white p-0 rounded-lg">
                             <img
-                                src={images[hoveredTag] || '/assets/img/embedfeature/mainFlow.svg'}
+                                src={images[hoveredTag] || '/assets/img/embedfeature/mainflow.svg'}
                                 alt={hoveredTag || 'Default Image'}
                                 className="max-w-full max-h-full object-contain"
                             />
@@ -153,11 +153,11 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
 
                         {/* Tags Section */}
                         <div className="flex-1 p-0 md:p-8 overflow-y-auto">
-                            <ul className="space-y-2">
+                            <ul className="gap-y-4">
                                 {tags.map((tag) => (
                                     <li
                                         key={tag?.id}
-                                        className={`cursor-pointer p-2 rounded border-b-4 border-gray-200 transition-all duration-300 flex items-center ${
+                                        className={`cursor-pointer p-4 rounded border-b-4 border-gray-200 transition-all duration-300 flex items-center ${
                                             hoveredTag === tag?.id
                                                 ? 'bg-gradient-to-r from-white via-Ivory-100 via-Ivory-300 to-Ivory-500 text-black shadow-lg'
                                                 : 'bg-[#F6F4EE] text-gray-700 hover:bg-gray-300'
@@ -167,7 +167,7 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                                     >
                                         <span className="flex-1 text-left md:text-center">{tag?.label}</span>
                                         {hoveredTag === tag?.id && (
-                                            <span className="ml-2 w-3 h-3 rounded-full bg-black"></span>
+                                            <span className="gap-2 w-3 h-3 rounded-full bg-black"></span>
                                         )}
                                     </li>
                                 ))}
@@ -177,18 +177,18 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                 </div>
 
                 {/* How It Works Section */}
-                <div className="bg-white py-12">
-                    <div className="container mx-auto px-2 md:px-4 lg:px-8">
-                        <h1 className="text-3xl font-bold mb-4">How it Works</h1>
-                        <p className="text-gray-700 mb-8">
+                <div className="  py-24">
+                    <div className="container flex flex-col gap-y-3">
+                        <h1 className="text-3xl font-bold gap-y-8	">How it Works</h1>
+                        <p className="text-gray-700 gap-y-8	">
                             20 Years in SaaS Taught Us: Integrations Are Vital & Often Tough <br />
                             With Embed, We Made Them Simple.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="flex flex-col gap-y-3 grid grid-cols-1 md:grid-cols-3 gap-8">
                             {steps.map((step) => (
-                                <div key={step.number} className="bg-[#F6F4EE] p-4 rounded-lg">
-                                    <div className="text-3xl font-bold mb-2 text-center">{step.number}</div>
-                                    <h2 className="text-xl font-bold mb-2">{step?.title}</h2>
+                                <div key={step.number} className="flex flex-col gap-y-3 bg-[#F6F4EE] p-4 rounded-lg">
+                                    <div className="text-3xl font-bold gap-y-8	 rounded-lg ">{step.number}</div>
+                                    <h2 className="text-xl font-bold gap-y-8	">{step?.title}</h2>
                                     <p className="text-gray-700">{step?.description}</p>
                                 </div>
                             ))}
@@ -197,26 +197,26 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                 </div>
 
                 {/* Upgrade Section */}
-                <div className="bg-white py-12">
-                    <div className="container mx-auto px-2 md:px-4 lg:px-8">
-                        <div className="bg-white rounded-lg ">
-                            <h1 className="text-3xl font-bold mb-4">Upgrade your SaaS today, 100% free</h1>
-                            <p className="text-gray-700 mb-6">
+                <div className="gap-y-3 bg-white py-24">
+                    <div className="container mx-auto flex flex-col gap-y-3">
+                        <div className="bg-white rounded-lg grid gap-y-8">
+                            <h1 className="text-3xl font-bold gap-3">Upgrade your SaaS today, 100% free</h1>
+                            <p className="text-gray-700 gap-3">
                                 Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin
                                 charging <br />
                                 once you've found the tool beneficial and wish to extend its use to additional apps.
                             </p>
-                            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                            <div className="flex flex-col md:flex-row gap-y-4 md:gap-y-0 md:gap-x-4">
                                 <button className="bg-gray-500 text-white py-2 px-6 rounded flex items-center">
                                     Talk to Us
-                                    <MdArrowForward className="ml-2" />
+                                    <MdArrowForward className="gap-x-8" />
                                 </button>
                                 <button className="bg-white text-gray-500 border border-gray-500 py-2 px-6 rounded flex items-center">
                                     SignUp & Get Started
-                                    <MdArrowForward className="ml-2" />
+                                    <MdArrowForward className="gap-x-8" />
                                 </button>
                                 <Link href="/faq" className="text-blue-500 flex items-center">
-                                    FAQ <MdArrowForward className="ml-2 text-gray-500" />
+                                    FAQ <MdArrowForward className="gap-x-8 text-blue-500" />
                                 </Link>
                             </div>
                         </div>
@@ -224,24 +224,26 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                 </div>
 
                 {/* Use Cases Section */}
-                <div className="bg-white py-12">
-                    <div className="container mx-auto  md:px-4 lg:px-8">
-                        <h1 className="text-3xl font-bold mb-4 ml-3">Usecases</h1>
+                <div className="bg-[#F6F4EE] py-12">
+                    <div className="container ">
+                        <h1 className="text-3xl font-bold gap-y-4 gap-8">Usecases</h1>
                         {useCases &&
                             useCases.length > 0 &&
                             useCases.map((item, index) => (
-                                <div className="flex flex-col md:flex-row mb-4" key={index}>
+                                <div className="flex flex-col md:flex-row gap-y-4" key={index}>
                                     {/* Content Section */}
-                                    <div className="w-full md:w-1/2 p-0 md:p-2">
-                                        <div className="bg-white p-2 rounded-lg">
-                                            <h1 className="text-xl font-bold mb-2">
+                                    <div className="flex flex-col gap-y-3 w-full md:w-1/2 p-0 md:p-2">
+                                        <div className="bg-white p-2 rounded-lg  grid gap-y-8">
+                                            <h1 className="text-xl font-bold gap-y-2">
                                                 {item?.usecase || 'Use Case Title Missing'}
                                             </h1>
-                                            <p className="mb-4">{item?.description || 'Description not available'}</p>
+                                            <p className="flex flex-col gap-y-3">
+                                                {item?.description || 'Description not available'}
+                                            </p>
                                             {item?.embedusecase?.features?.length > 0 &&
                                                 item?.embedusecase?.features.map((feature, index2) => (
-                                                    <div key={index2} className="bg-[#F6F4EE] p-4 mb-2 rounded-lg">
-                                                        <h2 className="text-lg font-semibold mb-2">
+                                                    <div key={index2} className="bg-[#F6F4EE] p-4 gap-3 rounded-lg">
+                                                        <h2 className="text-lg font-semibold gap-3">
                                                             {feature?.title || 'Feature Title Missing'}
                                                         </h2>
                                                         <p>
@@ -256,7 +258,7 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                                     {/* Image Section */}
                                     <div className="w-full md:w-1/2 p-0 md:p-4 flex justify-center items-center">
                                         <img
-                                            src={item?.image || '/assets/img/embedfeature/whatsapphealthcare.png'}
+                                            src={item?.image || '/assets/img/embedfeature/whatsappheaalthcare.png'}
                                             alt={item?.usecase || 'Default Image'}
                                             className="w-full h-auto object-cover"
                                         />
@@ -268,14 +270,14 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
 
                 {/* FAQ Section */}
                 <div className="bg-white py-12">
-                    <div className="container mx-auto px-4 md:px-8 lg:px-16">
+                    <div className="container">
                         {faqData && faqData?.length > 0 && <FAQSection faqData={faqData} faqName={'/embed'} />}
                     </div>
                 </div>
 
                 {/* Get Started Section */}
                 {getStartedData && getStartedData.length > 0 && (
-                    <div className="container mx-auto py-8 px-4 md:px-8 lg:px-16">
+                    <div className="container">
                         <GetStarted data={getStartedData} isHero={'false'} />
                     </div>
                 )}
