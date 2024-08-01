@@ -99,13 +99,13 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
             <div className="">
                 <MetaHeadComp metaData={metaData} page={'/embed'} />
                 {/* Hero Section */}
-                <div className="container flex flex-col md:flex-row items-center justify-center gap-y-4  rounded-lg py-12">
-                    <div className=" flex flex-col gap-y-3 w-full md:w-1/2   ">
-                        <h5 className="flex flex-col gap-y-3 text-3xl font-bold ">Embed</h5>
-                        <h1 className="text-4xl md:text-6xl font-bold flex flex-col gap-y-3">
+                <div className="container flex flex-col md:flex-row items-center justify-center gap-12  rounded-lg py-12">
+                    <div className=" flex flex-col gap-5 w-full md:w-1/2   ">
+                        <h5 className="text-2xl">Embed</h5>
+                        <h1 className="text-4xl md:text-6xl font-bold ">
                             Bring third-party app integration into your SaaS
                         </h1>
-                        <p className=" text-lg flex flex-col gap-y-3">
+                        <p className=" text-lg ">
                             With Viasocket embedding, your users can easily connect third-party apps with your SaaS
                             tools to automate tasks without leaving your platform.
                         </p>
@@ -113,7 +113,7 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                             <button className="btn btn-accent ">Talk to us</button>
                             <button className="btn btn-accent btn-outline">See how it works</button>
                         </div>
-                        <div className=" gap-y-16">
+                        <div className="flex flex-col gap-2">
                             <div className="flex items-center gap-x-2	">
                                 <MdAlarm className="text-xl text-gray-700" />
                                 <span className="text-lg">30 Mins of code to bring embedding</span>
@@ -129,10 +129,10 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                         </div>
                     </div>
 
-                    <div className="w-full md:w-1/2">
+                    <div className="w-full max-w-[600px] md:w-1/2">
                         <Image
-                            src="/assets/img/embedfeature/embedheroimage.png"
-                            alt="Example Image"
+                            src="/assets/img/embedfeature/embedheroimage.svg"
+                            alt="Embed hero image"
                             layout="responsive"
                             width={1200}
                             height={800}
@@ -177,48 +177,46 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
                 </div>
 
                 {/* How It Works Section */}
-                <div className="  py-24">
-                    <div className="container flex flex-col gap-y-3">
-                        <h1 className="text-3xl font-bold gap-y-8	">How it Works</h1>
-                        <p className="text-gray-700 gap-y-8	">
+                <div className="container flex flex-col gap-9 py-24">
+                    <div className="flex flex-col gap-2">
+                        <h2 className="text-3xl font-bold">How it Works</h2>
+                        <p className="">
                             20 Years in SaaS Taught Us: Integrations Are Vital & Often Tough <br />
                             With Embed, We Made Them Simple.
                         </p>
-                        <div className="flex flex-col gap-y-3 grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {steps.map((step) => (
-                                <div key={step.number} className="flex flex-col gap-y-3 bg-[#F6F4EE] p-4 rounded-lg">
-                                    <div className="text-3xl font-bold gap-y-8	 rounded-lg ">{step.number}</div>
-                                    <h2 className="text-xl font-bold gap-y-8	">{step?.title}</h2>
-                                    <p className="text-gray-700">{step?.description}</p>
-                                </div>
-                            ))}
-                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {steps.map((step) => (
+                            <div key={step.number} className="flex flex-col gap-3 bg-white p-8 rounded">
+                                <span className="text-3xl font-bold">{step.number}</span>
+                                <h3 className="text-xl font-bold">{step?.title}</h3>
+                                <p className="">{step?.description}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
                 {/* Upgrade Section */}
-                <div className="gap-y-3 bg-white py-24">
-                    <div className="container mx-auto flex flex-col gap-y-3">
-                        <div className="bg-white rounded-lg grid gap-y-8">
-                            <h1 className="text-3xl font-bold gap-3">Upgrade your SaaS today, 100% free</h1>
-                            <p className="text-gray-700 gap-3">
-                                Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin
-                                charging <br />
-                                once you've found the tool beneficial and wish to extend its use to additional apps.
-                            </p>
-                            <div className="flex flex-col md:flex-row gap-y-4 md:gap-y-0 md:gap-x-4">
-                                <button className="bg-gray-500 text-white py-2 px-6 rounded flex items-center">
-                                    Talk to Us
-                                    <MdArrowForward className="gap-x-8" />
-                                </button>
-                                <button className="bg-white text-gray-500 border border-gray-500 py-2 px-6 rounded flex items-center">
-                                    SignUp & Get Started
-                                    <MdArrowForward className="gap-x-8" />
-                                </button>
-                                <Link href="/faq" className="text-blue-500 flex items-center">
-                                    FAQ <MdArrowForward className="gap-x-8 text-blue-500" />
-                                </Link>
-                            </div>
+                <div className="gap-y-3 bg-white py-48">
+                    <div className="container mx-auto flex flex-col gap-3">
+                        <h2 className="text-3xl font-bold gap-3">Upgrade your SaaS today, 100% free</h2>
+                        <p className="text-gray-700 gap-3">
+                            Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin
+                            charging <br />
+                            once you've found the tool beneficial and wish to extend its use to additional apps.
+                        </p>
+                        <div className="flex flex-col md:flex-row gap-y-4 md:gap-y-0 md:gap-x-4">
+                            <button className="bg-gray-500 text-white py-2 px-6 rounded flex items-center">
+                                Talk to Us
+                                <MdArrowForward />
+                            </button>
+                            <button className="bg-white text-gray-500 border border-gray-500 py-2 px-6 rounded flex items-center">
+                                SignUp & Get Started
+                                <MdArrowForward />
+                            </button>
+                            <Link href="/faq" className="text-blue-500 flex items-center">
+                                FAQ <MdArrowForward />
+                            </Link>
                         </div>
                     </div>
                 </div>
