@@ -5,6 +5,8 @@ import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useDebounce from '@/utils/usedebounce';
+import axios from 'axios';
 
 export default function IntegrationsApps({ pluginData, showCategories }) {
     const [apps, setApps] = useState([]);
@@ -17,10 +19,12 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
+    const [searchData, setsearchData] = useState([]);
+    const [searchloading, setsearchloading] = useState(false);
 
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
-
+    const debouncedSearchTerm = useDebounce(searchTerm, 1000);
     useEffect(() => {
         if (currentCategory) {
             setSelectedCategory(currentCategory);
@@ -37,17 +41,80 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     }, [offset, selectedCategory]);
 
     useEffect(() => {
+        console.log(searchData, 'idfi');
+
+        if (debouncedSearchTerm) {
+            fetchSearchResults(debouncedSearchTerm);
+        }
+    }, [debouncedSearchTerm]);
+
+    const fetchSearchResults = async (query) => {
+        const url = 'https://table-api.viasocket.com/appstore/elasticsearch/64f58cfe54919de3f250dc6d/tblwegm8v/search';
+
+        const data = {
+            filter: {
+                bool: {
+                    must: [
+                        {
+                            bool: {
+                                should: [
+                                    {
+                                        match: {
+                                            key: {
+                                                fuzziness: 2,
+                                                query: query,
+                                            },
+                                        },
+                                    },
+                                    {
+                                        match_phrase_prefix: {
+                                            key: query,
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            match: {
+                                'row.status': 'published',
+                            },
+                        },
+                        {
+                            match: {
+                                'row.audience': 'Public',
+                            },
+                        },
+                    ],
+                },
+            },
+        };
+
+        try {
+            setsearchloading(true);
+            const response = await axios.put(url, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-key': 'keyadsf2BkclzXO',
+                },
+            });
+            console.log(response.data.data);
+            setsearchData(response.data.data); // Update with actual response structure
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setsearchloading(false);
+        }
+    };
+
+    useEffect(() => {
         applyFilters();
-    }, [searchTerm, apps]);
+    }, [apps, searchData, searchTerm]);
 
     const applyFilters = () => {
-        if (apps?.length > 0) {
-            const filteredItems = apps.filter((item) => {
-                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
-                return nameMatches;
-            });
-
-            setSelectedApps(filteredItems);
+        if (searchData?.length > 0 && searchTerm && selectedCategory === 'All') {
+            setSelectedApps(searchData);
+        } else {
+            setSelectedApps(apps);
         }
     };
 
@@ -201,7 +268,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
                     </div>
                     <div className="flex flex-row flex-wrap gap-5">
-                        {searchedApps?.length || loading ? (
+                        {searchloading ? (
+                            <p>loading</p>
+                        ) : searchedApps?.length || loading ? (
                             searchedApps.slice(0, visibleApps).map((app) => {
                                 if (app?.appslugname) {
                                     return (
