@@ -5,8 +5,7 @@ import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import useDebounce from '@/utils/usedebounce';
-import axios from 'axios';
+import fetchSearchResults from '@/utils/searchIntegrationApps';
 
 export default function IntegrationsApps({ pluginData, showCategories }) {
     const [apps, setApps] = useState([]);
@@ -40,69 +39,36 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         }
     }, [offset, selectedCategory]);
 
-    useEffect(() => {
+    // debounce function
+    function useDebounce(value, delay) {
+        useEffect(() => {
+            const handler = setTimeout(() => {}, delay);
+
+            // Clean up the timeout if value changes or component unmounts
+            return () => {
+                clearTimeout(handler);
+            };
+        }, [value, delay]);
+
+        return value;
+    }
+    const searchapps = async () => {
         if (debouncedSearchTerm) {
-            fetchSearchResults(debouncedSearchTerm);
-        }
-    }, [debouncedSearchTerm]);
-
-    const fetchSearchResults = async (query) => {
-        const url = 'https://table-api.viasocket.com/appstore/elasticsearch/64f58cfe54919de3f250dc6d/tblwegm8v/search';
-
-        const data = {
-            filter: {
-                bool: {
-                    must: [
-                        {
-                            bool: {
-                                should: [
-                                    {
-                                        match: {
-                                            key: {
-                                                fuzziness: 2,
-                                                query: query,
-                                            },
-                                        },
-                                    },
-                                    {
-                                        match_phrase_prefix: {
-                                            key: query,
-                                        },
-                                    },
-                                ],
-                            },
-                        },
-                        {
-                            match: {
-                                'row.status': 'published',
-                            },
-                        },
-                        {
-                            match: {
-                                'row.audience': 'Public',
-                            },
-                        },
-                    ],
-                },
-            },
-        };
-
-        try {
             setsearchloading(true);
-            const response = await axios.put(url, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-key': 'keyadsf2BkclzXO',
-                },
-            });
-
-            setsearchData(response.data.data); // Update with actual response structure
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setsearchloading(false);
+            try {
+                const result = await fetchSearchResults(debouncedSearchTerm);
+                setsearchData(result);
+            } catch (error) {
+            } finally {
+                setsearchloading(false);
+            }
         }
     };
+    useEffect(() => {
+        if (debouncedSearchTerm) {
+            searchapps();
+        }
+    }, [debouncedSearchTerm]);
 
     useEffect(() => {
         applyFilters();
