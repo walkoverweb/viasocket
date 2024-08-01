@@ -44,9 +44,10 @@ export default function Support({ metaData }) {
     };
 
     const handleSubmit = async () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const newErrors = {
             name: !formData.name,
-            email: !formData.email,
+            email: !formData.email || !emailRegex.test(formData.email),
         };
 
         if (newErrors.name || newErrors.email) {
@@ -102,7 +103,12 @@ export default function Support({ metaData }) {
                                 </div>
                                 <div className="flex flex-col justify-center">
                                     <h3 className="font-bold text-lg">Phone Number</h3>
-                                    <p>+918889578616</p>
+                                    <Link
+                                        href={'tel:+918889578616'}
+                                        className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
+                                    >
+                                        +918889578616
+                                    </Link>
                                 </div>
                             </div>
                             <div className="flex align-center gap-3">
@@ -111,7 +117,12 @@ export default function Support({ metaData }) {
                                 </div>
                                 <div className="flex flex-col justify-center">
                                     <h3 className="font-bold text-lg">For setting up workflows </h3>
-                                    <p>support@viasocket.com</p>
+                                    <Link
+                                        href={'mailto:support@viasocket.com'}
+                                        className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
+                                    >
+                                        support@viasocket.com
+                                    </Link>
                                 </div>
                             </div>
                             <div className="flex align-center gap-3">
@@ -120,7 +131,12 @@ export default function Support({ metaData }) {
                                 </div>
                                 <div className="flex flex-col justify-center">
                                     <h3 className="font-bold text-lg">For queries/request related to plugins</h3>
-                                    <p>plug@viasocket.com</p>
+                                    <Link
+                                        href={'mailto:plug@viasocket.com'}
+                                        className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
+                                    >
+                                        plug@viasocket.com
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -137,9 +153,9 @@ export default function Support({ metaData }) {
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-center justify-center gap-5 w-full md:w-full sm:w-1/2 md:max-w-[400px] bg-[#EDE8DE] lg:p-12 md:p-8 sm:p-12 p-4 rounded  h-[500px]">
+                    <div className="flex flex-col items-center justify-center gap-5 w-full md:w-full sm:w-1/2 md:max-w-[500px] bg-[#EDE8DE] lg:p-12 md:p-8 sm:p-12 p-4 rounded  h-[500px]">
                         {issubmit ? (
-                            <div className="flex flex-col items-center gap-4">
+                            <div className="flex flex-col items-center gap-4 max-w-[300px]">
                                 <Image
                                     className="h-[140px] w-[140px]"
                                     src={`/assets/img/check.png`}
@@ -147,12 +163,12 @@ export default function Support({ metaData }) {
                                     height={100}
                                     alt={'img'}
                                 />
-                                <p className="max-w-[430px]">
+                                <p className="text-center">
                                     Stay tuned, you will receive a response within the next 24 hours.
                                 </p>{' '}
                             </div>
                         ) : (
-                            <div className="flex flex-col gap-4 w-full  max-w-[400px] ">
+                            <div className="flex flex-col gap-4 w-full  ">
                                 <h2 className="md:text-3xl text-2xl font-semibold">Send a message</h2>
                                 <input
                                     required
@@ -173,12 +189,13 @@ export default function Support({ metaData }) {
                                     className={`input bg-white w-full outline-none focus:outline-none rounded ${errors.email ? 'border-red-500' : ''}`}
                                 />
                                 <textarea
+                                    style={{ resize: 'none' }}
                                     required
                                     name="message"
                                     placeholder="Message"
                                     value={formData.message}
                                     onChange={handleChange}
-                                    className="input bg-white w-full min-h-[170px] outline-none focus:outline-none rounded"
+                                    className="input bg-white w-full min-h-[170px] outline-none py-2 focus:outline-none rounded"
                                 />
                                 <button className="btn btn-accent rounded-md " onClick={handleSubmit}>
                                     {isSend ? <p>Sending </p> : <p> Send us message </p>}
