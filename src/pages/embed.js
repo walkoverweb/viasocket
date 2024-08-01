@@ -198,24 +198,20 @@ const embed = ({ getStartedData, metaData, faqData, useCases }) => {
 
                 {/* Upgrade Section */}
                 <div className="gap-y-3 bg-white py-48">
-                    <div className="container mx-auto flex flex-col gap-3">
-                        <h2 className="text-3xl font-bold gap-3">Upgrade your SaaS today, 100% free</h2>
-                        <p className="text-gray-700 gap-3">
-                            Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin
-                            charging <br />
-                            once you've found the tool beneficial and wish to extend its use to additional apps.
-                        </p>
-                        <div className="flex flex-col md:flex-row gap-y-4 md:gap-y-0 md:gap-x-4">
-                            <button className="bg-gray-500 text-white py-2 px-6 rounded flex items-center">
-                                Talk to Us
-                                <MdArrowForward />
-                            </button>
-                            <button className="bg-white text-gray-500 border border-gray-500 py-2 px-6 rounded flex items-center">
-                                SignUp & Get Started
-                                <MdArrowForward />
-                            </button>
-                            <Link href="/faq" className="text-blue-500 flex items-center">
-                                FAQ <MdArrowForward />
+                    <div className="container flex flex-col gap-9">
+                        <div className="flex flex-col gap-2">
+                            <h2 className="text-3xl font-bold">Upgrade your SaaS today, 100% free</h2>
+                            <p>
+                                Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin
+                                charging <br />
+                                once you've found the tool beneficial and wish to extend its use to additional apps.
+                            </p>
+                        </div>
+                        <div className="flex flex-wrap gap-4">
+                            <button className="btn btn-accent btn-md ">Talk to Us</button>
+                            <button className=" btn btn-accent btn-outline btn-md">SignUp & Get Started</button>
+                            <Link href="/faq" className="btn btn-md text-accent bg-transparent border-none">
+                                FAQ
                             </Link>
                         </div>
                     </div>
