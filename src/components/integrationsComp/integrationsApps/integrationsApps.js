@@ -235,7 +235,21 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                     </div>
                     <div className="flex flex-row flex-wrap gap-5">
                         {searchLoading ? (
-                            <p>loading</p>
+                            <p>
+                                <>
+                                    <div className=" flex flex-row flex-wrap gap-8">
+                                        {Array.from({ length: 25 }).map((_, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white animate-pulse"
+                                            >
+                                                <div className="h-8 w-8 bg-gray-300 rounded-full"></div>
+                                                <div className="h-4 w-20 bg-gray-300 rounded"></div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            </p>
                         ) : searchedApps?.length || loading ? (
                             searchedApps.slice(0, visibleApps).map((app) => {
                                 if (app?.appslugname) {
