@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const fetchSearchResults = async (query) => {
-    const url = `https://table-api.viasocket.com/appstore/elasticsearch/64f58cfe54919de3f250dc6d/tblwegm8v/search`;
+    const url = `${process.env.NEXT_PUBLIC_SEARCH_API_URL}/64f58cfe54919de3f250dc6d/tblwegm8v/search`;
 
     const data = {
         filter: {

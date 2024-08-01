@@ -19,11 +19,11 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
     const [searchData, setsearchData] = useState([]);
-    const [searchloading, setsearchloading] = useState(false);
-
+    const [searchLoading, setsearchLoading] = useState(false);
+    const [debounceValue, setdebounceValue] = useState(searchTerm);
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
-    const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+    const debouncedSearchTerm = useDebounce(searchTerm, 800);
     useEffect(() => {
         if (currentCategory) {
             setSelectedCategory(currentCategory);
@@ -42,7 +42,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     // debounce function
     function useDebounce(value, delay) {
         useEffect(() => {
-            const handler = setTimeout(() => {}, delay);
+            const handler = setTimeout(() => {
+                setdebounceValue(value);
+            }, delay);
 
             // Clean up the timeout if value changes or component unmounts
             return () => {
@@ -50,23 +52,24 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             };
         }, [value, delay]);
 
-        return value;
+        return debounceValue;
     }
-    const searchapps = async () => {
+    const searchApps = async () => {
         if (debouncedSearchTerm) {
-            setsearchloading(true);
+            setsearchLoading(true);
             try {
                 const result = await fetchSearchResults(debouncedSearchTerm);
+                console.log(result, 'dkjfgdjk');
                 setsearchData(result);
             } catch (error) {
             } finally {
-                setsearchloading(false);
+                setsearchLoading(false);
             }
         }
     };
     useEffect(() => {
         if (debouncedSearchTerm) {
-            searchapps();
+            searchApps();
         }
     }, [debouncedSearchTerm]);
 
@@ -232,7 +235,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
                     </div>
                     <div className="flex flex-row flex-wrap gap-5">
-                        {searchloading ? (
+                        {searchLoading ? (
                             <p>loading</p>
                         ) : searchedApps?.length || loading ? (
                             searchedApps.slice(0, visibleApps).map((app) => {
