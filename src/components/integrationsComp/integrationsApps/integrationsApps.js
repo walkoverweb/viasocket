@@ -1,5 +1,4 @@
 import Image from 'next/image';
-
 import { useEffect, useState } from 'react';
 import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
@@ -17,6 +16,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
+    const [categorySearchTerm, setCategorySearchTerm] = useState('');
 
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
@@ -109,6 +109,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         window.chatWidget.open();
     };
 
+    const filteredCategories = categories?.industries?.filter((category) =>
+        category.toLowerCase().includes(categorySearchTerm.toLowerCase())
+    );
+
     return (
         <div className="container flex flex-col gap-9 py-12">
             {pluginData?.length && (
@@ -134,14 +138,23 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 {showCategories && (
                     <div className="flex flex-col gap-5">
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
+
+                        <input
+                            type="text"
+                            placeholder="Search categories"
+                            className="p-2  rounded"
+                            value={categorySearchTerm}
+                            onChange={(e) => setCategorySearchTerm(e.target.value)}
+                        />
+
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
-                            {categories?.industries?.length &&
-                                categories?.industries?.map((category, index) => <option>{category}</option>)}
+                            {filteredCategories?.length &&
+                                filteredCategories?.map((category, index) => <option key={index}>{category}</option>)}
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
-                            {categories?.industries?.length &&
-                                categories?.industries?.slice(0, visibleCategories).map((category, index) => {
+                            {filteredCategories?.length &&
+                                filteredCategories?.slice(0, visibleCategories).map((category, index) => {
                                     return (
                                         <Link
                                             href={`/integrations?currentcategory=${category}`}
@@ -162,7 +175,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                     );
                                 })}
 
-                            {categories?.industries?.length > visibleCategories && (
+                            {filteredCategories?.length > visibleCategories && (
                                 <button
                                     onClick={handleLoadMoreCategories}
                                     className="text-blue-500 font-medium cursor-pointer text-left flex items-center"
