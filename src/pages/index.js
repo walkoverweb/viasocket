@@ -8,6 +8,8 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
+import axios from 'axios';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
