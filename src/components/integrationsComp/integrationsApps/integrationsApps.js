@@ -59,7 +59,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             setsearchLoading(true);
             try {
                 const result = await fetchSearchResults(debouncedSearchTerm);
-                console.log(result, 'dkjfgdjk');
                 setsearchData(result);
             } catch (error) {
             } finally {
