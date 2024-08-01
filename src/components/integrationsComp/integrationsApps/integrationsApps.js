@@ -41,8 +41,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     }, [offset, selectedCategory]);
 
     useEffect(() => {
-        console.log(searchData, 'idfi');
-
         if (debouncedSearchTerm) {
             fetchSearchResults(debouncedSearchTerm);
         }
@@ -97,7 +95,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                     'auth-key': 'keyadsf2BkclzXO',
                 },
             });
-            console.log(response.data.data);
+
             setsearchData(response.data.data); // Update with actual response structure
         } catch (error) {
             console.log(error);
