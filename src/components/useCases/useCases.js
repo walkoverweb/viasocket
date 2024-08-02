@@ -14,8 +14,9 @@ export default function UseCase({ usecases }) {
                     {usecases?.map((usecase, index) => (
                         <div key={index} className="border-b-2 border-black-400 border-opacity-100 border-color:black;">
                             <li
-                                className={`cursor-pointer text-lg flex justify-between items-center p-6 rounded hover:bg-gray-100 ${selectedUsecase === index ? 'bg-gray-200 font-semibold' : ''}`}
-                                onClick={() => handleUsecaseClick(index)}
+                                className={`cursor-pointer text-lg flex justify-between items-center p-6 rounded hover:bg-white ${selectedUsecase === index ? 'bg-white font-semibold' : ''}`}
+                                onMouseEnter={() => handleUsecaseClick(index)}
+                                onMouseLeave={() => handleUsecaseClick(index)}
                             >
                                 {usecase?.heading}
                                 {selectedUsecase === index && (
