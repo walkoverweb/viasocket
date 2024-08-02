@@ -24,6 +24,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, pathArray, metaData, faqD
                 getStartedData={getStartedData}
                 isHero={'false'}
                 showCategories={true}
+                hideIntegrationFooter
             />
         </>
     );
