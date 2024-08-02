@@ -72,8 +72,8 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                         <ul className="blog-page-tags flex gap-3 ps-0 mb-1">
                             {tags !== '' &&
                                 tags?.map((it, i) => (
-                                    <li className="bg-gray-300  w-fit px-3 rounded-full" key={i}>
-                                        <TagButton tag={getTag(it).toUpperCase()} />
+                                    <li className="bg-gray-300  w-fit px-3 rounded-full uppercase" key={i}>
+                                        <TagButton tag={getTag(it)} />
                                     </li>
                                 ))}
                         </ul>
