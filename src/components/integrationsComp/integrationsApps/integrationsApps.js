@@ -23,7 +23,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [debounceValue, setdebounceValue] = useState(searchTerm);
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
-    const debouncedSearchTerm = useDebounce(searchTerm, 800);
+
     useEffect(() => {
         if (currentCategory) {
             setSelectedCategory(currentCategory);
@@ -40,25 +40,22 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     }, [offset, selectedCategory]);
 
     // debounce function
-    function useDebounce(value, delay) {
-        useEffect(() => {
-            const handler = setTimeout(() => {
-                setdebounceValue(value);
-            }, delay);
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setdebounceValue(searchTerm);
+        }, 800);
 
-            // Clean up the timeout if value changes or component unmounts
-            return () => {
-                clearTimeout(handler);
-            };
-        }, [value, delay]);
+        // Clean up the timeout if value changes or component unmounts
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchTerm, 800]);
 
-        return debounceValue;
-    }
     const searchApps = async () => {
-        if (debouncedSearchTerm) {
+        if (debounceValue) {
             setsearchLoading(true);
             try {
-                const result = await fetchSearchResults(debouncedSearchTerm);
+                const result = await fetchSearchResults(debounceValue);
                 setsearchData(result);
             } catch (error) {
             } finally {
@@ -66,11 +63,12 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             }
         }
     };
+
     useEffect(() => {
-        if (debouncedSearchTerm) {
+        if (debounceValue) {
             searchApps();
         }
-    }, [debouncedSearchTerm]);
+    }, [debounceValue]);
 
     useEffect(() => {
         applyFilters();
