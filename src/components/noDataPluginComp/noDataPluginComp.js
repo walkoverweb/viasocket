@@ -72,8 +72,8 @@ export default function NoDataPluginComp({ plugin, mode }) {
                         <h1
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
-                            The app you are looking for is in beta, and we are awaiting verification from the app
-                            builders before making it accessible to end users. This process may take 15 to 30 days.
+                            The app combinations you are looking for is not available right now but we can bring them
+                            for you if you can provide us usecase,
                         </h1>
                         <h2
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
