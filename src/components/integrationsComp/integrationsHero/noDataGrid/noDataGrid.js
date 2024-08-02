@@ -69,12 +69,6 @@ export default function NoDataGrid({ plugin, mode }) {
         }
     };
 
-    const buttonText = plugin.length === 1 ? 'Request Beta Access' : 'Request Combination';
-    const headingText =
-        plugin.length === 1
-            ? 'The APP you are looking for is in beta , and we are awaiting verificationfrom the app builders before making it accesible to end users.This process may take 15 to 30 days.If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.'
-            : ' The app combinations you are looking for is not available right now but we can bring them for you if you can provide us usecase.If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.';
-
     return (
         <>
             <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12">
@@ -83,14 +77,23 @@ export default function NoDataGrid({ plugin, mode }) {
                         <h1
                             className={`lg:text-3xl md:text-2xl text-xl font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
-                            {headingText}
+                            {plugin.length === 1
+                                ? 'The APP you are looking for is in beta , and we are awaiting verificationfrom the app builders before making it accesible to end users.This process may take 15 to 30 days.'
+                                : ' The app combinations you are looking for is not available right now but we can bring them for you if you can provide us usecase.'}
                         </h1>
+                        <h2
+                            className={`lg:text-3xl md:text-2xl text-xl font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
+                        >
+                            {plugin.length === 1
+                                ? 'If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.'
+                                : ' If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.'}
+                        </h2>
                         <div className="flex gap-3">
                             <button
                                 className={`btn btn-semibold ${mode === 'dark' ? 'btn-light' : 'btn-primary'}`}
                                 onClick={() => document.getElementById('beta_request').showModal()}
                             >
-                                {buttonText}
+                                {plugin.length === 1 ? 'Request Beta Access' : 'Request Combination'}
                             </button>
                         </div>
                     </div>
