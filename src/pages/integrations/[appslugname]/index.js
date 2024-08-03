@@ -49,7 +49,6 @@ export default IntegrationSlugPage;
 export async function getServerSideProps(context) {
     const { params } = context;
     const pathSlugs = [params.appslugname];
-    console.log('🚀 ~ getServerSideProps ~ pathSlugs:', pathSlugs);
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases(pathSlugs[0]);
 
