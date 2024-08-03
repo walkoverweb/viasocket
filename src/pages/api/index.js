@@ -22,16 +22,3 @@ export default async function fetchDataAndUpdateState(IDs, getDataFunction) {
         const dbdashData = await getDataFunction(ID);
     }
 }
-
-// fetch post API
-// export const fetchPosts = async (tag, defaultTag) => {
-//     const tag = params?.appslugname;
-//     const defaultTag = 'integrations';
-//     try {
-//         const res = await axios.get(`NEXT_PUBLIC_BASE_URL/api/fetch-posts?tag=${tag}&defaultTag=${defaultTag}`);
-//         const posts = await res.data;
-//         setPosts(posts);
-//     } catch (error) {
-//         console.error('Error fetching posts:', error);
-//     }
-// };
