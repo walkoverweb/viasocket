@@ -21,6 +21,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [searchData, setsearchData] = useState([]);
     const [searchLoading, setsearchLoading] = useState(false);
     const [debounceValue, setdebounceValue] = useState(searchTerm);
+    const [available, setavailable] = useState(true);
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
@@ -103,7 +104,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         if (typeof category !== 'string') {
             finalCategory = category?.props?.href?.split('?')[1].split('=')[1];
         }
-
+        setavailable(true);
         setLoading(true);
         try {
             const fetchUrl =
@@ -126,6 +127,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             const newData = await response.json();
 
             setApps(offset === 0 ? newData : [...apps, ...newData]);
+            if (newData?.length < 40) {
+                setavailable(false);
+            }
 
             setHasMoreApps(newData?.length > 0);
 
@@ -308,7 +312,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                             </div>
                         )}
                     </div>
-                    {(visibleApps < searchedApps?.length || hasMoreApps) && (
+                    {(visibleApps < searchedApps?.length || hasMoreApps) && available && (
                         <button
                             onClick={() => {
                                 if (visibleApps >= searchedApps?.length) {
