@@ -21,14 +21,13 @@ module.exports = {
         themes: [
             {
                 light: {
-                    primary: '#000008',
-                    secondary: '#f6d860',
-                    accent: '#2C443B',
-                    neutral: '#3d4451',
-                    'base-100': '#F6F4EE',
+                    primary: '#273f2b',
+                    secondary: '#dfffcb',
+                    accent: '#00ED64',
+                    neutral: '#f2f5eb',
                     'primary-content': '#ffffff',
-                    'base-content': '#415765',
                     link: '#4485F2',
+                    '--rounded-btn': '2px',
                 },
             },
         ],

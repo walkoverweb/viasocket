@@ -10,6 +10,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import axios from 'axios';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import { BtnContWithIcon } from '@/components/uiComponents/buttons';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -67,8 +68,8 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <div className="grid gap-20 ">
-                <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
+            <div className="flex flex-col">
+                <div className="flex flex-col gap-10 container  py-40">
                     <div className="grid gap-4 mt-auto">
                         {productData &&
                             productData.map((page, index) => {
@@ -90,67 +91,69 @@ const Index = ({
 
                     <TrustedBy data={trustedData} />
                 </div>
-
-                <div className="container grid gap-10">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
-                        Meet our automation products
-                    </h2>
-                    <div className=" grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8  items-center justify-center ">
-                        {products &&
-                            products.map((product, index) => {
-                                return (
-                                    <Link
-                                        key={index}
-                                        href={`/${product?.name && product.name}`}
-                                        target="_blank"
-                                        className="flex items-center justify-center w-full h-full"
-                                        aria-label="products"
-                                    >
-                                        <div
-                                            className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg"
+                <div className="bg-secondary">
+                    <div className="container grid gap-12 py-24">
+                        <h2 className="font-inter text-6xl font-semibold leading-9 tracking-normal text-left">
+                            Meet our automation products
+                        </h2>
+                        <div className=" grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8  items-center justify-center  ">
+                            {products &&
+                                products.map((product, index) => {
+                                    return (
+                                        <Link
                                             key={index}
+                                            href={`/${product?.name && product.name}`}
+                                            target="_blank"
+                                            className="flex items-center justify-center w-full h-full"
+                                            aria-label="products"
                                         >
-                                            <div className="p-6 grid gap-2 h-full">
-                                                <div className="flex items-center gap-2 ">
+                                            <div
+                                                className="flex flex-col bg-primary rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg"
+                                                key={index}
+                                            >
+                                                <div className="px-6 pt-6 grid gap-2 h-full text-white">
+                                                    <div className="flex items-center gap-2 ">
+                                                        <Image
+                                                            className="h-[40px] filter invert"
+                                                            src={`/assets/brand/${product?.name}_ico.svg`}
+                                                            width={36}
+                                                            height={48}
+                                                            alt={product?.name}
+                                                        />
+                                                        <p className=" text-white font-inter text-3xl font-semibold leading-11 text-left capitalize tracking-wide">
+                                                            {product?.name}
+                                                        </p>
+                                                    </div>
+                                                    <p className="text-white  font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
+                                                        {product?.description}
+                                                    </p>
+                                                    {/* If you need another Link here, ensure it follows the same pattern */}
+                                                    <BtnContWithIcon title={'Explore'} className />
+                                                </div>
+                                                <div className="pt-6 w-full p-6">
                                                     <Image
-                                                        className="h-[40px]"
-                                                        src={`/assets/brand/${product?.name}_ico.svg`}
-                                                        width={36}
-                                                        height={48}
+                                                        className="w-full bg-neutral rounded "
+                                                        src={`/assets/img/${product?.name.toLowerCase()}_img.png`}
+                                                        height={90}
+                                                        width={80}
                                                         alt={product?.name}
                                                     />
-                                                    <p className="font-inter text-3xl font-semibold leading-11 text-left capitalize tracking-wide">
-                                                        {product?.name}
-                                                    </p>
                                                 </div>
-                                                <p className="font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
-                                                    {product?.description}
-                                                </p>
-                                                {/* If you need another Link here, ensure it follows the same pattern */}
-                                                <button
-                                                    className="flex items-center gap-1 text-[#0000ff]"
-                                                    aria-label="Explore"
-                                                >
-                                                    Explore <MdArrowForward />
-                                                </button>
                                             </div>
-                                            <div className="pt-6 w-full ">
-                                                <Image
-                                                    className="w-full bg-[#F6F4EE]"
-                                                    src={product.image[0]}
-                                                    height={90}
-                                                    width={80}
-                                                    alt={product?.name}
-                                                />
-                                            </div>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
+                                        </Link>
+                                    );
+                                })}
+                        </div>
                     </div>
                 </div>
-                {features && <FeaturesGrid features={features} page={'overall'} />}
-                <div className="grid gap-10 container w">
+
+                {features && (
+                    <div className="py-12">
+                        {' '}
+                        <FeaturesGrid features={features} page={'overall'} />
+                    </div>
+                )}
+                <div className="grid gap-10 container py-12">
                     <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
                         What clients says
                     </h2>
@@ -158,7 +161,7 @@ const Index = ({
                         {testimonials &&
                             testimonials.map((testimonial, index) => {
                                 return (
-                                    <div className="flex flex-col rounded-md  p-8 gap-8 bg-[#FEFDFD] " key={index}>
+                                    <div className="flex flex-col rounded-md  p-8 gap-8  bg-neutral " key={index}>
                                         <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left ">
                                             " {testimonial?.testimonial}"
                                         </p>
@@ -184,7 +187,7 @@ const Index = ({
                             })}
                     </div>
                 </div>
-                <div className="grid container gap-10">
+                <div className="grid container gap-10 py-12">
                     <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
                         Client Stories
                     </h2>
@@ -192,13 +195,13 @@ const Index = ({
                     <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
                         {caseStudies &&
                             caseStudies.map((caseStudy, index) => {
-                                if (caseStudy?.priority === 1) {
+                                if (caseStudy?.priority == 1) {
                                     return (
                                         <Link
                                             key={index}
                                             href={caseStudy?.link}
                                             target="_blank"
-                                            className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
+                                            className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6  bg-neutral flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
                                             aria-label="casestudy"
                                         >
                                             <div className="casestudy_img w-full h-full">
@@ -228,7 +231,7 @@ const Index = ({
                                             key={index}
                                             target="_blank"
                                             href={caseStudy?.link}
-                                            className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col lg:flex-row lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
+                                            className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-neutral flex flex-col lg:flex-row lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
                                         >
                                             <div className="casestudy_img w-full h-full">
                                                 <Image
