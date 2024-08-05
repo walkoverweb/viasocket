@@ -76,9 +76,25 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const applyFilters = () => {
         if (searchData?.length > 0 && searchTerm && selectedCategory === 'All') {
-            setSelectedApps(searchData);
+            if (pluginData) {
+                const filteredItems = searchData.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(searchData);
+            }
         } else {
-            setSelectedApps(apps);
+            if (pluginData) {
+                const filteredItems = apps.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(apps);
+            }
         }
     };
 
