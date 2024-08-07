@@ -50,7 +50,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             setSelectedApps(filteredItems);
         }
     };
-
     const fetchApps = async (category, offset) => {
         let finalCategory = category;
         if (typeof category !== 'string') {
@@ -75,9 +74,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             if (!response.ok) {
                 throw new Error('Failed to load data');
             }
-
             const newData = await response.json();
-
             setApps(offset === 0 ? newData : [...apps, ...newData]);
 
             setHasMoreApps(newData?.length > 0);
