@@ -10,6 +10,7 @@
         "prepare": "husky"
     },
     "dependencies": {
+        "@mui/icons-material": "^5.16.5",
         "axios": "^1.6.7",
         "color": "^4.2.3",
         "date-fns": "^2.30.0",
