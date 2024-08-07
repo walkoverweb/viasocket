@@ -74,6 +74,7 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                                 tags?.map((it, i) => (
                                     <li className="bg-gray-300  w-fit px-3 rounded-full uppercase" key={i}>
                                         <TagButton tag={getTag(it)} />
+
                                     </li>
                                 ))}
                         </ul>
