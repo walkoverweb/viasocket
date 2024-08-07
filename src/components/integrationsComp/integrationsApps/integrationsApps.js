@@ -4,7 +4,6 @@ import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
 export default function IntegrationsApps({ pluginData, showCategories }) {
     const [apps, setApps] = useState([]);
     const [loading, setLoading] = useState(false);
