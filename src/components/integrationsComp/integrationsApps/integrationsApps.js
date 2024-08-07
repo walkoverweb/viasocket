@@ -18,10 +18,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
-    const [searchData, setsearchData] = useState([]);
-    const [searchLoading, setsearchLoading] = useState(false);
-    const [debounceValue, setdebounceValue] = useState(searchTerm);
-    const [available, setavailable] = useState(true);
+    const [searchData, setSearchData] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [debounceValue, setDebounceValue] = useState(searchTerm);
+    const [available, setAvailable] = useState(true);
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
@@ -43,7 +43,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     // debounce function
     useEffect(() => {
         const handler = setTimeout(() => {
-            setdebounceValue(searchTerm);
+            setDebounceValue(searchTerm);
         }, 800);
 
         // Clean up the timeout if value changes or component unmounts
@@ -54,13 +54,13 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const searchApps = async () => {
         if (debounceValue) {
-            setsearchLoading(true);
+            setSearchLoading(true);
             try {
                 const result = await fetchSearchResults(debounceValue);
-                setsearchData(result);
+                setSearchData(result);
             } catch (error) {
             } finally {
-                setsearchLoading(false);
+                setSearchLoading(false);
             }
         }
     };
@@ -104,7 +104,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         if (typeof category !== 'string') {
             finalCategory = category?.props?.href?.split('?')[1].split('=')[1];
         }
-        setavailable(true);
+        setAvailable(true);
         setLoading(true);
         try {
             const fetchUrl =
@@ -128,7 +128,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
             setApps(offset === 0 ? newData : [...apps, ...newData]);
             if (newData?.length < 40) {
-                setavailable(false);
+                setAvailable(false);
             }
 
             setHasMoreApps(newData?.length > 0);
