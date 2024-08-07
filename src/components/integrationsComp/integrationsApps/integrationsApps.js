@@ -134,18 +134,32 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 </>
             )}
 
-            <div className=" flex gap-5 lg:flex-row flex-col ">
+            <div className=" flex gap-12 lg:flex-row flex-col ">
                 {showCategories && (
                     <div className="flex flex-col gap-5">
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
 
-                        <input
-                            type="text"
-                            placeholder="Search categories"
-                            className="p-2  rounded"
-                            value={categorySearchTerm}
-                            onChange={(e) => setCategorySearchTerm(e.target.value)}
-                        />
+                        <label className="input input-sm  border-[#CCCCCC] flex items-center gap-2 bg-white rounded">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4 opacity-70"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <input
+                                type="text"
+                                className="grow"
+                                placeholder="Search category"
+                                value={categorySearchTerm}
+                                onChange={(e) => setCategorySearchTerm(e.target.value)}
+                            />
+                        </label>
 
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
                             {filteredCategories?.length &&
@@ -153,27 +167,34 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
-                            {filteredCategories?.length &&
-                                filteredCategories?.slice(0, visibleCategories).map((category, index) => {
-                                    return (
-                                        <Link
-                                            href={`/integrations?currentcategory=${category}`}
-                                            aria-label="select category"
-                                            key={index}
-                                        >
-                                            <h6
-                                                onClick={() => {
-                                                    setSelectedCategory(category);
-                                                }}
-                                                className={`lg:text-[20px] text-base cursor-pointer ${
-                                                    selectedCategory === category ? 'font-bold' : 'font-normal'
-                                                }`}
+                            {filteredCategories?.length ? (
+                                <>
+                                    {filteredCategories?.slice(0, visibleCategories).map((category, index) => {
+                                        return (
+                                            <Link
+                                                href={`/integrations?currentcategory=${category}`}
+                                                aria-label="select category"
+                                                key={index}
                                             >
-                                                {category === 'Null' ? 'Other' : category}
-                                            </h6>
-                                        </Link>
-                                    );
-                                })}
+                                                <h6
+                                                    onClick={() => {
+                                                        setSelectedCategory(category);
+                                                    }}
+                                                    className={`lg:text-[20px] text-base cursor-pointer ${
+                                                        selectedCategory === category ? 'font-bold' : 'font-normal'
+                                                    }`}
+                                                >
+                                                    {category === 'Null' ? 'Other' : category}
+                                                </h6>
+                                            </Link>
+                                        );
+                                    })}
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-gray-700 font-semibold text-xl">No such category exists.</p>
+                                </>
+                            )}
 
                             {filteredCategories?.length > visibleCategories && (
                                 <button
