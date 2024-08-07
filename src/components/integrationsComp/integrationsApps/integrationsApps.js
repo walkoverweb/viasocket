@@ -155,7 +155,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                             <input
                                 type="text"
                                 className="grow"
-                                placeholder="Search category"
+                                placeholder="Search categories"
                                 value={categorySearchTerm}
                                 onChange={(e) => setCategorySearchTerm(e.target.value)}
                             />
