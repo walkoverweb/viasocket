@@ -4,6 +4,7 @@ import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import fetchSearchResults from '@/utils/searchIntegrationApps';
 
 export default function IntegrationsApps({ pluginData, showCategories }) {
     const [apps, setApps] = useState([]);
@@ -18,6 +19,8 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [hasMoreApps, setHasMoreApps] = useState(true);
     const [categorySearchTerm, setCategorySearchTerm] = useState('');
 
+
+  
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
@@ -36,18 +39,62 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         }
     }, [offset, selectedCategory]);
 
+    // debounce function
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebounceValue(searchTerm);
+        }, 800);
+
+        // Clean up the timeout if value changes or component unmounts
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchTerm, 800]);
+
+    const searchApps = async () => {
+        if (debounceValue) {
+            setSearchLoading(true);
+            try {
+                const result = await fetchSearchResults(debounceValue);
+                setSearchData(result);
+            } catch (error) {
+            } finally {
+                setSearchLoading(false);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (debounceValue) {
+            searchApps();
+        }
+    }, [debounceValue]);
+
     useEffect(() => {
         applyFilters();
-    }, [searchTerm, apps]);
+    }, [apps, searchData, searchTerm]);
 
     const applyFilters = () => {
-        if (apps?.length > 0) {
-            const filteredItems = apps.filter((item) => {
-                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
-                return nameMatches;
-            });
-
-            setSelectedApps(filteredItems);
+        if (searchData?.length > 0 && searchTerm && selectedCategory === 'All') {
+            if (pluginData) {
+                const filteredItems = searchData.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(searchData);
+            }
+        } else {
+            if (pluginData) {
+                const filteredItems = apps.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(apps);
+            }
         }
     };
     const fetchApps = async (category, offset) => {
@@ -55,7 +102,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         if (typeof category !== 'string') {
             finalCategory = category?.props?.href?.split('?')[1].split('=')[1];
         }
-
+        setAvailable(true);
         setLoading(true);
         try {
             const fetchUrl =
@@ -76,6 +123,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             }
             const newData = await response.json();
             setApps(offset === 0 ? newData : [...apps, ...newData]);
+            if (newData?.length < 40) {
+                setAvailable(false);
+            }
 
             setHasMoreApps(newData?.length > 0);
 
@@ -232,7 +282,23 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
                     </div>
                     <div className="flex flex-row flex-wrap gap-5">
-                        {searchedApps?.length || loading ? (
+                        {searchLoading ? (
+                            <p>
+                                <>
+                                    <div className=" flex flex-row flex-wrap gap-8">
+                                        {Array.from({ length: 25 }).map((_, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white animate-pulse"
+                                            >
+                                                <div className="h-8 w-8 bg-gray-300 rounded-full"></div>
+                                                <div className="h-4 w-20 bg-gray-300 rounded"></div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            </p>
+                        ) : searchedApps?.length || loading ? (
                             searchedApps.slice(0, visibleApps).map((app) => {
                                 if (app?.appslugname) {
                                     return (
@@ -276,7 +342,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                             </div>
                         )}
                     </div>
-                    {(visibleApps < searchedApps?.length || hasMoreApps) && (
+                    {(visibleApps < searchedApps?.length || hasMoreApps) && available && (
                         <button
                             onClick={() => {
                                 if (visibleApps >= searchedApps?.length) {

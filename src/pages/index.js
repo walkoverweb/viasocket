@@ -1,6 +1,7 @@
 import TrustedBy from '@/components/trustedBy/trustedBy';
 import Image from 'next/image';
 import Link from 'next/link';
+import axios from 'axios';
 import { MdOutlineArrowForward } from 'react-icons/md';
 import { getDbdashData } from './api/index';
 import { MdArrowForward } from 'react-icons/md';
@@ -9,7 +10,6 @@ import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import axios from 'axios';
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -45,6 +45,7 @@ export async function getServerSideProps() {
             features: results[6]?.data?.rows,
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
+
             posts: posts,
         },
     };
@@ -60,6 +61,7 @@ const Index = ({
     features,
     metaData,
     faqData,
+
     posts,
 }) => {
     return (
@@ -252,6 +254,7 @@ const Index = ({
                             })}
                     </div>
                 </div>
+
                 {posts?.length && (
                     <div className="container mx-auto  py-12">
                         {' '}
