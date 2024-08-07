@@ -17,6 +17,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [hasMoreApps, setHasMoreApps] = useState(true);
     const [categorySearchTerm, setCategorySearchTerm] = useState('');
 
+    const [searchData, setSearchData] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [debounceValue, setDebounceValue] = useState(searchTerm);
+    const [available, setAvailable] = useState(true);
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
@@ -35,18 +39,63 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         }
     }, [offset, selectedCategory]);
 
+    // debounce function
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebounceValue(searchTerm);
+        }, 800);
+
+        // Clean up the timeout if value changes or component unmounts
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchTerm, 800]);
+
+    const searchApps = async () => {
+        if (debounceValue) {
+            setSearchLoading(true);
+            try {
+                const result = await fetchSearchResults(debounceValue);
+                setSearchData(result);
+            } catch (error) {
+            } finally {
+                setSearchLoading(false);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (debounceValue) {
+            searchApps();
+        }
+    }, [debounceValue]);
+
     useEffect(() => {
         applyFilters();
     }, [searchTerm, apps]);
 
     const applyFilters = () => {
-        if (apps?.length > 0) {
-            const filteredItems = apps.filter((item) => {
-                const nameMatches = item?.name?.toLowerCase().includes(searchTerm.toLowerCase());
-                return nameMatches;
-            });
 
-            setSelectedApps(filteredItems);
+        if (searchData?.length > 0 && searchTerm && selectedCategory === 'All') {
+            if (pluginData) {
+                const filteredItems = searchData.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(searchData);
+            }
+        } else {
+            if (pluginData) {
+                const filteredItems = apps.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(apps);
+            }
         }
     };
 
@@ -55,7 +104,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         if (typeof category !== 'string') {
             finalCategory = category?.props?.href?.split('?')[1].split('=')[1];
         }
-
+        setAvailable(true);
         setLoading(true);
         try {
             const fetchUrl =
@@ -78,6 +127,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             const newData = await response.json();
 
             setApps(offset === 0 ? newData : [...apps, ...newData]);
+            if (newData?.length < 40) {
+                setAvailable(false);
+            }
 
             setHasMoreApps(newData?.length > 0);
 
@@ -278,7 +330,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                             </div>
                         )}
                     </div>
-                    {(visibleApps < searchedApps?.length || hasMoreApps) && (
+                    {(visibleApps < searchedApps?.length || hasMoreApps) && available && (
                         <button
                             onClick={() => {
                                 if (visibleApps >= searchedApps?.length) {
