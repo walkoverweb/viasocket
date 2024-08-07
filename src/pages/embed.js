@@ -121,7 +121,7 @@ const Embed = ({ getStartedData, metaData, faqData, useCases, features }) => {
                                 <ul className="gap-y-4">
                                     {features &&
                                         features?.length > 0 &&
-                                        features.map((tag, index) => (
+                                        features.map((features, index) => (
                                             <li
                                                 key={index}
                                                 className={`cursor-pointer p-4 border-b-2 border-gray-200 transition-all duration-300 flex items-center ${
@@ -132,15 +132,15 @@ const Embed = ({ getStartedData, metaData, faqData, useCases, features }) => {
                                                 onMouseEnter={() => setHoveredTag(index)}
                                                 onMouseLeave={() => setHoveredTag(null)}
                                             >
-                                                <span className="flex-1">{tag?.label}</span>
+                                                <span className="flex-1">{features?.label}</span>
                                             </li>
                                         ))}
                                 </ul>
                             </div>
                             <div className="flex-1 flex items-center justify-center bg-white p-0 rounded-lg">
-                                {features && features.length > 0 && (
+                                {features && features?.length > 0 && (
                                     <img
-                                        src={features[hoveredTag]?.image || 'https://placehold.co/600x400'}
+                                        src={features[hoveredTag]?.image || 'https://placehold.co/400x600'}
                                         alt={features[hoveredTag]?.label || 'Feature Image'}
                                         className="max-w-full max-h-full object-contain"
                                     />
