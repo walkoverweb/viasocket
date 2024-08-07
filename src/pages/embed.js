@@ -170,7 +170,6 @@ const Embed = ({ getStartedData, metaData, faqData, useCases, features }) => {
                     </div>
                 </div>
 
-                {/* Upgrade Section */}
                 <div className="gap-y-3 bg-white py-48">
                     <div className="container flex flex-col gap-9">
                         <div className="flex flex-col gap-2">
