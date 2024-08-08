@@ -29,7 +29,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             setSelectedCategory(currentCategory);
         }
     }, [currentCategory]);
-
     useEffect(() => {
         if (selectedCategory) {
             if (selectedCategory != 'All') {

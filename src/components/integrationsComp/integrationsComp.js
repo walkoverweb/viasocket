@@ -5,7 +5,6 @@ import IntegrationsAbout from './integrationsAbout/integrationsAbout';
 import BlogGrid from '../blogGrid/blogGrid';
 import UseCase from '../useCases/useCases';
 import IntegrationEvents from './integrationEvents/integrationEvents';
-import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
 
 export default function IntegrationsComp({
