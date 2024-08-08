@@ -1,5 +1,4 @@
 import Image from 'next/image';
-
 import { useEffect, useState } from 'react';
 import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
@@ -18,10 +17,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
-    const [searchData, setSearchData] = useState([]);
-    const [searchLoading, setSearchLoading] = useState(false);
-    const [debounceValue, setDebounceValue] = useState(searchTerm);
-    const [available, setAvailable] = useState(true);
+    const [categorySearchTerm, setCategorySearchTerm] = useState('');
+
+
+  
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
@@ -98,7 +97,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             }
         }
     };
-
     const fetchApps = async (category, offset) => {
         let finalCategory = category;
         if (typeof category !== 'string') {
@@ -123,9 +121,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             if (!response.ok) {
                 throw new Error('Failed to load data');
             }
-
             const newData = await response.json();
-
             setApps(offset === 0 ? newData : [...apps, ...newData]);
             if (newData?.length < 40) {
                 setAvailable(false);
@@ -160,6 +156,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         window.chatWidget.open();
     };
 
+    const filteredCategories = categories?.industries?.filter((category) =>
+        category.toLowerCase().includes(categorySearchTerm.toLowerCase())
+    );
+
     return (
         <div className="container flex flex-col gap-9 py-12">
             {pluginData?.length && (
@@ -181,39 +181,69 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 </>
             )}
 
-            <div className=" flex gap-5 lg:flex-row flex-col ">
+            <div className=" flex gap-12 lg:flex-row flex-col ">
                 {showCategories && (
                     <div className="flex flex-col gap-5">
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
+
+                        <label className="input input-sm  border-[#CCCCCC] flex items-center gap-2 bg-white rounded">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4 opacity-70"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <input
+                                type="text"
+                                className="grow"
+                                placeholder="Search category"
+                                value={categorySearchTerm}
+                                onChange={(e) => setCategorySearchTerm(e.target.value)}
+                            />
+                        </label>
+
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
-                            {categories?.industries?.length &&
-                                categories?.industries?.map((category, index) => <option>{category}</option>)}
+                            {filteredCategories?.length &&
+                                filteredCategories?.map((category, index) => <option key={index}>{category}</option>)}
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
-                            {categories?.industries?.length &&
-                                categories?.industries?.slice(0, visibleCategories).map((category, index) => {
-                                    return (
-                                        <Link
-                                            href={`/integrations?currentcategory=${category}`}
-                                            aria-label="select category"
-                                            key={index}
-                                        >
-                                            <h6
-                                                onClick={() => {
-                                                    setSelectedCategory(category);
-                                                }}
-                                                className={`lg:text-[20px] text-base cursor-pointer ${
-                                                    selectedCategory === category ? 'font-bold' : 'font-normal'
-                                                }`}
+                            {filteredCategories?.length ? (
+                                <>
+                                    {filteredCategories?.slice(0, visibleCategories).map((category, index) => {
+                                        return (
+                                            <Link
+                                                href={`/integrations?currentcategory=${category}`}
+                                                aria-label="select category"
+                                                key={index}
                                             >
-                                                {category === 'Null' ? 'Other' : category}
-                                            </h6>
-                                        </Link>
-                                    );
-                                })}
+                                                <h6
+                                                    onClick={() => {
+                                                        setSelectedCategory(category);
+                                                    }}
+                                                    className={`lg:text-[20px] text-base cursor-pointer ${
+                                                        selectedCategory === category ? 'font-bold' : 'font-normal'
+                                                    }`}
+                                                >
+                                                    {category === 'Null' ? 'Other' : category}
+                                                </h6>
+                                            </Link>
+                                        );
+                                    })}
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-gray-700 font-semibold text-xl">No such category exists.</p>
+                                </>
+                            )}
 
-                            {categories?.industries?.length > visibleCategories && (
+                            {filteredCategories?.length > visibleCategories && (
                                 <button
                                     onClick={handleLoadMoreCategories}
                                     className="text-blue-500 font-medium cursor-pointer text-left flex items-center"
