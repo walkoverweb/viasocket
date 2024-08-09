@@ -11,8 +11,20 @@ import axios from 'axios';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import { useEffect, useState } from 'react';
 import Industries from '@/assets/data/categories.json';
+import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
 
-const Index = ({ products, testimonials, caseStudies, getStartedData, features, metaData, faqData, apps, posts }) => {
+const Index = ({
+    products,
+    testimonials,
+    caseStudies,
+    getStartedData,
+    features,
+    metaData,
+    faqData,
+    apps,
+    posts,
+    combos,
+}) => {
     const [searchTerm, setSearchTerm] = useState();
     const formattedIndustries = Industries.industries.map((name, id) => ({ name: name, id: id + 1 }));
 
@@ -21,13 +33,13 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
             <>
                 <MetaHeadComp metaData={metaData} page={'/'} />
                 <div className="grid gap-20 ">
-                    <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
-                        <span className="text-3xl font-semibold">Ai First</span>
+                    <div className="flex flex-col gap-10 container lg:pb-8 pt-8 ">
+                        <span className="text-3xl font-medium">Ai First</span>
                         <h1 className="text-6xl font-bold">
                             Connect your favorite apps and automate your repetitive tasks.
                         </h1>
-                        <div className="flex flex-col gap-3">
-                            <h2 className="text-3xl font-semibold">What industries are automating</h2>
+                        <div className="p-8 bg-neutral flex flex-col gap-9">
+                            <h2 className="text-3xl">What industries are automating</h2>
                             <div className="flex flex-wrap gap-6">
                                 <select
                                     placeholder="Select an industry"
@@ -132,6 +144,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                     Search automation
                                 </button>
                             </div>
+                            <ComboGrid combos={combos} />
                         </div>
                     </div>
 
@@ -356,7 +369,7 @@ export async function getServerSideProps() {
     };
     const response = await fetch(`${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=200`, apiHeaders);
     const apps = await response.json();
-
+    const combos = await fetchCombos(['airtable', 'slack']);
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -368,6 +381,20 @@ export async function getServerSideProps() {
             faqData: results[8]?.data?.rows,
             apps,
             posts: posts,
+            combos,
         },
     };
+}
+async function fetchCombos(pathArray) {
+    const apiHeaders = {
+        headers: {
+            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        },
+    };
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?service=${pathArray[0]}&service=${pathArray[1]}`,
+        apiHeaders
+    );
+    const responseData = await response.json();
+    return responseData;
 }

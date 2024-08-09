@@ -28,7 +28,7 @@ const BlogGrid = ({ posts }) => {
 
 const CardComponent = ({ card }) => {
     return (
-        <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-white">
+        <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
             <figure className="h-60">
                 <img src={card?.thumbnail} alt={card?.title} />
             </figure>
