@@ -42,9 +42,19 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         if (apps.length > 0) setSearchData(apps.slice(0, 20));
     }, [apps]);
 
+    // useEffect(() => {
+    //     if (!hasRunEffect.current && searchData.length > 0 && selectedApps.length === 0) {
+    //         searchData.slice(0, 2).forEach((app) => handleSelectApp(app.appslugname));
+    //         hasRunEffect.current = true;
+    //     }
+    // }, [searchData, selectedApps]);
+
     useEffect(() => {
         if (!hasRunEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-            searchData.slice(0, 2).forEach((app) => handleSelectApp(app.appslugname));
+            const initialApps = searchData.filter(
+                (app) => app.appslugname === 'slack' || app.appslugname === 'airtable'
+            );
+            initialApps.forEach((app) => handleSelectApp(app.appslugname));
             hasRunEffect.current = true;
         }
     }, [searchData, selectedApps]);
@@ -111,11 +121,14 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div className="grid gap-20">
-                <div className="flex flex-col gap-10 container lg:pb-8 pt-8">
-                    <span className="text-3xl font-medium">AI First</span>
-                    <h1 className="text-6xl font-bold">
-                        Connect your favorite apps and automate <br /> your repetitive tasks
-                    </h1>
+                <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-3xl font-medium">AI First</span>
+                        <h2 className="md:text-6xl text-4xl font-medium ">
+                            Connect your favorite apps and
+                            <br /> automate your repetitive tasks
+                        </h2>
+                    </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
                         <h2 className="text-3xl">What industries are automating</h2>
                         <div className="flex flex-wrap gap-6">
@@ -285,7 +298,7 @@ const ProductsSection = ({ products }) => (
 
 const TestimonialsSection = ({ testimonials }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="text-6xl font-semibold">What clients says</h2>
+        <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {testimonials.map((testimonial, index) => (
                 <div className="flex flex-col rounded-md p-8 gap-8 bg-neutral" key={index}>
@@ -317,7 +330,7 @@ const TestimonialsSection = ({ testimonials }) => (
 
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="text-6xl font-semibold">Client Stories</h2>
+        <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
         <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />

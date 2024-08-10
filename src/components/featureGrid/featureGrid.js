@@ -7,7 +7,7 @@ export function FeaturesGrid({ features, page }) {
     return (
         <>
             <div className="grid gap-12 container">
-                <h2 className="text-6xl font-semibold">Features</h2>
+                <h2 className="md:text-6xl text-4xl font-medium">Features</h2>
 
                 <div className="grid xl:grid-cols-4 lg:grid-cols-3 lg:grid-rows-3 md:grid-cols-3 md:grid-rows-4 sm:grid-cols-2 sm:grid-rows-6 md:gap-5 gap-3  overflow-hidden ">
                     {features

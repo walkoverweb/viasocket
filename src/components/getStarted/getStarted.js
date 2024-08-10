@@ -6,7 +6,7 @@ export default function GetStarted({ data, isHero }) {
         <>
             <div className="grid gap-10 ">
                 {isHero === 'false' && (
-                    <h2 className="md:text-6xl text-4xl font-semibold">
+                    <h2 className="md:text-6xl text-4xl font-medium">
                         We'll help you get
                         <br /> started
                     </h2>

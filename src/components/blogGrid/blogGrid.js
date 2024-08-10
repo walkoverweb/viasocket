@@ -6,10 +6,10 @@ const BlogGrid = ({ posts }) => {
     return (
         <>
             <div className="flex flex-col gap-9">
-                <h1 className="text-6xl font-semibold">
+                <h2 className="md:text-6xl text-4xl font-medium">
                     Know More About <br />
                     Viasocket Integrations
-                </h1>
+                </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                     {posts.map((post, index) => (
