@@ -19,7 +19,7 @@ export default function EventGrid({ plugin, mode }) {
             <>
                 <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 ">
                     <h1
-                        className={`flex lg:text-4xl md:text-2xl text-xl w-2/3 font-semibold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                        className={`flex lg:text-4xl md:text-2xl text-xl w-2/3 font-semibold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
                     >
                         {`Enable Integrations or automations with these events of ${plugin[0].name}`}
                     </h1>
