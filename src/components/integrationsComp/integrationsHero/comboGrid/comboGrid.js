@@ -65,7 +65,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
         return (
             <div className="flex flex-col gap-8">
                 <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
-                    {[...Array(3)].map((_, index) => (
+                    {[...Array(7)].map((_, index) => (
                         <div
                             className="bg-white rounded-md overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out"
                             key={index}
