@@ -13,6 +13,7 @@ import BlogGrid from '@/components/blogGrid/blogGrid';
 import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
 import fetchSearchResults from '@/utils/searchIntegrationApps';
 import Industries from '@/assets/data/categories.json';
+import { LinkButton } from '@/components/uiComponents/buttons';
 
 const Index = ({ products, testimonials, caseStudies, getStartedData, features, metaData, faqData, posts, combos }) => {
     const formattedIndustries = Industries.industries.map((name, id) => ({ name, id: id + 1 }));
@@ -22,6 +23,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     const [apps, setApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
+    const [combinationLoading, setCombinationLoading] = useState(false);
     const [debounceValue, setDebounceValue] = useState(searchTerm);
     const [renderCombos, setRenderCombos] = useState();
     const hasRunEffect = useRef(false);
@@ -31,7 +33,6 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     useEffect(() => {
         const getApps = async () => {
             const apps = await fetchAppsData(selectedCategory); // Await the result here
-            console.log('🚀 ~ getApps ~ selectedCategory:', selectedCategory);
             if (apps.length > 0) setApps(apps.slice(0, 20));
         };
         getApps();
@@ -95,11 +96,14 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
 
     const handleGenerate = async () => {
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
+        setCombinationLoading(true);
         try {
-            const combos = await fetchCombos(selectedAppSlugs);
+            const combos = await fetchCombos(selectedAppSlugs, selectedCategory);
             setRenderCombos(combos);
+            setCombinationLoading(false);
         } catch (error) {
             console.error('Error fetching combos:', error);
+            setCombinationLoading(false);
         }
     };
 
@@ -161,16 +165,31 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                     tabIndex={0}
                                     className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
                                 >
-                                    {searchData.map((app, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
-                                            onClick={() => handleSelectApp(app.appslugname)}
-                                        >
-                                            <Image src={app?.iconurl} width={12} height={12} alt="ico" />
-                                            <span>{app?.name}</span>
-                                        </div>
-                                    ))}
+                                    {searchLoading ? (
+                                        [...Array(12)].map((_, index) => (
+                                            <div
+                                                className=" rounded-none  bg-white px-3 py-2 flex  w-full "
+                                                key={index}
+                                            >
+                                                <div className="w-[280px] skeleton bg-slate-100 rounded-none "></div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <>
+                                            {searchData &&
+                                                searchData.length &&
+                                                searchData.map((app, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                        onClick={() => handleSelectApp(app.appslugname)}
+                                                    >
+                                                        <Image src={app?.iconurl} width={12} height={12} alt="ico" />
+                                                        <span>{app?.name}</span>
+                                                    </div>
+                                                ))}
+                                        </>
+                                    )}
                                 </ul>
                             </div>
                             <button
@@ -180,16 +199,34 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                 Search Automation
                             </button>
                         </div>
-                        <ComboGrid combos={combos} />
+                        <ComboGrid
+                            combos={renderCombos ? renderCombos : combos}
+                            loading={combinationLoading}
+                            showNoData
+                        />
                     </div>
                 </div>
-                <ProductsSection products={products} />
+                {/* <ProductsSection products={products} /> */}
                 {features && <FeaturesGrid features={features} page={'overall'} />}
-                <TestimonialsSection testimonials={testimonials} />
-                <CaseStudiesSection caseStudies={caseStudies} />
-                {posts?.length > 0 && <BlogGrid posts={posts} />}
+                <div className="container my-12">
+                    <TestimonialsSection testimonials={testimonials} />
+                </div>
+                <div className="container my-12">
+                    {' '}
+                    <CaseStudiesSection caseStudies={caseStudies} />
+                </div>
+                {posts?.length > 0 && (
+                    <div className="container gap-12">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )}
                 {faqData?.length > 0 && <FAQSection faqData={faqData} faqName={'/index'} />}
-                {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
+                {getStartedData && (
+                    <div className="container">
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    </div>
+                )}
             </div>
         </>
     );
@@ -247,11 +284,11 @@ const ProductsSection = ({ products }) => (
 );
 
 const TestimonialsSection = ({ testimonials }) => (
-    <div className="grid gap-10 container w">
-        <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">What clients says</h2>
+    <div className="flex flex-col gap-9">
+        <h2 className="text-6xl font-semibold">What clients says</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {testimonials.map((testimonial, index) => (
-                <div className="flex flex-col rounded-md p-8 gap-8 bg-[#FEFDFD]" key={index}>
+                <div className="flex flex-col rounded-md p-8 gap-8 bg-neutral" key={index}>
                     <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left">
                         " {testimonial?.testimonial}"
                     </p>
@@ -279,8 +316,8 @@ const TestimonialsSection = ({ testimonials }) => (
 );
 
 const CaseStudiesSection = ({ caseStudies }) => (
-    <div className="grid container gap-10">
-        <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">Client Stories</h2>
+    <div className="flex flex-col gap-9">
+        <h2 className="text-6xl font-semibold">Client Stories</h2>
         <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
@@ -290,7 +327,7 @@ const CaseStudiesSection = ({ caseStudies }) => (
 );
 
 const CaseStudyLink = ({ caseStudy }) => {
-    const isPriority = caseStudy?.priority === 1;
+    const isPriority = caseStudy?.priority === '1';
     const linkClass = isPriority
         ? 'lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6'
         : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
@@ -299,22 +336,15 @@ const CaseStudyLink = ({ caseStudy }) => {
         <Link
             href={caseStudy?.link}
             target="_blank"
-            className={`${linkClass} bg-white flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
+            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
             aria-label="casestudy"
         >
             <div className="casestudy_img w-full h-full">
                 <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
             </div>
-            <div className="grid p-4">
+            <div className="p-4 flex flex-col gap-2 w-full">
                 <p>{caseStudy?.title}</p>
-                <Link
-                    target="_blank"
-                    href={caseStudy?.link}
-                    className="flex items-center gap-1 text-[#0000ff] mt-6"
-                    aria-label="case study"
-                >
-                    Learn More <MdOutlineArrowForward />
-                </Link>
+                <LinkButton href={caseStudy?.link} title={'Read More'} />
             </div>
         </Link>
     );
@@ -345,7 +375,7 @@ export async function getServerSideProps() {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
     );
     const posts = await res.data;
-    const combos = await fetchCombos(['airtable', 'slack']);
+    const combos = await fetchCombos(['slack', 'airtable'], 'All');
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -362,7 +392,6 @@ export async function getServerSideProps() {
 }
 
 async function fetchApps(category) {
-    console.log('🚀 ~ fetchApps ~ category:', category);
     const apiHeaders = {
         headers: {
             'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
@@ -376,14 +405,14 @@ async function fetchApps(category) {
     return apps;
 }
 
-async function fetchCombos(pathArray) {
+async function fetchCombos(pathArray, industry) {
     const apiHeaders = {
         headers: {
             'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry.toLowerCase()}`,
         apiHeaders
     );
     const responseData = await response.json();

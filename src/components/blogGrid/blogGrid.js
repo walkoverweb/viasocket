@@ -1,11 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { MdOutlineArrowForward } from 'react-icons/md';
+import { LinkButton } from '../uiComponents/buttons';
 const BlogGrid = ({ posts }) => {
     return (
         <>
             <div className="flex flex-col gap-9">
-                <h1 className="text-3xl font-bold">Know More About Viasocket Integrations</h1>
+                <h1 className="text-6xl font-semibold">
+                    Know More About <br />
+                    Viasocket Integrations
+                </h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                     {posts.map((post, index) => (
@@ -13,11 +17,7 @@ const BlogGrid = ({ posts }) => {
                     ))}
                 </div>
                 <div className="flex justify-center ">
-                    <Link
-                        href="/blog"
-                        target="_blank"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
-                    >
+                    <Link href="/blog" target="_blank" className="btn btn-accent">
                         Read More Blogs
                     </Link>
                 </div>
@@ -36,13 +36,7 @@ const CardComponent = ({ card }) => {
                 <h2 className="card-title">{card?.title}</h2>
                 <p className="text-base">{card?.description}</p>
                 <div className="card-actions justify-start">
-                    <Link
-                        target="_blank"
-                        href={`/blog/${card?.slug}`}
-                        className="flex items-center gap-1 text-[#0000ff] mt-6"
-                    >
-                        Read More <MdOutlineArrowForward />
-                    </Link>
+                    <LinkButton href={`/blog/${card?.slug}`} title="Read more" />
                 </div>
             </div>
         </div>

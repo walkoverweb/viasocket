@@ -75,10 +75,10 @@ export function EventCard({ card, plugin }) {
                 />
                 <div className="flex flex-col">
                     <h6 className="md:text-xl text-lg font-semibold ">
-                        {card.name.charAt(0).toUpperCase() + card.name.slice(1).toLowerCase()}
+                        {card?.name?.charAt(0).toUpperCase() + card.name.slice(1).toLowerCase()}
                     </h6>
                     <p className="md:text-lg text-base font-normal ">
-                        {card.description.charAt(0).toUpperCase() + card.description.slice(1).toLowerCase()}
+                        {card?.description?.charAt(0).toUpperCase() + card?.description?.slice(1).toLowerCase()}
                     </p>
                 </div>
             </div>
