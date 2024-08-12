@@ -49,7 +49,7 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                     key="title"
                 />
             </Head>
-            <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/5">
+            <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-5/6 xl:w-3/5">
                 <a className="btn-sm btn btn-outline" href="#" onClick={handleClick} aria-label="back">
                     <MdKeyboardArrowLeft /> Back
                 </a>
