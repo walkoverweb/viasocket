@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { MdAdd, MdClose, MdOutlineArrowForward, MdSearch, MdArrowForward, MdAutoAwesome } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
@@ -26,31 +25,29 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     const [combinationLoading, setCombinationLoading] = useState(false);
     const [debounceValue, setDebounceValue] = useState(searchTerm);
     const [renderCombos, setRenderCombos] = useState();
+    const [showInput, setShowInput] = useState(false);
     const hasRunEffect = useRef(false);
-
     const fetchAppsData = async (category) => await fetchApps(category);
+
+    // fetch apps data
+    const filterSelectedApps = (apps) => {
+        return apps.filter((app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname));
+    };
 
     useEffect(() => {
         const getApps = async () => {
-            const apps = await fetchAppsData(selectedCategory); // Await the result here
-            if (apps.length > 0) setApps(apps.slice(0, 20));
+            const apps = await fetchAppsData(selectedCategory);
+            if (apps.length > 0) {
+                const filteredApps = filterSelectedApps(apps);
+                setApps(filteredApps);
+            }
         };
         getApps();
     }, [selectedCategory]);
 
     useEffect(() => {
-        if (apps.length > 0) setSearchData(apps.slice(0, 20));
+        if (apps.length > 0) setSearchData(filterSelectedApps(apps));
     }, [apps]);
-
-    useEffect(() => {
-        if (!hasRunEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-            const initialApps = searchData.filter(
-                (app) => app.appslugname === 'slack' || app.appslugname === 'airtable'
-            );
-            initialApps.forEach((app) => handleSelectApp(app.appslugname));
-            hasRunEffect.current = true;
-        }
-    }, [searchData, selectedApps]);
 
     useEffect(() => {
         const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
@@ -63,12 +60,28 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
 
     useEffect(() => {
         if (searchTerm === '') {
-            fetchAppsData(selectedCategory).then((apps) => setSearchData(apps.slice(0, 20)));
+            fetchAppsData(selectedCategory).then((apps) => setSearchData(filterSelectedApps(apps)));
         }
     }, [searchTerm, selectedCategory]);
 
+    useEffect(() => {
+        setSearchData((prev) => filterSelectedApps(prev));
+    }, [selectedApps]);
+
+    //handle input box show hide
+    const inputRef = useRef(null);
+    useEffect(() => {
+        if (showInput && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [showInput]);
+
+    //handle select apps
     const handleSelectApp = (appName) => {
-        const app = searchData.find((app) => app.appslugname === appName);
+        const app = searchData.find((app) => {
+            console.log('🚀 ~ handleSelectApp ~ app:', app);
+            return app.appslugname === appName;
+        });
         if (app) {
             setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
             setSelectedApps((prev) => [...prev, app]);
@@ -76,36 +89,47 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         setSearchTerm('');
     };
 
+    useEffect(() => {
+        if (searchData.length > 0 && selectedApps.length === 0) {
+            const firstTwoApps = searchData.slice(0, 3);
+            firstTwoApps.forEach((app) => handleSelectApp(app.appslugname));
+        }
+    }, [searchData]);
+
+    //seach apps
     const searchApps = async () => {
         if (debounceValue) {
             setSearchLoading(true);
             try {
                 const result = await fetchSearchResults(debounceValue);
-                setSearchData(result);
+                setSearchData(filterSelectedApps(result));
             } catch (error) {
                 console.error(error);
             } finally {
                 setSearchLoading(false);
             }
         } else {
+            console.log('dddd  d  d  d ');
             const apps = await fetchAppsData(selectedCategory);
-            setSearchData(apps.slice(0, 20));
+            setSearchData(filterSelectedApps(apps));
         }
     };
 
+    // Remove apps
     const removeAppFromArray = (indexToRemove) => {
         if (indexToRemove >= 0 && indexToRemove < selectedApps.length) {
             const appToRemove = selectedApps[indexToRemove];
             setSelectedApps((prev) => {
                 const updatedSelectedApps = prev.filter((_, index) => index !== indexToRemove);
                 if (updatedSelectedApps.length > 0 || selectedApps.length === 1) {
-                    setSearchData((prevSearchData) => [appToRemove, ...prevSearchData]);
+                    setSearchData((prevSearchData) => [appToRemove, ...filterSelectedApps(prevSearchData)]);
                 }
                 return updatedSelectedApps;
             });
         }
     };
 
+    // Fetch Combos
     const handleGenerate = async () => {
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         setCombinationLoading(true);
@@ -118,6 +142,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
             setCombinationLoading(false);
         }
     };
+    console.log('🚀 ~ Index ~ searchData:', searchData);
 
     return (
         <>
@@ -157,7 +182,83 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                     />
                                 </div>
                             ))}
-                            <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
+
+                            {showInput ? (
+                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown ">
+                                    <label
+                                        className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        tabIndex={0}
+                                        role="button"
+                                    >
+                                        <MdSearch color="#CCCCCC" fontSize={20} />
+                                        <input
+                                            type="text"
+                                            className="grow"
+                                            placeholder="Add a new app"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            ref={inputRef}
+                                        />
+                                        <span
+                                            className="btn icon border-none bg-transparent p-0"
+                                            onClick={() => {
+                                                setSearchTerm('');
+                                                setShowInput(false);
+                                            }}
+                                        >
+                                            <MdClose color="black" fontSize={24} />
+                                        </span>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                    >
+                                        {searchLoading ? (
+                                            [...Array(12)].map((_, index) => (
+                                                <div
+                                                    className=" rounded-none  bg-white px-3 py-2 flex  w-full "
+                                                    key={index}
+                                                >
+                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none "></div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <>
+                                                {searchData && searchData.length > 0 ? (
+                                                    searchData.map((app, index) => (
+                                                        <div
+                                                            key={index}
+                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            onClick={() => handleSelectApp(app?.appslugname)}
+                                                        >
+                                                            <Image
+                                                                src={app?.iconurl}
+                                                                width={12}
+                                                                height={12}
+                                                                alt="ico"
+                                                            />
+                                                            <span>{app?.name}</span>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
+                                                        No app found.
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <span
+                                    onClick={() => setShowInput(true)}
+                                    className=" btn p-0 flex items-center justify-center btn-primary w-[42px] rounded"
+                                >
+                                    <MdAdd color="white" fontSize={24} />
+                                </span>
+                            )}
+
+                            {/* <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                 <label
                                     className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
                                     tabIndex={0}
@@ -167,7 +268,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                     <input
                                         type="text"
                                         className="grow"
-                                        placeholder="Search integrations"
+                                        placeholder="Add a new app"
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                     />
@@ -175,7 +276,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                         className="btn icon border-none bg-transparent p-0"
                                         onClick={() => setSearchTerm('')}
                                     >
-                                        {/* <MdClose color="black" fontSize={24} /> */}
+                                        <MdClose color="black" fontSize={24} />
                                     </span>
                                 </label>
                                 <ul
@@ -212,12 +313,12 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                         </>
                                     )}
                                 </ul>
-                            </div>
+                            </div> */}
                             <button
                                 onClick={handleGenerate}
                                 className="btn btn-accent h-[48px] w-auto flex items-center justify-center rounded text-lg border border-black"
                             >
-                                Search Automation
+                                Search Automations
                             </button>
                         </div>
                         <ComboGrid
@@ -419,7 +520,7 @@ async function fetchApps(category) {
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && `&category=${category}`}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
         apiHeaders
     );
     const apps = await response.json();
