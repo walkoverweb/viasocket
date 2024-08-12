@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MdAdd, MdClose, MdOutlineArrowForward, MdSearch, MdArrowForward } from 'react-icons/md';
+import { MdAdd, MdClose, MdOutlineArrowForward, MdSearch, MdArrowForward, MdAutoAwesome } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
@@ -42,13 +42,6 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         if (apps.length > 0) setSearchData(apps.slice(0, 20));
     }, [apps]);
 
-    // useEffect(() => {
-    //     if (!hasRunEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-    //         searchData.slice(0, 2).forEach((app) => handleSelectApp(app.appslugname));
-    //         hasRunEffect.current = true;
-    //     }
-    // }, [searchData, selectedApps]);
-
     useEffect(() => {
         if (!hasRunEffect.current && searchData.length > 0 && selectedApps.length === 0) {
             const initialApps = searchData.filter(
@@ -60,7 +53,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     }, [searchData, selectedApps]);
 
     useEffect(() => {
-        const handler = setTimeout(() => setDebounceValue(searchTerm), 200);
+        const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
         return () => clearTimeout(handler);
     }, [searchTerm]);
 
@@ -68,10 +61,16 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         searchApps();
     }, [debounceValue]);
 
+    useEffect(() => {
+        if (searchTerm === '') {
+            fetchAppsData(selectedCategory).then((apps) => setSearchData(apps.slice(0, 20)));
+        }
+    }, [searchTerm, selectedCategory]);
+
     const handleSelectApp = (appName) => {
         const app = searchData.find((app) => app.appslugname === appName);
         if (app) {
-            setSearchData((prev) => prev.filter((item) => item.appslugname !== appName));
+            setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
             setSelectedApps((prev) => [...prev, app]);
         }
         setSearchTerm('');
@@ -88,6 +87,9 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
             } finally {
                 setSearchLoading(false);
             }
+        } else {
+            const apps = await fetchAppsData(selectedCategory);
+            setSearchData(apps.slice(0, 20));
         }
     };
 
@@ -123,10 +125,12 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
             <div className="grid gap-20">
                 <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
-                        <span className="text-3xl font-medium">AI First</span>
+                        <span className="text-3xl font-medium flex  gap-2 items-center">
+                            {' '}
+                            <MdAutoAwesome color="#00ED64" /> AI First
+                        </span>
                         <h2 className="md:text-6xl text-4xl font-medium ">
-                            Connect your favorite apps and
-                            <br /> automate your repetitive tasks
+                            Connect your favorite apps and automate your repetitive tasks
                         </h2>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
@@ -171,7 +175,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                         className="btn icon border-none bg-transparent p-0"
                                         onClick={() => setSearchTerm('')}
                                     >
-                                        <MdClose color="black" fontSize={24} />
+                                        {/* <MdClose color="black" fontSize={24} /> */}
                                     </span>
                                 </label>
                                 <ul
@@ -189,18 +193,22 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                         ))
                                     ) : (
                                         <>
-                                            {searchData &&
-                                                searchData.length &&
+                                            {searchData && searchData.length > 0 ? (
                                                 searchData.map((app, index) => (
                                                     <div
                                                         key={index}
                                                         className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
-                                                        onClick={() => handleSelectApp(app.appslugname)}
+                                                        onClick={() => handleSelectApp(app?.appslugname)}
                                                     >
                                                         <Image src={app?.iconurl} width={12} height={12} alt="ico" />
                                                         <span>{app?.name}</span>
                                                     </div>
-                                                ))}
+                                                ))
+                                            ) : (
+                                                <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
+                                                    No app found.
+                                                </p>
+                                            )}
                                         </>
                                     )}
                                 </ul>
