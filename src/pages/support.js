@@ -145,10 +145,10 @@ export default function Support({ metaData }) {
                                 Live Chat
                             </button>
                             <Link href="https://calendly.com/rpaliwal71/15-mins?month=2024-07" target="_blank">
-                                <button className="btn btn-accent btn-outline">Book a Meeting</button>
+                                <button className="btn btn-primary btn-outline">Book a Meeting</button>
                             </Link>
                             <Link href="https://viasocket.com/faq" target="_blank">
-                                <button className="btn btn-accent btn-outline">Help Doc</button>
+                                <button className="btn btn-primary btn-outline">Help Doc</button>
                             </Link>
                         </div>
                     </div>
