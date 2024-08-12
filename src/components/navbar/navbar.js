@@ -106,7 +106,7 @@ const Navbar = ({ productData, pathArray }) => {
                                     }
                                 }
                             })}
-                        <Link href="/login" className="btn btn-outline btn-sm ">
+                        <Link href="/login" className="btn btn-outline btn-primary btn-sm ">
                             Login
                         </Link>
                         <Link href="/signup" className="btn btn-accent btn-sm outline-primary outline-1 outline">
