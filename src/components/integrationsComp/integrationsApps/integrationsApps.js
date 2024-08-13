@@ -124,7 +124,8 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 throw new Error('Failed to load data');
             }
 
-            const newData = await response.json();
+            const rawData = await response.json();
+            const newData = rawData.data;
 
             setApps(offset === 0 ? newData : [...apps, ...newData]);
             if (newData?.length < 40) {
