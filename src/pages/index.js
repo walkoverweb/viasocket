@@ -79,7 +79,6 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     //handle select apps
     const handleSelectApp = (appName) => {
         const app = searchData.find((app) => {
-            console.log('🚀 ~ handleSelectApp ~ app:', app);
             return app.appslugname === appName;
         });
         if (app) {
@@ -142,7 +141,6 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
             setCombinationLoading(false);
         }
     };
-    console.log('🚀 ~ Index ~ searchData:', searchData);
 
     return (
         <>
@@ -523,8 +521,8 @@ async function fetchApps(category) {
         `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
         apiHeaders
     );
-    const apps = await response.json();
-    return apps;
+    const rawData = await response.json();
+    return rawData?.data;
 }
 
 async function fetchCombos(pathArray, industry) {
