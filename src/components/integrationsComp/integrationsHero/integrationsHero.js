@@ -75,7 +75,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 )}
                             </>
                         ) : (
-                            <NoDataGrid plugin={pluginData[0]} mode={mode} />
+                            <NoDataGrid plugin={pluginData} mode={mode} />
                         )}
                     </div>
                 </div>

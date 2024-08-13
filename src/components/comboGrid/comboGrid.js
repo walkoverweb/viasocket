@@ -94,7 +94,6 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
         );
     }
 }
-
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
     const getIconUrl = (plugin) => {
         const iconUrl = plugins[plugin].iconurl || 'https://placehold.co/40x40';

@@ -5,7 +5,6 @@ import IntegrationsAbout from './integrationsAbout/integrationsAbout';
 import BlogGrid from '../blogGrid/blogGrid';
 import UseCase from '../useCases/useCases';
 import IntegrationEvents from './integrationEvents/integrationEvents';
-import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
 
 export default function IntegrationsComp({
@@ -20,6 +19,7 @@ export default function IntegrationsComp({
     pathSlugs,
     hideApps,
     showCategories,
+    hideIntegrationFooter,
 }) {
     return (
         <>
@@ -48,7 +48,7 @@ export default function IntegrationsComp({
 
             {pluginData?.length && <IntegrationsAbout plugins={pluginData} />}
 
-            <IntegrationFooter getStartedData={getStartedData} />
+            <IntegrationFooter getStartedData={getStartedData} hideIntegrationFooter={hideIntegrationFooter} />
         </>
     );
 }
