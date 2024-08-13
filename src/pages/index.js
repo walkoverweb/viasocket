@@ -26,7 +26,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     const [debounceValue, setDebounceValue] = useState(searchTerm);
     const [renderCombos, setRenderCombos] = useState();
     const [showInput, setShowInput] = useState(false);
-    const hasRunEffect = useRef(false);
+    const hasRunFirstEffect = useRef(false);
     const fetchAppsData = async (category) => await fetchApps(category);
 
     // fetch apps data
@@ -89,9 +89,10 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     };
 
     useEffect(() => {
-        if (searchData.length > 0 && selectedApps.length === 0) {
+        if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
             const firstTwoApps = ['airtable', 'slack', 'workspace91'];
             firstTwoApps.forEach((app) => handleSelectApp(app));
+            hasRunFirstEffect.current = true;
         }
     }, [searchData]);
 
