@@ -74,7 +74,7 @@ export default function ErrorComp({ pathArray, page }) {
                                 Back
                             </button>
                             <Link href="/">
-                                <button className="btn btn-md btn-accent btn-outline">Go to home</button>
+                                <button className="btn btn-md btn-primary btn-outline">Go to home</button>
                             </Link>
                         </div>
                     </div>
