@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MdAdd, MdClose, MdOutlineArrowForward, MdSearch, MdArrowForward } from 'react-icons/md';
+import { MdAdd, MdClose, MdSearch, MdArrowForward, MdAutoAwesome } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
@@ -26,31 +25,32 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     const [combinationLoading, setCombinationLoading] = useState(false);
     const [debounceValue, setDebounceValue] = useState(searchTerm);
     const [renderCombos, setRenderCombos] = useState();
-    const hasRunEffect = useRef(false);
-
+    const [showInput, setShowInput] = useState(false);
+    const hasRunFirstEffect = useRef(false);
     const fetchAppsData = async (category) => await fetchApps(category);
+
+    // fetch apps data
+    const filterSelectedApps = (apps) => {
+        return apps.filter((app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname));
+    };
 
     useEffect(() => {
         const getApps = async () => {
-            const apps = await fetchAppsData(selectedCategory); // Await the result here
-            if (apps.length > 0) setApps(apps.slice(0, 20));
+            const apps = await fetchAppsData(selectedCategory);
+            if (apps.length > 0) {
+                const filteredApps = filterSelectedApps(apps);
+                setApps(filteredApps);
+            }
         };
         getApps();
     }, [selectedCategory]);
 
     useEffect(() => {
-        if (apps.length > 0) setSearchData(apps.slice(0, 20));
+        if (apps.length > 0) setSearchData(filterSelectedApps(apps));
     }, [apps]);
 
     useEffect(() => {
-        if (!hasRunEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-            searchData.slice(0, 2).forEach((app) => handleSelectApp(app.appslugname));
-            hasRunEffect.current = true;
-        }
-    }, [searchData, selectedApps]);
-
-    useEffect(() => {
-        const handler = setTimeout(() => setDebounceValue(searchTerm), 200);
+        const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
         return () => clearTimeout(handler);
     }, [searchTerm]);
 
@@ -58,42 +58,78 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         searchApps();
     }, [debounceValue]);
 
+    useEffect(() => {
+        if (searchTerm === '') {
+            fetchAppsData(selectedCategory).then((apps) => setSearchData(filterSelectedApps(apps)));
+        }
+    }, [searchTerm, selectedCategory]);
+
+    useEffect(() => {
+        setSearchData((prev) => filterSelectedApps(prev));
+    }, [selectedApps]);
+
+    //handle input box show hide
+    const inputRef = useRef(null);
+    useEffect(() => {
+        if (showInput && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [showInput]);
+
+    //handle select apps
     const handleSelectApp = (appName) => {
-        const app = searchData.find((app) => app.appslugname === appName);
+        const app = searchData.find((app) => {
+            return app.appslugname === appName;
+        });
         if (app) {
-            setSearchData((prev) => prev.filter((item) => item.appslugname !== appName));
+            setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
             setSelectedApps((prev) => [...prev, app]);
         }
         setSearchTerm('');
     };
 
+    useEffect(() => {
+        if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
+            const firstTwoApps = ['airtable', 'slack', 'workspace91'];
+            firstTwoApps.forEach((app) => handleSelectApp(app));
+            hasRunFirstEffect.current = true;
+        }
+    }, [searchData]);
+
+    //seach apps
     const searchApps = async () => {
         if (debounceValue) {
             setSearchLoading(true);
             try {
                 const result = await fetchSearchResults(debounceValue);
-                setSearchData(result);
+                setSearchData(filterSelectedApps(result));
             } catch (error) {
                 console.error(error);
             } finally {
                 setSearchLoading(false);
             }
+        } else {
+            console.log('dddd  d  d  d ');
+            const apps = await fetchAppsData(selectedCategory);
+            setSearchData(filterSelectedApps(apps));
         }
     };
 
+    // Remove apps
     const removeAppFromArray = (indexToRemove) => {
         if (indexToRemove >= 0 && indexToRemove < selectedApps.length) {
             const appToRemove = selectedApps[indexToRemove];
             setSelectedApps((prev) => {
                 const updatedSelectedApps = prev.filter((_, index) => index !== indexToRemove);
                 if (updatedSelectedApps.length > 0 || selectedApps.length === 1) {
-                    setSearchData((prevSearchData) => [appToRemove, ...prevSearchData]);
+                    setSearchData((prevSearchData) => [appToRemove, ...filterSelectedApps(prevSearchData)]);
                 }
                 return updatedSelectedApps;
             });
         }
     };
 
+    // Fetch Combos
     const handleGenerate = async () => {
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         setCombinationLoading(true);
@@ -111,11 +147,16 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div className="grid gap-20">
-                <div className="flex flex-col gap-10 container lg:pb-8 pt-8">
-                    <span className="text-3xl font-medium">AI First</span>
-                    <h1 className="text-6xl font-bold">
-                        Connect your favorite apps and automate <br /> your repetitive tasks
-                    </h1>
+                <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-3xl font-medium flex  gap-2 items-center">
+                            {' '}
+                            <MdAutoAwesome color="#00ED64" /> AI First
+                        </span>
+                        <h2 className="md:text-6xl text-4xl font-medium ">
+                            Connect your favorite apps and automate your repetitive tasks
+                        </h2>
+                    </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
                         <h2 className="text-3xl">What industries are automating</h2>
                         <div className="flex flex-wrap gap-6">
@@ -140,63 +181,87 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                     />
                                 </div>
                             ))}
-                            <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
-                                <label
-                                    className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
-                                    tabIndex={0}
-                                    role="button"
-                                >
-                                    <MdSearch color="#CCCCCC" fontSize={20} />
-                                    <input
-                                        type="text"
-                                        className="grow"
-                                        placeholder="Search integrations"
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                    <span
-                                        className="btn icon border-none bg-transparent p-0"
-                                        onClick={() => setSearchTerm('')}
+
+                            {showInput ? (
+                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown ">
+                                    <label
+                                        className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        tabIndex={0}
+                                        role="button"
                                     >
-                                        <MdClose color="black" fontSize={24} />
-                                    </span>
-                                </label>
-                                <ul
-                                    tabIndex={0}
-                                    className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                        <MdSearch color="#CCCCCC" fontSize={20} />
+                                        <input
+                                            type="text"
+                                            className="grow"
+                                            placeholder="Add a new app"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            ref={inputRef}
+                                        />
+                                        <span
+                                            className="btn icon border-none bg-transparent p-0"
+                                            onClick={() => {
+                                                setSearchTerm('');
+                                                setShowInput(false);
+                                            }}
+                                        >
+                                            <MdClose color="black" fontSize={24} />
+                                        </span>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                    >
+                                        {searchLoading ? (
+                                            [...Array(12)].map((_, index) => (
+                                                <div
+                                                    className=" rounded-none  bg-white px-3 py-2 flex  w-full "
+                                                    key={index}
+                                                >
+                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none "></div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <>
+                                                {searchData && searchData.length > 0 ? (
+                                                    searchData.map((app, index) => (
+                                                        <div
+                                                            key={index}
+                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            onClick={() => handleSelectApp(app?.appslugname)}
+                                                        >
+                                                            <Image
+                                                                src={app?.iconurl}
+                                                                width={12}
+                                                                height={12}
+                                                                alt="ico"
+                                                            />
+                                                            <span>{app?.name}</span>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
+                                                        No app found.
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <span
+                                    onClick={() => setShowInput(true)}
+                                    className=" btn p-0 flex items-center justify-center btn-primary w-[42px] rounded"
                                 >
-                                    {searchLoading ? (
-                                        [...Array(12)].map((_, index) => (
-                                            <div
-                                                className=" rounded-none  bg-white px-3 py-2 flex  w-full "
-                                                key={index}
-                                            >
-                                                <div className="w-[280px] skeleton bg-slate-100 rounded-none "></div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <>
-                                            {searchData &&
-                                                searchData.length &&
-                                                searchData.map((app, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
-                                                        onClick={() => handleSelectApp(app.appslugname)}
-                                                    >
-                                                        <Image src={app?.iconurl} width={12} height={12} alt="ico" />
-                                                        <span>{app?.name}</span>
-                                                    </div>
-                                                ))}
-                                        </>
-                                    )}
-                                </ul>
-                            </div>
+                                    <MdAdd color="white" fontSize={24} />
+                                </span>
+                            )}
+
                             <button
                                 onClick={handleGenerate}
                                 className="btn btn-accent h-[48px] w-auto flex items-center justify-center rounded text-lg border border-black"
                             >
-                                Search Automation
+                                Search Automations
                             </button>
                         </div>
                         <ComboGrid
@@ -285,7 +350,7 @@ const ProductsSection = ({ products }) => (
 
 const TestimonialsSection = ({ testimonials }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="text-6xl font-semibold">What clients says</h2>
+        <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {testimonials.map((testimonial, index) => (
                 <div className="flex flex-col rounded-md p-8 gap-8 bg-neutral" key={index}>
@@ -317,7 +382,7 @@ const TestimonialsSection = ({ testimonials }) => (
 
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="text-6xl font-semibold">Client Stories</h2>
+        <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
         <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
@@ -375,7 +440,7 @@ export async function getServerSideProps() {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
     );
     const posts = await res.data;
-    const combos = await fetchCombos(['slack', 'airtable'], 'All');
+    const combos = await fetchCombos(['slack', 'airtable', 'workspace91'], 'All');
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -398,11 +463,11 @@ async function fetchApps(category) {
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && `&category=${category}`}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
         apiHeaders
     );
-    const apps = await response.json();
-    return apps;
+    const rawData = await response.json();
+    return rawData?.data;
 }
 
 async function fetchCombos(pathArray, industry) {

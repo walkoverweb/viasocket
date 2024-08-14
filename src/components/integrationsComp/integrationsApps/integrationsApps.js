@@ -17,11 +17,13 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
+
     const [categorySearchTerm, setCategorySearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState(searchTerm);
     const [searchData, setSearchData] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const [available, setAvailable] = useState(true);
+
 
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
@@ -122,7 +124,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             if (!response.ok) {
                 throw new Error('Failed to load data');
             }
-            const newData = await response.json();
+
+            const rawData = await response.json();
+            const newData = rawData.data;
+
             setApps(offset === 0 ? newData : [...apps, ...newData]);
             if (newData?.length < 40) {
                 setAvailable(false);

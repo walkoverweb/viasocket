@@ -62,7 +62,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 })}
                         </div>
                         <h2
-                            className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                            className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
                         >
                             {integrationText}
                         </h2>
