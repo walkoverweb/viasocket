@@ -22,16 +22,13 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                         <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
                             {cardsData.map((card, index) => {
                                 return (
-                                    <>
-                                        <>
-                                            <RecomendedCard
-                                                card={card}
-                                                index={index}
-                                                visibleComboItems={visibleComboItems}
-                                                plugins={plugins}
-                                            />
-                                        </>
-                                    </>
+                                    <RecomendedCard
+                                        key={index}
+                                        card={card}
+                                        index={index}
+                                        visibleComboItems={visibleComboItems}
+                                        plugins={plugins}
+                                    />
                                 );
                             })}
                         </div>
@@ -112,9 +109,10 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
                 key={index}
                 href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}?utm_source=integration_page`}
                 target="_blank"
+                legacyBehavior
             >
                 <div
-                    className={`${style.card} rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg  transition-all`}
+                    className={`${style.card} border rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg  transition-all`}
                 >
                     <div className="p-8 bg-white flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 flex-wrap">
