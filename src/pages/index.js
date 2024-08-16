@@ -166,13 +166,16 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                 onChange={(e) => setSelectedCategory(e.target.value)}
                             >
                                 {formattedIndustries.map((indus, index) => (
-                                    <option value={indus.name} key={index}>
+                                    <option value={indus.name} key={indus.id}>
                                         {indus.name}
                                     </option>
                                 ))}
                             </select>
                             {selectedApps.map((app, index) => (
-                                <div className="flex items-center gap-2 bg-white w-fit p-3 rounded cursor-pointer">
+                                <div
+                                    className="flex items-center gap-2 bg-white w-fit p-3 rounded cursor-pointer"
+                                    key={app.appslugname}
+                                >
                                     <Image src={app?.iconurl} width={24} height={24} alt="ico" />
                                     <span>{app?.name}</span>
                                     <MdClose
@@ -226,7 +229,7 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                                 {searchData && searchData.length > 0 ? (
                                                     searchData.map((app, index) => (
                                                         <div
-                                                            key={index}
+                                                            key={app.appslugname}
                                                             className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
                                                             onClick={() => handleSelectApp(app?.appslugname)}
                                                         >
@@ -310,6 +313,7 @@ const ProductsSection = ({ products }) => (
                     target="_blank"
                     className="flex items-center justify-center w-full h-full"
                     aria-label="products"
+                    legacyBehavior
                 >
                     <div className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg">
                         <div className="p-6 grid gap-2 h-full">
@@ -403,14 +407,17 @@ const CaseStudyLink = ({ caseStudy }) => {
             target="_blank"
             className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
             aria-label="casestudy"
+            legacyBehavior
         >
-            <div className="casestudy_img w-full h-full">
-                <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
-            </div>
-            <div className="p-4 flex flex-col gap-2 w-full">
-                <p>{caseStudy?.title}</p>
-                <LinkButton href={caseStudy?.link} title={'Read More'} />
-            </div>
+            <>
+                <div className="casestudy_img w-full h-full">
+                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
+                </div>
+                <div className="p-4 flex flex-col gap-2 w-full">
+                    <p>{caseStudy?.title}</p>
+                    <LinkButton href={caseStudy?.link} title={'Read More'} />
+                </div>
+            </>
         </Link>
     );
 };

@@ -32,12 +32,12 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                     <div className={`container flex flex-col md:gap-12 gap-6`}>
                         <div className="flex flex-col gap-3 justify-between items-center md:flex-row">
                             <div
-                                className={`${styles.plugin_name} md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
+                                className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
                             >
                                 {pluginData?.length &&
                                     pluginData.map((plug, index) => {
                                         return (
-                                            <div key={index} className="flex items-center gap-3  w-fit">
+                                            <div key={plug.id || index} className="flex items-center gap-3  w-fit">
                                                 {index > 0 && <span className="text-3xl mx-4"> + </span>}
                                                 {plug?.iconurl && (
                                                     <Image
@@ -50,20 +50,24 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                 )}
                                                 <div className="flex flex-col">
                                                     {plug?.name && (
-                                                        <p className="md:text-2xl text-lg font-bold">{plug?.name}</p>
+                                                        <div className="md:text-2xl text-lg font-bold">
+                                                            {plug?.name}
+                                                        </div>
                                                     )}
                                                     {plug?.category && (
-                                                        <p className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
+                                                        <div className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
                                                             {plug?.category &&
-                                                                plug?.category.map((item) => <p> {item} </p>)}
-                                                        </p>
+                                                                plug?.category.map((item, catIndex) => (
+                                                                    <div key={item + catIndex}> {item} </div>
+                                                                ))}
+                                                        </div>
                                                     )}
                                                 </div>
                                             </div>
                                         );
                                     })}
                             </div>
-                            <div className="flex gap-5 md:justify-end justify-center w-full">
+                            <div className="flex gap-5 md:justify-end justify-center">
                                 {pluginData[0]?.name && (
                                     <Link
                                         href={

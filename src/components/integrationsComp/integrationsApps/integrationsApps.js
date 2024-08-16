@@ -188,7 +188,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
                             {categories?.industries?.length &&
-                                categories?.industries?.map((category, index) => <option>{category}</option>)}
+                                categories?.industries?.map((category, index) => (
+                                    <option key={index}>{category}</option>
+                                ))}
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
