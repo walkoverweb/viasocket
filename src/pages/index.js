@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MdAdd, MdClose, MdSearch, MdArrowForward, MdAutoAwesome } from 'react-icons/md';
+import { MdAdd, MdClose, MdSearch, MdAutoAwesome } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
@@ -13,11 +13,22 @@ import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/
 import fetchSearchResults from '@/utils/searchIntegrationApps';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
+import Autocomplete from 'react-autocomplete';
 
-const Index = ({ products, testimonials, caseStudies, getStartedData, features, metaData, faqData, posts, combos }) => {
+const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, faqData, posts }) => {
     const formattedIndustries = Industries.industries.map((name, id) => ({ name, id: id + 1 }));
+    const formattedDepartments = Industries.departments.map((name, id) => ({ name, id: id + 1 }));
+
+    const [indusSearchTerm, setIndusSearchTerm] = useState('');
+    const [selectedIndus, setSelectedIndus] = useState(() => {
+        const randomIndex = Math.floor(Math.random() * Industries.industries.length);
+        return Industries.industries[randomIndex];
+    });
+    const [showIndusDropdown, setShowIndusDropdown] = useState(false);
+    const [deptSearchTerm, setDeptSearchTerm] = useState('');
+    const [selectedDept, setSelectedDept] = useState('');
+    const [showDeptDropdown, setShowDeptDropdown] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedApps, setSelectedApps] = useState([]);
     const [apps, setApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
@@ -27,32 +38,56 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
     const [renderCombos, setRenderCombos] = useState();
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
+    const inputRef = useRef(null);
+
     const fetchAppsData = async (category) => await fetchApps(category);
 
-    // fetch apps data
     const filterSelectedApps = (apps) => {
         return apps.filter((app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname));
     };
 
     useEffect(() => {
         const getApps = async () => {
-            const apps = await fetchAppsData(selectedCategory);
+            const apps = await fetchAppsData(selectedIndus);
             if (apps.length > 0) {
-                const filteredApps = filterSelectedApps(apps);
-                setApps(filteredApps);
+                setApps(filterSelectedApps(apps));
+                setSelectedApps(apps.slice(0, 3));
             }
         };
         getApps();
-    }, [selectedCategory]);
+    }, [selectedIndus]);
 
     useEffect(() => {
-        if (apps.length > 0) setSearchData(filterSelectedApps(apps));
-    }, [apps]);
+        if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
+            setCombinationLoading(true); // Start loading
+            try {
+                searchData.slice(0, 3).forEach((app) => handleSelectApp(app.appslugname));
+            } finally {
+                setCombinationLoading(false); // End loading
+            }
+            hasRunFirstEffect.current = true;
+        }
+    }, [searchData]);
 
     useEffect(() => {
-        const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
-        return () => clearTimeout(handler);
-    }, [searchTerm]);
+        const handleFetchCombos = async () => {
+            if (!hasRunFirstEffect.current && selectedApps.length > 0) {
+                const selectedAppNames = selectedApps.map((app) => app.appslugname);
+                setCombinationLoading(true);
+                try {
+                    const combos = await fetchCombos(selectedAppNames, 'All');
+                    setRenderCombos(combos);
+                    hasRunFirstEffect.current = true; // Move this here
+                } catch (error) {
+                    console.error('Error fetching combos:', error);
+                } finally {
+                    setCombinationLoading(false);
+                }
+            }
+        };
+
+        handleFetchCombos();
+    }, [selectedApps]);
 
     useEffect(() => {
         searchApps();
@@ -60,27 +95,23 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
 
     useEffect(() => {
         if (searchTerm === '') {
-            fetchAppsData(selectedCategory).then((apps) => setSearchData(filterSelectedApps(apps)));
+            fetchAppsData(selectedIndus).then((apps) => setSearchData(filterSelectedApps(apps)));
         }
-    }, [searchTerm, selectedCategory]);
+    }, [searchTerm, selectedIndus]);
 
-    useEffect(() => {
-        setSearchData((prev) => filterSelectedApps(prev));
-    }, [selectedApps]);
-
-    //handle input box show hide
-    const inputRef = useRef(null);
     useEffect(() => {
         if (showInput && inputRef.current) {
             inputRef.current.focus();
         }
     }, [showInput]);
 
-    //handle select apps
+    useEffect(() => {
+        const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
+        return () => clearTimeout(handler);
+    }, [searchTerm]);
+
     const handleSelectApp = (appName) => {
-        const app = searchData.find((app) => {
-            return app.appslugname === appName;
-        });
+        const app = searchData.find((app) => app.appslugname === appName);
         if (app) {
             setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
             setSelectedApps((prev) => [...prev, app]);
@@ -88,15 +119,6 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         setSearchTerm('');
     };
 
-    useEffect(() => {
-        if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-            const firstTwoApps = ['airtable', 'slack', 'workspace91'];
-            firstTwoApps.forEach((app) => handleSelectApp(app));
-            hasRunFirstEffect.current = true;
-        }
-    }, [searchData]);
-
-    //seach apps
     const searchApps = async () => {
         if (debounceValue) {
             setSearchLoading(true);
@@ -109,13 +131,11 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                 setSearchLoading(false);
             }
         } else {
-            console.log('dddd  d  d  d ');
-            const apps = await fetchAppsData(selectedCategory);
+            const apps = await fetchAppsData(selectedIndus);
             setSearchData(filterSelectedApps(apps));
         }
     };
 
-    // Remove apps
     const removeAppFromArray = (indexToRemove) => {
         if (indexToRemove >= 0 && indexToRemove < selectedApps.length) {
             const appToRemove = selectedApps[indexToRemove];
@@ -129,18 +149,39 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         }
     };
 
-    // Fetch Combos
     const handleGenerate = async () => {
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         setCombinationLoading(true);
         try {
-            const combos = await fetchCombos(selectedAppSlugs, selectedCategory);
+            const combos = await fetchCombos(selectedAppSlugs, selectedIndus);
             setRenderCombos(combos);
-            setCombinationLoading(false);
         } catch (error) {
             console.error('Error fetching combos:', error);
+        } finally {
             setCombinationLoading(false);
         }
+    };
+
+    const handleSelectIndus = (val) => {
+        setIndusSearchTerm(val);
+        setSelectedIndus(val);
+        setShowIndusDropdown(false);
+    };
+
+    const filterIndustries = (searchTerm) => {
+        return formattedIndustries.filter((industry) => industry.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    };
+
+    const handleSelectDept = (val) => {
+        setDeptSearchTerm(val);
+        setSelectedDept(val);
+        setShowDeptDropdown(false);
+    };
+
+    const filterDepts = (searchTerm) => {
+        return formattedDepartments.filter((industry) =>
+            industry.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
     };
 
     return (
@@ -149,34 +190,60 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
             <div className="grid gap-20">
                 <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
-                        <span className="text-3xl font-medium flex  gap-2 items-center">
-                            {' '}
+                        <span className="text-3xl font-medium flex gap-2 items-center">
                             <MdAutoAwesome color="#00ED64" /> AI First
                         </span>
-                        <h2 className="md:text-6xl text-4xl font-medium ">
+                        <h2 className="md:text-6xl text-4xl font-medium">
                             Connect your favorite apps and automate your repetitive tasks
                         </h2>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
-                        <h2 className="text-3xl">What industries are automating</h2>
-                        <div className="flex flex-wrap gap-6">
-                            <select
-                                placeholder="Select an industry"
-                                className="select select-bordered border-[#CCCCCC] flex items-center gap-2 bg-white rounded max-w-[300px]"
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                            >
-                                {formattedIndustries.map((indus, index) => (
-                                    <option value={indus.name} key={indus.id}>
-                                        {indus.name}
-                                    </option>
-                                ))}
-                            </select>
+                        <div className="flex flex-wrap gap-4 items-center">
+                            <h2 className="text-3xl">How</h2>
+                            {showIndusDropdown ? (
+                                <div className="industry-autocomplete">
+                                    <Autocomplete
+                                        getItemValue={(item) => item.label}
+                                        items={filterIndustries(indusSearchTerm).map((industry) => ({
+                                            label: industry.name,
+                                        }))}
+                                        renderItem={(item) => (
+                                            <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                {item.label}
+                                            </div>
+                                        )}
+                                        value={indusSearchTerm}
+                                        onChange={(e) => setIndusSearchTerm(e.target.value)}
+                                        onSelect={(val) => handleSelectIndus(val)}
+                                        menuStyle={{
+                                            zIndex: '400',
+                                            borderRadius: '3px',
+                                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                                            background: 'rgba(255, 255,255)',
+                                            padding: '2px 0',
+                                            fontSize: '90%',
+                                            position: 'absolute',
+                                            overflow: 'auto',
+                                            maxHeight: '50%',
+                                        }}
+                                        inputProps={{ placeholder: 'Select Industry' }}
+                                    />
+                                </div>
+                            ) : (
+                                <h2
+                                    onClick={() => setShowIndusDropdown(true)}
+                                    className="text-3xl underline cursor-pointer"
+                                >
+                                    {selectedIndus || 'All'}
+                                </h2>
+                            )}
+                            <h2 className="text-3xl">industry is automating with</h2>
                             {selectedApps.map((app, index) => (
                                 <div
-                                    className="flex items-center gap-2 bg-white w-fit p-3 rounded cursor-pointer"
+                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded cursor-pointer"
                                     key={app.appslugname}
                                 >
-                                    <Image src={app?.iconurl} width={24} height={24} alt="ico" />
+                                    <Image src={app?.iconurl} width={16} height={16} alt="ico" />
                                     <span>{app?.name}</span>
                                     <MdClose
                                         className="text-gray-300 hover:text-gray-950"
@@ -184,11 +251,10 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                     />
                                 </div>
                             ))}
-
                             {showInput ? (
-                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown ">
+                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
-                                        className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
                                         tabIndex={0}
                                         role="button"
                                     >
@@ -218,16 +284,16 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                         {searchLoading ? (
                                             [...Array(12)].map((_, index) => (
                                                 <div
-                                                    className=" rounded-none  bg-white px-3 py-2 flex  w-full "
+                                                    className="rounded-none bg-white px-3 py-2 flex w-full"
                                                     key={index}
                                                 >
-                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none "></div>
+                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none"></div>
                                                 </div>
                                             ))
                                         ) : (
                                             <>
                                                 {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app, index) => (
+                                                    searchData.map((app) => (
                                                         <div
                                                             key={app.appslugname}
                                                             className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
@@ -235,8 +301,8 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                                                         >
                                                             <Image
                                                                 src={app?.iconurl}
-                                                                width={12}
-                                                                height={12}
+                                                                width={16}
+                                                                height={16}
                                                                 alt="ico"
                                                             />
                                                             <span>{app?.name}</span>
@@ -254,38 +320,69 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
                             ) : (
                                 <span
                                     onClick={() => setShowInput(true)}
-                                    className=" btn p-0 flex items-center justify-center btn-primary w-[42px] rounded"
+                                    className="p-0 flex items-center justify-center bg-primary w-[30px] h-[30px] rounded"
                                 >
                                     <MdAdd color="white" fontSize={24} />
                                 </span>
                             )}
-
+                            <h2 className="text-3xl">in</h2>
+                            {showDeptDropdown ? (
+                                <div className="industry-autocomplete">
+                                    <Autocomplete
+                                        getItemValue={(item) => item.label}
+                                        items={filterDepts(deptSearchTerm).map((dept) => ({
+                                            label: dept.name,
+                                        }))}
+                                        renderItem={(item) => (
+                                            <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                {item.label}
+                                            </div>
+                                        )}
+                                        value={deptSearchTerm}
+                                        onChange={(e) => setDeptSearchTerm(e.target.value)}
+                                        onSelect={(val) => handleSelectDept(val)}
+                                        inputProps={{ placeholder: 'Select Department' }}
+                                        menuStyle={{
+                                            zIndex: '400',
+                                            borderRadius: '3px',
+                                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                                            background: 'rgba(255, 255,255)',
+                                            padding: '2px 0',
+                                            fontSize: '90%',
+                                            position: 'absolute',
+                                            overflow: 'auto',
+                                            maxHeight: '50%',
+                                        }}
+                                    />
+                                </div>
+                            ) : (
+                                <h2
+                                    onClick={() => setShowDeptDropdown(true)}
+                                    className="text-3xl underline cursor-pointer"
+                                >
+                                    {selectedDept || 'Any'}
+                                </h2>
+                            )}
+                            <h2 className="text-3xl">department</h2>
                             <button
                                 onClick={handleGenerate}
-                                className="btn btn-accent h-[48px] w-auto flex items-center justify-center rounded text-lg border border-black"
+                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded text-sm border border-black"
                             >
                                 Search Automations
                             </button>
                         </div>
-                        <ComboGrid
-                            combos={renderCombos ? renderCombos : combos}
-                            loading={combinationLoading}
-                            showNoData
-                        />
+                        <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
                     </div>
                 </div>
-                {/* <ProductsSection products={products} /> */}
                 {features && <FeaturesGrid features={features} page={'overall'} />}
                 <div className="container my-12">
                     <TestimonialsSection testimonials={testimonials} />
                 </div>
                 <div className="container my-12">
-                    {' '}
                     <CaseStudiesSection caseStudies={caseStudies} />
                 </div>
                 {posts?.length > 0 && (
                     <div className="container gap-12">
-                        {' '}
                         <BlogGrid posts={posts} />
                     </div>
                 )}
@@ -299,58 +396,6 @@ const Index = ({ products, testimonials, caseStudies, getStartedData, features, 
         </>
     );
 };
-
-const ProductsSection = ({ products }) => (
-    <div className="container grid gap-10">
-        <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
-            Meet our automation products
-        </h2>
-        <div className="grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8 items-center justify-center">
-            {products.map((product, index) => (
-                <Link
-                    key={index}
-                    href={`/${product?.name && product.name}`}
-                    target="_blank"
-                    className="flex items-center justify-center w-full h-full"
-                    aria-label="products"
-                    legacyBehavior
-                >
-                    <div className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg">
-                        <div className="p-6 grid gap-2 h-full">
-                            <div className="flex items-center gap-2">
-                                <Image
-                                    className="h-[40px]"
-                                    src={`/assets/brand/${product?.name}_ico.svg`}
-                                    width={36}
-                                    height={48}
-                                    alt={product?.name}
-                                />
-                                <p className="font-inter text-3xl font-semibold leading-11 text-left capitalize tracking-wide">
-                                    {product?.name}
-                                </p>
-                            </div>
-                            <p className="font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
-                                {product?.description}
-                            </p>
-                            <button className="flex items-center gap-1 text-[#0000ff]" aria-label="Explore">
-                                Explore <MdArrowForward />
-                            </button>
-                        </div>
-                        <div className="pt-6 w-full">
-                            <Image
-                                className="w-full bg-[#F6F4EE]"
-                                src={product.image[0]}
-                                height={90}
-                                width={80}
-                                alt={product?.name}
-                            />
-                        </div>
-                    </div>
-                </Link>
-            ))}
-        </div>
-    </div>
-);
 
 const TestimonialsSection = ({ testimonials }) => (
     <div className="flex flex-col gap-9">
@@ -447,7 +492,10 @@ export async function getServerSideProps() {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
     );
     const posts = await res.data;
-    const combos = await fetchCombos(['slack', 'airtable', 'workspace91'], 'All');
+
+    const allApps = await fetchApps();
+    const firstThreeApps = allApps.slice(0, 3).map((app) => app.name);
+    const combos = await fetchCombos(firstThreeApps);
     return {
         props: {
             products: results[0]?.data?.rows,
@@ -458,7 +506,7 @@ export async function getServerSideProps() {
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
             posts: posts,
-            combos,
+            // combos,
         },
     };
 }
@@ -484,7 +532,7 @@ async function fetchCombos(pathArray, industry) {
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry.toLowerCase()}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}`,
         apiHeaders
     );
     const responseData = await response.json();
