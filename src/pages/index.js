@@ -20,9 +20,14 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
     const formattedDepartments = Industries.departments.map((name, id) => ({ name, id: id + 1 }));
 
     const [indusSearchTerm, setIndusSearchTerm] = useState('');
-    const [selectedIndus, setSelectedIndus] = useState('');
+    const [selectedIndus, setSelectedIndus] = useState(() => {
+        const randomIndex = Math.floor(Math.random() * Industries.industries.length);
+        return Industries.industries[randomIndex];
+    });
+    const [showIndusDropdown, setShowIndusDropdown] = useState(false);
     const [deptSearchTerm, setDeptSearchTerm] = useState('');
     const [selectedDept, setSelectedDept] = useState('');
+    const [showDeptDropdown, setShowDeptDropdown] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedApps, setSelectedApps] = useState([]);
     const [apps, setApps] = useState([]);
@@ -54,10 +59,35 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
 
     useEffect(() => {
         if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-            searchData.slice(0, 3).forEach((app) => handleSelectApp(app.appslugname));
+            setCombinationLoading(true); // Start loading
+            try {
+                searchData.slice(0, 3).forEach((app) => handleSelectApp(app.appslugname));
+            } finally {
+                setCombinationLoading(false); // End loading
+            }
             hasRunFirstEffect.current = true;
         }
     }, [searchData]);
+
+    useEffect(() => {
+        const handleFetchCombos = async () => {
+            if (!hasRunFirstEffect.current && selectedApps.length > 0) {
+                const selectedAppNames = selectedApps.map((app) => app.appslugname);
+                setCombinationLoading(true);
+                try {
+                    const combos = await fetchCombos(selectedAppNames, 'All');
+                    setRenderCombos(combos);
+                    hasRunFirstEffect.current = true; // Move this here
+                } catch (error) {
+                    console.error('Error fetching combos:', error);
+                } finally {
+                    setCombinationLoading(false);
+                }
+            }
+        };
+
+        handleFetchCombos();
+    }, [selectedApps]);
 
     useEffect(() => {
         searchApps();
@@ -135,6 +165,7 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
     const handleSelectIndus = (val) => {
         setIndusSearchTerm(val);
         setSelectedIndus(val);
+        setShowIndusDropdown(false);
     };
 
     const filterIndustries = (searchTerm) => {
@@ -144,6 +175,7 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
     const handleSelectDept = (val) => {
         setDeptSearchTerm(val);
         setSelectedDept(val);
+        setShowDeptDropdown(false);
     };
 
     const filterDepts = (searchTerm) => {
@@ -166,40 +198,52 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
                         </h2>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
-                        <div className="flex flex-wrap gap-6 items-center">
+                        <div className="flex flex-wrap gap-4 items-center">
                             <h2 className="text-3xl">How</h2>
-                            <div className="industry-autocomplete">
-                                <Autocomplete
-                                    getItemValue={(item) => item.label}
-                                    items={filterIndustries(indusSearchTerm).map((industry) => ({
-                                        label: industry.name,
-                                    }))}
-                                    renderItem={(item) => (
-                                        <div className="px-2 py-1 cursor-pointer hover:bg-secondary">{item.label}</div>
-                                    )}
-                                    value={indusSearchTerm}
-                                    onChange={(e) => setIndusSearchTerm(e.target.value)}
-                                    onSelect={(val) => handleSelectIndus(val)}
-                                    menuStyle={{
-                                        zIndex: '400',
-                                        borderRadius: '3px',
-                                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-                                        background: 'rgba(255, 255,255)',
-                                        padding: '2px 0',
-                                        fontSize: '90%',
-                                        position: 'absolute',
-                                        overflow: 'auto',
-                                        maxHeight: '50%',
-                                    }}
-                                />
-                            </div>
+                            {showIndusDropdown ? (
+                                <div className="industry-autocomplete">
+                                    <Autocomplete
+                                        getItemValue={(item) => item.label}
+                                        items={filterIndustries(indusSearchTerm).map((industry) => ({
+                                            label: industry.name,
+                                        }))}
+                                        renderItem={(item) => (
+                                            <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                {item.label}
+                                            </div>
+                                        )}
+                                        value={indusSearchTerm}
+                                        onChange={(e) => setIndusSearchTerm(e.target.value)}
+                                        onSelect={(val) => handleSelectIndus(val)}
+                                        menuStyle={{
+                                            zIndex: '400',
+                                            borderRadius: '3px',
+                                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                                            background: 'rgba(255, 255,255)',
+                                            padding: '2px 0',
+                                            fontSize: '90%',
+                                            position: 'absolute',
+                                            overflow: 'auto',
+                                            maxHeight: '50%',
+                                        }}
+                                        inputProps={{ placeholder: 'Select Industry' }}
+                                    />
+                                </div>
+                            ) : (
+                                <h2
+                                    onClick={() => setShowIndusDropdown(true)}
+                                    className="text-3xl underline cursor-pointer"
+                                >
+                                    {selectedIndus || 'All'}
+                                </h2>
+                            )}
                             <h2 className="text-3xl">industry is automating with</h2>
                             {selectedApps.map((app, index) => (
                                 <div
-                                    className="flex items-center gap-2 bg-white w-fit p-3 rounded cursor-pointer"
+                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded cursor-pointer"
                                     key={app.appslugname}
                                 >
-                                    <Image src={app?.iconurl} width={24} height={24} alt="ico" />
+                                    <Image src={app?.iconurl} width={16} height={16} alt="ico" />
                                     <span>{app?.name}</span>
                                     <MdClose
                                         className="text-gray-300 hover:text-gray-950"
@@ -210,7 +254,7 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
-                                        className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
                                         tabIndex={0}
                                         role="button"
                                     >
@@ -257,8 +301,8 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
                                                         >
                                                             <Image
                                                                 src={app?.iconurl}
-                                                                width={12}
-                                                                height={12}
+                                                                width={16}
+                                                                height={16}
                                                                 alt="ico"
                                                             />
                                                             <span>{app?.name}</span>
@@ -276,40 +320,53 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
                             ) : (
                                 <span
                                     onClick={() => setShowInput(true)}
-                                    className="btn p-0 flex items-center justify-center btn-primary w-[42px] rounded"
+                                    className="p-0 flex items-center justify-center bg-primary w-[30px] h-[30px] rounded"
                                 >
                                     <MdAdd color="white" fontSize={24} />
                                 </span>
                             )}
                             <h2 className="text-3xl">in</h2>
-                            <div className="industry-autocomplete">
-                                <Autocomplete
-                                    getItemValue={(item) => item.label}
-                                    items={filterDepts(deptSearchTerm).map((dept) => ({
-                                        label: dept.name,
-                                    }))}
-                                    renderItem={(item) => (
-                                        <div className="px-2 py-1 cursor-pointer hover:bg-secondary">{item.label}</div>
-                                    )}
-                                    value={deptSearchTerm}
-                                    onChange={(e) => setDeptSearchTerm(e.target.value)}
-                                    onSelect={(val) => handleSelectDept(val)}
-                                    menuStyle={{
-                                        zIndex: '400',
-                                        borderRadius: '3px',
-                                        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-                                        background: 'rgba(255, 255,255)',
-                                        padding: '2px 0',
-                                        fontSize: '90%',
-                                        position: 'absolute',
-                                        overflow: 'auto',
-                                        maxHeight: '50%',
-                                    }}
-                                />
-                            </div>
+                            {showDeptDropdown ? (
+                                <div className="industry-autocomplete">
+                                    <Autocomplete
+                                        getItemValue={(item) => item.label}
+                                        items={filterDepts(deptSearchTerm).map((dept) => ({
+                                            label: dept.name,
+                                        }))}
+                                        renderItem={(item) => (
+                                            <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                {item.label}
+                                            </div>
+                                        )}
+                                        value={deptSearchTerm}
+                                        onChange={(e) => setDeptSearchTerm(e.target.value)}
+                                        onSelect={(val) => handleSelectDept(val)}
+                                        inputProps={{ placeholder: 'Select Department' }}
+                                        menuStyle={{
+                                            zIndex: '400',
+                                            borderRadius: '3px',
+                                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                                            background: 'rgba(255, 255,255)',
+                                            padding: '2px 0',
+                                            fontSize: '90%',
+                                            position: 'absolute',
+                                            overflow: 'auto',
+                                            maxHeight: '50%',
+                                        }}
+                                    />
+                                </div>
+                            ) : (
+                                <h2
+                                    onClick={() => setShowDeptDropdown(true)}
+                                    className="text-3xl underline cursor-pointer"
+                                >
+                                    {selectedDept || 'Any'}
+                                </h2>
+                            )}
+                            <h2 className="text-3xl">department</h2>
                             <button
                                 onClick={handleGenerate}
-                                className="btn btn-accent h-[48px] w-auto flex items-center justify-center rounded text-lg border border-black"
+                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded text-sm border border-black"
                             >
                                 Search Automations
                             </button>

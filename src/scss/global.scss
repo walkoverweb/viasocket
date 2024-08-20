@@ -99,7 +99,7 @@
 .industry-autocomplete {
     div {
         input {
-            @apply select select-bordered border-[#CCCCCC] flex items-center gap-2 bg-white rounded max-w-[300px];
+            @apply input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded;
         }
     }
 }
