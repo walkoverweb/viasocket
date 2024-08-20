@@ -8,6 +8,8 @@ import { GetColorMode } from '@/utils/getColorMode';
 import Link from 'next/link';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
+    const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?disconnected');
+    console.log('🚀 ~ IntegrationsHero ~ isDisconnected:', isDisconnected);
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
         const [mode, setMode] = useState('dark');
@@ -26,6 +28,14 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
             pluginData?.length <= 1
                 ? `Create integrations between ${pluginData[0]?.name} and your favorite App`
                 : `Create integrations between ${pluginData[0]?.name} and ${pluginData[1]?.name}`;
+
+        const disconnectedTextH2 =
+            pluginData?.length <= 1 && `Your ${pluginData[0]?.name} connection has been Disconnected`;
+
+        const disconnectedTextP =
+            pluginData?.length <= 1 &&
+            `If you’d like to re-connect viaSocket and your ${pluginData[0]?.name} account, check `;
+
         return (
             <>
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
@@ -86,11 +96,32 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 </Link>
                             </div>
                         </div>
-                        <h2
-                            className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
-                        >
-                            {integrationText}
-                        </h2>
+
+                        {isDisconnected ? (
+                            <div className="flex flex-col gap-2 ">
+                                <h1
+                                    className={`lg:text-4xl md:text-3xl text-2xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                >
+                                    {disconnectedTextH2}
+                                </h1>
+
+                                <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
+                                    {disconnectedTextP}
+                                    <Link className="underline" href={'/support'} target="_blank">
+                                        help page
+                                    </Link>
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col gap-2 ">
+                                <h1
+                                    className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                >
+                                    {integrationText}
+                                </h1>
+                            </div>
+                        )}
+
                         {pluginData[0]?.events?.length ? (
                             <>
                                 {combinationData?.combinations?.length > 0 ? (
