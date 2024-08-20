@@ -9,7 +9,6 @@ import Link from 'next/link';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?disconnected');
-    console.log('🚀 ~ IntegrationsHero ~ isDisconnected:', isDisconnected);
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
         const [mode, setMode] = useState('dark');
