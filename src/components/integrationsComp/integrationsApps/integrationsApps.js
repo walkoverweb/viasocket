@@ -17,6 +17,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
+
     const [categorySearchTerm, setCategorySearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState(searchTerm);
     const [searchData, setSearchData] = useState([]);

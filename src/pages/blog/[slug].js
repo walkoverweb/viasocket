@@ -49,19 +49,19 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                     key="title"
                 />
             </Head>
-            <div className="wrapper container blog-container mt-28">
-                <a className=" btn-sm btn btn-outline" href="#" onClick={handleClick} aria-label="back">
+            <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/5">
+                <a className="btn-sm btn btn-outline" href="#" onClick={handleClick} aria-label="back">
                     <MdKeyboardArrowLeft /> Back
                 </a>
                 <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
-                    <div className="  flex flex-col justify-center gap-2 w-1/2">
-                        <div className=" capitalize">
+                    <div className="flex flex-col justify-center gap-2 md:w-1/2">
+                        <div className="capitalize">
                             {author}, {date}
                         </div>
                         <h1 className="font-medium text-4xl">{title}</h1>
                     </div>
                     {thumbnailImage !== '' && (
-                        <img className="w-1/2 " src={thumbnailImage} width={1080} height={1080} alt={title} />
+                        <img className="w-full md:w-1/2" src={thumbnailImage} width={1080} height={1080} alt={title} />
                     )}
                 </div>
                 <div className="body">
@@ -72,9 +72,8 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                         <ul className="blog-page-tags flex gap-3 ps-0 mb-1">
                             {tags !== '' &&
                                 tags?.map((it, i) => (
-                                    <li className="bg-gray-300  w-fit px-3 rounded-full uppercase" key={i}>
+                                    <li className="bg-gray-300 w-fit px-3 rounded-full uppercase" key={i}>
                                         <TagButton tag={getTag(it)} />
-
                                     </li>
                                 ))}
                         </ul>
