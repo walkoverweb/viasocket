@@ -1,15 +1,429 @@
-import TrustedBy from '@/components/trustedBy/trustedBy';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MdAdd, MdClose, MdSearch, MdArrowForward, MdAutoAwesome } from 'react-icons/md';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { MdOutlineArrowForward } from 'react-icons/md';
 import { getDbdashData } from './api/index';
-import { MdArrowForward } from 'react-icons/md';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
+import fetchSearchResults from '@/utils/searchIntegrationApps';
+import Industries from '@/assets/data/categories.json';
+import { LinkButton } from '@/components/uiComponents/buttons';
+
+const Index = ({ products, testimonials, caseStudies, getStartedData, features, metaData, faqData, posts, combos }) => {
+    const formattedIndustries = Industries.industries.map((name, id) => ({ name, id: id + 1 }));
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedApps, setSelectedApps] = useState([]);
+    const [apps, setApps] = useState([]);
+    const [searchData, setSearchData] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [combinationLoading, setCombinationLoading] = useState(false);
+    const [debounceValue, setDebounceValue] = useState(searchTerm);
+    const [renderCombos, setRenderCombos] = useState();
+    const [showInput, setShowInput] = useState(false);
+    const hasRunFirstEffect = useRef(false);
+    const fetchAppsData = async (category) => await fetchApps(category);
+
+    // fetch apps data
+    const filterSelectedApps = (apps) => {
+        return apps.filter((app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname));
+    };
+
+    useEffect(() => {
+        const getApps = async () => {
+            const apps = await fetchAppsData(selectedCategory);
+            if (apps.length > 0) {
+                const filteredApps = filterSelectedApps(apps);
+                setApps(filteredApps);
+            }
+        };
+        getApps();
+    }, [selectedCategory]);
+
+    useEffect(() => {
+        if (apps.length > 0) setSearchData(filterSelectedApps(apps));
+    }, [apps]);
+
+    useEffect(() => {
+        const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
+        return () => clearTimeout(handler);
+    }, [searchTerm]);
+
+    useEffect(() => {
+        searchApps();
+    }, [debounceValue]);
+
+    useEffect(() => {
+        if (searchTerm === '') {
+            fetchAppsData(selectedCategory).then((apps) => setSearchData(filterSelectedApps(apps)));
+        }
+    }, [searchTerm, selectedCategory]);
+
+    useEffect(() => {
+        setSearchData((prev) => filterSelectedApps(prev));
+    }, [selectedApps]);
+
+    //handle input box show hide
+    const inputRef = useRef(null);
+    useEffect(() => {
+        if (showInput && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [showInput]);
+
+    //handle select apps
+    const handleSelectApp = (appName) => {
+        const app = searchData.find((app) => {
+            return app.appslugname === appName;
+        });
+        if (app) {
+            setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
+            setSelectedApps((prev) => [...prev, app]);
+        }
+        setSearchTerm('');
+    };
+
+    useEffect(() => {
+        if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
+            const firstTwoApps = ['airtable', 'slack', 'workspace91'];
+            firstTwoApps.forEach((app) => handleSelectApp(app));
+            hasRunFirstEffect.current = true;
+        }
+    }, [searchData]);
+
+    //seach apps
+    const searchApps = async () => {
+        if (debounceValue) {
+            setSearchLoading(true);
+            try {
+                const result = await fetchSearchResults(debounceValue);
+                setSearchData(filterSelectedApps(result));
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setSearchLoading(false);
+            }
+        } else {
+            console.log('dddd  d  d  d ');
+            const apps = await fetchAppsData(selectedCategory);
+            setSearchData(filterSelectedApps(apps));
+        }
+    };
+
+    // Remove apps
+    const removeAppFromArray = (indexToRemove) => {
+        if (indexToRemove >= 0 && indexToRemove < selectedApps.length) {
+            const appToRemove = selectedApps[indexToRemove];
+            setSelectedApps((prev) => {
+                const updatedSelectedApps = prev.filter((_, index) => index !== indexToRemove);
+                if (updatedSelectedApps.length > 0 || selectedApps.length === 1) {
+                    setSearchData((prevSearchData) => [appToRemove, ...filterSelectedApps(prevSearchData)]);
+                }
+                return updatedSelectedApps;
+            });
+        }
+    };
+
+    // Fetch Combos
+    const handleGenerate = async () => {
+        const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
+        setCombinationLoading(true);
+        try {
+            const combos = await fetchCombos(selectedAppSlugs, selectedCategory);
+            setRenderCombos(combos);
+            setCombinationLoading(false);
+        } catch (error) {
+            console.error('Error fetching combos:', error);
+            setCombinationLoading(false);
+        }
+    };
+
+    return (
+        <>
+            <MetaHeadComp metaData={metaData} page={'/'} />
+            <div className="grid gap-20">
+                <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-3xl font-medium flex  gap-2 items-center">
+                            {' '}
+                            <MdAutoAwesome color="#00ED64" /> AI First
+                        </span>
+                        <h2 className="md:text-6xl text-4xl font-medium ">
+                            Connect your favorite apps and automate your repetitive tasks
+                        </h2>
+                    </div>
+                    <div className="p-8 bg-neutral rounded flex flex-col gap-9">
+                        <h2 className="text-3xl">What industries are automating</h2>
+                        <div className="flex flex-wrap gap-6">
+                            <select
+                                placeholder="Select an industry"
+                                className="select select-bordered border-[#CCCCCC] flex items-center gap-2 bg-white rounded max-w-[300px]"
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                            >
+                                {formattedIndustries.map((indus, index) => (
+                                    <option value={indus.name} key={indus.id}>
+                                        {indus.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {selectedApps.map((app, index) => (
+                                <div
+                                    className="flex items-center gap-2 bg-white w-fit p-3 rounded cursor-pointer"
+                                    key={app.appslugname}
+                                >
+                                    <Image src={app?.iconurl} width={24} height={24} alt="ico" />
+                                    <span>{app?.name}</span>
+                                    <MdClose
+                                        className="text-gray-300 hover:text-gray-950"
+                                        onClick={() => removeAppFromArray(index)}
+                                    />
+                                </div>
+                            ))}
+
+                            {showInput ? (
+                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown ">
+                                    <label
+                                        className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        tabIndex={0}
+                                        role="button"
+                                    >
+                                        <MdSearch color="#CCCCCC" fontSize={20} />
+                                        <input
+                                            type="text"
+                                            className="grow"
+                                            placeholder="Add a new app"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            ref={inputRef}
+                                        />
+                                        <span
+                                            className="btn icon border-none bg-transparent p-0"
+                                            onClick={() => {
+                                                setSearchTerm('');
+                                                setShowInput(false);
+                                            }}
+                                        >
+                                            <MdClose color="black" fontSize={24} />
+                                        </span>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                    >
+                                        {searchLoading ? (
+                                            [...Array(12)].map((_, index) => (
+                                                <div
+                                                    className=" rounded-none  bg-white px-3 py-2 flex  w-full "
+                                                    key={index}
+                                                >
+                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none "></div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <>
+                                                {searchData && searchData.length > 0 ? (
+                                                    searchData.map((app, index) => (
+                                                        <div
+                                                            key={app.appslugname}
+                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            onClick={() => handleSelectApp(app?.appslugname)}
+                                                        >
+                                                            <Image
+                                                                src={app?.iconurl}
+                                                                width={12}
+                                                                height={12}
+                                                                alt="ico"
+                                                            />
+                                                            <span>{app?.name}</span>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
+                                                        No app found.
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <span
+                                    onClick={() => setShowInput(true)}
+                                    className=" btn p-0 flex items-center justify-center btn-primary w-[42px] rounded"
+                                >
+                                    <MdAdd color="white" fontSize={24} />
+                                </span>
+                            )}
+
+                            <button
+                                onClick={handleGenerate}
+                                className="btn btn-accent h-[48px] w-auto flex items-center justify-center rounded text-lg border border-black"
+                            >
+                                Search Automations
+                            </button>
+                        </div>
+                        <ComboGrid
+                            combos={renderCombos ? renderCombos : combos}
+                            loading={combinationLoading}
+                            showNoData
+                        />
+                    </div>
+                </div>
+                {/* <ProductsSection products={products} /> */}
+                {features && <FeaturesGrid features={features} page={'overall'} />}
+                <div className="container my-12">
+                    <TestimonialsSection testimonials={testimonials} />
+                </div>
+                <div className="container my-12">
+                    {' '}
+                    <CaseStudiesSection caseStudies={caseStudies} />
+                </div>
+                {posts?.length > 0 && (
+                    <div className="container gap-12">
+                        {' '}
+                        <BlogGrid posts={posts} />
+                    </div>
+                )}
+                {faqData?.length > 0 && <FAQSection faqData={faqData} faqName={'/index'} />}
+                {getStartedData && (
+                    <div className="container">
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    </div>
+                )}
+            </div>
+        </>
+    );
+};
+
+const ProductsSection = ({ products }) => (
+    <div className="container grid gap-10">
+        <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
+            Meet our automation products
+        </h2>
+        <div className="grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8 items-center justify-center">
+            {products.map((product, index) => (
+                <Link
+                    key={index}
+                    href={`/${product?.name && product.name}`}
+                    target="_blank"
+                    className="flex items-center justify-center w-full h-full"
+                    aria-label="products"
+                    legacyBehavior
+                >
+                    <div className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg">
+                        <div className="p-6 grid gap-2 h-full">
+                            <div className="flex items-center gap-2">
+                                <Image
+                                    className="h-[40px]"
+                                    src={`/assets/brand/${product?.name}_ico.svg`}
+                                    width={36}
+                                    height={48}
+                                    alt={product?.name}
+                                />
+                                <p className="font-inter text-3xl font-semibold leading-11 text-left capitalize tracking-wide">
+                                    {product?.name}
+                                </p>
+                            </div>
+                            <p className="font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
+                                {product?.description}
+                            </p>
+                            <button className="flex items-center gap-1 text-[#0000ff]" aria-label="Explore">
+                                Explore <MdArrowForward />
+                            </button>
+                        </div>
+                        <div className="pt-6 w-full">
+                            <Image
+                                className="w-full bg-[#F6F4EE]"
+                                src={product.image[0]}
+                                height={90}
+                                width={80}
+                                alt={product?.name}
+                            />
+                        </div>
+                    </div>
+                </Link>
+            ))}
+        </div>
+    </div>
+);
+
+const TestimonialsSection = ({ testimonials }) => (
+    <div className="flex flex-col gap-9">
+        <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            {testimonials.map((testimonial, index) => (
+                <div className="flex flex-col rounded-md p-8 gap-8 bg-neutral" key={index}>
+                    <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left">
+                        " {testimonial?.testimonial}"
+                    </p>
+                    <div className="flex items-center gap-2 mt-auto">
+                        <Image
+                            className="rounded-full"
+                            src={testimonial?.client_img[0]}
+                            width={36}
+                            height={36}
+                            alt={testimonial?.given_by}
+                        />
+                        <div>
+                            <p className="font-inter font-semibold leading-4 tracking-normal text-left">
+                                {testimonial?.given_by}
+                            </p>
+                            <p className="font-inter text-sm font-normal leading-4 tracking-normal text-left pt-1 text-gray-400">
+                                {testimonial?.giver_title}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+const CaseStudiesSection = ({ caseStudies }) => (
+    <div className="flex flex-col gap-9">
+        <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
+        <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
+            {caseStudies.map((caseStudy, index) => (
+                <CaseStudyLink key={index} caseStudy={caseStudy} />
+            ))}
+        </div>
+    </div>
+);
+
+const CaseStudyLink = ({ caseStudy }) => {
+    const isPriority = caseStudy?.priority === '1';
+    const linkClass = isPriority
+        ? 'lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6'
+        : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
+
+    return (
+        <Link
+            href={caseStudy?.link}
+            target="_blank"
+            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
+            aria-label="casestudy"
+            legacyBehavior
+        >
+            <>
+                <div className="casestudy_img w-full h-full">
+                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
+                </div>
+                <div className="p-4 flex flex-col gap-2 w-full">
+                    <p>{caseStudy?.title}</p>
+                    <LinkButton href={caseStudy?.link} title={'Read More'} />
+                </div>
+            </>
+        </Link>
+    );
+};
+
+export default Index;
+
 export async function getServerSideProps() {
     const IDs = [
         'tblogeya1',
@@ -33,251 +447,46 @@ export async function getServerSideProps() {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
     );
     const posts = await res.data;
-
+    const combos = await fetchCombos(['slack', 'airtable', 'workspace91'], 'All');
     return {
         props: {
             products: results[0]?.data?.rows,
             testimonials: results[1]?.data?.rows,
             caseStudies: results[2]?.data?.rows,
             getStartedData: results[3]?.data?.rows,
-            productData: results[4]?.data?.rows,
-            trustedData: results[5]?.data?.rows,
             features: results[6]?.data?.rows,
             metaData: results[7]?.data?.rows,
             faqData: results[8]?.data?.rows,
-
             posts: posts,
+            combos,
         },
     };
 }
 
-const Index = ({
-    products,
-    testimonials,
-    caseStudies,
-    getStartedData,
-    productData,
-    trustedData,
-    features,
-    metaData,
-    faqData,
-
-    posts,
-}) => {
-    return (
-        <>
-            <MetaHeadComp metaData={metaData} page={'/'} />
-            <div className="grid gap-20 ">
-                <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
-                    <div className="grid gap-4 mt-auto">
-                        {productData &&
-                            productData.map((page, index) => {
-                                if (page?.name === 'Index') {
-                                    return (
-                                        <div className="grid gap-4 mt-auto" key={index}>
-                                            <h1 className="md:text-6xl text-4xl font-semibold" key={index}>
-                                                {page?.h1}
-                                            </h1>
-                                            <h2 className="text-2xl w-3/4" key={index}>
-                                                {page?.h2}
-                                            </h2>
-                                        </div>
-                                    );
-                                }
-                            })}
-                    </div>
-                    {getStartedData && <GetStarted data={getStartedData} isHero={'true'} />}
-
-                    <TrustedBy data={trustedData} />
-                </div>
-
-                <div className="container grid gap-10">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
-                        Meet our automation products
-                    </h2>
-                    <div className=" grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8  items-center justify-center ">
-                        {products &&
-                            products.map((product, index) => {
-                                return (
-                                    <Link
-                                        key={index}
-                                        href={`/${product?.name && product.name}`}
-                                        target="_blank"
-                                        className="flex items-center justify-center w-full h-full"
-                                        aria-label="products"
-                                    >
-                                        <div
-                                            className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg"
-                                            key={index}
-                                        >
-                                            <div className="p-6 grid gap-2 h-full">
-                                                <div className="flex items-center gap-2 ">
-                                                    <Image
-                                                        className="h-[40px]"
-                                                        src={`/assets/brand/${product?.name}_ico.svg`}
-                                                        width={36}
-                                                        height={48}
-                                                        alt={product?.name}
-                                                    />
-                                                    <p className="font-inter text-3xl font-semibold leading-11 text-left capitalize tracking-wide">
-                                                        {product?.name}
-                                                    </p>
-                                                </div>
-                                                <p className="font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
-                                                    {product?.description}
-                                                </p>
-                                                {/* If you need another Link here, ensure it follows the same pattern */}
-                                                <button
-                                                    className="flex items-center gap-1 text-[#0000ff]"
-                                                    aria-label="Explore"
-                                                >
-                                                    Explore <MdArrowForward />
-                                                </button>
-                                            </div>
-                                            <div className="pt-6 w-full ">
-                                                <Image
-                                                    className="w-full bg-[#F6F4EE]"
-                                                    src={product.image[0]}
-                                                    height={90}
-                                                    width={80}
-                                                    alt={product?.name}
-                                                />
-                                            </div>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
-                    </div>
-                </div>
-                {features && <FeaturesGrid features={features} page={'overall'} />}
-                <div className="grid gap-10 container w">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
-                        What clients says
-                    </h2>
-                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8 w-full">
-                        {testimonials &&
-                            testimonials.map((testimonial, index) => {
-                                return (
-                                    <div className="flex flex-col rounded-md  p-8 gap-8 bg-[#FEFDFD] " key={index}>
-                                        <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left ">
-                                            " {testimonial?.testimonial}"
-                                        </p>
-                                        <div className="flex items-center gap-2 mt-auto">
-                                            <Image
-                                                className="rounded-full"
-                                                src={testimonial?.client_img[0]}
-                                                width={36}
-                                                height={36}
-                                                alt={testimonial?.given_by}
-                                            />
-                                            <div>
-                                                <p className="font-inter  font-semibold leading-4 tracking-normal text-left">
-                                                    {testimonial?.given_by}
-                                                </p>
-                                                <p className="font-inter text-sm font-normal leading-4 tracking-normal text-left pt-1 text-gray-400">
-                                                    {testimonial?.giver_title}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                    </div>
-                </div>
-                <div className="grid container gap-10">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
-                        Client Stories
-                    </h2>
-
-                    <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
-                        {caseStudies &&
-                            caseStudies.map((caseStudy, index) => {
-                                if (caseStudy?.priority === 1) {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={caseStudy?.link}
-                                            target="_blank"
-                                            className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
-                                            aria-label="casestudy"
-                                        >
-                                            <div className="casestudy_img w-full h-full">
-                                                <Image
-                                                    src={caseStudy?.image[0]}
-                                                    width={1080}
-                                                    height={1080}
-                                                    alt={caseStudy?.title}
-                                                />
-                                            </div>
-                                            <div className="grid p-4">
-                                                <p>{caseStudy?.title}</p>
-                                                <Link
-                                                    target="_blank"
-                                                    href={caseStudy?.link}
-                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                    aria-label="case study"
-                                                >
-                                                    Learn More <MdOutlineArrowForward />
-                                                </Link>
-                                            </div>
-                                        </Link>
-                                    );
-                                } else {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            target="_blank"
-                                            href={caseStudy?.link}
-                                            className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col lg:flex-row lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
-                                        >
-                                            <div className="casestudy_img w-full h-full">
-                                                <Image
-                                                    src={caseStudy?.image[0]}
-                                                    height={1080}
-                                                    width={1080}
-                                                    alt={caseStudy?.title}
-                                                />
-                                            </div>
-                                            <div className="w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4">
-                                                <p>{caseStudy?.title}</p>
-                                                <Link
-                                                    target="_blank"
-                                                    href={caseStudy?.link}
-                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                >
-                                                    Learn More <MdOutlineArrowForward />
-                                                </Link>
-                                            </div>
-                                        </Link>
-                                    );
-                                }
-                            })}
-                    </div>
-                </div>
-
-                {posts?.length && (
-                    <div className="container mx-auto  py-12">
-                        {' '}
-                        <BlogGrid posts={posts} />
-                    </div>
-                )}
-
-                <div className="bg-white py-20 ">
-                    {faqData && faqData.length > 0 && (
-                        <div className="container">
-                            <FAQSection faqData={faqData} faqName={'/index'} />
-                        </div>
-                    )}
-                </div>
-
-                {getStartedData && (
-                    <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
-                    </div>
-                )}
-            </div>
-        </>
+async function fetchApps(category) {
+    const apiHeaders = {
+        headers: {
+            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        },
+    };
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
+        apiHeaders
     );
-};
+    const rawData = await response.json();
+    return rawData?.data;
+}
 
-export default Index;
+async function fetchCombos(pathArray, industry) {
+    const apiHeaders = {
+        headers: {
+            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        },
+    };
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry.toLowerCase()}`,
+        apiHeaders
+    );
+    const responseData = await response.json();
+    return responseData;
+}

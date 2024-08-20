@@ -122,7 +122,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             if (!response.ok) {
                 throw new Error('Failed to load data');
             }
-            const newData = await response.json();
+
+            const rawData = await response.json();
+            const newData = rawData.data;
+
             setApps(offset === 0 ? newData : [...apps, ...newData]);
             if (newData?.length < 40) {
                 setAvailable(false);
@@ -210,8 +213,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
 
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
-                            {filteredCategories?.length &&
-                                filteredCategories?.map((category, index) => <option key={index}>{category}</option>)}
+                            {categories?.industries?.length &&
+                                categories?.industries?.map((category, index) => (
+                                    <option key={index}>{category}</option>
+                                ))}
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
