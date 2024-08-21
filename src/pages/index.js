@@ -13,9 +13,21 @@ import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/
 import fetchSearchResults from '@/utils/searchIntegrationApps';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
-import Autocomplete from 'react-autocomplete';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 
-const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, faqData, posts }) => {
+const Index = ({
+    testimonials,
+    caseStudies,
+    getStartedData,
+    features,
+    metaData,
+    faqData,
+    posts,
+    combos,
+    navData,
+    footerData,
+}) => {
     const formattedIndustries = Industries.industries.map((name, id) => ({ name, id: id + 1 }));
     const formattedDepartments = Industries.departments.map((name, id) => ({ name, id: id + 1 }));
 
@@ -187,6 +199,7 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
+            <Navbar navData={navData} />
             <div className="grid gap-20">
                 <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
@@ -393,6 +406,7 @@ const Index = ({ testimonials, caseStudies, getStartedData, features, metaData, 
                     </div>
                 )}
             </div>
+            <Footer footerData={footerData} />
         </>
     );
 };
@@ -471,16 +485,14 @@ export default Index;
 
 export async function getServerSideProps() {
     const IDs = [
-        'tblogeya1',
-        'tblwql8n1',
-        'tblwoqytc',
-        'tblvgm05y',
-        'tblmsw3ci',
-        'tblsaw4zp',
-        'tblvo36my',
-        'tbl2bk656',
-        'tblnoi7ng',
-        'tblvu0f6w',
+        'tblwql8n1', // testimonials: results[0]
+        'tblwoqytc', // caseStudies: results[1]
+        'tblvgm05y', // getStartedData: results[2]
+        'tblvo36my', // features: results[3]
+        'tbl2bk656', // metaData: results[4]
+        'tblnoi7ng', // faqData: results[5]
+        'tbl7lj8ev', // navData: results[6]
+        'tbl6u2cba', // footerData: results[7]
     ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -498,13 +510,14 @@ export async function getServerSideProps() {
     const combos = await fetchCombos(firstThreeApps);
     return {
         props: {
-            products: results[0]?.data?.rows,
-            testimonials: results[1]?.data?.rows,
-            caseStudies: results[2]?.data?.rows,
-            getStartedData: results[3]?.data?.rows,
-            features: results[6]?.data?.rows,
-            metaData: results[7]?.data?.rows,
-            faqData: results[8]?.data?.rows,
+            testimonials: results[0]?.data?.rows,
+            caseStudies: results[1]?.data?.rows,
+            getStartedData: results[2]?.data?.rows,
+            features: results[3]?.data?.rows,
+            metaData: results[4]?.data?.rows,
+            faqData: results[5]?.data?.rows,
+            navData: results[6]?.data?.rows,
+            footerData: results[7]?.data?.rows,
             posts: posts,
             // combos,
         },
