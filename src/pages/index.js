@@ -456,10 +456,10 @@ export async function getServerSideProps() {
 
     const tag = 'via-socket';
     const defaultTag = 'integrations';
-    const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-    );
-    const posts = await res.data;
+    // const res = await axios.get(
+    //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
+    // );
+    // const posts = await res.data;
     const combos = await fetchCombos(['slack', 'airtable', 'workspace91'], 'All');
     return {
         props: {
@@ -471,7 +471,7 @@ export async function getServerSideProps() {
             faqData: results[5]?.data?.rows,
             navData: results[6]?.data?.rows,
             footerData: results[7]?.data?.rows,
-            posts: posts,
+            // posts: posts,
             combos,
         },
     };
