@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdAdd, MdClose, MdSearch, MdAutoAwesome } from 'react-icons/md';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -15,6 +15,18 @@ import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
+import Autocomplete from 'react-autocomplete';
+
+const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value), delay);
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+
+    return debouncedValue;
+};
 
 const Index = ({
     testimonials,
@@ -28,8 +40,8 @@ const Index = ({
     navData,
     footerData,
 }) => {
-    const formattedIndustries = Industries.industries.map((name, id) => ({ name, id: id + 1 }));
-    const formattedDepartments = Industries.departments.map((name, id) => ({ name, id: id + 1 }));
+    const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
+    const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
 
     const [indusSearchTerm, setIndusSearchTerm] = useState('');
     const [selectedIndus, setSelectedIndus] = useState(() => {
@@ -42,85 +54,54 @@ const Index = ({
     const [showDeptDropdown, setShowDeptDropdown] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedApps, setSelectedApps] = useState([]);
-    const [apps, setApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const [combinationLoading, setCombinationLoading] = useState(false);
-    const [debounceValue, setDebounceValue] = useState(searchTerm);
+    const debounceValue = useDebounce(searchTerm, 300);
     const [renderCombos, setRenderCombos] = useState();
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
 
-    const fetchAppsData = async (category) => await fetchApps(category);
+    const fetchAppsData = useCallback(async () => await fetchApps(), []);
 
-    const filterSelectedApps = (apps) => {
-        return apps.filter((app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname));
-    };
-
+    const filterSelectedApps = useCallback(
+        (apps) => {
+            return apps.filter(
+                (app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname)
+            );
+        },
+        [selectedApps]
+    );
     useEffect(() => {
-        const getApps = async () => {
-            const apps = await fetchAppsData(selectedIndus);
-            if (apps.length > 0) {
-                setApps(filterSelectedApps(apps));
-                setSelectedApps(apps.slice(0, 3));
+        const fetchInitialApps = async () => {
+            setSearchLoading(true);
+            try {
+                const apps = await fetchAppsData();
+                setSearchData(filterSelectedApps(apps));
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setSearchLoading(false);
             }
         };
-        getApps();
-    }, [selectedIndus]);
+
+        fetchInitialApps();
+    }, [fetchAppsData]);
 
     useEffect(() => {
-        if (!hasRunFirstEffect.current && searchData.length > 0 && selectedApps.length === 0) {
-            setCombinationLoading(true); // Start loading
-            try {
-                searchData.slice(0, 3).forEach((app) => handleSelectApp(app.appslugname));
-            } finally {
-                setCombinationLoading(false); // End loading
-            }
+        if (!hasRunFirstEffect.current && searchData.length > 0) {
+            const initialApps = searchData.slice(0, 3);
+            initialApps.forEach((app) => handleSelectApp(app.appslugname));
             hasRunFirstEffect.current = true;
         }
     }, [searchData]);
 
     useEffect(() => {
-        const handleFetchCombos = async () => {
-            if (!hasRunFirstEffect.current && selectedApps.length > 0) {
-                const selectedAppNames = selectedApps.map((app) => app.appslugname);
-                setCombinationLoading(true);
-                try {
-                    const combos = await fetchCombos(selectedAppNames, 'All');
-                    setRenderCombos(combos);
-                    hasRunFirstEffect.current = true; // Move this here
-                } catch (error) {
-                    console.error('Error fetching combos:', error);
-                } finally {
-                    setCombinationLoading(false);
-                }
-            }
-        };
-
-        handleFetchCombos();
+        if (hasRunFirstEffect.current && selectedApps.length === 3) {
+            handleGenerate();
+        }
     }, [selectedApps]);
-
-    useEffect(() => {
-        searchApps();
-    }, [debounceValue]);
-
-    useEffect(() => {
-        if (searchTerm === '') {
-            fetchAppsData(selectedIndus).then((apps) => setSearchData(filterSelectedApps(apps)));
-        }
-    }, [searchTerm, selectedIndus]);
-
-    useEffect(() => {
-        if (showInput && inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [showInput]);
-
-    useEffect(() => {
-        const handler = setTimeout(() => setDebounceValue(searchTerm), 300);
-        return () => clearTimeout(handler);
-    }, [searchTerm]);
 
     const handleSelectApp = (appName) => {
         const app = searchData.find((app) => app.appslugname === appName);
@@ -130,6 +111,9 @@ const Index = ({
         }
         setSearchTerm('');
     };
+    useEffect(() => {
+        searchApps();
+    }, [debounceValue]);
 
     const searchApps = async () => {
         if (debounceValue) {
@@ -143,7 +127,7 @@ const Index = ({
                 setSearchLoading(false);
             }
         } else {
-            const apps = await fetchAppsData(selectedIndus);
+            const apps = await fetchAppsData();
             setSearchData(filterSelectedApps(apps));
         }
     };
@@ -165,7 +149,7 @@ const Index = ({
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         setCombinationLoading(true);
         try {
-            const combos = await fetchCombos(selectedAppSlugs, selectedIndus);
+            const combos = await fetchCombos(selectedAppSlugs, selectedIndus, selectedDept);
             setRenderCombos(combos);
         } catch (error) {
             console.error('Error fetching combos:', error);
@@ -175,7 +159,7 @@ const Index = ({
     };
 
     const handleSelectIndus = (val) => {
-        setIndusSearchTerm(val);
+        setIndusSearchTerm('');
         setSelectedIndus(val);
         setShowIndusDropdown(false);
     };
@@ -185,7 +169,7 @@ const Index = ({
     };
 
     const handleSelectDept = (val) => {
-        setDeptSearchTerm(val);
+        setDeptSearchTerm('');
         setSelectedDept(val);
         setShowDeptDropdown(false);
     };
@@ -201,7 +185,7 @@ const Index = ({
             <MetaHeadComp metaData={metaData} page={'/'} />
             <Navbar navData={navData} />
             <div className="grid gap-20">
-                <div className="flex flex-col gap-10 container lg:pb-12 pt-8">
+                <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
                         <span className="text-3xl font-medium flex gap-2 items-center">
                             <MdAutoAwesome color="#00ED64" /> AI First
@@ -213,53 +197,59 @@ const Index = ({
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
                         <div className="flex flex-wrap gap-4 items-center">
                             <h2 className="text-3xl">How</h2>
-                            {showIndusDropdown ? (
-                                <div className="industry-autocomplete">
-                                    <Autocomplete
-                                        getItemValue={(item) => item.label}
-                                        items={filterIndustries(indusSearchTerm).map((industry) => ({
-                                            label: industry.name,
-                                        }))}
-                                        renderItem={(item) => (
-                                            <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
-                                                {item.label}
-                                            </div>
-                                        )}
-                                        value={indusSearchTerm}
-                                        onChange={(e) => setIndusSearchTerm(e.target.value)}
-                                        onSelect={(val) => handleSelectIndus(val)}
-                                        menuStyle={{
-                                            zIndex: '400',
-                                            borderRadius: '3px',
-                                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-                                            background: 'rgba(255, 255,255)',
-                                            padding: '2px 0',
-                                            fontSize: '90%',
-                                            position: 'absolute',
-                                            overflow: 'auto',
-                                            maxHeight: '50%',
-                                        }}
-                                        inputProps={{ placeholder: 'Select Industry' }}
-                                    />
-                                </div>
-                            ) : (
+                            <div className="dropdown">
                                 <h2
-                                    onClick={() => setShowIndusDropdown(true)}
-                                    className="text-3xl underline cursor-pointer"
+                                    onClick={() => {
+                                        setShowIndusDropdown(true);
+                                        setTimeout(() => {
+                                            document.getElementById('indusAutoComplete').focus();
+                                        }, 0);
+                                    }}
+                                    tabIndex={0}
+                                    role="button"
+                                    className="text-3xl underline cursor-pointer dropdown"
                                 >
                                     {selectedIndus || 'All'}
                                 </h2>
-                            )}
+                                {showIndusDropdown && (
+                                    <div
+                                        tabIndex={0}
+                                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                    >
+                                        <Autocomplete
+                                            getItemValue={(item) => item.label}
+                                            items={filterIndustries(indusSearchTerm).map((industry) => ({
+                                                label: industry.name,
+                                            }))}
+                                            renderItem={(item) => (
+                                                <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                    {item.label}
+                                                </div>
+                                            )}
+                                            value={indusSearchTerm}
+                                            onChange={(e) => setIndusSearchTerm(e.target.value)}
+                                            onSelect={(val) => handleSelectIndus(val)}
+                                            menuStyle={{
+                                                position: 'flex',
+                                                overflow: 'auto',
+                                                maxHeight: '400px',
+                                            }}
+                                            inputProps={{ placeholder: 'Select Industry', id: 'indusAutoComplete' }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
                             <h2 className="text-3xl">industry is automating with</h2>
                             {selectedApps.map((app, index) => (
                                 <div
-                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded cursor-pointer"
+                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
                                     key={app.appslugname}
                                 >
                                     <Image src={app?.iconurl} width={16} height={16} alt="ico" />
                                     <span>{app?.name}</span>
                                     <MdClose
-                                        className="text-gray-300 hover:text-gray-950"
+                                        className="text-gray-300 hover:text-gray-950 cursor-pointer"
                                         onClick={() => removeAppFromArray(index)}
                                     />
                                 </div>
@@ -339,47 +329,55 @@ const Index = ({
                                 </span>
                             )}
                             <h2 className="text-3xl">in</h2>
-                            {showDeptDropdown ? (
-                                <div className="industry-autocomplete">
-                                    <Autocomplete
-                                        getItemValue={(item) => item.label}
-                                        items={filterDepts(deptSearchTerm).map((dept) => ({
-                                            label: dept.name,
-                                        }))}
-                                        renderItem={(item) => (
-                                            <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
-                                                {item.label}
-                                            </div>
-                                        )}
-                                        value={deptSearchTerm}
-                                        onChange={(e) => setDeptSearchTerm(e.target.value)}
-                                        onSelect={(val) => handleSelectDept(val)}
-                                        inputProps={{ placeholder: 'Select Department' }}
-                                        menuStyle={{
-                                            zIndex: '400',
-                                            borderRadius: '3px',
-                                            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-                                            background: 'rgba(255, 255,255)',
-                                            padding: '2px 0',
-                                            fontSize: '90%',
-                                            position: 'absolute',
-                                            overflow: 'auto',
-                                            maxHeight: '50%',
-                                        }}
-                                    />
-                                </div>
-                            ) : (
+
+                            <div className="dropdown">
                                 <h2
-                                    onClick={() => setShowDeptDropdown(true)}
-                                    className="text-3xl underline cursor-pointer"
+                                    onClick={() => {
+                                        setShowDeptDropdown(true);
+                                        setTimeout(() => {
+                                            document.getElementById('deptAutoComplete').focus();
+                                        }, 0);
+                                    }}
+                                    tabIndex={0}
+                                    role="button"
+                                    className="text-3xl underline cursor-pointer dropdown"
                                 >
-                                    {selectedDept || 'Any'}
+                                    {selectedDept || 'All their'}
                                 </h2>
-                            )}
-                            <h2 className="text-3xl">department</h2>
+                                {showDeptDropdown && (
+                                    <div
+                                        tabIndex={0}
+                                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                    >
+                                        <Autocomplete
+                                            getItemValue={(item) => item.label}
+                                            items={filterDepts(deptSearchTerm).map((dept) => ({
+                                                label: dept.name,
+                                            }))}
+                                            renderItem={(item) => (
+                                                <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                    {item.label}
+                                                </div>
+                                            )}
+                                            value={deptSearchTerm}
+                                            onChange={(e) => setDeptSearchTerm(e.target.value)}
+                                            onSelect={(val) => handleSelectDept(val)}
+                                            inputProps={{ placeholder: 'Select Department', id: 'deptAutoComplete' }}
+                                            menuStyle={{
+                                                position: 'flex',
+                                                overflow: 'auto',
+                                                maxHeight: '400px',
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <h2 className="text-3xl" id="dept">
+                                department
+                            </h2>
                             <button
                                 onClick={handleGenerate}
-                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded text-sm border border-black"
+                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
                             >
                                 Search Automations
                             </button>
@@ -505,9 +503,6 @@ export async function getServerSideProps() {
     );
     const posts = await res.data;
 
-    const allApps = await fetchApps();
-    const firstThreeApps = allApps.slice(0, 3).map((app) => app.name);
-    const combos = await fetchCombos(firstThreeApps);
     return {
         props: {
             testimonials: results[0]?.data?.rows,
@@ -519,7 +514,6 @@ export async function getServerSideProps() {
             navData: results[6]?.data?.rows,
             footerData: results[7]?.data?.rows,
             posts: posts,
-            // combos,
         },
     };
 }
@@ -538,14 +532,14 @@ async function fetchApps(category) {
     return rawData?.data;
 }
 
-async function fetchCombos(pathArray, industry) {
+async function fetchCombos(pathArray, industry, department) {
     const apiHeaders = {
         headers: {
             'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
         apiHeaders
     );
     const responseData = await response.json();
