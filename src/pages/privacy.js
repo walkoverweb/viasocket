@@ -1,6 +1,32 @@
-const Privacy = () => {
+import Footer from '@/components/footer/footer';
+import Navbar from '@/components/navbar/navbar';
+import { getDbdashData } from './api';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+
+export async function getStaticProps() {
+    const IDs = [
+        'tbl7lj8ev', //  navData: results[0]
+        'tbl6u2cba', //footerData: results[1]
+        'tbl2bk656', // metaData: results[2]
+    ];
+
+    const dataPromises = IDs.map((id) => getDbdashData(id));
+    const results = await Promise.all(dataPromises);
+
+    return {
+        props: {
+            navData: results[0]?.data?.rows,
+            footerData: results[1]?.data?.rows,
+            metaData: results[2]?.data?.rows,
+        },
+    };
+}
+
+const Privacy = ({ navData, footerData, metaData }) => {
     return (
         <>
+            <MetaHeadComp metaData={metaData} page={'/privacy'} />
+            <Navbar navData={navData} />
             <div className="container mb-4 mt-28">
                 <style
                     dangerouslySetInnerHTML={{
@@ -11234,6 +11260,7 @@ const Privacy = () => {
                     </div>
                 </div>
             </div>
+            <Footer footerData={footerData} />
         </>
     );
 };
