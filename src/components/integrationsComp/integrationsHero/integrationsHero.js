@@ -8,7 +8,7 @@ import { GetColorMode } from '@/utils/getColorMode';
 import Link from 'next/link';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
-    const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?disconnected');
+    const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
         const [mode, setMode] = useState('dark');
@@ -106,7 +106,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
 
                                 <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
                                     {disconnectedTextP}
-                                    <Link className="underline" href={'/support'} target="_blank">
+                                    <Link className="underline" href={'#faqSection'}>
                                         help page
                                     </Link>
                                 </p>
