@@ -21,6 +21,8 @@ const component = { ReactPlayer };
 // const components = { Test }
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import Image from 'next/image';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 
 const slugToPostContent = ((postContents) => {
     let hash = {};
@@ -33,7 +35,17 @@ const slugToPostContent = ((postContents) => {
     return hash;
 })(fetchPostContent());
 
-export default function TestPage({ getStartedData, source, title, date, author, tags, thumbnailImage }) {
+export default function TestPage({
+    getStartedData,
+    source,
+    title,
+    date,
+    author,
+    tags,
+    thumbnailImage,
+    navData,
+    footerData,
+}) {
     const router = useRouter();
 
     const handleClick = () => {
@@ -84,6 +96,7 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                     {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                 </div>
             </div>
+            <Footer footerData={footerData} />
         </>
     );
 }
@@ -106,14 +119,16 @@ export async function getServerSideProps(slug) {
     const thumbnailImage = matterResult?.data?.thumbnail;
     const mdxSource = await serialize(content);
 
-    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my'];
+    const IDs = ['tblvgm05y', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
     return {
         props: {
-            getStartedData: results[1].data.rows,
+            getStartedData: results[0].data.rows,
+            navData: results[1]?.data?.rows,
+            footerData: results[2]?.data?.rows,
             source: mdxSource,
             date: date || '',
             title: title || '',

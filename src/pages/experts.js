@@ -4,9 +4,11 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { MdArticle, MdChevronRight, MdOutlineArticle } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
+import Footer from '@/components/footer/footer';
+import Navbar from '@/components/navbar/navbar';
 
 export async function getServerSideProps() {
-    const IDs = ['tblajmg8e', 'tblmsw3ci', 'tbl2bk656', 'tblirrj24'];
+    const IDs = ['tblajmg8e', 'tblmsw3ci', 'tbl2bk656', 'tblirrj24', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
@@ -17,11 +19,13 @@ export async function getServerSideProps() {
             rawPageData: results[1].data.rows,
             metaData: results[2].data.rows,
             expertsHelp: results[3].data.rows,
+            navData: results[4]?.data?.rows,
+            footerData: results[5]?.data?.rows,
         },
     };
 }
 
-const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) => {
+const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navData, footerData }) => {
     let pageData = rawPageData.find((page) => page?.name?.toLowerCase() === pathArray[1]);
 
     let verifiedArr = [];
@@ -44,7 +48,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
-
+            <Navbar navData={navData} />
             <div className="">
                 <div className=" py-container container">
                     <div className="flex flex-col gap-9 md:w-2/3 w-full">
@@ -124,6 +128,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp }) =>
                     </div>
                 </div>
             </div>
+            <Footer footerData={footerData} />
         </>
     );
 };
