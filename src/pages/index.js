@@ -28,7 +28,6 @@ const Index = ({
     navData,
     footerData,
 }) => {
-    console.log('🚀 ~ posts:', posts);
     const formattedIndustries = Industries.industries.map((name, id) => ({ name, id: id + 1 }));
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
