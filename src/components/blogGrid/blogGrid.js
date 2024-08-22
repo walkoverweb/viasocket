@@ -30,7 +30,7 @@ const CardComponent = ({ card }) => {
     return (
         <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
             <figure className="h-60">
-                <img src={card?.thumbnail} alt={card?.title} />
+                <img src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail} alt={card?.title} />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{card?.title}</h2>
