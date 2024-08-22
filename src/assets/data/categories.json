@@ -1,6 +1,5 @@
 {
     "industries": [
-        "All",
         "Aerospace and Defense",
         "Agriculture",
         "Automotive",
@@ -33,7 +32,6 @@
         "Utilities"
     ],
     "departments": [
-        "All",
         "Accounting",
         "Administration",
         "Business Development",

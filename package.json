@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev -p 1111",
         "build": "next build ",
-        "start": "next start",
+        "start": "next start -p 1111",
         "lint": "next lint",
         "prepare": "husky"
     },
@@ -30,6 +30,7 @@
         "react-paginate": "^8.2.0",
         "react-player": "^2.14.0",
         "react-search-autocomplete": "^8.5.2",
+        "react-tooltip": "^5.28.0",
         "sass": "^1.69.4"
     },
     "devDependencies": {
