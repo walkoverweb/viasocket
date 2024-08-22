@@ -6,11 +6,8 @@ import style from './comboGrid.module.scss';
 
 export default function ComboGrid({ combos, loading, showNoData, mode }) {
     const [visibleComboItems, setVisibleComboItems] = useState(9);
-
     const cardsData = combos?.combinations;
-
     const plugins = combos?.plugins;
-
     const handleComboLoadMore = () => {
         setVisibleComboItems(visibleComboItems + 3);
     };
@@ -22,16 +19,13 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                         <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
                             {cardsData.map((card, index) => {
                                 return (
-                                    <>
-                                        <>
-                                            <RecomendedCard
-                                                card={card}
-                                                index={index}
-                                                visibleComboItems={visibleComboItems}
-                                                plugins={plugins}
-                                            />
-                                        </>
-                                    </>
+                                    <RecomendedCard
+                                        key={index}
+                                        card={card}
+                                        index={index}
+                                        visibleComboItems={visibleComboItems}
+                                        plugins={plugins}
+                                    />
                                 );
                             })}
                         </div>
@@ -65,7 +59,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
         return (
             <div className="flex flex-col gap-8">
                 <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
-                    {[...Array(3)].map((_, index) => (
+                    {[...Array(7)].map((_, index) => (
                         <div
                             className="bg-white rounded-md overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out"
                             key={index}
@@ -96,13 +90,13 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
 
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
     const getIconUrl = (plugin) => {
-        const iconUrl = plugins[plugin].iconurl || 'https://placehold.co/40x40';
+        const iconUrl = plugins[plugin]?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
     };
     const getCardDescription = (card) => {
         const description = card?.description
             ? card.description
-            : `${plugins[card.action[0].name].events.find((action) => action.rowid === card.action[0].id)?.name?.toLowerCase()} in ${plugins[card.action[0].name].name} when ${plugins[card.trigger.name].events.find((trigger) => trigger.rowid === card.trigger.id)?.name?.toLowerCase()} in ${plugins[card.trigger.name].name}`;
+            : `${plugins[card?.actions[0].name].events.find((action) => action.rowid === card?.actions[0].id)?.name?.toLowerCase()} in ${plugins[card?.actions[0].name].name} when ${plugins[card.trigger.name].events.find((trigger) => trigger.rowid === card.trigger.id)?.name?.toLowerCase()} in ${plugins[card.trigger.name].name}`;
         return description;
     };
     return (
@@ -110,17 +104,18 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}?utm_source=integration_page`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.actions[0]?.id}?utm_source=integration_page`}
                 target="_blank"
+                legacyBehavior
             >
                 <div
-                    className={`${style.card} rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg  transition-all`}
+                    className={`${style.card} border rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg hover:bg-secondary  transition-all cursor-pointer`}
                 >
                     <div className="p-8 bg-white flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 flex-wrap">
-                            <Image src={getIconUrl(card.trigger.name)} height={30} width={30} alt="ico" />
-                            {card?.action.length > 0 &&
-                                card?.action.map((action, index) => {
+                            <Image src={getIconUrl(card?.trigger?.name)} height={30} width={30} alt="ico" />
+                            {card?.actions.length > 0 &&
+                                card?.actions.map((action, index) => {
                                     return (
                                         <Image
                                             key={index}

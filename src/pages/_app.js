@@ -52,11 +52,11 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     return (
         <>
             <HeadComp />
-            {showNavbar && (
-                <Navbar productData={pageProps?.productData} pathArray={pathArray} rawpathArray={rawpathArray} />
-            )}
+            {/* {showNavbar && (
+                // <Navbar productData={pageProps?.productData} pathArray={pathArray} rawpathArray={rawpathArray} />
+            )} */}
             <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
-            {showNavbar && <Footer />}
+            {/* {showNavbar && <Footer />} */}
         </>
     );
 }

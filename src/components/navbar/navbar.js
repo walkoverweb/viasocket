@@ -1,31 +1,18 @@
 import { MdMenu } from 'react-icons/md';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getDbdashData } from '@/pages/api';
 import styles from './navbar.module.scss';
 import NotificationBar from '../notificationBar/notificationbar';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
-const Navbar = ({ productData, pathArray }) => {
-    let pageData = productData && productData.find((page) => page?.name?.toLowerCase() === pathArray[1]);
-
+const Navbar = ({ navData }) => {
     const openChatWidget = () => {
         window.chatWidget.open();
     };
 
-    const [data, setData] = useState(null);
-    useEffect(() => {
-        getDbdashDataa();
-    }, []);
-
-    const getDbdashDataa = async () => {
-        const dbdashData = await getDbdashData('tbl7lj8ev');
-        setData(dbdashData.data.rows);
-    };
     var shorterData;
-    if (data?.length > 0) {
-        shorterData = data?.sort((a, b) => {
+    if (navData?.length > 0) {
+        shorterData = navData?.sort((a, b) => {
             return parseInt(a.priority) - parseInt(b.priority);
         });
     }
@@ -37,7 +24,7 @@ const Navbar = ({ productData, pathArray }) => {
                     <Link href="/" aria-label="logo">
                         <Image
                             className="h-[40px] w-auto"
-                            src={pageData?.logo[0] ? pageData.logo[0] : '/assets/brand/logo.svg'}
+                            src={'/assets/brand/logo.svg'}
                             width={1080}
                             height={400}
                             alt="viasocket"
@@ -106,10 +93,10 @@ const Navbar = ({ productData, pathArray }) => {
                                     }
                                 }
                             })}
-                        <Link href="/login" className="btn btn-outline btn-sm ">
+                        <Link href="/login" className="btn btn-outline btn-primary btn-sm ">
                             Login
                         </Link>
-                        <Link href="/signup" className="btn btn-primary btn-sm">
+                        <Link href="/signup" className="btn btn-accent btn-sm outline-primary outline-1 outline">
                             Sign Up
                         </Link>
                     </div>
