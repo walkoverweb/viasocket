@@ -150,7 +150,7 @@ const Index = ({
         setCombinationLoading(true);
         try {
             const combos = await fetchCombos(selectedAppSlugs, selectedIndus, selectedDept);
-            setRenderCombos(combos);
+            setRenderCombos(combos?.data);
         } catch (error) {
             console.error('Error fetching combos:', error);
         } finally {
@@ -195,7 +195,7 @@ const Index = ({
                         </h2>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
-                        <div className="flex flex-wrap gap-4 items-center">
+                        <div className="flex flex-wrap gap-2 items-center">
                             <h2 className="text-3xl">How</h2>
                             <div className="dropdown">
                                 <h2
@@ -539,7 +539,7 @@ async function fetchCombos(pathArray, industry, department) {
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/integrations?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
         apiHeaders
     );
     const responseData = await response.json();

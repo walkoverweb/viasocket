@@ -59,10 +59,10 @@ export async function getServerSideProps(context) {
 
     const tag = 'via-socket';
     const defaultTag = 'integrations';
-    const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-    );
-    const posts = await res?.data;
+    // const res = await axios.get(
+    //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
+    // );
+    // const posts = await res?.data;
 
     return {
         props: {
@@ -73,7 +73,7 @@ export async function getServerSideProps(context) {
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
             usecase: usecase ?? [],
-            posts,
+            // posts,
         },
     };
 }
