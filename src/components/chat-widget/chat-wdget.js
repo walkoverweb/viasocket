@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import style from './chat-widget.module.scss';
+import { MdCircle } from 'react-icons/md';
 
 export default function ChatWidget() {
     const [launcher, setLauncher] = useState(false);
@@ -16,7 +17,7 @@ export default function ChatWidget() {
     return (
         <>
             <button onClick={toggleChatWidget} className={style.chat_widget} aria-label="Talk to an expert">
-                Live Chat
+                <MdCircle color="#00ED64" fontSize={12} /> Live Chat
             </button>
         </>
     );
