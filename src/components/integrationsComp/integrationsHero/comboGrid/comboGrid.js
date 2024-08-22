@@ -6,11 +6,8 @@ import style from './comboGrid.module.scss';
 
 export default function ComboGrid({ combos, loading, showNoData, mode }) {
     const [visibleComboItems, setVisibleComboItems] = useState(9);
-
     const cardsData = combos?.combinations;
-
     const plugins = combos?.plugins;
-
     const handleComboLoadMore = () => {
         setVisibleComboItems(visibleComboItems + 3);
     };
@@ -116,13 +113,13 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
                 >
                     <div className="p-8 bg-white flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 flex-wrap">
-                            <Image src={getIconUrl(card?.trigger?.appslugname)} height={30} width={30} alt="ico" />
+                            <Image src={getIconUrl(card?.trigger?.name)} height={30} width={30} alt="ico" />
                             {card?.actions.length > 0 &&
                                 card?.actions.map((action, index) => {
                                     return (
                                         <Image
                                             key={index}
-                                            src={getIconUrl(action?.appslugname)}
+                                            src={getIconUrl(action?.name)}
                                             height={30}
                                             width={30}
                                             alt="ico"
