@@ -207,7 +207,7 @@ const Index = ({
                                     }}
                                     tabIndex={0}
                                     role="button"
-                                    className="text-3xl underline cursor-pointer dropdown"
+                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                 >
                                     {selectedIndus || 'All'}
                                 </h2>
@@ -340,7 +340,7 @@ const Index = ({
                                     }}
                                     tabIndex={0}
                                     role="button"
-                                    className="text-3xl underline cursor-pointer dropdown"
+                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                 >
                                     {selectedDept || 'All their'}
                                 </h2>
