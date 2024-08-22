@@ -19,7 +19,7 @@ export default function EventGrid({ plugin, mode }) {
             <>
                 <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 ">
                     <h1
-                        className={`flex lg:text-4xl md:text-2xl text-xl w-2/3 font-semibold ${mode === 'dark' ? 'text-white' : 'text-accent'}`}
+                        className={`flex lg:text-4xl md:text-2xl text-xl w-2/3 font-semibold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
                     >
                         {`Enable Integrations or automations with these events of ${plugin[0].name}`}
                     </h1>
@@ -75,10 +75,10 @@ export function EventCard({ card, plugin }) {
                 />
                 <div className="flex flex-col">
                     <h6 className="md:text-xl text-lg font-semibold ">
-                        {card.name.charAt(0).toUpperCase() + card.name.slice(1).toLowerCase()}
+                        {card?.name?.charAt(0).toUpperCase() + card.name.slice(1).toLowerCase()}
                     </h6>
                     <p className="md:text-lg text-base font-normal ">
-                        {card.description.charAt(0).toUpperCase() + card.description.slice(1).toLowerCase()}
+                        {card?.description?.charAt(0).toUpperCase() + card?.description?.slice(1).toLowerCase()}
                     </p>
                 </div>
             </div>

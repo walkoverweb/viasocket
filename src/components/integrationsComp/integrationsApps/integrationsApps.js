@@ -18,9 +18,10 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
     const [hasMoreApps, setHasMoreApps] = useState(true);
-    const [searchData, setsearchData] = useState([]);
-    const [searchLoading, setsearchLoading] = useState(false);
-    const [debounceValue, setdebounceValue] = useState(searchTerm);
+    const [searchData, setSearchData] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [debounceValue, setDebounceValue] = useState(searchTerm);
+    const [available, setAvailable] = useState(true);
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
@@ -42,7 +43,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     // debounce function
     useEffect(() => {
         const handler = setTimeout(() => {
-            setdebounceValue(searchTerm);
+            setDebounceValue(searchTerm);
         }, 800);
 
         // Clean up the timeout if value changes or component unmounts
@@ -53,13 +54,13 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const searchApps = async () => {
         if (debounceValue) {
-            setsearchLoading(true);
+            setSearchLoading(true);
             try {
                 const result = await fetchSearchResults(debounceValue);
-                setsearchData(result);
+                setSearchData(result);
             } catch (error) {
             } finally {
-                setsearchLoading(false);
+                setSearchLoading(false);
             }
         }
     };
@@ -76,9 +77,25 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const applyFilters = () => {
         if (searchData?.length > 0 && searchTerm && selectedCategory === 'All') {
-            setSelectedApps(searchData);
+            if (pluginData) {
+                const filteredItems = searchData.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(searchData);
+            }
         } else {
-            setSelectedApps(apps);
+            if (pluginData) {
+                const filteredItems = apps.filter((item) => {
+                    const nameMatches = item?.name?.toLowerCase().includes(pluginData[0]?.appslugname.toLowerCase());
+                    return !nameMatches;
+                });
+                setSelectedApps(filteredItems);
+            } else {
+                setSelectedApps(apps);
+            }
         }
     };
 
@@ -87,7 +104,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         if (typeof category !== 'string') {
             finalCategory = category?.props?.href?.split('?')[1].split('=')[1];
         }
-
+        setAvailable(true);
         setLoading(true);
         try {
             const fetchUrl =
@@ -107,9 +124,13 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 throw new Error('Failed to load data');
             }
 
-            const newData = await response.json();
+            const rawData = await response.json();
+            const newData = rawData.data;
 
             setApps(offset === 0 ? newData : [...apps, ...newData]);
+            if (newData?.length < 40) {
+                setAvailable(false);
+            }
 
             setHasMoreApps(newData?.length > 0);
 
@@ -167,7 +188,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
                             {categories?.industries?.length &&
-                                categories?.industries?.map((category, index) => <option>{category}</option>)}
+                                categories?.industries?.map((category, index) => (
+                                    <option key={index}>{category}</option>
+                                ))}
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
@@ -292,7 +315,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                             </div>
                         )}
                     </div>
-                    {(visibleApps < searchedApps?.length || hasMoreApps) && (
+                    {(visibleApps < searchedApps?.length || hasMoreApps) && available && (
                         <button
                             onClick={() => {
                                 if (visibleApps >= searchedApps?.length) {

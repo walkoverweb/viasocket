@@ -6,7 +6,7 @@ export default function GetStarted({ data, isHero }) {
         <>
             <div className="grid gap-10 ">
                 {isHero === 'false' && (
-                    <h2 className="md:text-6xl text-4xl font-semibold">
+                    <h2 className="md:text-6xl text-4xl font-medium">
                         We'll help you get
                         <br /> started
                     </h2>
@@ -29,9 +29,9 @@ export default function GetStarted({ data, isHero }) {
                                         aria-label="chat"
                                     >
                                         <button
-                                            className={`flex text-start  justify-start gap-1 btn rounded-lg md:btn-md btn-sm p-2 h-fit md:text-base ${
-                                                index == 0 && 'btn-accent'
-                                            } ${index == 1 && 'btn-outline hover:text-white'} ${
+                                            className={`flex text-start justify-start gap-1 btn  ${
+                                                index == 0 && 'btn-accent outline outline-primary outline-1'
+                                            } ${index == 1 && 'btn-primary btn-outline '} ${
                                                 index !== 1 && index !== 0 && 'btn-ghost'
                                             }`}
                                             aria-label="get started"

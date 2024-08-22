@@ -1,6 +1,6 @@
-import { MdDateRange } from 'react-icons/md'
-import Date from './date'
-import { parseISO } from 'date-fns'
+import { MdDateRange } from 'react-icons/md';
+import Date from './date';
+import { parseISO } from 'date-fns';
 
 export default function PostItem({ post }) {
     /* function calculateReadTime(articleText, wordsPerMinute = 200) {
@@ -19,35 +19,28 @@ export default function PostItem({ post }) {
     //  articleText end code
 
     function getBlogStyle(titleText) {
-        let textLength = titleText?.length
-        let wordLength = titleText?.split(' ').length
+        let textLength = titleText?.length;
+        let wordLength = titleText?.split(' ').length;
 
         if (wordLength > 8 || textLength > 48) {
-            return ' blog-card--large'
+            return ' blog-card--large';
         } else {
-            return ' blog-card--small'
+            return ' blog-card--small';
         }
     }
     return (
         <a
             href={'/blog/' + post.slug}
-            className={
-                'blog-card' +
-                (post.thumbnail ? ' bg-dark' : ' bg-light') +
-                getBlogStyle(post.title)
-            }
+            className={'blog-card' + (post.thumbnail ? ' bg-dark' : ' bg-light') + getBlogStyle(post.title)}
             style={{
-                backgroundImage: post.thumbnail
-                    ? 'url("' + post.thumbnail + '")'
-                    : 'none',
+                backgroundImage: post.thumbnail ? 'url("' + post.thumbnail + '")' : 'none',
             }}
             aria-label="post"
         >
             <div className="blog-card__content">
                 <div className="blog-card-body">
                     <h2 className="title">{post.title}</h2>
-
-                    <p className="content">{post?.description}</p>
+                    <p className="content">{post?.description}</p>k
                 </div>
                 <div className="blog-card-footer">
                     <div className="blog-card-tags">
@@ -63,5 +56,5 @@ export default function PostItem({ post }) {
                 </div>
             </div>
         </a>
-    )
+    );
 }

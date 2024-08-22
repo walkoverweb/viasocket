@@ -21,6 +21,8 @@ const component = { ReactPlayer };
 // const components = { Test }
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import Image from 'next/image';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 
 const slugToPostContent = ((postContents) => {
     let hash = {};
@@ -33,7 +35,17 @@ const slugToPostContent = ((postContents) => {
     return hash;
 })(fetchPostContent());
 
-export default function TestPage({ getStartedData, source, title, date, author, tags, thumbnailImage }) {
+export default function TestPage({
+    getStartedData,
+    source,
+    title,
+    date,
+    author,
+    tags,
+    thumbnailImage,
+    navData,
+    footerData,
+}) {
     const router = useRouter();
 
     const handleClick = () => {
@@ -49,19 +61,20 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                     key="title"
                 />
             </Head>
-            <div className="wrapper container blog-container mt-28">
-                <a className=" btn-sm btn btn-outline" href="#" onClick={handleClick} aria-label="back">
+            <Navbar navData={navData} />
+            <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-5/6 xl:w-3/5">
+                <a className="btn-sm btn btn-outline" href="#" onClick={handleClick} aria-label="back">
                     <MdKeyboardArrowLeft /> Back
                 </a>
                 <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
-                    <div className="  flex flex-col justify-center gap-2 w-1/2">
-                        <div className=" capitalize">
+                    <div className="flex flex-col justify-center gap-2 md:w-1/2">
+                        <div className="capitalize">
                             {author}, {date}
                         </div>
                         <h1 className="font-medium text-4xl">{title}</h1>
                     </div>
                     {thumbnailImage !== '' && (
-                        <img className="w-1/2 " src={thumbnailImage} width={1080} height={1080} alt={title} />
+                        <img className="w-full md:w-1/2" src={thumbnailImage} width={1080} height={1080} alt={title} />
                     )}
                 </div>
                 <div className="body">
@@ -72,7 +85,7 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                         <ul className="blog-page-tags flex gap-3 ps-0 mb-1">
                             {tags !== '' &&
                                 tags?.map((it, i) => (
-                                    <li className="bg-gray-300  w-fit px-3 rounded-full uppercase" key={i}>
+                                    <li className="bg-gray-300 w-fit px-3 rounded-full uppercase" key={i}>
                                         <TagButton tag={getTag(it)} />
                                     </li>
                                 ))}
@@ -84,6 +97,7 @@ export default function TestPage({ getStartedData, source, title, date, author, 
                     {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
                 </div>
             </div>
+            <Footer footerData={footerData} />
         </>
     );
 }
@@ -106,14 +120,16 @@ export async function getServerSideProps(slug) {
     const thumbnailImage = matterResult?.data?.thumbnail;
     const mdxSource = await serialize(content);
 
-    const IDs = ['tblsaw4zp', 'tblvgm05y', 'tblmsw3ci', 'tblvo36my'];
+    const IDs = ['tblvgm05y', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
     return {
         props: {
-            getStartedData: results[1].data.rows,
+            getStartedData: results[0].data.rows,
+            navData: results[1]?.data?.rows,
+            footerData: results[2]?.data?.rows,
             source: mdxSource,
             date: date || '',
             title: title || '',

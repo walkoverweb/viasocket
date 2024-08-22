@@ -1,32 +1,45 @@
+// .btn {
+//     @apply rounded-sm;
+//     font-weight: 400;
+// }
+
+// .btn-md {
+//     @apply px-6 py-3 h-fit min-h-0 rounded-[2px];
+//     @media only screen and (max-width: 740px) {
+//         @apply px-4 py-2 h-fit min-h-0 rounded-[2px];
+//     }
+// }
+
+// .btn-accent {
+//     @apply text-primary;
+
+//     & {
+//         span {
+//             @apply text-primary font-medium;
+//         }
+//     }
+// }
+
+// .btn-outline:hover {
+//     color: white;
+// }
+
 .btn {
-    @apply rounded-sm;
-    font-weight: 400;
-}
-
-.btn-md {
-    @apply px-6 py-3 h-fit min-h-0 rounded-[2px];
-    @media only screen and (max-width: 740px) {
-        @apply px-4 py-2 h-fit min-h-0 rounded-[2px];
+    &.btn-white {
+        @apply border-white text-white hover:bg-gray-700;
     }
-}
 
-.btn-accent {
-    @apply text-white;
-
-    & {
-        span {
-            color: white !important;
-        }
+    &.btn-primary {
+        @apply hover:text-primary hover:bg-gray-100;
     }
-}
-
-.btn-outline:hover {
-    color: white;
 }
 .container {
-    max-width: 1260px;
+    max-width: 1560px;
     margin-left: auto;
     margin-right: auto;
+    @media only screen and (max-width: 1580px) {
+        @apply px-12;
+    }
     @media only screen and (max-width: 1280px) {
         @apply px-12;
     }

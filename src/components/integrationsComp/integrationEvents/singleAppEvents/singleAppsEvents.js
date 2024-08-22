@@ -14,7 +14,10 @@ export default function SingleAppsEvents({ plugins }) {
                                     {plugins?.events.map((event) => {
                                         if (event.type === 'trigger') {
                                             return (
-                                                <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                <div
+                                                    key={event.rowid}
+                                                    className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center"
+                                                >
                                                     <Image
                                                         width={24}
                                                         height={24}
@@ -45,7 +48,10 @@ export default function SingleAppsEvents({ plugins }) {
                                     {plugins?.events.map((event) => {
                                         if (event.type === 'action') {
                                             return (
-                                                <div className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center">
+                                                <div
+                                                    key={event.rowid}
+                                                    className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center"
+                                                >
                                                     <Image
                                                         width={24}
                                                         height={24}

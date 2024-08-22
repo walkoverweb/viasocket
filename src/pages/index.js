@@ -1,27 +1,495 @@
-import TrustedBy from '@/components/trustedBy/trustedBy';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MdAdd, MdClose, MdSearch, MdAutoAwesome } from 'react-icons/md';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
-import { MdOutlineArrowForward } from 'react-icons/md';
 import { getDbdashData } from './api/index';
-import { MdArrowForward } from 'react-icons/md';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
+import fetchSearchResults from '@/utils/searchIntegrationApps';
+import Industries from '@/assets/data/categories.json';
+import { LinkButton } from '@/components/uiComponents/buttons';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
+import Autocomplete from 'react-autocomplete';
+
+const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value), delay);
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+
+    return debouncedValue;
+};
+
+const Index = ({
+    testimonials,
+    caseStudies,
+    getStartedData,
+    features,
+    metaData,
+    faqData,
+    posts,
+    combos,
+    navData,
+    footerData,
+}) => {
+    const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
+    const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
+
+    const [indusSearchTerm, setIndusSearchTerm] = useState('');
+    const [selectedIndus, setSelectedIndus] = useState(() => {
+        const randomIndex = Math.floor(Math.random() * Industries.industries.length);
+        return Industries.industries[randomIndex];
+    });
+    const [showIndusDropdown, setShowIndusDropdown] = useState(false);
+    const [deptSearchTerm, setDeptSearchTerm] = useState('');
+    const [selectedDept, setSelectedDept] = useState('');
+    const [showDeptDropdown, setShowDeptDropdown] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedApps, setSelectedApps] = useState([]);
+    const [searchData, setSearchData] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [combinationLoading, setCombinationLoading] = useState(false);
+    const debounceValue = useDebounce(searchTerm, 300);
+    const [renderCombos, setRenderCombos] = useState();
+    const [showInput, setShowInput] = useState(false);
+    const hasRunFirstEffect = useRef(false);
+    const inputRef = useRef(null);
+
+    const fetchAppsData = useCallback(async () => await fetchApps(), []);
+
+    const filterSelectedApps = useCallback(
+        (apps) => {
+            return apps.filter(
+                (app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname)
+            );
+        },
+        [selectedApps]
+    );
+    useEffect(() => {
+        const fetchInitialApps = async () => {
+            setSearchLoading(true);
+            try {
+                const apps = await fetchAppsData();
+                setSearchData(filterSelectedApps(apps));
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setSearchLoading(false);
+            }
+        };
+
+        fetchInitialApps();
+    }, [fetchAppsData]);
+
+    useEffect(() => {
+        if (!hasRunFirstEffect.current && searchData.length > 0) {
+            const initialApps = searchData.slice(0, 3);
+            initialApps.forEach((app) => handleSelectApp(app.appslugname));
+            hasRunFirstEffect.current = true;
+        }
+    }, [searchData]);
+
+    useEffect(() => {
+        if (hasRunFirstEffect.current && selectedApps.length === 3) {
+            handleGenerate();
+        }
+    }, [selectedApps]);
+
+    const handleSelectApp = (appName) => {
+        const app = searchData.find((app) => app.appslugname === appName);
+        if (app) {
+            setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
+            setSelectedApps((prev) => [...prev, app]);
+        }
+        setSearchTerm('');
+    };
+    useEffect(() => {
+        searchApps();
+    }, [debounceValue]);
+
+    const searchApps = async () => {
+        if (debounceValue) {
+            setSearchLoading(true);
+            try {
+                const result = await fetchSearchResults(debounceValue);
+                setSearchData(filterSelectedApps(result));
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setSearchLoading(false);
+            }
+        } else {
+            const apps = await fetchAppsData();
+            setSearchData(filterSelectedApps(apps));
+        }
+    };
+
+    const removeAppFromArray = (indexToRemove) => {
+        if (indexToRemove >= 0 && indexToRemove < selectedApps.length) {
+            const appToRemove = selectedApps[indexToRemove];
+            setSelectedApps((prev) => {
+                const updatedSelectedApps = prev.filter((_, index) => index !== indexToRemove);
+                if (updatedSelectedApps.length > 0 || selectedApps.length === 1) {
+                    setSearchData((prevSearchData) => [appToRemove, ...filterSelectedApps(prevSearchData)]);
+                }
+                return updatedSelectedApps;
+            });
+        }
+    };
+
+    const handleGenerate = async () => {
+        const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
+        setCombinationLoading(true);
+        try {
+            const combos = await fetchCombos(selectedAppSlugs, selectedIndus, selectedDept);
+            setRenderCombos(combos?.data);
+        } catch (error) {
+            console.error('Error fetching combos:', error);
+        } finally {
+            setCombinationLoading(false);
+        }
+    };
+
+    const handleSelectIndus = (val) => {
+        setIndusSearchTerm('');
+        setSelectedIndus(val);
+        setShowIndusDropdown(false);
+    };
+
+    const filterIndustries = (searchTerm) => {
+        return formattedIndustries.filter((industry) => industry.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    };
+
+    const handleSelectDept = (val) => {
+        setDeptSearchTerm('');
+        setSelectedDept(val);
+        setShowDeptDropdown(false);
+    };
+
+    const filterDepts = (searchTerm) => {
+        return formattedDepartments.filter((industry) =>
+            industry.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    };
+
+    return (
+        <>
+            <MetaHeadComp metaData={metaData} page={'/'} />
+            <Navbar navData={navData} />
+            <div className="grid gap-20">
+                <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-3xl font-medium flex gap-2 items-center">
+                            <MdAutoAwesome color="#00ED64" /> AI First
+                        </span>
+                        <h2 className="md:text-6xl text-4xl font-medium">
+                            Connect your favorite apps and automate your repetitive tasks
+                        </h2>
+                    </div>
+                    <div className="p-8 bg-neutral rounded flex flex-col gap-9">
+                        <div className="flex flex-wrap gap-2 items-center">
+                            <h2 className="text-3xl">How</h2>
+                            <div className="dropdown">
+                                <h2
+                                    onClick={() => {
+                                        setShowIndusDropdown(true);
+                                        setTimeout(() => {
+                                            document.getElementById('indusAutoComplete').focus();
+                                        }, 0);
+                                    }}
+                                    tabIndex={0}
+                                    role="button"
+                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                >
+                                    {selectedIndus || 'All'}
+                                </h2>
+                                {showIndusDropdown && (
+                                    <div
+                                        tabIndex={0}
+                                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                    >
+                                        <Autocomplete
+                                            getItemValue={(item) => item.label}
+                                            items={filterIndustries(indusSearchTerm).map((industry) => ({
+                                                label: industry.name,
+                                            }))}
+                                            renderItem={(item) => (
+                                                <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                    {item.label}
+                                                </div>
+                                            )}
+                                            value={indusSearchTerm}
+                                            onChange={(e) => setIndusSearchTerm(e.target.value)}
+                                            onSelect={(val) => handleSelectIndus(val)}
+                                            menuStyle={{
+                                                position: 'flex',
+                                                overflow: 'auto',
+                                                maxHeight: '400px',
+                                            }}
+                                            inputProps={{ placeholder: 'Select Industry', id: 'indusAutoComplete' }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            <h2 className="text-3xl">industry is automating with</h2>
+                            {selectedApps.map((app, index) => (
+                                <div
+                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
+                                    key={app.appslugname}
+                                >
+                                    <Image src={app?.iconurl} width={16} height={16} alt="ico" />
+                                    <span>{app?.name}</span>
+                                    <MdClose
+                                        className="text-gray-300 hover:text-gray-950 cursor-pointer"
+                                        onClick={() => removeAppFromArray(index)}
+                                    />
+                                </div>
+                            ))}
+                            {showInput ? (
+                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
+                                    <label
+                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        tabIndex={0}
+                                        role="button"
+                                    >
+                                        <MdSearch color="#CCCCCC" fontSize={20} />
+                                        <input
+                                            type="text"
+                                            className="grow"
+                                            placeholder="Add a new app"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            ref={inputRef}
+                                        />
+                                        <span
+                                            className="btn icon border-none bg-transparent p-0"
+                                            onClick={() => {
+                                                setSearchTerm('');
+                                                setShowInput(false);
+                                            }}
+                                        >
+                                            <MdClose color="black" fontSize={24} />
+                                        </span>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                    >
+                                        {searchLoading ? (
+                                            [...Array(12)].map((_, index) => (
+                                                <div
+                                                    className="rounded-none bg-white px-3 py-2 flex w-full"
+                                                    key={index}
+                                                >
+                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none"></div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <>
+                                                {searchData && searchData.length > 0 ? (
+                                                    searchData.map((app) => (
+                                                        <div
+                                                            key={app.appslugname}
+                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            onClick={() => handleSelectApp(app?.appslugname)}
+                                                        >
+                                                            <Image
+                                                                src={app?.iconurl}
+                                                                width={16}
+                                                                height={16}
+                                                                alt="ico"
+                                                            />
+                                                            <span>{app?.name}</span>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
+                                                        No app found.
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <span
+                                    onClick={() => setShowInput(true)}
+                                    className="p-0 flex items-center justify-center bg-primary w-[30px] h-[30px] rounded"
+                                >
+                                    <MdAdd color="white" fontSize={24} />
+                                </span>
+                            )}
+                            <h2 className="text-3xl">in</h2>
+
+                            <div className="dropdown">
+                                <h2
+                                    onClick={() => {
+                                        setShowDeptDropdown(true);
+                                        setTimeout(() => {
+                                            document.getElementById('deptAutoComplete').focus();
+                                        }, 0);
+                                    }}
+                                    tabIndex={0}
+                                    role="button"
+                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                >
+                                    {selectedDept || 'All their'}
+                                </h2>
+                                {showDeptDropdown && (
+                                    <div
+                                        tabIndex={0}
+                                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                    >
+                                        <Autocomplete
+                                            getItemValue={(item) => item.label}
+                                            items={filterDepts(deptSearchTerm).map((dept) => ({
+                                                label: dept.name,
+                                            }))}
+                                            renderItem={(item) => (
+                                                <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                    {item.label}
+                                                </div>
+                                            )}
+                                            value={deptSearchTerm}
+                                            onChange={(e) => setDeptSearchTerm(e.target.value)}
+                                            onSelect={(val) => handleSelectDept(val)}
+                                            inputProps={{ placeholder: 'Select Department', id: 'deptAutoComplete' }}
+                                            menuStyle={{
+                                                position: 'flex',
+                                                overflow: 'auto',
+                                                maxHeight: '400px',
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <h2 className="text-3xl" id="dept">
+                                department
+                            </h2>
+                            <button
+                                onClick={handleGenerate}
+                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                            >
+                                Search Automations
+                            </button>
+                        </div>
+                        <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
+                    </div>
+                </div>
+                {features && <FeaturesGrid features={features} page={'overall'} />}
+                <div className="container my-12">
+                    <TestimonialsSection testimonials={testimonials} />
+                </div>
+                <div className="container my-12">
+                    <CaseStudiesSection caseStudies={caseStudies} />
+                </div>
+                {posts?.length > 0 && (
+                    <div className="container gap-12">
+                        <BlogGrid posts={posts} />
+                    </div>
+                )}
+                {faqData?.length > 0 && <FAQSection faqData={faqData} faqName={'/index'} />}
+                {getStartedData && (
+                    <div className="container">
+                        <GetStarted data={getStartedData} isHero={'false'} />
+                    </div>
+                )}
+            </div>
+            <Footer footerData={footerData} />
+        </>
+    );
+};
+
+const TestimonialsSection = ({ testimonials }) => (
+    <div className="flex flex-col gap-9">
+        <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            {testimonials.map((testimonial, index) => (
+                <div className="flex flex-col rounded-md p-8 gap-8 bg-neutral" key={index}>
+                    <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left">
+                        " {testimonial?.testimonial}"
+                    </p>
+                    <div className="flex items-center gap-2 mt-auto">
+                        <Image
+                            className="rounded-full"
+                            src={testimonial?.client_img[0]}
+                            width={36}
+                            height={36}
+                            alt={testimonial?.given_by}
+                        />
+                        <div>
+                            <p className="font-inter font-semibold leading-4 tracking-normal text-left">
+                                {testimonial?.given_by}
+                            </p>
+                            <p className="font-inter text-sm font-normal leading-4 tracking-normal text-left pt-1 text-gray-400">
+                                {testimonial?.giver_title}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+const CaseStudiesSection = ({ caseStudies }) => (
+    <div className="flex flex-col gap-9">
+        <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
+        <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
+            {caseStudies.map((caseStudy, index) => (
+                <CaseStudyLink key={index} caseStudy={caseStudy} />
+            ))}
+        </div>
+    </div>
+);
+
+const CaseStudyLink = ({ caseStudy }) => {
+    const isPriority = caseStudy?.priority === '1';
+    const linkClass = isPriority
+        ? 'lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6'
+        : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
+
+    return (
+        <Link
+            href={caseStudy?.link}
+            target="_blank"
+            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
+            aria-label="casestudy"
+        >
+            <>
+                <div className="casestudy_img w-full h-full">
+                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
+                </div>
+                <div className="p-4 flex flex-col gap-2 w-full">
+                    <p>{caseStudy?.title}</p>
+                    <LinkButton href={caseStudy?.link} title={'Read More'} />
+                </div>
+            </>
+        </Link>
+    );
+};
+
+export default Index;
+
 export async function getServerSideProps() {
     const IDs = [
-        'tblogeya1',
-        'tblwql8n1',
-        'tblwoqytc',
-        'tblvgm05y',
-        'tblmsw3ci',
-        'tblsaw4zp',
-        'tblvo36my',
-        'tbl2bk656',
-        'tblnoi7ng',
-        'tblvu0f6w',
+        'tblwql8n1', // testimonials: results[0]
+        'tblwoqytc', // caseStudies: results[1]
+        'tblvgm05y', // getStartedData: results[2]
+        'tblvo36my', // features: results[3]
+        'tbl2bk656', // metaData: results[4]
+        'tblnoi7ng', // faqData: results[5]
+        'tbl7lj8ev', // navData: results[6]
+        'tbl6u2cba', // footerData: results[7]
     ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -36,248 +504,43 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            products: results[0]?.data?.rows,
-            testimonials: results[1]?.data?.rows,
-            caseStudies: results[2]?.data?.rows,
-            getStartedData: results[3]?.data?.rows,
-            productData: results[4]?.data?.rows,
-            trustedData: results[5]?.data?.rows,
-            features: results[6]?.data?.rows,
-            metaData: results[7]?.data?.rows,
-            faqData: results[8]?.data?.rows,
-
+            testimonials: results[0]?.data?.rows,
+            caseStudies: results[1]?.data?.rows,
+            getStartedData: results[2]?.data?.rows,
+            features: results[3]?.data?.rows,
+            metaData: results[4]?.data?.rows,
+            faqData: results[5]?.data?.rows,
+            navData: results[6]?.data?.rows,
+            footerData: results[7]?.data?.rows,
             posts: posts,
         },
     };
 }
 
-const Index = ({
-    products,
-    testimonials,
-    caseStudies,
-    getStartedData,
-    productData,
-    trustedData,
-    features,
-    metaData,
-    faqData,
-
-    posts,
-}) => {
-    return (
-        <>
-            <MetaHeadComp metaData={metaData} page={'/'} />
-            <div className="grid gap-20 ">
-                <div className="flex flex-col gap-10 container lg:pb-8 pt-20 ">
-                    <div className="grid gap-4 mt-auto">
-                        {productData &&
-                            productData.map((page, index) => {
-                                if (page?.name === 'Index') {
-                                    return (
-                                        <div className="grid gap-4 mt-auto" key={index}>
-                                            <h1 className="md:text-6xl text-4xl font-semibold" key={index}>
-                                                {page?.h1}
-                                            </h1>
-                                            <h2 className="text-2xl w-3/4" key={index}>
-                                                {page?.h2}
-                                            </h2>
-                                        </div>
-                                    );
-                                }
-                            })}
-                    </div>
-                    {getStartedData && <GetStarted data={getStartedData} isHero={'true'} />}
-
-                    <TrustedBy data={trustedData} />
-                </div>
-
-                <div className="container grid gap-10">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left">
-                        Meet our automation products
-                    </h2>
-                    <div className=" grid md:grid-cols-2 grid-cols-1 md:flex-row lg:gap-16 md:gap-8 gap-8  items-center justify-center ">
-                        {products &&
-                            products.map((product, index) => {
-                                return (
-                                    <Link
-                                        key={index}
-                                        href={`/${product?.name && product.name}`}
-                                        target="_blank"
-                                        className="flex items-center justify-center w-full h-full"
-                                        aria-label="products"
-                                    >
-                                        <div
-                                            className="flex flex-col bg-white rounded-md overflow-hidden max-w-[400px] md:max-w-full w-full h-full hover:drop-shadow-lg"
-                                            key={index}
-                                        >
-                                            <div className="p-6 grid gap-2 h-full">
-                                                <div className="flex items-center gap-2 ">
-                                                    <Image
-                                                        className="h-[40px]"
-                                                        src={`/assets/brand/${product?.name}_ico.svg`}
-                                                        width={36}
-                                                        height={48}
-                                                        alt={product?.name}
-                                                    />
-                                                    <p className="font-inter text-3xl font-semibold leading-11 text-left capitalize tracking-wide">
-                                                        {product?.name}
-                                                    </p>
-                                                </div>
-                                                <p className="font-inter lg:text-xl text-base font-normal leading-6 tracking-normal text-left">
-                                                    {product?.description}
-                                                </p>
-                                                {/* If you need another Link here, ensure it follows the same pattern */}
-                                                <button
-                                                    className="flex items-center gap-1 text-[#0000ff]"
-                                                    aria-label="Explore"
-                                                >
-                                                    Explore <MdArrowForward />
-                                                </button>
-                                            </div>
-                                            <div className="pt-6 w-full ">
-                                                <Image
-                                                    className="w-full bg-[#F6F4EE]"
-                                                    src={product.image[0]}
-                                                    height={90}
-                                                    width={80}
-                                                    alt={product?.name}
-                                                />
-                                            </div>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
-                    </div>
-                </div>
-                {features && <FeaturesGrid features={features} page={'overall'} />}
-                <div className="grid gap-10 container w">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
-                        What clients says
-                    </h2>
-                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8 w-full">
-                        {testimonials &&
-                            testimonials.map((testimonial, index) => {
-                                return (
-                                    <div className="flex flex-col rounded-md  p-8 gap-8 bg-[#FEFDFD] " key={index}>
-                                        <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left ">
-                                            " {testimonial?.testimonial}"
-                                        </p>
-                                        <div className="flex items-center gap-2 mt-auto">
-                                            <Image
-                                                className="rounded-full"
-                                                src={testimonial?.client_img[0]}
-                                                width={36}
-                                                height={36}
-                                                alt={testimonial?.given_by}
-                                            />
-                                            <div>
-                                                <p className="font-inter  font-semibold leading-4 tracking-normal text-left">
-                                                    {testimonial?.given_by}
-                                                </p>
-                                                <p className="font-inter text-sm font-normal leading-4 tracking-normal text-left pt-1 text-gray-400">
-                                                    {testimonial?.giver_title}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                    </div>
-                </div>
-                <div className="grid container gap-10">
-                    <h2 className="font-inter text-3xl font-semibold leading-9 tracking-normal text-left ">
-                        Client Stories
-                    </h2>
-
-                    <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
-                        {caseStudies &&
-                            caseStudies.map((caseStudy, index) => {
-                                if (caseStudy?.priority === 1) {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={caseStudy?.link}
-                                            target="_blank"
-                                            className="lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6 bg-white flex flex-col md:flex-row lg:flex-col items-center rounded-md overflow-hidden hover:drop-shadow-lg"
-                                            aria-label="casestudy"
-                                        >
-                                            <div className="casestudy_img w-full h-full">
-                                                <Image
-                                                    src={caseStudy?.image[0]}
-                                                    width={1080}
-                                                    height={1080}
-                                                    alt={caseStudy?.title}
-                                                />
-                                            </div>
-                                            <div className="grid p-4">
-                                                <p>{caseStudy?.title}</p>
-                                                <Link
-                                                    target="_blank"
-                                                    href={caseStudy?.link}
-                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                    aria-label="case study"
-                                                >
-                                                    Learn More <MdOutlineArrowForward />
-                                                </Link>
-                                            </div>
-                                        </Link>
-                                    );
-                                } else {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            target="_blank"
-                                            href={caseStudy?.link}
-                                            className="lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6 bg-white flex flex-col lg:flex-row lg:items-center items-start rounded-md overflow-hidden justify-center hover:drop-shadow-lg"
-                                        >
-                                            <div className="casestudy_img w-full h-full">
-                                                <Image
-                                                    src={caseStudy?.image[0]}
-                                                    height={1080}
-                                                    width={1080}
-                                                    alt={caseStudy?.title}
-                                                />
-                                            </div>
-                                            <div className="w-fit h-fit xl:min-w-[360px] lg:min-w-[260px] p-4">
-                                                <p>{caseStudy?.title}</p>
-                                                <Link
-                                                    target="_blank"
-                                                    href={caseStudy?.link}
-                                                    className="flex items-center gap-1 text-[#0000ff] mt-6"
-                                                >
-                                                    Learn More <MdOutlineArrowForward />
-                                                </Link>
-                                            </div>
-                                        </Link>
-                                    );
-                                }
-                            })}
-                    </div>
-                </div>
-
-                {posts?.length && (
-                    <div className="container mx-auto  py-12">
-                        {' '}
-                        <BlogGrid posts={posts} />
-                    </div>
-                )}
-
-                <div className="bg-white py-20 ">
-                    {faqData && faqData.length > 0 && (
-                        <div className="container">
-                            <FAQSection faqData={faqData} faqName={'/index'} />
-                        </div>
-                    )}
-                </div>
-
-                {getStartedData && (
-                    <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
-                    </div>
-                )}
-            </div>
-        </>
+async function fetchApps(category) {
+    const apiHeaders = {
+        headers: {
+            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        },
+    };
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
+        apiHeaders
     );
-};
+    const rawData = await response.json();
+    return rawData?.data;
+}
 
-export default Index;
+async function fetchCombos(pathArray, industry, department) {
+    const apiHeaders = {
+        headers: {
+            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
+        },
+    };
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
+        apiHeaders
+    );
+    const responseData = await response.json();
+    return responseData;
+}

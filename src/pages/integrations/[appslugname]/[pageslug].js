@@ -2,10 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
+import ErrorComp from '@/components/404/404Comp';
 
 export async function getServerSideProps(context) {
     const { params } = context;
-    const pathSlugs = [params.appslugname, params.pageslug];
+    const pathSlugs = [params.pageslug, params.appslugname];
 
     const combos = await fetchCombos(pathSlugs);
     const apps = await fetchApps('All', 25);
@@ -16,8 +17,8 @@ export async function getServerSideProps(context) {
     const results = await Promise.all(dataPromises);
 
     let plugins = [];
-    const pluginOne = combos?.plugins?.[pathSlugs[0]];
-    const pluginTwo = combos?.plugins?.[pathSlugs[1]];
+    const pluginOne = combos?.plugins?.[pathSlugs[0]] ?? null;
+    const pluginTwo = combos?.plugins?.[pathSlugs[1]] ?? null;
     plugins = [pluginOne, pluginTwo];
 
     return {
@@ -70,7 +71,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugin
     return (
         <>
             <MetaHeadComp metaData={metaData} plugin={plugins} page={'/integrations/AppOne/AppTwo'} />
-            {combos?.plugins?.[pathSlugs[1]] && (
+            {combos?.plugins?.[pathSlugs[1]] ? (
                 <IntegrationsComp
                     combinationData={combos}
                     pluginData={plugins}
@@ -81,6 +82,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugin
                     isHero={'false'}
                     pathSlugs={pathSlugs}
                 />
+            ) : (
+                <ErrorComp pathSlugs={pathSlugs} page="/integration" />
             )}
         </>
     );
