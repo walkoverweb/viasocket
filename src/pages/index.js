@@ -207,7 +207,7 @@ const Index = ({
                                     }}
                                     tabIndex={0}
                                     role="button"
-                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                    className="text-3xl underline decoration-dotted text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                 >
                                     {selectedIndus || 'All'}
                                 </h2>
@@ -340,9 +340,9 @@ const Index = ({
                                     }}
                                     tabIndex={0}
                                     role="button"
-                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                    className="text-3xl underline decoration-dotted  text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                 >
-                                    {selectedDept || 'All their'}
+                                    {selectedDept || 'all their'}
                                 </h2>
                                 {showDeptDropdown && (
                                     <div
@@ -375,12 +375,18 @@ const Index = ({
                             <h2 className="text-3xl" id="dept">
                                 department
                             </h2>
-                            <button
-                                onClick={handleGenerate}
-                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                            <div
+                                className={selectedApps.length < 2 && 'tooltip tooltip-error tooltip-top text-white'}
+                                data-tip="Select at least 2 apps to search automations"
                             >
-                                Search Automations
-                            </button>
+                                <button
+                                    disabled={selectedApps.length < 2}
+                                    onClick={handleGenerate}
+                                    className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                                >
+                                    Search Automations
+                                </button>
+                            </div>
                         </div>
                         <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
                     </div>
@@ -404,6 +410,7 @@ const Index = ({
                     </div>
                 )}
             </div>
+
             <Footer footerData={footerData} />
         </>
     );
