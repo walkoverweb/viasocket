@@ -33,7 +33,7 @@ export default function PostItem({ post }) {
             href={'/blog/' + post.slug}
             className={'blog-card' + (post.thumbnail ? ' bg-dark' : ' bg-light') + getBlogStyle(post.title)}
             style={{
-                backgroundImage: post.thumbnail ? 'url("' + post.thumbnail + '")' : 'none',
+                backgroundImage: post.thumbnail ? `url(${process.env.NEXT_PUBLIC_BASE_URL + post.thumbnail})` : 'none',
             }}
             aria-label="post"
         >
