@@ -464,7 +464,6 @@ const CaseStudyLink = ({ caseStudy }) => {
             target="_blank"
             className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
             aria-label="casestudy"
-            legacyBehavior
         >
             <>
                 <div className="casestudy_img w-full h-full">
