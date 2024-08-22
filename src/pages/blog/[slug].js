@@ -74,7 +74,13 @@ export default function TestPage({
                         <h1 className="font-medium text-4xl">{title}</h1>
                     </div>
                     {thumbnailImage !== '' && (
-                        <img className="w-full md:w-1/2" src={thumbnailImage} width={1080} height={1080} alt={title} />
+                        <img
+                            className="w-full md:w-1/2"
+                            src={process.env.NEXT_PUBLIC_BASE_URL + thumbnailImage}
+                            width={1080}
+                            height={1080}
+                            alt={title}
+                        />
                     )}
                 </div>
                 <div className="body">
