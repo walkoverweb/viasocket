@@ -93,13 +93,13 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
 
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
     const getIconUrl = (plugin) => {
-        const iconUrl = plugins[plugin].iconurl || 'https://placehold.co/40x40';
+        const iconUrl = plugins[plugin]?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
     };
     const getCardDescription = (card) => {
         const description = card?.description
             ? card.description
-            : `${plugins[card.action[0].name].events.find((action) => action.rowid === card.action[0].id)?.name?.toLowerCase()} in ${plugins[card.action[0].name].name} when ${plugins[card.trigger.name].events.find((trigger) => trigger.rowid === card.trigger.id)?.name?.toLowerCase()} in ${plugins[card.trigger.name].name}`;
+            : `${plugins[card?.actions[0].name].events.find((action) => action.rowid === card?.actions[0].id)?.name?.toLowerCase()} in ${plugins[card?.actions[0].name].name} when ${plugins[card.trigger.name].events.find((trigger) => trigger.rowid === card.trigger.id)?.name?.toLowerCase()} in ${plugins[card.trigger.name].name}`;
         return description;
     };
     return (
@@ -107,22 +107,22 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.action[0]?.id}?utm_source=integration_page`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.actions[0]?.id}?utm_source=integration_page`}
                 target="_blank"
                 legacyBehavior
             >
                 <div
-                    className={`${style.card} border rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg  transition-all`}
+                    className={`${style.card} border rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg hover:bg-secondary  transition-all cursor-pointer`}
                 >
                     <div className="p-8 bg-white flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 flex-wrap">
-                            <Image src={getIconUrl(card.trigger.name)} height={30} width={30} alt="ico" />
-                            {card?.action.length > 0 &&
-                                card?.action.map((action, index) => {
+                            <Image src={getIconUrl(card?.trigger?.appslugname)} height={30} width={30} alt="ico" />
+                            {card?.actions.length > 0 &&
+                                card?.actions.map((action, index) => {
                                     return (
                                         <Image
                                             key={index}
-                                            src={getIconUrl(action?.name)}
+                                            src={getIconUrl(action?.appslugname)}
                                             height={30}
                                             width={30}
                                             alt="ico"
