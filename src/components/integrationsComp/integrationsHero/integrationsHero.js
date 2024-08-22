@@ -6,6 +6,7 @@ import NoDataGrid from './noDataGrid/noDataGrid';
 import { useEffect, useState } from 'react';
 import { GetColorMode } from '@/utils/getColorMode';
 import Link from 'next/link';
+import { MdOpenInNew } from 'react-icons/md';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
@@ -86,12 +87,38 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         }
                                         target="_blank"
                                     >
-                                        <button className="btn ">Login to {pluginData[0]?.name}</button>
+                                        <button
+                                            className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                        >
+                                            {pluginData[0]?.iconurl && (
+                                                <Image
+                                                    src={pluginData[0]?.iconurl}
+                                                    width={24}
+                                                    height={24}
+                                                    className="h-auto hidden sm:block"
+                                                    alt={pluginData[0]?.name}
+                                                />
+                                            )}
+                                            Login to {pluginData[0]?.name}
+                                            <MdOpenInNew className="hidden sm:block" />
+                                        </button>
                                     </Link>
                                 )}
 
                                 <Link href={'/login'} target="_blank">
-                                    <button className="btn btn-accent">Login to viaSocket</button>
+                                    <button
+                                        className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                    >
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/brand/favicon_${mode === 'dark' ? 'light' : 'dark'}.svg`}
+                                            width={24}
+                                            height={24}
+                                            className="h-auto hidden sm:block"
+                                            alt="viaSocket"
+                                        />
+                                        Login to viaSocket
+                                        <MdOpenInNew className="hidden sm:block" />
+                                    </button>
                                 </Link>
                             </div>
                         </div>

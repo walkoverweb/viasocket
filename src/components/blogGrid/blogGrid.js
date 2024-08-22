@@ -17,7 +17,7 @@ const BlogGrid = ({ posts }) => {
                     ))}
                 </div>
                 <div className="flex justify-center ">
-                    <Link href="/blog" target="_blank" className="btn btn-accent">
+                    <Link href="/blog" target="_blank" className="btn btn-accent border border-1">
                         Read More Blogs
                     </Link>
                 </div>

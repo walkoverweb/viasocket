@@ -4,21 +4,29 @@ import { MdCall, MdMail } from 'react-icons/md';
 import { getDbdashData } from './api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import Image from 'next/image';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 
-export async function getServerSideProps() {
-    const IDs = ['tbl2bk656'];
+export async function getStaticProps() {
+    const IDs = [
+        'tbl7lj8ev', //  navData: results[0]
+        'tbl6u2cba', //footerData: results[1]
+        'tbl2bk656', // metaData: results[2]
+    ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
     return {
         props: {
-            metaData: results[0].data.rows,
+            navData: results[0]?.data?.rows,
+            footerData: results[1]?.data?.rows,
+            metaData: results[2]?.data?.rows,
         },
     };
 }
 
-export default function Support({ metaData }) {
+export default function Support({ navData, footerData, metaData }) {
     const [issubmit, setIsSubmit] = useState(false);
     const [isSend, setIsSend] = useState(false);
     const [formData, setFormData] = useState({
@@ -78,6 +86,8 @@ export default function Support({ metaData }) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/support'} />
+            <Navbar navData={navData} />
+
             <div className="container flex flex-col justify-center items-center md:gap-16 gap-4 my-12 md:my-24">
                 <div className="flex flex-col gap-3 md:text-center text-start md:items-center md:w-full sm:w-1/2 w-full min-w-[300px}">
                     <h1 className="md:text-5xl text-4xl font-semibold">ViaSocket Support</h1>
@@ -205,6 +215,7 @@ export default function Support({ metaData }) {
                     </div>
                 </div>{' '}
             </div>
+            <Footer footerData={footerData} />
         </>
     );
 }
