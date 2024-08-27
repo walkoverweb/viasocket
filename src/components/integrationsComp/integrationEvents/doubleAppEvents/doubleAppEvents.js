@@ -196,9 +196,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                             width={30}
                                             className="h-[30px] w-[30px]"
                                         />
-                                        <h1 className="lg:text-xl md:text-lg text-base font-semibold">
+                                        <h2 className="lg:text-xl md:text-lg text-base font-semibold">
                                             {triggerEvent[selectedTrigger]?.name}
-                                        </h1>
+                                        </h2>
                                     </>
                                 ) : (
                                     <p className="text-xl font-semibold text-[#808080]">Select Trigger</p>
@@ -219,9 +219,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                             width={30}
                                             className="h-[30px] w-[30px]"
                                         />
-                                        <h1 className="lg:text-xl md:text-lg text-base font-semibold">
+                                        <h2 className="lg:text-xl md:text-lg text-base font-semibold">
                                             {actionEvents[selectedAction]?.name}
-                                        </h1>
+                                        </h2>
                                     </>
                                 ) : (
                                     <p className="lg:text-xl md:text-lg text-base font-semibold text-[#808080]">
