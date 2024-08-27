@@ -239,7 +239,9 @@ const Index = ({
                                 )}
                             </div>
 
-                            <h2 className="text-3xl">industry is automating with</h2>
+                            <h2 className="text-3xl">
+                                industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
+                            </h2>
                             {selectedApps.map((app, index) => (
                                 <div
                                     className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
