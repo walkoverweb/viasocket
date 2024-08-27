@@ -1,7 +1,7 @@
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdAdd, MdClose, MdSearch, MdAutoAwesome } from 'react-icons/md';
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -36,18 +36,15 @@ const Index = ({
     metaData,
     faqData,
     posts,
-    combos,
     navData,
     footerData,
+    initialIndus,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
 
     const [indusSearchTerm, setIndusSearchTerm] = useState('');
-    const [selectedIndus, setSelectedIndus] = useState(() => {
-        const randomIndex = Math.floor(Math.random() * Industries.industries.length);
-        return Industries.industries[randomIndex];
-    });
+    const [selectedIndus, setSelectedIndus] = useState(initialIndus);
     const [showIndusDropdown, setShowIndusDropdown] = useState(false);
     const [deptSearchTerm, setDeptSearchTerm] = useState('');
     const [selectedDept, setSelectedDept] = useState('');
@@ -73,6 +70,7 @@ const Index = ({
         },
         [selectedApps]
     );
+
     useEffect(() => {
         const fetchInitialApps = async () => {
             setSearchLoading(true);
@@ -87,7 +85,7 @@ const Index = ({
         };
 
         fetchInitialApps();
-    }, [fetchAppsData]);
+    }, [fetchAppsData, filterSelectedApps]);
 
     useEffect(() => {
         if (!hasRunFirstEffect.current && searchData.length > 0) {
@@ -111,6 +109,7 @@ const Index = ({
         }
         setSearchTerm('');
     };
+
     useEffect(() => {
         searchApps();
     }, [debounceValue]);
@@ -240,7 +239,9 @@ const Index = ({
                                 )}
                             </div>
 
-                            <h2 className="text-3xl">industry is automating with</h2>
+                            <h2 className="text-3xl">
+                                industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
+                            </h2>
                             {selectedApps.map((app, index) => (
                                 <div
                                     className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
@@ -376,7 +377,9 @@ const Index = ({
                                 department
                             </h2>
                             <div
-                                className={selectedApps.length < 2 && 'tooltip tooltip-error tooltip-top text-white'}
+                                className={
+                                    selectedApps.length < 2 ? 'tooltip tooltip-error tooltip-top text-white' : ''
+                                }
                                 data-tip="Select at least 2 apps to search automations"
                             >
                                 <button
@@ -471,6 +474,7 @@ const CaseStudyLink = ({ caseStudy }) => {
             target="_blank"
             className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
             aria-label="casestudy"
+            legacyBehavior
         >
             <>
                 <div className="casestudy_img w-full h-full">
@@ -509,6 +513,9 @@ export async function getServerSideProps() {
     );
     const posts = await res.data;
 
+    const randomIndex = Math.floor(Math.random() * Industries.industries.length);
+    const initialIndus = Industries.industries[randomIndex];
+
     return {
         props: {
             testimonials: results[0]?.data?.rows,
@@ -520,6 +527,7 @@ export async function getServerSideProps() {
             navData: results[6]?.data?.rows,
             footerData: results[7]?.data?.rows,
             posts: posts,
+            initialIndus,
         },
     };
 }
