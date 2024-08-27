@@ -187,15 +187,15 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                     <div className="flex flex-col gap-5">
                         <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
                         <select className="select w-full max-w-xs block lg:hidden bg-white">
-                            {categories?.industries?.length &&
-                                categories?.industries?.map((category, index) => (
+                            {categories?.categories?.length &&
+                                categories?.categories?.map((category, index) => (
                                     <option key={index}>{category}</option>
                                 ))}
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px]  gap-4">
-                            {categories?.industries?.length &&
-                                categories?.industries?.slice(0, visibleCategories).map((category, index) => {
+                            {categories?.categories?.length &&
+                                categories?.categories?.slice(0, visibleCategories).map((category, index) => {
                                     return (
                                         <Link
                                             href={`/integrations?currentcategory=${category}`}
@@ -216,7 +216,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                     );
                                 })}
 
-                            {categories?.industries?.length > visibleCategories && (
+                            {categories?.categories?.length > visibleCategories && (
                                 <button
                                     onClick={handleLoadMoreCategories}
                                     className="text-blue-500 font-medium cursor-pointer text-left flex items-center"
