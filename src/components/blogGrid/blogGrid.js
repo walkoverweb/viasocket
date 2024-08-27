@@ -5,7 +5,7 @@ import { LinkButton } from '../uiComponents/buttons';
 const BlogGrid = ({ posts }) => {
     return (
         <>
-            <div className="flex flex-col gap-9">
+            <div className="flex flex-col gap-9" id="blogSection">
                 <h2 className="md:text-6xl text-4xl font-medium">
                     Know More About <br />
                     Viasocket Integrations

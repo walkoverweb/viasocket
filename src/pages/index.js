@@ -469,10 +469,8 @@ const CaseStudyLink = ({ caseStudy }) => {
         : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
 
     return (
-        <Link
-            href={caseStudy?.link}
-            target="_blank"
-            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
+        <div
+            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden `}
             aria-label="casestudy"
         >
             <>
@@ -484,7 +482,7 @@ const CaseStudyLink = ({ caseStudy }) => {
                     <LinkButton href={caseStudy?.link} title={'Read More'} />
                 </div>
             </>
-        </Link>
+        </div>
     );
 };
 

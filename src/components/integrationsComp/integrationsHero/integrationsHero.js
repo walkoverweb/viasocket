@@ -135,7 +135,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 </p>
                                 <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
                                     {disconnectedTextP}
-                                    <Link className="underline" href={'#faqSection'}>
+                                    <Link className="underline" href={'#blogSection'}>
                                         help page
                                     </Link>
                                 </p>
