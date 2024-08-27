@@ -46,15 +46,6 @@ const Footer = ({ footerData }) => {
         });
     return (
         <>
-            {/* {showAppsByTitle && (
-                <div className="container mt-20">
-                    <h1 className="text-base font-medium text-center py-4">
-                        Apps by title
-                    </h1>
-                    <AlphabeticalComponent />
-                </div>
-            )} */}
-
             <div className="container flex sm:flex-row flex-col-reverse my-12 py-8 gap-12 ">
                 <div className="flex w-full lg:max-w-[260px] md:max-w-[140px] max-w-[200px] flex-col justify-between ">
                     <div className="flex flex-col gap-2">

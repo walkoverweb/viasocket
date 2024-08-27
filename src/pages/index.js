@@ -52,8 +52,9 @@ const Index = ({
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedApps, setSelectedApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
+    const [appLoading, setAppLoading] = useState(true);
     const [searchLoading, setSearchLoading] = useState(false);
-    const [combinationLoading, setCombinationLoading] = useState(false);
+    const [combinationLoading, setCombinationLoading] = useState(true);
     const debounceValue = useDebounce(searchTerm, 300);
     const [renderCombos, setRenderCombos] = useState();
     const [showInput, setShowInput] = useState(false);
@@ -78,8 +79,10 @@ const Index = ({
                 const apps = await fetchAppsData();
                 setSearchData(filterSelectedApps(apps));
             } catch (error) {
+                setAppLoading(false);
                 console.error(error);
             } finally {
+                setAppLoading(false);
                 setSearchLoading(false);
             }
         };
@@ -189,9 +192,9 @@ const Index = ({
                         <span className="text-3xl font-medium flex gap-2 items-center">
                             <MdAutoAwesome color="#00ED64" /> AI First
                         </span>
-                        <h2 className="md:text-6xl text-4xl font-medium">
+                        <h1 className="md:text-6xl text-4xl font-medium">
                             Connect your favorite apps and automate your repetitive tasks
-                        </h2>
+                        </h1>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
                         <div className="flex flex-wrap gap-2 items-center">
@@ -242,19 +245,37 @@ const Index = ({
                             <h2 className="text-3xl">
                                 industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
                             </h2>
-                            {selectedApps.map((app, index) => (
-                                <div
-                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
-                                    key={app.appslugname}
-                                >
-                                    <Image src={app?.iconurl} width={16} height={16} alt="ico" />
-                                    <span>{app?.name}</span>
-                                    <MdClose
-                                        className="text-gray-300 hover:text-gray-950 cursor-pointer"
-                                        onClick={() => removeAppFromArray(index)}
-                                    />
-                                </div>
-                            ))}
+                            {appLoading ? (
+                                <>
+                                    {' '}
+                                    {[...Array(3)].map((_, index) => (
+                                        <div
+                                            className="bg-white rounded  items-center flex w-[120px] gap-1 p-2 "
+                                            key={index}
+                                        >
+                                            <div className="skeleton max-h-[17px] max-w-[17px] min-h-[17px] min-w-[16px] bg-gray-200 "></div>
+                                            <div className="skeleton h-[12px] w-full bg-gray-200"></div>
+                                        </div>
+                                    ))}
+                                </>
+                            ) : (
+                                <>
+                                    {selectedApps.map((app, index) => (
+                                        <div
+                                            className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
+                                            key={app.appslugname}
+                                        >
+                                            <Image src={app?.iconurl} width={16} height={16} alt="ico" />
+                                            <span>{app?.name}</span>
+                                            <MdClose
+                                                className="text-gray-300 hover:text-gray-950 cursor-pointer"
+                                                onClick={() => removeAppFromArray(index)}
+                                            />
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
