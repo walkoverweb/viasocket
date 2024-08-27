@@ -192,9 +192,9 @@ const Index = ({
                         <span className="text-3xl font-medium flex gap-2 items-center">
                             <MdAutoAwesome color="#00ED64" /> AI First
                         </span>
-                        <h2 className="md:text-6xl text-4xl font-medium">
+                        <h1 className="md:text-6xl text-4xl font-medium">
                             Connect your favorite apps and automate your repetitive tasks
-                        </h2>
+                        </h1>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
                         <div className="flex flex-wrap gap-2 items-center">

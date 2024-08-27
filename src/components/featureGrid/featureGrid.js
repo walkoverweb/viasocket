@@ -36,7 +36,7 @@ export function FeaturesGrid({ features, page }) {
                                                     <HiOutlineComputerDesktop size={35} />
                                                 )}
                                                 <div className="flex flex-col gap-2 justify-end">
-                                                    <h1 className="md:text-xl text-lg font-semibold">{feature.name}</h1>
+                                                    <h2 className="md:text-xl text-lg font-semibold">{feature.name}</h2>
                                                     <p className="md:text-sm text-xs text-gray-500">
                                                         {feature?.description}
                                                     </p>
@@ -88,7 +88,7 @@ export function FeaturesGrid({ features, page }) {
                                                     <HiOutlineComputerDesktop size={35} />
                                                 )}
                                                 <div className="flex flex-col gap-2 justify-end">
-                                                    <h1 className="md:text-xl text-lg font-semibold">{feature.name}</h1>
+                                                    <h2 className="md:text-xl text-lg font-semibold">{feature.name}</h2>
                                                     <p className="md:text-sm text-xs text-gray-500">
                                                         {feature?.description}
                                                     </p>
@@ -142,7 +142,7 @@ export function FeaturesGrid({ features, page }) {
                                             </div>
 
                                             <div className="flex flex-col gap-2 justify-end ">
-                                                <h1 className="md:text-xl text-lg  font-semibold">{feature.name}</h1>
+                                                <h2 className="md:text-xl text-lg  font-semibold">{feature.name}</h2>
                                                 <p className="md:text-sm text-xs text-gray-500">
                                                     {feature?.description}
                                                 </p>

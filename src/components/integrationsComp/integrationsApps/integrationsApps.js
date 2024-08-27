@@ -165,7 +165,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         <div className="container flex flex-col gap-9 py-12">
             {pluginData?.length && (
                 <>
-                    <h1 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">Integrate with specific service</h1>
+                    <h2 className="lg:text-3xl  text-2xl md:text-3xl font-semibold">Integrate with specific service</h2>
                     <div className="flex  gap-2 justify-center items-center bg-white border  py-4 px-6 rounded-md w-fit">
                         <Image
                             className="w-[26px] h-[26px]"
