@@ -57,7 +57,7 @@ export async function getServerSideProps(context) {
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
-    const tag = 'via-socket';
+    const tag = pathSlugs;
     const defaultTag = 'integrations';
     const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
