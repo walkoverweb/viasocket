@@ -32,6 +32,9 @@
     &.btn-primary {
         @apply hover:text-primary hover:bg-gray-100;
     }
+    &:disabled {
+        @apply bg-gray-200 text-black;
+    }
 }
 .container {
     max-width: 1560px;
@@ -63,6 +66,11 @@
     @media only screen and (max-width: 480px) {
         @apply py-8;
     }
+}
+
+.tooltip-error {
+    --tooltip-color: #4b4b4b;
+    --tooltip-text-color: white;
 }
 
 .text-link {

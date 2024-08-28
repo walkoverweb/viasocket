@@ -1,7 +1,7 @@
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdAdd, MdClose, MdSearch, MdAutoAwesome } from 'react-icons/md';
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -36,18 +36,15 @@ const Index = ({
     metaData,
     faqData,
     posts,
-    combos,
     navData,
     footerData,
+    initialIndus,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
 
     const [indusSearchTerm, setIndusSearchTerm] = useState('');
-    const [selectedIndus, setSelectedIndus] = useState(() => {
-        const randomIndex = Math.floor(Math.random() * Industries.industries.length);
-        return Industries.industries[randomIndex];
-    });
+    const [selectedIndus, setSelectedIndus] = useState(initialIndus);
     const [showIndusDropdown, setShowIndusDropdown] = useState(false);
     const [deptSearchTerm, setDeptSearchTerm] = useState('');
     const [selectedDept, setSelectedDept] = useState('');
@@ -55,8 +52,9 @@ const Index = ({
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedApps, setSelectedApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
+    const [appLoading, setAppLoading] = useState(true);
     const [searchLoading, setSearchLoading] = useState(false);
-    const [combinationLoading, setCombinationLoading] = useState(false);
+    const [combinationLoading, setCombinationLoading] = useState(true);
     const debounceValue = useDebounce(searchTerm, 300);
     const [renderCombos, setRenderCombos] = useState();
     const [showInput, setShowInput] = useState(false);
@@ -73,6 +71,7 @@ const Index = ({
         },
         [selectedApps]
     );
+
     useEffect(() => {
         const fetchInitialApps = async () => {
             setSearchLoading(true);
@@ -80,14 +79,16 @@ const Index = ({
                 const apps = await fetchAppsData();
                 setSearchData(filterSelectedApps(apps));
             } catch (error) {
+                setAppLoading(false);
                 console.error(error);
             } finally {
+                setAppLoading(false);
                 setSearchLoading(false);
             }
         };
 
         fetchInitialApps();
-    }, [fetchAppsData]);
+    }, [fetchAppsData, filterSelectedApps]);
 
     useEffect(() => {
         if (!hasRunFirstEffect.current && searchData.length > 0) {
@@ -111,6 +112,7 @@ const Index = ({
         }
         setSearchTerm('');
     };
+
     useEffect(() => {
         searchApps();
     }, [debounceValue]);
@@ -190,9 +192,9 @@ const Index = ({
                         <span className="text-3xl font-medium flex gap-2 items-center">
                             <MdAutoAwesome color="#00ED64" /> AI First
                         </span>
-                        <h2 className="md:text-6xl text-4xl font-medium">
+                        <h1 className="md:text-6xl text-4xl font-medium">
                             Connect your favorite apps and automate your repetitive tasks
-                        </h2>
+                        </h1>
                     </div>
                     <div className="p-8 bg-neutral rounded flex flex-col gap-9">
                         <div className="flex flex-wrap gap-2 items-center">
@@ -207,7 +209,7 @@ const Index = ({
                                     }}
                                     tabIndex={0}
                                     role="button"
-                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                    className="text-3xl underline decoration-dotted text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                 >
                                     {selectedIndus || 'All'}
                                 </h2>
@@ -240,20 +242,40 @@ const Index = ({
                                 )}
                             </div>
 
-                            <h2 className="text-3xl">industry is automating with</h2>
-                            {selectedApps.map((app, index) => (
-                                <div
-                                    className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
-                                    key={app.appslugname}
-                                >
-                                    <Image src={app?.iconurl} width={16} height={16} alt="ico" />
-                                    <span>{app?.name}</span>
-                                    <MdClose
-                                        className="text-gray-300 hover:text-gray-950 cursor-pointer"
-                                        onClick={() => removeAppFromArray(index)}
-                                    />
-                                </div>
-                            ))}
+                            <h2 className="text-3xl">
+                                industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
+                            </h2>
+                            {appLoading ? (
+                                <>
+                                    {' '}
+                                    {[...Array(3)].map((_, index) => (
+                                        <div
+                                            className="bg-white rounded  items-center flex w-[120px] gap-1 p-2 "
+                                            key={index}
+                                        >
+                                            <div className="skeleton max-h-[17px] max-w-[17px] min-h-[17px] min-w-[16px] bg-gray-200 "></div>
+                                            <div className="skeleton h-[12px] w-full bg-gray-200"></div>
+                                        </div>
+                                    ))}
+                                </>
+                            ) : (
+                                <>
+                                    {selectedApps.map((app, index) => (
+                                        <div
+                                            className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
+                                            key={app.appslugname}
+                                        >
+                                            <Image src={app?.iconurl} width={16} height={16} alt="ico" />
+                                            <span>{app?.name}</span>
+                                            <MdClose
+                                                className="text-gray-300 hover:text-gray-950 cursor-pointer"
+                                                onClick={() => removeAppFromArray(index)}
+                                            />
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
@@ -340,9 +362,9 @@ const Index = ({
                                     }}
                                     tabIndex={0}
                                     role="button"
-                                    className="text-3xl underline decoration-dotted  decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                    className="text-3xl underline decoration-dotted  text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                 >
-                                    {selectedDept || 'All their'}
+                                    {selectedDept || 'all their'}
                                 </h2>
                                 {showDeptDropdown && (
                                     <div
@@ -375,12 +397,20 @@ const Index = ({
                             <h2 className="text-3xl" id="dept">
                                 department
                             </h2>
-                            <button
-                                onClick={handleGenerate}
-                                className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                            <div
+                                className={
+                                    selectedApps.length < 2 ? 'tooltip tooltip-error tooltip-top text-white' : ''
+                                }
+                                data-tip="Select at least 2 apps to search automations"
                             >
-                                Search Automations
-                            </button>
+                                <button
+                                    disabled={selectedApps.length < 2}
+                                    onClick={handleGenerate}
+                                    className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                                >
+                                    Search Automations
+                                </button>
+                            </div>
                         </div>
                         <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
                     </div>
@@ -404,6 +434,7 @@ const Index = ({
                     </div>
                 )}
             </div>
+
             <Footer footerData={footerData} />
         </>
     );
@@ -459,10 +490,8 @@ const CaseStudyLink = ({ caseStudy }) => {
         : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
 
     return (
-        <Link
-            href={caseStudy?.link}
-            target="_blank"
-            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden hover:drop-shadow-lg`}
+        <div
+            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden `}
             aria-label="casestudy"
         >
             <>
@@ -474,7 +503,7 @@ const CaseStudyLink = ({ caseStudy }) => {
                     <LinkButton href={caseStudy?.link} title={'Read More'} />
                 </div>
             </>
-        </Link>
+        </div>
     );
 };
 
@@ -502,6 +531,9 @@ export async function getServerSideProps() {
     );
     const posts = await res.data;
 
+    const randomIndex = Math.floor(Math.random() * Industries.industries.length);
+    const initialIndus = Industries.industries[randomIndex];
+
     return {
         props: {
             testimonials: results[0]?.data?.rows,
@@ -513,6 +545,7 @@ export async function getServerSideProps() {
             navData: results[6]?.data?.rows,
             footerData: results[7]?.data?.rows,
             posts: posts,
+            initialIndus,
         },
     };
 }

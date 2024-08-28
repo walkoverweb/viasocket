@@ -43,12 +43,12 @@ export default function noDataGrid({ plugin, mode }) {
             <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12 ">
                 <div className={`container flex flex-col md:gap-12 gap-6 `}>
                     <div className="flex flex-col gap-8 flex-grow justify-center  ">
-                        <h1
+                        <h2
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
                             The app you are looking for is in beta, and we are awaiting verification from the app
                             builders before making it accessible to end users. This process may take 15 to 30 days.
-                        </h1>
+                        </h2>
                         <h2
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >

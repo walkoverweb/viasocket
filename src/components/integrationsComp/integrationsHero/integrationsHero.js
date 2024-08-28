@@ -124,16 +124,18 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                         </div>
 
                         {isDisconnected ? (
-                            <div className="flex flex-col gap-2 ">
+                            <div className="flex flex-col gap-2 py-12 ">
                                 <h1
                                     className={`lg:text-4xl md:text-3xl text-2xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
                                 >
                                     {disconnectedTextH2}
                                 </h1>
-
+                                <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
+                                    {`Your ${pluginData[0]?.name} integration has been disconnected. You will no longer be able to sync data directly from your  ${pluginData[0]?.name} account in viaSocket.`}
+                                </p>
                                 <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
                                     {disconnectedTextP}
-                                    <Link className="underline" href={'#faqSection'}>
+                                    <Link className="underline" href={'#blogSection'}>
                                         help page
                                     </Link>
                                 </p>
