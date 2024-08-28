@@ -2,10 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import { MdOutlineArrowForward } from 'react-icons/md';
 import { LinkButton } from '../uiComponents/buttons';
+import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
     return (
         <>
-            <div className="flex flex-col gap-9">
+            <div className="flex flex-col gap-9" id="blogSection">
                 <h2 className="md:text-6xl text-4xl font-medium">
                     Know More About <br />
                     Viasocket Integrations
@@ -30,7 +31,12 @@ const CardComponent = ({ card }) => {
     return (
         <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
             <figure className="h-60">
-                <img src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail} alt={card?.title} />
+                <Image
+                    width={720}
+                    height={720}
+                    src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail}
+                    alt={card?.title}
+                />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{card?.title}</h2>

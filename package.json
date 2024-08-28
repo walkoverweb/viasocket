@@ -30,6 +30,7 @@
         "react-paginate": "^8.2.0",
         "react-player": "^2.14.0",
         "react-search-autocomplete": "^8.5.2",
+        "react-tooltip": "^5.28.0",
         "sass": "^1.69.4"
     },
     "devDependencies": {
