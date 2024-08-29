@@ -15,7 +15,7 @@ export default function MetaHeadComp({ metaData, page, plugin, pathSlugs }) {
                 description = description.replace(/\[AppOne\]|\[AppTwo\]/g, function (match) {
                     return match === '[AppOne]' ? plugin[0]?.name : plugin[1]?.name;
                 });
-            } else if (pathSlugs[0]) {
+            } else if (pathSlugs && pathSlugs[0]) {
                 title = title.replace(/\[AppOne\]|\[AppTwo\]/g, function (match) {
                     return match === '[AppOne]' ? pathSlugs[0] : pathSlugs[1];
                 });
