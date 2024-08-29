@@ -5,8 +5,18 @@ import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import { getUseCases } from '@/pages/api/fetch-usecases';
 import axios from 'axios';
 
-const IntegrationSlugPage = ({ getStartedData, combos, pathSlugs, metaData, faqData, usecase, posts }) => {
-    if (combos && !combos.error) {
+const IntegrationSlugPage = ({
+    getStartedData,
+    combos,
+    pathSlugs,
+    metaData,
+    faqData,
+    usecase,
+    posts,
+    navData,
+    footerData,
+}) => {
+    if (combos && !combos.error && combos?.plugins?.[pathSlugs[0]]) {
         return (
             <>
                 <MetaHeadComp
@@ -37,8 +47,9 @@ const IntegrationSlugPage = ({ getStartedData, combos, pathSlugs, metaData, faqD
                     metaData={metaData}
                     page={'/integrations/AppOne'}
                     plugin={[combos?.plugins?.[pathSlugs[0]]]}
+                    pathSlugs={pathSlugs}
                 />
-                <ErrorComp pathSlugs={pathSlugs} page="/integration" />
+                <ErrorComp footerData={footerData} navData={navData} />
             </>
         );
     }
@@ -52,7 +63,7 @@ export async function getServerSideProps(context) {
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases(pathSlugs[0]);
 
-    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
+    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
@@ -72,6 +83,8 @@ export async function getServerSideProps(context) {
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            navData: results[3]?.data?.rows,
+            footerData: results[4]?.data?.rows,
             usecase: usecase ?? [],
             posts,
         },
