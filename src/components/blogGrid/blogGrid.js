@@ -6,13 +6,13 @@ import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
     return (
         <>
+            {' '}
             <Link href="/blog" target="_blank">
                 <div className="flex flex-col gap-9">
                     <h2 className="md:text-6xl text-4xl font-medium">
                         Know More About <br />
                         Viasocket Integrations
                     </h2>
-
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                         {posts.map((post, index) => (
                             <CardComponent key={index} card={post} />
