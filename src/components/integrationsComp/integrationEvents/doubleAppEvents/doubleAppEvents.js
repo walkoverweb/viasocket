@@ -69,9 +69,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                 {triggerEvent?.length > 2 && actionEvents?.length > 2 && (
                     <>
                         <div className="container py-20">
-                            <h1 className="flex text-3xl font-semibold">
+                            <h2 className="flex text-3xl font-semibold">
                                 {`Automate anything with ${pathSlugs[0]} & ${pathSlugs[1]}${' '}Integrations!`}
-                            </h1>
+                            </h2>
 
                             <div className="grid md:grid-cols-2 grid-cols-1 gap-8 mt-20">
                                 <div className="flex flex-col gap-6">
@@ -196,9 +196,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                             width={30}
                                             className="h-[30px] w-[30px]"
                                         />
-                                        <h1 className="lg:text-xl md:text-lg text-base font-semibold">
+                                        <h2 className="lg:text-xl md:text-lg text-base font-semibold">
                                             {triggerEvent[selectedTrigger]?.name}
-                                        </h1>
+                                        </h2>
                                     </>
                                 ) : (
                                     <p className="text-xl font-semibold text-[#808080]">Select Trigger</p>
@@ -219,9 +219,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                             width={30}
                                             className="h-[30px] w-[30px]"
                                         />
-                                        <h1 className="lg:text-xl md:text-lg text-base font-semibold">
+                                        <h2 className="lg:text-xl md:text-lg text-base font-semibold">
                                             {actionEvents[selectedAction]?.name}
-                                        </h1>
+                                        </h2>
                                     </>
                                 ) : (
                                     <p className="lg:text-xl md:text-lg text-base font-semibold text-[#808080]">

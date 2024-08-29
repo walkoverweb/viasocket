@@ -9,7 +9,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
     const cardsData = combos?.combinations;
     const plugins = combos?.plugins;
     const handleComboLoadMore = () => {
-        setVisibleComboItems(visibleComboItems + 3);
+        setVisibleComboItems(visibleComboItems + 9);
     };
     if (!loading) {
         if (cardsData?.length > 0) {
@@ -59,7 +59,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
         return (
             <div className="flex flex-col gap-8">
                 <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
-                    {[...Array(7)].map((_, index) => (
+                    {[...Array(9)].map((_, index) => (
                         <div
                             className="bg-white rounded-md overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out"
                             key={index}
@@ -106,14 +106,18 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
                 key={index}
                 href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.actions[0]?.id}?utm_source=integration_page`}
                 target="_blank"
-                legacyBehavior
             >
                 <div
                     className={`${style.card} border rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg hover:bg-secondary  transition-all cursor-pointer`}
                 >
                     <div className="p-8 bg-white flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 flex-wrap">
-                            <Image src={getIconUrl(card?.trigger?.name)} height={30} width={30} alt="ico" />
+                            <Image
+                                src={getIconUrl(card?.trigger?.name)}
+                                height={30}
+                                width={30}
+                                alt={card?.trigger?.name}
+                            />
                             {card?.actions.length > 0 &&
                                 card?.actions.map((action, index) => {
                                     return (

@@ -6,10 +6,6 @@ import NotificationBar from '../notificationBar/notificationbar';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const Navbar = ({ navData }) => {
-    const openChatWidget = () => {
-        window.chatWidget.open();
-    };
-
     var shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
@@ -129,12 +125,6 @@ const Navbar = ({ navData }) => {
                     </div>
                 </div>
             </div>
-            <button
-                className={`${styles.expert_btn} btn btn-sm  text-white rounded-full  btn-ghost`}
-                aria-label="Talk to an expert"
-            >
-                Talk to an expert
-            </button>
         </>
     );
 };
