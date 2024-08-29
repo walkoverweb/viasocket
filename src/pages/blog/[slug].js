@@ -17,8 +17,6 @@ const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 // const components = { Test }
 const component = { ReactPlayer };
 
-// import { SocialList } from '@/components/socialList';
-// const components = { Test }
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import Image from 'next/image';
 import Navbar from '@/components/navbar/navbar';
@@ -63,9 +61,10 @@ export default function TestPage({
             </Head>
             <Navbar navData={navData} />
             <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-5/6 xl:w-3/5">
-                <a className="btn-sm btn btn-outline" href="#" onClick={handleClick} aria-label="back">
-                    <MdKeyboardArrowLeft /> Back
-                </a>
+                <button className="btn-sm btn p-2 border border-2 " onClick={handleClick} aria-label="back">
+                    <MdKeyboardArrowLeft />
+                    Back
+                </button>
                 <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
                     <div className="flex flex-col justify-center gap-2 md:w-1/2">
                         <div className="capitalize">
