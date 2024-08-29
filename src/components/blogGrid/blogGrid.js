@@ -30,23 +30,25 @@ const BlogGrid = ({ posts }) => {
 };
 const CardComponent = ({ card }) => {
     return (
-        <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
-            <figure className="h-60">
-                <Image
-                    width={720}
-                    height={720}
-                    src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail}
-                    alt={card?.title}
-                />
-            </figure>
-            <div className="card-body">
-                <h2 className="card-title">{card?.title}</h2>
-                <p className="text-base">{card?.description}</p>
-                <div className="card-actions justify-start">
-                    <LinkButton href={`/blog/${card?.slug}`} title="Read more" />
+        <Link href={`/blog/${card?.slug}`}>
+            <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
+                <figure className="h-60">
+                    <Image
+                        width={720}
+                        height={720}
+                        src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail}
+                        alt={card?.title}
+                    />
+                </figure>
+                <div className="card-body">
+                    <h2 className="card-title">{card?.title}</h2>
+                    <p className="text-base">{card?.description}</p>
+                    <div className="card-actions justify-start">
+                        <LinkButton href={`/blog/${card?.slug}`} title="Read more" />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 export default BlogGrid;
