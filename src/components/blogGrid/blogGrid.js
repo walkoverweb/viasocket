@@ -5,23 +5,25 @@ import { LinkButton } from '../uiComponents/buttons';
 const BlogGrid = ({ posts }) => {
     return (
         <>
-            <div className="flex flex-col gap-9">
-                <h2 className="md:text-6xl text-4xl font-medium">
-                    Know More About <br />
-                    Viasocket Integrations
-                </h2>
+            <Link href="/blog" target="_blank">
+                <div className="flex flex-col gap-9">
+                    <h2 className="md:text-6xl text-4xl font-medium">
+                        Know More About <br />
+                        Viasocket Integrations
+                    </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
-                    {posts.map((post, index) => (
-                        <CardComponent key={index} card={post} />
-                    ))}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
+                        {posts.map((post, index) => (
+                            <CardComponent key={index} card={post} />
+                        ))}
+                    </div>
+                    <div className="flex justify-center ">
+                        <Link href="/blog" target="_blank" className="btn btn-accent border border-1">
+                            Read More Blogs
+                        </Link>
+                    </div>
                 </div>
-                <div className="flex justify-center ">
-                    <Link href="/blog" target="_blank" className="btn btn-accent border border-1">
-                        Read More Blogs
-                    </Link>
-                </div>
-            </div>
+            </Link>
         </>
     );
 };
