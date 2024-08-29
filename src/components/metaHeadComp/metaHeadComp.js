@@ -1,5 +1,5 @@
 import Head from 'next/head';
-export default function MetaHeadComp({ metaData, page, plugin }) {
+export default function MetaHeadComp({ metaData, page, plugin, pathSlugs }) {
     if (metaData) {
         let meta = metaData.find((item) => item.name === page);
         let title, description;
@@ -14,6 +14,13 @@ export default function MetaHeadComp({ metaData, page, plugin }) {
                 });
                 description = description.replace(/\[AppOne\]|\[AppTwo\]/g, function (match) {
                     return match === '[AppOne]' ? plugin[0]?.name : plugin[1]?.name;
+                });
+            } else if (pathSlugs[0]) {
+                title = title.replace(/\[AppOne\]|\[AppTwo\]/g, function (match) {
+                    return match === '[AppOne]' ? pathSlugs[0] : pathSlugs[1];
+                });
+                description = description.replace(/\[AppOne\]|\[AppTwo\]/g, function (match) {
+                    return match === '[AppOne]' ? pathSlugs[0] : pathSlugs[1];
                 });
             }
 

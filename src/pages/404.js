@@ -11,7 +11,6 @@ const NoPage = ({ pathArray, navData, footerData }) => {
                 <title>{'404 - Page not found'}</title>
             </Head>
             <Navbar navData={navData} />
-
             <ErrorComp pathArray={pathArray} />
             <Footer footerData={footerData} />
         </>
