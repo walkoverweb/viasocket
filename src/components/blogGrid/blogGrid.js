@@ -28,7 +28,6 @@ const BlogGrid = ({ posts }) => {
         </>
     );
 };
-
 const CardComponent = ({ card }) => {
     return (
         <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
