@@ -129,7 +129,6 @@ export async function getServerSideProps(slug) {
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
     return {
         props: {
             getStartedData: results[0].data.rows,
