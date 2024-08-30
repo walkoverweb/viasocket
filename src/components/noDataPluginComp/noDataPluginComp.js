@@ -2,7 +2,6 @@ import Image from 'next/image';
 import styles from './noDataPluginComp.module.scss';
 import { useState } from 'react';
 export default function NoDataPluginComp({ plugin, mode }) {
-    console.log(mode, modeeeeee);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
