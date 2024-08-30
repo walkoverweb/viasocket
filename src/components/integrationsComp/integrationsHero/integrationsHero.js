@@ -150,18 +150,13 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                             </div>
                         )}
 
-                        {pluginData[0]?.events?.length && pluginData[1]?.events?.length ? (
+                        {pluginData[0]?.events?.length ? (
                             <>
                                 {combinationData?.combinations?.length > 0 ? (
                                     <ComboGrid combos={combinationData} mode={mode} />
                                 ) : (
                                     <div className="flex gap-3">
-                                        <button
-                                            className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                            onClick={() => document.getElementById('beta_request').showModal()}
-                                        >
-                                            Request combinaion
-                                        </button>
+                                        <EventGrid plugin={pluginData} mode={mode} />
                                     </div>
                                 )}
                             </>
