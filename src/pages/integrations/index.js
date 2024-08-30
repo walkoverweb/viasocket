@@ -1,11 +1,22 @@
-import ErrorComp from '@/components/404/404Comp';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import { getUseCases } from '@/pages/api/fetch-usecases';
 import axios from 'axios';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 
-const IntegrationSlugPage = ({ getStartedData, combos, pathArray, metaData, faqData, usecase, posts }) => {
+const IntegrationSlugPage = ({
+    getStartedData,
+    combos,
+    pathArray,
+    metaData,
+    faqData,
+    usecase,
+    posts,
+    navData,
+    footerData,
+}) => {
     return (
         <>
             <MetaHeadComp
@@ -14,7 +25,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, pathArray, metaData, faqD
                 pathArray={pathArray}
                 plugin={[combos?.plugins?.[pathArray[2]]]}
             />
-
+            <Navbar navData={navData} />
             <IntegrationsComp
                 combinationData={combos}
                 faqData={faqData}
@@ -25,6 +36,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, pathArray, metaData, faqD
                 isHero={'false'}
                 showCategories={true}
             />
+            <Footer footerData={footerData} />
         </>
     );
 };
@@ -36,7 +48,7 @@ export async function getServerSideProps(context) {
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases();
 
-    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
+    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
@@ -55,6 +67,8 @@ export async function getServerSideProps(context) {
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            navData: results[3]?.data?.rows,
+            footerData: results[4]?.data?.rows,
             usecase: usecase ?? [],
             posts,
         },

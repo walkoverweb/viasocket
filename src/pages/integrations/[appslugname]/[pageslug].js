@@ -2,22 +2,23 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
+import ErrorComp from '@/components/404/404Comp';
 
 export async function getServerSideProps(context) {
     const { params } = context;
-    const pathSlugs = [params.appslugname, params.pageslug];
+    const pathSlugs = [params.pageslug, params.appslugname];
 
     const combos = await fetchCombos(pathSlugs);
     const apps = await fetchApps('All', 25);
 
-    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
+    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
     let plugins = [];
-    const pluginOne = combos?.plugins?.[pathSlugs[0]];
-    const pluginTwo = combos?.plugins?.[pathSlugs[1]];
+    const pluginOne = combos?.plugins?.[pathSlugs[0]] ?? null;
+    const pluginTwo = combos?.plugins?.[pathSlugs[1]] ?? null;
     plugins = [pluginOne, pluginTwo];
 
     return {
@@ -28,6 +29,8 @@ export async function getServerSideProps(context) {
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            navData: results[3]?.data?.rows,
+            footerData: results[4]?.data?.rows,
             plugins,
         },
     };
@@ -66,11 +69,25 @@ async function fetchCombos(pathArray) {
     return responseData;
 }
 
-const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugins, pathSlugs }) => {
+const IntegrationSlugPage = ({
+    getStartedData,
+    combos,
+    metaData,
+    faqData,
+    plugins,
+    pathSlugs,
+    navData,
+    footerData,
+}) => {
     return (
         <>
-            <MetaHeadComp metaData={metaData} plugin={plugins} page={'/integrations/AppOne/AppTwo'} />
-            {combos?.plugins?.[pathSlugs[1]] && (
+            <MetaHeadComp
+                metaData={metaData}
+                plugin={plugins}
+                page={'/integrations/AppOne/AppTwo'}
+                pathSlugs={pathSlugs}
+            />
+            {combos?.plugins?.[pathSlugs[1]] ? (
                 <IntegrationsComp
                     combinationData={combos}
                     pluginData={plugins}
@@ -81,6 +98,8 @@ const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugin
                     isHero={'false'}
                     pathSlugs={pathSlugs}
                 />
+            ) : (
+                <ErrorComp footerData={footerData} navData={navData} />
             )}
         </>
     );

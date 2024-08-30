@@ -4,7 +4,7 @@ export default function TrustedBy(products) {
     return (
         <>
             <div className="grid gap-3">
-                <span className="text-xl font-medium text-gray-400">Trusted By</span>
+                <span className=" font-medium text-gray-400">Trusted by</span>
                 <div className="flex gap-5 flex-wrap">
                     {products &&
                         products?.data.map((img, index) => {
@@ -13,7 +13,7 @@ export default function TrustedBy(products) {
                                     {img?.icon[0] && (
                                         <Image
                                             key={index}
-                                            className="h-[20px] w-[auto] "
+                                            className="h-[20px] w-[auto] grayscale opacity-50"
                                             src={img.icon[0]}
                                             width={100}
                                             height={20}

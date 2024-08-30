@@ -1,10 +1,9 @@
 import '@/scss/global.scss';
 
-import Navbar from '@/components/navbar/navbar';
 import { useRouter } from 'next/router';
-import Footer from '@/components/footer/footer';
 import { useEffect } from 'react';
 import HeadComp from '@/components/headComp/headComp';
+import ChatWidget from '@/components/chat-widget/chat-wdget';
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter();
@@ -35,11 +34,12 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     useEffect(() => {
         const helloConfig = {
             widgetToken: 'a13cc',
+            show_close_button: false,
+            hide_launcher: true,
         };
 
         const script = document.createElement('script');
         script.src = 'https://control.msg91.com/app/assets/widget/chat-widget.js';
-        //script.async = true;
         script.onload = () => initChatWidget(helloConfig, 50);
 
         document.head.appendChild(script);
@@ -52,11 +52,8 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     return (
         <>
             <HeadComp />
-            {showNavbar && (
-                <Navbar productData={pageProps?.productData} pathArray={pathArray} rawpathArray={rawpathArray} />
-            )}
+            <ChatWidget />
             <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
-            {showNavbar && <Footer />}
         </>
     );
 }

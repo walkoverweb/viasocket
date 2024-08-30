@@ -71,16 +71,15 @@ export default function NoDataGrid({ plugin, mode }) {
 
     return (
         <>
-            <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12">
-                <div className={`container flex flex-col md:gap-12 gap-6`}>
-                    <div className="flex flex-col gap-8 flex-grow justify-center">
-                        <h1
-                            className={`lg:text-3xl md:text-2xl text-xl font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
+            <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12 ">
+                <div className={`container flex flex-col md:gap-12 gap-6 `}>
+                    <div className="flex flex-col gap-8 flex-grow justify-center  ">
+                        <h2
+                            className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
-                            {plugin.length === 1
-                                ? 'The APP you are looking for is in beta , and we are awaiting verificationfrom the app builders before making it accesible to end users.This process may take 15 to 30 days.'
-                                : ' The app combinations you are looking for is not available right now but we can bring them for you if you can provide us usecase.'}
-                        </h1>
+                            The app you are looking for is in beta, and we are awaiting verification from the app
+                            builders before making it accessible to end users. This process may take 15 to 30 days.
+                        </h2>
                         <h2
                             className={`lg:text-3xl md:text-2xl text-xl font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >

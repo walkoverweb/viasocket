@@ -1,61 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { MdArrowBackIos, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { MdArrowBackIos } from 'react-icons/md';
 import Footer from '../footer/footer';
+import Navbar from '../navbar/navbar';
 
-export default function ErrorComp({ pathArray, page }) {
+export default function ErrorComp({ navData, footerData }) {
     const router = useRouter();
-    const openChatWidget = () => {
-        window.chatWidget.open();
-    };
-    var showNav = false;
-    if (page === '/integration') {
-        showNav = true;
-    }
 
     return (
         <>
             <div>
-                {showNav && (
-                    <div className="flex justify-between container my-4">
-                        <Image
-                            src="/assets/brand/logo.svg"
-                            width={540}
-                            height={540}
-                            alt="viasocket logo"
-                            className="h-[40px] w-auto"
-                        />
-                        <div className="dropdown dropdown-bottom dropdown-hover">
-                            <div tabIndex={0} role="button" className="flex items-center gap-1">
-                                Support
-                                <MdOutlineKeyboardArrowDown size={20} />
-                            </div>
-                            <ul
-                                tabIndex={0}
-                                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                            >
-                                <button
-                                    onClick={openChatWidget}
-                                    aria-label="Chat"
-                                    className="text-start px-4 py-2 hover:bg-[##E5E5E1] rounded-lg"
-                                >
-                                    Live Chat
-                                </button>
-                                <li>
-                                    <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
-                                        Book a meeting
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link target="_blank" href="https://viasocket.com/faq">
-                                        Help Doc
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                )}
+                <Navbar navData={navData} />
                 <div className="flex flex-col items-center justify-center py-6 w-dvw px-2">
                     <Image
                         src="/assets/img/404.svg"
@@ -74,12 +30,12 @@ export default function ErrorComp({ pathArray, page }) {
                                 Back
                             </button>
                             <Link href="/">
-                                <button className="btn btn-md btn-accent btn-outline">Go to home</button>
+                                <button className="btn btn-md btn-primary btn-outline">Go to home</button>
                             </Link>
                         </div>
                     </div>
                 </div>
-                {showNav && <Footer />}
+                <Footer footerData={footerData} />
             </div>
         </>
     );

@@ -8,40 +8,38 @@ export default function IntegrationsAbout({ plugins }) {
             <div className="py-24">
                 <div className="flex lg:flex-row md:flex-row flex-col gap-10 container justify-between">
                     {plugins?.length &&
-                        plugins?.map((plugin) => {
+                        plugins?.map((plugin, index) => {
                             return (
-                                <>
-                                    <div className="flex flex-1 flex-col justify-start gap-4">
-                                        <Image
-                                            src={plugin?.iconurl || 'https://placehold.co/40x40'}
-                                            width={34}
-                                            height={34}
-                                            alt={plugin?.name}
-                                        />
-                                        <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
-                                            {`About ${plugin?.name}`}
-                                        </h6>
-                                        <p className="md:text-xl text-base">{plugin?.description}</p>
-                                        <div>
-                                            <Link
-                                                href={
-                                                    plugin?.domain?.startsWith('http')
-                                                        ? plugin?.domain
-                                                        : 'http://' + plugin?.domain
-                                                }
-                                                target="_blank"
+                                <div key={plugin.rowid} className="flex flex-1 flex-col justify-start gap-4">
+                                    <Image
+                                        src={plugin?.iconurl || 'https://placehold.co/40x40'}
+                                        width={34}
+                                        height={34}
+                                        alt={plugin?.name}
+                                    />
+                                    <h6 className="lg:text-[32px] md:text-2xl text-xl font-medium">
+                                        {`About ${plugin?.name}`}
+                                    </h6>
+                                    <p className="md:text-xl text-base">{plugin?.description}</p>
+                                    <div>
+                                        <Link
+                                            href={
+                                                plugin?.domain?.startsWith('http')
+                                                    ? plugin?.domain
+                                                    : 'http://' + plugin?.domain
+                                            }
+                                            target="_blank"
+                                        >
+                                            <button
+                                                className="font-medium text-[#2D81F7] flex items-center"
+                                                aria-label="load more apps"
                                             >
-                                                <button
-                                                    className="font-medium text-[#2D81F7] flex items-center"
-                                                    aria-label="load more apps"
-                                                >
-                                                    Learn More
-                                                    <MdChevronRight fontSize={22} />
-                                                </button>
-                                            </Link>
-                                        </div>
+                                                Learn More
+                                                <MdChevronRight fontSize={22} />
+                                            </button>
+                                        </Link>
                                     </div>
-                                </>
+                                </div>
                             );
                         })}
                     {plugins?.length == 1 && (
@@ -55,7 +53,7 @@ export default function IntegrationsAbout({ plugins }) {
                                 streamline and simplify the integration of your favorite applications and tools.
                             </p>
                             <div>
-                                <Link href="/" target="_blank">
+                                <Link href="https://viasocket.com" target="_blank">
                                     <button
                                         className="font-medium text-[#2D81F7] flex items-center"
                                         aria-label="load more apps"
