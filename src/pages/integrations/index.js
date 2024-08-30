@@ -1,4 +1,3 @@
-import ErrorComp from '@/components/404/404Comp';
 import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';

@@ -11,7 +11,7 @@ export async function getServerSideProps(context) {
     const combos = await fetchCombos(pathSlugs);
     const apps = await fetchApps('All', 25);
 
-    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng'];
+    const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
@@ -29,6 +29,8 @@ export async function getServerSideProps(context) {
             metaData: results[0].data.rows,
             getStartedData: results[1].data.rows,
             faqData: results[2].data.rows,
+            navData: results[3]?.data?.rows,
+            footerData: results[4]?.data?.rows,
             plugins,
         },
     };
@@ -67,10 +69,24 @@ async function fetchCombos(pathArray) {
     return responseData;
 }
 
-const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugins, pathSlugs }) => {
+const IntegrationSlugPage = ({
+    getStartedData,
+    combos,
+    metaData,
+    faqData,
+    plugins,
+    pathSlugs,
+    navData,
+    footerData,
+}) => {
     return (
         <>
-            <MetaHeadComp metaData={metaData} plugin={plugins} page={'/integrations/AppOne/AppTwo'} />
+            <MetaHeadComp
+                metaData={metaData}
+                plugin={plugins}
+                page={'/integrations/AppOne/AppTwo'}
+                pathSlugs={pathSlugs}
+            />
             {combos?.plugins?.[pathSlugs[1]] ? (
                 <IntegrationsComp
                     combinationData={combos}
@@ -83,7 +99,7 @@ const IntegrationSlugPage = ({ getStartedData, combos, metaData, faqData, plugin
                     pathSlugs={pathSlugs}
                 />
             ) : (
-                <ErrorComp pathSlugs={pathSlugs} page="/integration" />
+                <ErrorComp footerData={footerData} navData={navData} />
             )}
         </>
     );

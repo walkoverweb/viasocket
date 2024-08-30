@@ -19,12 +19,6 @@ export default function HeadComp() {
                 <meta name="msapplication-TileColor" content="#da532c" />
                 <meta name="theme-color" content="#ffffff" />
             </Head>
-            <Script
-                src="https://app.10xlaunch.ai/widget"
-                data-app-id="2fce272b-e110-4d49-858d-9b9398a7b72a"
-                async
-                defer
-            />
         </>
     );
 }
