@@ -75,7 +75,7 @@ export function EventCard({ card, plugin }) {
                     src={getIconUrl(card?.pluginslugname)}
                     width={26}
                     height={26}
-                    className="w-[26px] h-[26px]"
+                    className="w-auto max-w-fit h-[26px]"
                     alt={card?.name || ''}
                 />
                 <div className="flex flex-col">
