@@ -14,7 +14,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
 
     useEffect(() => {
-        if (pluginData?.[0]?.brandcolor) {
+        if (pluginData[0]?.brandcolor) {
             setNewBrandColor(pluginData[0].brandcolor);
         }
     }, [pluginData]);
@@ -24,11 +24,11 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
     }, [newBrandColor]);
 
     const integrationText =
-        pluginData?.length <= 1
+        pluginData?.length === 1
             ? `Create integrations between ${pluginData[0]?.name} and your favorite App`
             : `Create integrations between ${pluginData[0]?.name} and ${pluginData[1]?.name}`;
 
-    const disconnectedTextH2 = `Your ${pluginData?.[0]?.name} connection has been Disconnected`;
+    const disconnectedTextH2 = `Your ${pluginData[0]?.name} connection has been Disconnected`;
     const disconnectedTextP = `If you’d like to re-connect viaSocket and your ${pluginData?.[0]?.name} account, check `;
 
     return pluginData?.length ? (
