@@ -21,8 +21,6 @@ export default function IntegrationsComp({
     hideApps,
     showCategories,
 }) {
-    console.log(posts, 78888);
-
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
