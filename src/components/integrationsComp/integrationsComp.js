@@ -14,13 +14,15 @@ export default function IntegrationsComp({
     type,
     faqData,
     faqName,
-    blogs,
+    posts,
     usecases,
     getStartedData,
     pathSlugs,
     hideApps,
     showCategories,
 }) {
+    console.log(posts, 78888);
+
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
@@ -37,10 +39,10 @@ export default function IntegrationsComp({
                 </div>
             )}
 
-            {blogs?.length > 0 && (
+            {posts?.length > 0 && (
                 <div className="container my-24">
                     {' '}
-                    <BlogGrid posts={blogs} />
+                    <BlogGrid posts={posts} />
                 </div>
             )}
 

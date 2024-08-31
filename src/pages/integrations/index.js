@@ -17,6 +17,8 @@ const IntegrationSlugPage = ({
     navData,
     footerData,
 }) => {
+    console.log('inside slug page', posts);
+
     return (
         <>
             <MetaHeadComp

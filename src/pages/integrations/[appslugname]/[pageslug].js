@@ -3,6 +3,7 @@ import { getDbdashData } from '@/pages/api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import ErrorComp from '@/components/404/404Comp';
+import axios from 'axios';
 
 export async function getServerSideProps(context) {
     const { params } = context;
@@ -20,6 +21,12 @@ export async function getServerSideProps(context) {
     const pluginOne = combos?.plugins?.[pathSlugs[0]] ?? null;
     const pluginTwo = combos?.plugins?.[pathSlugs[1]] ?? null;
     plugins = [pluginOne, pluginTwo];
+    const tag = 'via-socket';
+    const defaultTag = 'integrations';
+    const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
+    );
+    const posts = await res?.data;
 
     return {
         props: {
@@ -32,6 +39,7 @@ export async function getServerSideProps(context) {
             navData: results[3]?.data?.rows,
             footerData: results[4]?.data?.rows,
             plugins,
+            posts,
         },
     };
 }
@@ -77,8 +85,11 @@ const IntegrationSlugPage = ({
     plugins,
     pathSlugs,
     navData,
+    posts,
     footerData,
 }) => {
+    console.log('finall');
+
     return (
         <>
             <MetaHeadComp
@@ -97,6 +108,7 @@ const IntegrationSlugPage = ({
                     getStartedData={getStartedData}
                     isHero={'false'}
                     pathSlugs={pathSlugs}
+                    posts={posts}
                 />
             ) : (
                 <ErrorComp footerData={footerData} navData={navData} />
