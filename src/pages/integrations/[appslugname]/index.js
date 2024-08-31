@@ -16,8 +16,6 @@ const IntegrationSlugPage = ({
     navData,
     footerData,
 }) => {
-    console.log('inside 2nd page', posts);
-
     if (combos && !combos.error && combos?.plugins?.[pathSlugs[0]]) {
         return (
             <>

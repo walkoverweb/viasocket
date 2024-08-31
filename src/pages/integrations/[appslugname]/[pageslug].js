@@ -88,8 +88,6 @@ const IntegrationSlugPage = ({
     posts,
     footerData,
 }) => {
-    console.log('finall');
-
     return (
         <>
             <MetaHeadComp
