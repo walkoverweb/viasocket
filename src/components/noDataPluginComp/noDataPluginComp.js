@@ -82,7 +82,7 @@ export default function NoDataPluginComp({ plugin, mode }) {
                         </h2>
                         <div className="flex gap-3">
                             <button
-                                className={`btn btn-semibold ${mode === 'dark' ? 'btn-light' : 'btn-primary'}`}
+                                className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
                                 onClick={() => document.getElementById('beta_request').showModal()}
                             >
                                 Request Beta Access
