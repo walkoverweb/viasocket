@@ -1,8 +1,8 @@
 import { LinkButton } from '../uiComponents/buttons';
-
 export default function FAQSection({ faqData, faqName }) {
     return (
         <>
+            {' '}
             {faqData?.length > 0 && (
                 <div className=" py-12">
                     <div className="container flex flex-col gap-9">
