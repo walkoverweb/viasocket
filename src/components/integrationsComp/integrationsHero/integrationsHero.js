@@ -10,6 +10,8 @@ import { MdOpenInNew } from 'react-icons/md';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
+    const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
+    const [mode, setMode] = useState('dark');
 
     if (!pluginData?.length) {
         return (
@@ -22,9 +24,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
             </div>
         );
     }
-
-    const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
-    const [mode, setMode] = useState('dark');
 
     useEffect(() => {
         if (pluginData[0]?.brandcolor) {
