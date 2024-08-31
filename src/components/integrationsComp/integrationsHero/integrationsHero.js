@@ -11,7 +11,6 @@ import { MdOpenInNew } from 'react-icons/md';
 export default function IntegrationsHero({ combinationData, pluginData }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
 
-    // Handle case when pluginData is empty or undefined
     if (!pluginData?.length) {
         return (
             <div className="container pt-24 flex flex-col gap-6">
