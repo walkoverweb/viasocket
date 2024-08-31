@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
+    console.log(pluginData, 'plugin COMBINATION data for button');
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
@@ -77,6 +78,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         );
                                     })}
                             </div>
+                            <div className="flex gap-5 md:justify-end justify-center"></div>
                             <div className="flex gap-5 md:justify-end justify-center">
                                 {pluginData[0]?.name && (
                                     <Link
