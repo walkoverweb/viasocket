@@ -5,7 +5,6 @@ export default function EventGrid({ plugin, mode }) {
     if (plugin?.length) {
         const actionEvents = [];
         const triggerEvents = [];
-
         plugin.forEach((p) => {
             p.events.forEach((event) => {
                 if (event.type === 'action') {
@@ -38,7 +37,6 @@ export default function EventGrid({ plugin, mode }) {
                                 </div>
                             </div>
                         )}
-
                         {actionEvents.length > 0 && (
                             <div className="flex flex-col gap-6">
                                 <div className="flex items-center gap-4">
