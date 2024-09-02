@@ -9,12 +9,12 @@ import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
 
 export default function IntegrationsComp({
+    posts,
     combinationData,
     pluginData,
     type,
     faqData,
     faqName,
-    posts,
     usecases,
     getStartedData,
     pathSlugs,
