@@ -32,10 +32,14 @@
     &.btn-primary {
         @apply hover:text-primary hover:bg-gray-100;
     }
+    &.btn-accent {
+        @apply outline-primary outline-1 outline;
+    }
     &:disabled {
         @apply bg-gray-200 text-black;
     }
 }
+
 .container {
     max-width: 1560px;
     margin-left: auto;
