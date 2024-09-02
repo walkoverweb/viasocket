@@ -15,7 +15,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [visibleCategories, setVisibleCategories] = useState(15);
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [offset, setOffset] = useState(0);
-    const [hasMoreApps, setHasMoreApps] = useState(true);
     const [searchData, setSearchData] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const [available, setAvailable] = useState(false);
@@ -23,7 +22,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
-    const debounceValue = useDebounce(searchTerm, 800);
+    const debounceValue = useDebounce(searchTerm, 300);
     useEffect(() => {
         if (currentCategory) {
             setSelectedCategory(currentCategory);
@@ -38,6 +37,16 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             fetchApps(selectedCategory, offset);
         }
     }, [offset, selectedCategory]);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (selectedCategory) {
+            const newUrl = `${window.location.pathname}?currentcategory=${selectedCategory}`;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+        }
+
+        setVisibleApps(40);
+    }, [selectedCategory]);
 
     useEffect(() => {
         if (debounceValue) {
@@ -69,8 +78,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             const newData = rawData.data;
 
             setApps((prevApps) => (offset === 0 ? newData : [...prevApps, ...newData]));
-            setAvailable(newData?.length >= 40);
-            setHasMoreApps(newData?.length > 0);
+            setAvailable(newData?.length >= 0);
         } catch (error) {
             setLoading(false);
             setError(error.message);
@@ -106,11 +114,13 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const handleLoadMoreApps = () => {
         if (apps?.length >= 40) {
             setVisibleApps(visibleApps + 40);
-            if (visibleApps >= searchedApps.length && hasMoreApps) {
-                setOffset(offset + 200);
-            }
         }
     };
+    useEffect(() => {
+        if (visibleApps >= searchedApps.length) {
+            setOffset(offset + 200);
+        }
+    }, [visibleApps]);
 
     const handleLoadMoreCategories = () => {
         setVisibleCategories(visibleCategories + 10);
@@ -122,6 +132,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const filteredCategories = categories?.categories?.filter((category) =>
         category.toLowerCase().includes(categorySearchTerm.toLowerCase())
     );
+
     return (
         <div className="container flex flex-col gap-9 py-12">
             {pluginData?.length && (
@@ -175,20 +186,17 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px] gap-4">
-                            {filteredCategories?.slice(0, visibleCategories).map((category, index) => (
-                                <Link
-                                    href={`/integrations?currentcategory=${category}`}
-                                    aria-label="select category"
-                                    key={index}
-                                >
+                            {filteredCategories?.slice(0, visibleCategories).map((category, index) => {
+                                return (
                                     <h6
+                                        key={index}
                                         onClick={() => setSelectedCategory(category)}
                                         className={`lg:text-[20px] text-base cursor-pointer ${selectedCategory === category ? 'font-bold' : 'font-normal'}`}
                                     >
                                         {category === 'Null' ? 'Other' : category}
                                     </h6>
-                                </Link>
-                            ))}
+                                );
+                            })}
 
                             {filteredCategories?.length > visibleCategories && (
                                 <button
@@ -229,64 +237,76 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
                     </div>
                     <div className="flex flex-row flex-wrap gap-5">
-                        {searchedApps?.length
-                            ? searchedApps.slice(0, visibleApps).map(
-                                  (app, index) =>
-                                      app?.appslugname && (
-                                          <a
-                                              key={index}
-                                              rel="noopener noreferrer"
-                                              aria-label="apps"
-                                              href={`/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
-                                          >
-                                              <div className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white">
-                                                  {app?.iconurl && (
-                                                      <Image
-                                                          src={app?.iconurl}
-                                                          alt={app?.name}
-                                                          height={23}
-                                                          width={23}
-                                                      />
-                                                  )}
-                                                  <span className="text-base font-medium">{app?.name}</span>
-                                              </div>
-                                          </a>
-                                      )
-                              )
-                            : !loading && (
-                                  <div className="flex flex-col gap-4 w-1/2">
-                                      <p className="text-gray-700 font-semibold text-xl">
-                                          Can't find what you need? Let us know what you're looking for! We're always
-                                          looking to expand our collection.
-                                          <br />
-                                          Request an app here
-                                      </p>
-                                      <div>
-                                          <button
-                                              className="px-4 py-2 border border-[#CCCCCC] rounded"
-                                              onClick={openChatWidget}
-                                              aria-label="live chat"
-                                          >
-                                              Live Chat
-                                          </button>
-                                      </div>
-                                  </div>
-                              )}
-
-                        {searchLoading ||
-                            (loading &&
-                                Array.from({ length: 40 }).map((_, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white animate-pulse"
-                                    >
-                                        <div className="h-6 w-6 bg-gray-300 rounded"></div>
-                                        <div className="h-4 w-24 bg-gray-300 rounded"></div>
+                        {searchLoading ? (
+                            Array.from({ length: 20 }).map((_, index) => (
+                                <div
+                                    key={index}
+                                    className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white animate-pulse"
+                                >
+                                    <div className="h-6 w-6 bg-gray-300 rounded"></div>
+                                    <div className="h-4 w-24 bg-gray-300 rounded"></div>
+                                </div>
+                            ))
+                        ) : searchedApps?.length || loading ? (
+                            <>
+                                {searchedApps?.length > 0 &&
+                                    searchedApps.slice(0, visibleApps).map(
+                                        (app, index) =>
+                                            app?.appslugname && (
+                                                <a
+                                                    key={index}
+                                                    rel="noopener noreferrer"
+                                                    aria-label="apps"
+                                                    href={`/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
+                                                >
+                                                    <div className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white">
+                                                        {app?.iconurl && (
+                                                            <Image
+                                                                src={app?.iconurl}
+                                                                alt={app?.name}
+                                                                height={23}
+                                                                width={23}
+                                                            />
+                                                        )}
+                                                        <span className="text-base font-medium">{app?.name}</span>
+                                                    </div>
+                                                </a>
+                                            )
+                                    )}
+                                {loading &&
+                                    Array.from({ length: 20 }).map((_, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white animate-pulse"
+                                        >
+                                            <div className="h-6 w-6 bg-gray-300 rounded"></div>
+                                            <div className="h-4 w-24 bg-gray-300 rounded"></div>
+                                        </div>
+                                    ))}
+                            </>
+                        ) : (
+                            !loading && (
+                                <div className="flex flex-col gap-4 w-1/2">
+                                    <p className="text-gray-700 font-semibold text-xl">
+                                        Can't find what you need? Let us know what you're looking for! We're always
+                                        looking to expand our collection.
+                                        <br />
+                                        Request an app here
+                                    </p>
+                                    <div>
+                                        <button
+                                            className="px-4 py-2 border border-[#CCCCCC] rounded"
+                                            onClick={openChatWidget}
+                                            aria-label="live chat"
+                                        >
+                                            Live Chat
+                                        </button>
                                     </div>
-                                )))}
+                                </div>
+                            )
+                        )}
                     </div>
-
-                    {(visibleApps < searchedApps?.length || hasMoreApps) && available && (
+                    {available && visibleApps < searchedApps?.length && (
                         <button
                             onClick={() => {
                                 if (visibleApps >= searchedApps?.length) {
