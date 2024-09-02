@@ -19,13 +19,12 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [searchData, setSearchData] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const [available, setAvailable] = useState(false);
-    const [categorySearchTerm, setCategorySearchTerm] = useState(''); // Added for category search
+    const [categorySearchTerm, setCategorySearchTerm] = useState('');
     const router = useRouter();
     const currentCategory = router?.query?.currentcategory;
 
     const debounceValue = useDebounce(searchTerm, 800);
-    const debounceCategoryValue = useDebounce(categorySearchTerm, 500); // Added for debouncing category search
-
+    const debounceCategoryValue = useDebounce(categorySearchTerm, 500);
     useEffect(() => {
         if (currentCategory) {
             setSelectedCategory(currentCategory);
