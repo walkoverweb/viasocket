@@ -38,7 +38,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 {pluginData?.length &&
                                     pluginData.map((plug, index) => {
                                         return (
-                                            <div key={plug.id || index} className="flex items-center gap-3  w-fit">
+                                            <div key={plug?.id || index} className="flex items-center gap-3  w-fit">
                                                 {index > 0 && <span className="text-3xl mx-4"> + </span>}
                                                 {plug?.iconurl && (
                                                     <Image
