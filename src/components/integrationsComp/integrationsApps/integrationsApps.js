@@ -289,9 +289,17 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                     </div>
                                 )))}
                     </div>
-                    {visibleApps < searchedApps?.length && (
+
+                    {(visibleApps < searchedApps?.length || hasMoreApps) && available && (
                         <button
-                            onClick={handleLoadMoreApps}
+                            onClick={() => {
+                                if (visibleApps >= searchedApps?.length) {
+                                    handleLoadMoreApps();
+                                } else {
+                                    setVisibleApps(visibleApps + 45);
+                                }
+                            }}
+                            // className="font-medium text-link flex items-center"
                             className="flex items-center gap-2 text-blue-500 font-medium cursor-pointer w-fit"
                             aria-label="load more apps"
                         >
