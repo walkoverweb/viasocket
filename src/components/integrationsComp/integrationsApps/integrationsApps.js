@@ -150,7 +150,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
             <div className="flex gap-5 lg:flex-row flex-col">
                 {showCategories && (
                     <div className="flex flex-col gap-5">
-                        <p className="lg:text-2xl md:text-xl text-lg font-medium">Categories</p>
+                        <p className="lg:text-2xl md:text-xl text-lg font-medium">Category</p>
                         <label className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
