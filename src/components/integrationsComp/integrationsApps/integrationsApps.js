@@ -1,8 +1,7 @@
 import Image from 'next/image';
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { MdAdd, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import fetchSearchResults from '@/utils/searchIntegrationApps';
 
@@ -32,12 +31,21 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     }, [currentCategory]);
 
     useEffect(() => {
-        if (selectedCategory) {
-            if (selectedCategory !== 'All') {
-                setOffset(0);
-            }
-            fetchApps(selectedCategory, offset);
+        if (!selectedCategory) return;
+
+        if (selectedCategory !== 'All') {
+            setOffset(0);
         }
+
+        fetchApps(selectedCategory, offset);
+        setVisibleApps(40);
+        setVisibleCategories(15);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        const updatedQuery = new URLSearchParams(window.location.search);
+        updatedQuery.set('currentcategory', selectedCategory);
+        const newUrl = `${window.location.pathname}?${updatedQuery.toString()}`;
+        window.history.pushState(null, '', newUrl);
     }, [offset, selectedCategory]);
 
     useEffect(() => {
@@ -114,7 +122,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     };
 
     const handleLoadMoreCategories = () => {
-        setVisibleCategories(visibleCategories + 10);
+        setVisibleCategories(visibleCategories + 8);
     };
 
     const openChatWidget = () => {
@@ -153,20 +161,23 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </select>
 
                         <div className="lg:flex hidden flex-col lg:w-[240px] md:w-[240px] gap-4">
-                            {categories?.categories?.slice(0, visibleCategories).map((category, index) => (
-                                <Link
-                                    href={`/integrations?currentcategory=${category}`}
-                                    aria-label="select category"
-                                    key={index}
-                                >
-                                    <h6
-                                        onClick={() => setSelectedCategory(category)}
-                                        className={`lg:text-[20px] text-base cursor-pointer ${selectedCategory === category ? 'font-bold' : 'font-normal'}`}
-                                    >
-                                        {category === 'Null' ? 'Other' : category}
-                                    </h6>
-                                </Link>
-                            ))}
+                            <h6
+                                className={`lg:text-[20px] text-base  ${selectedCategory === selectedCategory ? 'font-bold' : 'font-normal'}`}
+                            >
+                                {selectedCategory === 'Null' ? 'Other' : selectedCategory}
+                            </h6>
+                            {categories?.categories?.slice(0, visibleCategories).map((category, index) => {
+                                if (category !== selectedCategory)
+                                    return (
+                                        <h6
+                                            key={index}
+                                            onClick={() => setSelectedCategory(category)}
+                                            className={`lg:text-[20px] text-base cursor-pointer ${selectedCategory === category ? 'font-bold' : 'font-normal'}`}
+                                        >
+                                            {category === 'Null' ? 'Other' : category}
+                                        </h6>
+                                    );
+                            })}
 
                             {categories?.categories?.length > visibleCategories && (
                                 <button
