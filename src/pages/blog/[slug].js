@@ -14,7 +14,6 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
-// const components = { Test }
 const component = { ReactPlayer };
 
 import { MdKeyboardArrowLeft } from 'react-icons/md';
@@ -65,8 +64,8 @@ export default function TestPage({
                     <MdKeyboardArrowLeft />
                     Back
                 </button>
-                <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
-                    <div className="flex flex-col justify-center gap-2 md:w-1/2">
+                {/* <div className="flex flex-col gap-2 justify-between md:flex-row mt-6 mb-12">
+                    <div className="flex flex-col justify-center gap-2 md:w-2/5 lg:w-3/5">
                         <div className="capitalize">
                             {author}, {date}
                         </div>
@@ -81,8 +80,28 @@ export default function TestPage({
                             alt={title}
                         />
                     )}
+                </div> */}
+                <div className="flex flex-col gap-4 mt-6 mb-12">
+                    <div className="flex flex-col justify-center gap-2">
+                        <div className="flex justify-end w-full capitalize">
+                            {author}, {date}
+                        </div>
+                        <h1 className="font-medium text-4xl lg:text-6xl text-left lg:text-center ">{title}</h1>
+                    </div>
+                    {thumbnailImage !== '' && (
+                        <div className="flex justify-center">
+                            <img
+                                className="w-auto"
+                                src={process.env.NEXT_PUBLIC_BASE_URL + thumbnailImage}
+                                width={800}
+                                height={600}
+                                alt={title}
+                            />
+                        </div>
+                    )}
                 </div>
-                <div className="body">
+
+                <div className="body text-xl">
                     <MDXRemote {...source} components={component} />
                 </div>
                 <footer className="pt-3 grid gap-4">
