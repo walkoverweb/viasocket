@@ -43,25 +43,36 @@ export default function noDataGrid({ plugin, mode }) {
             <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12 ">
                 <div className={`container flex flex-col md:gap-12 gap-6 `}>
                     <div className="flex flex-col gap-8 flex-grow justify-center  ">
-                        <h1
+                        <h2
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
                             The app you are looking for is in beta, and we are awaiting verification from the app
                             builders before making it accessible to end users. This process may take 15 to 30 days.
-                        </h1>
+                        </h2>
                         <h2
                             className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
                             If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
                         </h2>
-                        <div className="flex gap-3">
-                            <button
-                                className={`btn btn-semibold ${mode === 'dark' ? 'btn-light' : 'btn-primary'}`}
-                                onClick={() => document.getElementById('beta_request').showModal()}
-                            >
-                                Request Beta Access
-                            </button>
-                        </div>
+                        {plugin?.length <= 1 ? (
+                            <div className="flex gap-3">
+                                <button
+                                    className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                    onClick={() => document.getElementById('beta_request').showModal()}
+                                >
+                                    Request Beta Access
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex gap-3">
+                                <button
+                                    className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                    onClick={() => document.getElementById('beta_request').showModal()}
+                                >
+                                    Request Combination
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

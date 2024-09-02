@@ -2,15 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { MdOutlineArrowForward } from 'react-icons/md';
 import { LinkButton } from '../uiComponents/buttons';
+import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
     return (
         <>
+            {' '}
             <div className="flex flex-col gap-9">
                 <h2 className="md:text-6xl text-4xl font-medium">
                     Know More About <br />
                     Viasocket Integrations
                 </h2>
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                     {posts.map((post, index) => (
                         <CardComponent key={index} card={post} />
@@ -25,12 +26,20 @@ const BlogGrid = ({ posts }) => {
         </>
     );
 };
-
 const CardComponent = ({ card }) => {
     return (
-        <div className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral">
+        <Link
+            href={`/blog/${card?.slug}`}
+            target="_blank"
+            className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral"
+        >
             <figure className="h-60">
-                <img src={card?.thumbnail} alt={card?.title} />
+                <Image
+                    width={720}
+                    height={720}
+                    src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail}
+                    alt={card?.title}
+                />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{card?.title}</h2>
@@ -39,7 +48,7 @@ const CardComponent = ({ card }) => {
                     <LinkButton href={`/blog/${card?.slug}`} title="Read more" />
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 export default BlogGrid;

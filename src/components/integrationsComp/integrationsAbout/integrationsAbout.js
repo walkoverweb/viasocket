@@ -53,7 +53,7 @@ export default function IntegrationsAbout({ plugins }) {
                                 streamline and simplify the integration of your favorite applications and tools.
                             </p>
                             <div>
-                                <Link href="/" target="_blank">
+                                <Link href="https://viasocket.com" target="_blank">
                                     <button
                                         className="font-medium text-[#2D81F7] flex items-center"
                                         aria-label="load more apps"

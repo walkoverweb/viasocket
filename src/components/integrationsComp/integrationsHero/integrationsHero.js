@@ -118,16 +118,29 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                         >
                             {integrationText}
                         </h2>
-                        {pluginData[0]?.events?.length ? (
-                            <>
-                                {combinationData?.combinations?.length > 0 ? (
+
+                        {pluginData.length > 1 ? (
+                            pluginData[0]?.events?.length && pluginData[1]?.events?.length ? (
+                                combinationData?.combinations?.length > 0 ? (
                                     <ComboGrid combos={combinationData} mode={mode} />
                                 ) : (
+                                    <div className="flex gap-3">
+                                        <EventGrid plugin={pluginData} mode={mode} />
+                                    </div>
+                                )
+                            ) : (
+                                <NoDataGrid plugin={pluginData} mode={mode} />
+                            )
+                        ) : pluginData[0]?.events?.length ? (
+                            combinationData?.combinations?.length > 0 ? (
+                                <ComboGrid combos={combinationData} mode={mode} />
+                            ) : (
+                                <div className="flex gap-3">
                                     <EventGrid plugin={pluginData} mode={mode} />
-                                )}
-                            </>
+                                </div>
+                            )
                         ) : (
-                            <NoDataGrid plugin={pluginData[0]} mode={mode} />
+                            <NoDataGrid plugin={pluginData} mode={mode} />
                         )}
                     </div>
                 </div>
