@@ -24,7 +24,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const currentCategory = router?.query?.currentcategory;
 
     const debounceValue = useDebounce(searchTerm, 800);
-    const debounceCategoryValue = useDebounce(categorySearchTerm, 500);
     useEffect(() => {
         if (currentCategory) {
             setSelectedCategory(currentCategory);
@@ -120,11 +119,9 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const openChatWidget = () => {
         window.chatWidget.open();
     };
-
     const filteredCategories = categories?.categories?.filter((category) =>
-        category.toLowerCase().includes(debounceCategoryValue.toLowerCase())
+        category.toLowerCase().includes(categorySearchTerm.toLowerCase())
     );
-
     return (
         <div className="container flex flex-col gap-9 py-12">
             {pluginData?.length && (
