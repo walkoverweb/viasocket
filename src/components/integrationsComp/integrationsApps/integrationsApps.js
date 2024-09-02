@@ -299,7 +299,6 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                     setVisibleApps(visibleApps + 45);
                                 }
                             }}
-                            // className="font-medium text-link flex items-center"
                             className="flex items-center gap-2 text-blue-500 font-medium cursor-pointer w-fit"
                             aria-label="load more apps"
                         >
