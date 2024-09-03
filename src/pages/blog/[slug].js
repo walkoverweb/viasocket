@@ -117,7 +117,6 @@ export async function getServerSideProps(slug) {
             yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }),
         },
     });
-
     const title = matterResult?.data?.title;
     const author = matterResult?.data?.author;
     const content = matterResult?.content;
