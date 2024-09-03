@@ -10,7 +10,7 @@ export default function IntegrationsAbout({ plugins }) {
                     {plugins?.length &&
                         plugins?.map((plugin, index) => {
                             return (
-                                <div key={plugin.rowid} className="flex flex-1 flex-col justify-start gap-4">
+                                <div key={plugin?.rowid || index} className="flex flex-1 flex-col justify-start gap-4">
                                     <Image
                                         src={plugin?.iconurl || 'https://placehold.co/40x40'}
                                         width={34}
