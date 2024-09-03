@@ -12,15 +12,12 @@ import TagButton from '@/components/blogs/tags/tagButton';
 import dynamic from 'next/dynamic';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
-
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 const component = { ReactPlayer };
-
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import Image from 'next/image';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
-
 const slugToPostContent = ((postContents) => {
     let hash = {};
     let fullPath = {};
@@ -31,7 +28,6 @@ const slugToPostContent = ((postContents) => {
 
     return hash;
 })(fetchPostContent());
-
 export default function TestPage({
     getStartedData,
     source,
@@ -74,7 +70,6 @@ export default function TestPage({
                             {author}, {date}
                         </div>
                     </div>
-
                     <h1 className="font-medium text-4xl lg:text-6xl text-start lg:text-center ">{title}</h1>
 
                     {thumbnailImage !== '' && (
