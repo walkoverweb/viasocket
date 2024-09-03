@@ -14,7 +14,6 @@ import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
-// const components = { Test }
 const component = { ReactPlayer };
 
 import { MdKeyboardArrowLeft } from 'react-icons/md';
