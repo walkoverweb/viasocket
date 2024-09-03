@@ -12,15 +12,12 @@ import TagButton from '@/components/blogs/tags/tagButton';
 import dynamic from 'next/dynamic';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
-
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 const component = { ReactPlayer };
-
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import Image from 'next/image';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
-
 const slugToPostContent = ((postContents) => {
     let hash = {};
     let fullPath = {};
@@ -31,7 +28,6 @@ const slugToPostContent = ((postContents) => {
 
     return hash;
 })(fetchPostContent());
-
 export default function TestPage({
     getStartedData,
     source,
@@ -59,18 +55,23 @@ export default function TestPage({
                 />
             </Head>
             <Navbar navData={navData} />
-            <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-5/6 xl:w-3/5">
-                <button className="btn-sm btn p-2 border border-2 " onClick={handleClick} aria-label="back">
-                    <MdKeyboardArrowLeft />
-                    Back
-                </button>
+            <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-3/6 xl:w-2/5">
                 <div className="flex flex-col gap-4 mt-6 mb-12">
-                    <div className="flex flex-col justify-center gap-2">
-                        <div className="flex justify-end w-full capitalize">
+                    <div className="flex items-center justify-between">
+                        <button
+                            className="btn-sm btn border border-1 bg-black text-white hover:bg-black hover:border-black hover:text-white"
+                            onClick={() => (window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/blog`)}
+                            aria-label="back"
+                        >
+                            <MdKeyboardArrowLeft />
+                            Back
+                        </button>
+                        <div className="capitalize text-right">
                             {author}, {date}
                         </div>
-                        <h1 className="font-medium text-4xl lg:text-6xl text-left lg:text-center ">{title}</h1>
                     </div>
+                    <h1 className="font-medium text-4xl lg:text-4xl text-start lg:text-center ">{title}</h1>
+
                     {thumbnailImage !== '' && (
                         <div className="flex justify-center">
                             <img
@@ -83,11 +84,10 @@ export default function TestPage({
                         </div>
                     )}
                 </div>
-
-                <div className="body text-xl">
+                <div className="body text-xl leading-relaxed">
                     <MDXRemote {...source} components={component} />
                 </div>
-                <footer className="pt-3 grid gap-4">
+                {/* <footer className="pt-3 grid gap-4">
                     <div className="blog-card-tags">
                         <ul className="blog-page-tags flex gap-3 ps-0 mb-1">
                             {tags !== '' &&
@@ -98,11 +98,11 @@ export default function TestPage({
                                 ))}
                         </ul>
                     </div>
-                </footer>
+                </footer> */}
+            </div>
 
-                <div className="container py-8">
-                    {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
-                </div>
+            <div className="container py-8">
+                {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
             </div>
             <Footer footerData={footerData} />
         </>
@@ -117,7 +117,6 @@ export async function getServerSideProps(slug) {
             yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }),
         },
     });
-
     const title = matterResult?.data?.title;
     const author = matterResult?.data?.author;
     const content = matterResult?.content;
@@ -131,7 +130,6 @@ export async function getServerSideProps(slug) {
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
     return {
         props: {
             getStartedData: results[0].data.rows,
