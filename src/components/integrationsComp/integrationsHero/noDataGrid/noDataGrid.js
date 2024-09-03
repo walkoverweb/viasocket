@@ -54,14 +54,25 @@ export default function noDataGrid({ plugin, mode }) {
                         >
                             If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
                         </h2>
-                        <div className="flex gap-3">
-                            <button
-                                className={`btn btn-semibold ${mode === 'dark' ? 'btn-light' : 'btn-primary'}`}
-                                onClick={() => document.getElementById('beta_request').showModal()}
-                            >
-                                Request Beta Access
-                            </button>
-                        </div>
+                        {plugin?.length <= 1 ? (
+                            <div className="flex gap-3">
+                                <button
+                                    className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                    onClick={() => document.getElementById('beta_request').showModal()}
+                                >
+                                    Request Beta Access
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex gap-3">
+                                <button
+                                    className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                    onClick={() => document.getElementById('beta_request').showModal()}
+                                >
+                                    Request Combination
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

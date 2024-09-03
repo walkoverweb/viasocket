@@ -55,6 +55,7 @@ export default function TestPage({
                 />
             </Head>
             <Navbar navData={navData} />
+
             <div className="wrapper container blog-container mt-4 mx-auto w-full sm:w-3/4 md:w-2/3 lg:w-3/6 xl:w-2/5">
                 <div className="flex flex-col gap-4 mt-6 mb-12">
                     <div className="flex items-center justify-between">
@@ -69,6 +70,7 @@ export default function TestPage({
                         <div className="capitalize text-right">
                             {author}, {date}
                         </div>
+
                     </div>
                     <h1 className="font-medium text-4xl lg:text-4xl text-start lg:text-center ">{title}</h1>
 
@@ -85,6 +87,7 @@ export default function TestPage({
                     )}
                 </div>
                 <div className="body text-xl leading-loose">
+
                     <MDXRemote {...source} components={component} />
                 </div>
                 {/* <footer className="pt-3 grid gap-4">
