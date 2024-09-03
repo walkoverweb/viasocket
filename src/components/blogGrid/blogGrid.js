@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { MdOutlineArrowForward } from 'react-icons/md';
+import { MdChevronRight, MdOutlineArrowForward } from 'react-icons/md';
 import { LinkButton } from '../uiComponents/buttons';
 import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
@@ -18,8 +18,12 @@ const BlogGrid = ({ posts }) => {
                     ))}
                 </div>
                 <div className="flex justify-center ">
-                    <Link href="/blog" target="_blank" className="btn btn-accent border border-1">
-                        Read More Blogs
+                    <Link
+                        className="flex items-center gap-1 btn btn-ghost btn-md hover:bg-secondary"
+                        href="/blog"
+                        target="_blank"
+                    >
+                        Read More Blogs <MdChevronRight fontSize={20} />
                     </Link>
                 </div>
             </div>
