@@ -12,15 +12,12 @@ import TagButton from '@/components/blogs/tags/tagButton';
 import dynamic from 'next/dynamic';
 import GetStarted from '@/components/getStarted/getStarted';
 import { getDbdashData } from '../api';
-
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 const component = { ReactPlayer };
-
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 import Image from 'next/image';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
-
 const slugToPostContent = ((postContents) => {
     let hash = {};
     let fullPath = {};
@@ -31,7 +28,6 @@ const slugToPostContent = ((postContents) => {
 
     return hash;
 })(fetchPostContent());
-
 export default function TestPage({
     getStartedData,
     source,
@@ -63,7 +59,9 @@ export default function TestPage({
                 <div className="flex flex-col gap-4 mt-6 mb-12">
                     <div className="flex items-center justify-between">
                         <button
-                            className="btn-sm btn border border-1 hover:bg-gray-100"
+
+                            className="btn-sm btn border border-1 bg-black text-white hover:bg-black hover:border-black hover:text-white"
+
                             onClick={() => (window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/blog`)}
                             aria-label="back"
                         >
@@ -74,10 +72,9 @@ export default function TestPage({
                             {author}, {date}
                         </div>
 
-           
                     </div>
+                    <h1 className="font-medium text-4xl lg:text-4xl text-start lg:text-center ">{title}</h1>
 
-                    <h1 className="font-medium text-4xl lg:text-6xl text-start lg:text-center ">{title}</h1>
 
                     {thumbnailImage !== '' && (
                         <div className="flex justify-center">
@@ -91,6 +88,7 @@ export default function TestPage({
                         </div>
                     )}
                 </div>
+
 
                 <div className="body text-xl leading-loose">
 
@@ -109,9 +107,11 @@ export default function TestPage({
                     </div>
                 </footer> */}
 
-                <div className="container py-8">
-                    {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
-                </div>
+            </div>
+
+
+            <div className="container py-8">
+                {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
             </div>
             <Footer footerData={footerData} />
         </>
@@ -126,7 +126,6 @@ export async function getServerSideProps(slug) {
             yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }),
         },
     });
-
     const title = matterResult?.data?.title;
     const author = matterResult?.data?.author;
     const content = matterResult?.content;
