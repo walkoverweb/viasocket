@@ -27,6 +27,7 @@ const IntegrationSlugPage = ({
             />
             <Navbar navData={navData} />
             <IntegrationsComp
+                posts={posts}
                 combinationData={combos}
                 faqData={faqData}
                 faqName={`[singleApp]`}
