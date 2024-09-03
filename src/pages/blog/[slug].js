@@ -73,6 +73,8 @@ export default function TestPage({
                         <div className="capitalize text-right">
                             {author}, {date}
                         </div>
+
+           
                     </div>
 
                     <h1 className="font-medium text-4xl lg:text-6xl text-start lg:text-center ">{title}</h1>
@@ -91,6 +93,7 @@ export default function TestPage({
                 </div>
 
                 <div className="body text-xl leading-loose">
+
                     <MDXRemote {...source} components={component} />
                 </div>
                 {/* <footer className="pt-3 grid gap-4">
@@ -137,7 +140,6 @@ export async function getServerSideProps(slug) {
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
     return {
         props: {
             getStartedData: results[0].data.rows,
