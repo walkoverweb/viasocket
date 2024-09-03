@@ -1,29 +1,3 @@
-// .btn {
-//     @apply rounded-sm;
-//     font-weight: 400;
-// }
-
-// .btn-md {
-//     @apply px-6 py-3 h-fit min-h-0 rounded-[2px];
-//     @media only screen and (max-width: 740px) {
-//         @apply px-4 py-2 h-fit min-h-0 rounded-[2px];
-//     }
-// }
-
-// .btn-accent {
-//     @apply text-primary;
-
-//     & {
-//         span {
-//             @apply text-primary font-medium;
-//         }
-//     }
-// }
-
-// .btn-outline:hover {
-//     color: white;
-// }
-
 .btn {
     &.btn-white {
         @apply border-white text-white hover:bg-gray-700;
@@ -108,4 +82,12 @@
 .btn.btn-disabled,
 .btn:disabled {
     @apply text-gray-500;
+}
+
+.collapse:not(.collapse-close):has(> input[type='radio']:checked) {
+    @apply border rounded;
+    .collapse-title {
+        background-color: #f2f5eb;
+        color: #273f2b;
+    }
 }

@@ -9,12 +9,12 @@ import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
 
 export default function IntegrationsComp({
+    posts,
     combinationData,
     pluginData,
     type,
     faqData,
     faqName,
-    blogs,
     usecases,
     getStartedData,
     pathSlugs,
@@ -37,10 +37,10 @@ export default function IntegrationsComp({
                 </div>
             )}
 
-            {blogs?.length > 0 && (
+            {posts?.length > 0 && (
                 <div className="container my-24">
                     {' '}
-                    <BlogGrid posts={blogs} />
+                    <BlogGrid posts={posts} />
                 </div>
             )}
 
