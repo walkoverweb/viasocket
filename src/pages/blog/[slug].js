@@ -59,7 +59,9 @@ export default function TestPage({
                 <div className="flex flex-col gap-4 mt-6 mb-12">
                     <div className="flex items-center justify-between">
                         <button
+
                             className="btn-sm btn border border-1 bg-black text-white hover:bg-black hover:border-black hover:text-white"
+
                             onClick={() => (window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/blog`)}
                             aria-label="back"
                         >
@@ -69,8 +71,10 @@ export default function TestPage({
                         <div className="capitalize text-right">
                             {author}, {date}
                         </div>
+
                     </div>
                     <h1 className="font-medium text-4xl lg:text-4xl text-start lg:text-center ">{title}</h1>
+
 
                     {thumbnailImage !== '' && (
                         <div className="flex justify-center">
@@ -84,7 +88,10 @@ export default function TestPage({
                         </div>
                     )}
                 </div>
+
+
                 <div className="body text-xl leading-loose">
+
                     <MDXRemote {...source} components={component} />
                 </div>
                 {/* <footer className="pt-3 grid gap-4">
@@ -99,7 +106,9 @@ export default function TestPage({
                         </ul>
                     </div>
                 </footer> */}
+
             </div>
+
 
             <div className="container py-8">
                 {getStartedData && <GetStarted data={getStartedData} isHero={'false'} />}
