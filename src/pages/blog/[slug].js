@@ -84,7 +84,6 @@ export default function TestPage({
                         </div>
                     )}
                 </div>
-
                 <div className="body text-xl leading-loose">
                     <MDXRemote {...source} components={component} />
                 </div>
