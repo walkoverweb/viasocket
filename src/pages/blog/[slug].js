@@ -71,7 +71,6 @@ export default function TestPage({
                         <div className="capitalize text-right">
                             {author}, {date}
                         </div>
-
                     </div>
                     <h1 className="font-medium text-4xl lg:text-4xl text-start lg:text-center ">{title}</h1>
 
@@ -88,9 +87,7 @@ export default function TestPage({
                         </div>
                     )}
                 </div>
-
-
-                <div className="body text-xl leading-loose">
+                <div className="body text-xl leading-relaxed">
 
                     <MDXRemote {...source} components={component} />
                 </div>
@@ -106,7 +103,6 @@ export default function TestPage({
                         </ul>
                     </div>
                 </footer> */}
-
             </div>
 
 
