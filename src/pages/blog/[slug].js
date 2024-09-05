@@ -55,7 +55,7 @@ export default function TestPage({
                 />
             </Head>
             <Navbar navData={navData} />
-            <div className="wrapper  mt-4 mx-auto w-full lg:w-[760px] md:w-[660px] sm:w-full px-[30px]">
+            <div className="wrapper  mt-4 mx-auto w-full lg:w-[760px] md:w-[660px] sm:w-full px-4">
                 <div className="flex flex-col gap-4 mt-6 mb-12">
                     <div className="flex items-center justify-between">
                         <button
