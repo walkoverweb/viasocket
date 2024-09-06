@@ -40,7 +40,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (selectedCategory) {
+        if (selectedCategory && showCategories) {
             const newUrl = `${window.location.pathname}?currentcategory=${selectedCategory}`;
             window.history.pushState({ path: newUrl }, '', newUrl);
         }
