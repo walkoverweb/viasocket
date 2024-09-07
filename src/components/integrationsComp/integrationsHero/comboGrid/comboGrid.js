@@ -104,7 +104,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action/${card?.actions[0]?.id}?utm_source=integration_page`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}?utm_source=integration_page&events=${card?.actions.map((action) => action.id).join(',')}`}
                 target="_blank"
             >
                 <div
@@ -134,7 +134,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
                         <h2 className="text-lg int-card-des mb-auto">{getCardDescription(card)}</h2>
                     </div>
                     <div className={`${style.try_it} gap-1 px-8 py-4 flex items-center justify-end`}>
-                        Try It
+                        Try Itiiiii
                         <MdChevronRight fontSize={20} />
                     </div>
                 </div>
