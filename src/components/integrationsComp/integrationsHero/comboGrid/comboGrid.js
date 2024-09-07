@@ -134,7 +134,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
                         <h2 className="text-lg int-card-des mb-auto">{getCardDescription(card)}</h2>
                     </div>
                     <div className={`${style.try_it} gap-1 px-8 py-4 flex items-center justify-end`}>
-                        Try Itiiiii
+                        Try It
                         <MdChevronRight fontSize={20} />
                     </div>
                 </div>
