@@ -35,14 +35,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
             pluginData?.length <= 1
                 ? `Create integrations between ${pluginData[0]?.name} and your favorite App`
                 : `Create integrations between ${pluginData[0]?.name} and ${pluginData[1]?.name}`;
-
-        const disconnectedTextH2 =
-            pluginData?.length <= 1 && `Your ${pluginData[0]?.name} connection has been Disconnected`;
-
-        const disconnectedTextP =
-            pluginData?.length <= 1 &&
-            `If you’d like to re-connect viaSocket and your ${pluginData[0]?.name} account, check `;
-
         return (
             <>
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
@@ -54,7 +46,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 {pluginData?.length &&
                                     pluginData.map((plug, index) => {
                                         return (
-                                            <div key={plug.id || index} className="flex items-center gap-3  w-fit">
+                                            <div key={plug?.id || index} className="flex items-center gap-3  w-fit">
                                                 {index > 0 && <span className="text-3xl mx-4"> + </span>}
                                                 {plug?.iconurl && (
                                                     <Image
@@ -129,20 +121,15 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 </Link>
                             </div>
                         </div>
-
-
                         {isDisconnected ? (
-                            <div className="flex flex-col gap-2 py-12 ">
-
+                            <div className="flex flex-col gap-2 py-12">
                                 <h1
                                     className={`lg:text-4xl md:text-3xl text-2xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
                                 >
                                     {disconnectedTextH2}
                                 </h1>
                                 <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
-
-                                    {`Your ${pluginData[0]?.name} integration has been disconnected. You will no longer be able to sync data directly from your  ${pluginData[0]?.name} account in viaSocket.`}
-
+                                    {`Your ${pluginData[0]?.name} integration has been disconnected. You will no longer be able to sync data directly from your ${pluginData[0]?.name} account in viaSocket.`}
                                 </p>
                                 <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
                                     {disconnectedTextP}
@@ -152,9 +139,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 </p>
                             </div>
                         ) : (
-
                             <div className="flex flex-col gap-2">
-
                                 <h1
                                     className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
                                 >
@@ -162,18 +147,28 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 </h1>
                             </div>
                         )}
-
                         {pluginData.length > 1 ? (
                             pluginData[0]?.events?.length && pluginData[1]?.events?.length ? (
                                 combinationData?.combinations?.length > 0 ? (
-
                                     <ComboGrid combos={combinationData} mode={mode} />
                                 ) : (
+                                    <div className="flex gap-3">
+                                        <EventGrid plugin={pluginData} mode={mode} />
+                                    </div>
+                                )
+                            ) : (
+                                <NoDataGrid plugin={pluginData} mode={mode} />
+                            )
+                        ) : pluginData[0]?.events?.length ? (
+                            combinationData?.combinations?.length > 0 ? (
+                                <ComboGrid combos={combinationData} mode={mode} />
+                            ) : (
+                                <div className="flex gap-3">
                                     <EventGrid plugin={pluginData} mode={mode} />
-                                )}
-                            </>
+                                </div>
+                            )
                         ) : (
-                            <NoDataGrid plugin={pluginData[0]} mode={mode} />
+                            <NoDataGrid plugin={pluginData} mode={mode} />
                         )}
                     </div>
                 </div>
