@@ -89,6 +89,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
 }
 
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
+
     const action = card.actions[0].name;
     const trigger = card.trigger.name;
     const plugs = {
@@ -98,6 +99,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
     const integrations = Object.values(plugs)
         .filter((value) => value !== 'undefined_action_rowid' && value !== 'undefined_trigger_rowid')
         .join(',');
+
     const getIconUrl = (plugin) => {
         const iconUrl = plugins[plugin]?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
