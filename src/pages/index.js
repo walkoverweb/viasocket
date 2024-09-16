@@ -314,13 +314,13 @@ const Index = ({
                                             value={searchTerm}
                                             onChange={(e) => {
                                                 setSearchTerm(e.target.value);
-                                                setFocusedIndex(-1); // Reset focused index on input change
+                                                setFocusedIndex(-1);
                                             }}
                                             onKeyDown={handleKeyDown} // Handle keyboard navigation
                                             ref={inputRef}
                                         />
                                         <span
-                                            className="btn icon border-none bg-transparent p-0"
+                                            className="btn icon border-none bg-white p-0"
                                             onClick={() => {
                                                 setSearchTerm('');
                                                 setShowInput(false);
@@ -350,7 +350,7 @@ const Index = ({
                                                         <div
                                                             key={app.appslugname}
                                                             className={`flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100 ${
-                                                                focusedIndex === index ? 'bg-slate-200' : ''
+                                                                focusedIndex === index ? 'bg-gray-400' : ''
                                                             }`}
                                                             onClick={() => handleSelectApp(app?.appslugname)}
                                                         >
