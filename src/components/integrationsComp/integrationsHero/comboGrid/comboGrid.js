@@ -89,7 +89,8 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
 }
 
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
-    const plugs = card.trigger.id + ', ' + card.actions[0].id;
+    const actionIds = card.actions.map((action) => action.id); // Get all action IDs
+    const plugs = [card.trigger.id, ...actionIds].join(','); // Combine trigger ID and action IDs
     const getIconUrl = (plugin) => {
         const iconUrl = plugins[plugin]?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
