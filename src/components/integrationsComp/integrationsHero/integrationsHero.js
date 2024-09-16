@@ -34,7 +34,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
         const integrationText =
             pluginData?.length <= 1
                 ? `Create integrations between ${pluginData[0]?.name} and your favorite App`
-                : `Create integrations between ${pluginData[0]?.name} and ${pluginData[1]?.name}`;
+                : `Create integrations between ${pluginData[1]?.name} and ${pluginData[0]?.name}`;
         return (
             <>
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">

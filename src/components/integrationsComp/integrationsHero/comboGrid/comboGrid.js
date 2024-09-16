@@ -89,6 +89,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
 }
 
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
+
     const action = card.actions[0].name;
     const trigger = card.trigger.name;
     const plugs = {
