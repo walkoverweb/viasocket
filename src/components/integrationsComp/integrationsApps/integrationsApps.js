@@ -295,7 +295,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                     </p>
                                     <div>
                                         <button
-                                            className="px-4 py-2 border border-[#CCCCCC] rounded"
+                                            className="px-4 py-2 border border-[#CCCCCC] rounded lg:pb-4"
                                             onClick={openChatWidget}
                                             aria-label="live chat"
                                         >
