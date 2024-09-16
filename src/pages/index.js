@@ -60,7 +60,6 @@ const Index = ({
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
-
     const fetchAppsData = useCallback(async () => await fetchApps(), []);
 
     const filterSelectedApps = useCallback(
@@ -109,10 +108,12 @@ const Index = ({
         if (app) {
             setSearchData((prev) => prev.filter((item) => item?.appslugname !== appName));
             setSelectedApps((prev) => [...prev, app]);
+            setSearchTerm(appName);
+            setShowInput(false);
+            setFocusedIndex(-1);
         }
         setSearchTerm('');
     };
-
     useEffect(() => {
         searchApps();
     }, [debounceValue]);
@@ -181,7 +182,30 @@ const Index = ({
             industry.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     };
+    const [focusedIndex, setFocusedIndex] = useState(-1); // To track which app is currently focused
+    const listRef = useRef(null); // Ref for the list
+    const handleKeyDown = (e) => {
+        if (e.key === 'ArrowDown') {
+            // Move focus down
+            setFocusedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : prevIndex));
+        } else if (e.key === 'ArrowUp') {
+            // Move focus up
+            setFocusedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+        } else if (e.key === 'Enter' && focusedIndex !== -1) {
+            // Select the app when Enter is pressed
+            handleSelectApp(searchData[focusedIndex]?.appslugname);
+        }
+    };
 
+    // To automatically scroll to the focused item
+    useEffect(() => {
+        if (listRef.current && focusedIndex !== -1) {
+            const focusedItem = listRef.current.children[focusedIndex];
+            if (focusedItem) {
+                focusedItem.scrollIntoView({ block: 'nearest' });
+            }
+        }
+    }, [focusedIndex]);
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
@@ -275,7 +299,6 @@ const Index = ({
                                     ))}
                                 </>
                             )}
-
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
@@ -289,7 +312,11 @@ const Index = ({
                                             className="grow"
                                             placeholder="Add a new app"
                                             value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            onChange={(e) => {
+                                                setSearchTerm(e.target.value);
+                                                setFocusedIndex(-1); // Reset focused index on input change
+                                            }}
+                                            onKeyDown={handleKeyDown} // Handle keyboard navigation
                                             ref={inputRef}
                                         />
                                         <span
@@ -304,6 +331,7 @@ const Index = ({
                                     </label>
                                     <ul
                                         tabIndex={0}
+                                        ref={listRef} // Reference for the list
                                         className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
                                     >
                                         {searchLoading ? (
@@ -318,10 +346,12 @@ const Index = ({
                                         ) : (
                                             <>
                                                 {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app) => (
+                                                    searchData.map((app, index) => (
                                                         <div
                                                             key={app.appslugname}
-                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            className={`flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100 ${
+                                                                focusedIndex === index ? 'bg-slate-200' : ''
+                                                            }`}
                                                             onClick={() => handleSelectApp(app?.appslugname)}
                                                         >
                                                             <Image
