@@ -204,7 +204,6 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                     <p className="text-xl font-semibold text-[#808080]">Select Trigger</p>
                                 )}
                             </div>
-
                             <div className="lg:text-xl text-lg ">
                                 <MdAdd size={20} />
                             </div>
@@ -230,7 +229,6 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                 )}
                             </div>
                         </div>
-
                         <div className="flex flex-row gap-3 lg:pr-24 mr-2">
                             <div>
                                 <button
