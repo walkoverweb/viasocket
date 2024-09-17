@@ -40,7 +40,7 @@ export default function noDataGrid({ plugin, mode }) {
     };
     return (
         <>
-            <div style={{ backgroundColor: `${plugin[0]?.brandcolor}` }} className="py-12 ">
+            <div style={{ backgroundColor: `${plugin[1]?.brandcolor}` }} className="py-12 ">
                 <div className={`container flex flex-col md:gap-12 gap-6 `}>
                     <div className="flex flex-col gap-8 flex-grow justify-center  ">
                         <h2
