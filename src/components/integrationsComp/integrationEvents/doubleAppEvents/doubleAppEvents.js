@@ -232,6 +232,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                         </div>
 
                         <div className="flex flex-row gap-3 item-start">
+
                             <div>
                                 <Link
                                     href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action?events${actionEvents[selectedAction]?.rowid}`}
