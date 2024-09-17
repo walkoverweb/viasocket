@@ -233,14 +233,19 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
 
                         <div className="flex flex-row gap-3 item-start">
 
+
                             <div>
                                 <Link
-                                    href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action?events${actionEvents[selectedAction]?.rowid}`}
+
+                                    href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action?events=${actionEvents[selectedAction]?.rowid}`}
+
                                     target="_blank"
                                     aria-label="try the combination"
                                 >
                                     <button
+
                                         className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded hover:bg-black hover:text-white"
+
                                         disabled={cnt !== 2}
                                         aria-label="try the combination"
                                     >
