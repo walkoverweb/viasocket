@@ -181,6 +181,19 @@ const Index = ({
             industry.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     };
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'ArrowDown') {
+            setHighlightedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : prevIndex));
+        } else if (e.key === 'ArrowUp') {
+            setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+        } else if (e.key === 'Enter') {
+            if (highlightedIndex >= 0 && highlightedIndex < searchData.length) {
+                handleSelectApp(searchData[highlightedIndex].appslugname);
+            }
+        }
+    };
 
     return (
         <>
@@ -275,7 +288,6 @@ const Index = ({
                                     ))}
                                 </>
                             )}
-
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
@@ -291,6 +303,7 @@ const Index = ({
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                             ref={inputRef}
+                                            onKeyDown={handleKeyDown}
                                         />
                                         <span
                                             className="btn icon border-none bg-transparent p-0"
@@ -318,11 +331,14 @@ const Index = ({
                                         ) : (
                                             <>
                                                 {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app) => (
+                                                    searchData.map((app, index) => (
                                                         <div
                                                             key={app.appslugname}
-                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
+                                                                index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
+                                                            } hover:bg-gray-100`}
                                                             onClick={() => handleSelectApp(app?.appslugname)}
+                                                            onMouseEnter={() => setHighlightedIndex(index)}
                                                         >
                                                             <Image
                                                                 src={app?.iconurl}
@@ -350,6 +366,7 @@ const Index = ({
                                     <MdAdd color="white" fontSize={24} />
                                 </span>
                             )}
+
                             <h2 className="text-3xl">in</h2>
 
                             <div className="dropdown">
