@@ -15,11 +15,14 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
         const [mode, setMode] = useState('dark');
 
         useEffect(() => {
-            if (pluginData[0]?.brandcolor) {
+            if (pluginData.length > 1) {
+                if (pluginData[1]?.brandcolor) {
+                    setNewBrandColor(pluginData[1].brandcolor);
+                }
+            } else if (pluginData[0]?.brandcolor) {
                 setNewBrandColor(pluginData[0].brandcolor);
             }
         }, [pluginData[0]?.brandcolor]);
-
         useEffect(() => {
             setMode(GetColorMode(newBrandColor));
         }, [newBrandColor]);
@@ -80,32 +83,59 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         })}
                             </div>
                             <div className="flex gap-5 md:justify-end justify-center">
-                                {pluginData[0]?.name && (
-                                    <Link
-                                        href={
-                                            pluginData[0]?.domain?.startsWith('http')
-                                                ? pluginData[0]?.domain
-                                                : 'http://' + pluginData[0]?.domain
-                                        }
-                                        target="_blank"
-                                    >
-                                        <button
-                                            className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                        >
-                                            {pluginData[0]?.iconurl && (
-                                                <Image
-                                                    src={pluginData[0]?.iconurl}
-                                                    width={24}
-                                                    height={24}
-                                                    className="h-auto hidden sm:block"
-                                                    alt={pluginData[0]?.name}
-                                                />
-                                            )}
-                                            Login to {pluginData[0]?.name}
-                                            <MdOpenInNew className="hidden sm:block" />
-                                        </button>
-                                    </Link>
-                                )}
+                                {pluginData.length > 1
+                                    ? pluginData[1]?.name && (
+                                          <Link
+                                              href={
+                                                  pluginData[1]?.domain?.startsWith('http')
+                                                      ? pluginData[1]?.domain
+                                                      : 'http://' + pluginData[1]?.domain
+                                              }
+                                              target="_blank"
+                                          >
+                                              <button
+                                                  className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                              >
+                                                  {pluginData[1]?.iconurl && (
+                                                      <Image
+                                                          src={pluginData[1]?.iconurl}
+                                                          width={24}
+                                                          height={24}
+                                                          className="h-auto hidden sm:block"
+                                                          alt={pluginData[1]?.name}
+                                                      />
+                                                  )}
+                                                  Login to {pluginData[1]?.name}
+                                                  <MdOpenInNew className="hidden sm:block" />
+                                              </button>
+                                          </Link>
+                                      )
+                                    : pluginData[0]?.name && (
+                                          <Link
+                                              href={
+                                                  pluginData[0]?.domain?.startsWith('http')
+                                                      ? pluginData[0]?.domain
+                                                      : 'http://' + pluginData[0]?.domain
+                                              }
+                                              target="_blank"
+                                          >
+                                              <button
+                                                  className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                              >
+                                                  {pluginData[0]?.iconurl && (
+                                                      <Image
+                                                          src={pluginData[0]?.iconurl}
+                                                          width={24}
+                                                          height={24}
+                                                          className="h-auto hidden sm:block"
+                                                          alt={pluginData[0]?.name}
+                                                      />
+                                                  )}
+                                                  Login to {pluginData[0]?.name}
+                                                  <MdOpenInNew className="hidden sm:block" />
+                                              </button>
+                                          </Link>
+                                      )}
 
                                 <Link href={'/login'} target="_blank">
                                     <button
