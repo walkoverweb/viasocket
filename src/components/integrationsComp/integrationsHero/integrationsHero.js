@@ -14,11 +14,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
         const [mode, setMode] = useState('dark');
 
-        // useEffect(() => {
-        //     if (pluginData[0]?.brandcolor) {
-        //         setNewBrandColor(pluginData[0].brandcolor);
-        //     }
-        // }, [pluginData[0]?.brandcolor]);
         useEffect(() => {
             if (pluginData.length > 1) {
                 if (pluginData[1]?.brandcolor) {
