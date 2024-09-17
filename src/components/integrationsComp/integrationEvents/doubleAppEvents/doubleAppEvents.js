@@ -184,7 +184,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
 
             {(selectedTrigger !== null || selectedAction !== null) && cnt >= 1 && showFixedSection && (
                 <div className={`bg-white ${cnt < 1 ? 'hidden' : 'fixed'} bottom-0 w-[100%] z-30`}>
-                    <div className="container flex flex-wrap lg:justify-between gap-6 items-center py-4 ">
+                    <div className="container flex gap-6 flex-wrap lg:justify-start items-start py-4 ">
                         <div className="flex flex-row flex-wrap items-center gap-4">
                             <div className="flex flex-row gap-4 bg-white border px-5 py-2 rounded-lg w-[400px] items-center">
                                 {selectedTrigger !== null ? (
@@ -231,17 +231,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                             </div>
                         </div>
 
-                        <div className="flex flex-row gap-3 lg:pr-24 mr-2">
+                        <div className="flex flex-row gap-3 item-start">
 
-                            <div>
-                                <button
-                                    className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded"
-                                    onClick={handleCancelClick}
-                                    aria-label="cancel"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
+
                             <div>
                                 <Link
 
@@ -260,6 +252,15 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                         Try it now
                                     </button>
                                 </Link>
+                            </div>
+                            <div>
+                                <button
+                                    className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded hover:bg-black hover:text-white"
+                                    onClick={handleCancelClick}
+                                    aria-label="cancel"
+                                >
+                                    Cancel
+                                </button>
                             </div>
                         </div>
                     </div>
