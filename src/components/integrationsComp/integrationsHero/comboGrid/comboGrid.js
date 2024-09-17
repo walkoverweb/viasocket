@@ -89,6 +89,16 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
 }
 
 export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
+    const action = card.actions[0].name;
+    const trigger = card.trigger.name;
+    const plugs = {
+        [action]: plugins[action]?.rowid,
+        [trigger]: plugins[trigger]?.rowid,
+    };
+    const integrations = Object.values(plugs)
+        .filter((value) => value !== 'undefined_action_rowid' && value !== 'undefined_trigger_rowid')
+        .join(',');
+
     const getIconUrl = (plugin) => {
         const iconUrl = plugins[plugin]?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
@@ -104,7 +114,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=integration_page&events=${card?.actions.map((action) => action.id).join(',')}`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=integration_page&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
                 target="_blank"
             >
                 <div
