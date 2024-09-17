@@ -181,27 +181,6 @@ const Index = ({
             industry.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     };
-    const [highlightedIndex, setHighlightedIndex] = useState(-1);
-
-    const handleKeyDown = (e) => {
-        if (searchData.length > 0) {
-            switch (e.key) {
-                case 'ArrowDown':
-                    setHighlightedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : 0));
-                    break;
-                case 'ArrowUp':
-                    setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : searchData.length - 1));
-                    break;
-                case 'Enter':
-                    if (highlightedIndex !== -1) {
-                        handleSelectApp(searchData[highlightedIndex].appslugname);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     return (
         <>
@@ -311,7 +290,6 @@ const Index = ({
                                             placeholder="Add a new app"
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
-                                            onKeyDown={handleKeyDown} // Handle key navigation
                                             ref={inputRef}
                                         />
                                         <span
@@ -340,14 +318,11 @@ const Index = ({
                                         ) : (
                                             <>
                                                 {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app, index) => (
+                                                    searchData.map((app) => (
                                                         <div
                                                             key={app.appslugname}
-                                                            className={`flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100 ${
-                                                                highlightedIndex === index ? 'bg-slate-200' : ''
-                                                            }`}
-                                                            onMouseEnter={() => setHighlightedIndex(index)} // Highlight on hover
-                                                            onClick={() => handleSelectApp(app.appslugname)} // Handle click selection
+                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            onClick={() => handleSelectApp(app?.appslugname)}
                                                         >
                                                             <Image
                                                                 src={app?.iconurl}
