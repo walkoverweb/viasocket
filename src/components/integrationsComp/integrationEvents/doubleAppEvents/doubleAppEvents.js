@@ -233,7 +233,6 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
 
                         <div className="flex flex-row gap-3 item-start">
 
-
                             <div>
                                 <Link
 
@@ -255,7 +254,9 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                             </div>
                             <div>
                                 <button
-                                    className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded hover:bg-black hover:text-white"
+
+                                    className="btn md:btn-md btn-sm lg:text-base bg-gray-200 text-black p-2 rounded hover:bg-black hover:text-white"
+
                                     onClick={handleCancelClick}
                                     aria-label="cancel"
                                 >
