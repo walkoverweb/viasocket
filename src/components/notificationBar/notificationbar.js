@@ -1,6 +1,6 @@
-import { getDbdashData } from '@/pages/api';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function NotificationBar() {
     const [data, setData] = useState(null);
@@ -9,7 +9,8 @@ export default function NotificationBar() {
     }, []);
 
     const getDbdashDataa = async () => {
-        const dbdashData = await getDbdashData('tblgw6ag9');
+        const response = await axios.get('https://plugservice-api.viasocket.com/api/notification-content');
+        const dbdashData = response.data;
         setData(dbdashData.data.rows);
     };
 
