@@ -9,24 +9,35 @@ import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 
 export default function IntegrationsHero({ combinationData, pluginData }) {
+    const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
         const [mode, setMode] = useState('dark');
 
         useEffect(() => {
-            if (pluginData[0]?.brandcolor) {
+            if (pluginData.length > 1) {
+                if (pluginData[1]?.brandcolor) {
+                    setNewBrandColor(pluginData[1].brandcolor);
+                }
+            } else if (pluginData[0]?.brandcolor) {
                 setNewBrandColor(pluginData[0].brandcolor);
             }
         }, [pluginData[0]?.brandcolor]);
-
         useEffect(() => {
             setMode(GetColorMode(newBrandColor));
         }, [newBrandColor]);
+        const disconnectedTextH2 =
+            pluginData.length <= 1 ? `Your ${pluginData[0]?.name} connection has been Disconnected` : '';
+
+        const disconnectedTextP =
+            pluginData.length <= 1
+                ? `If you’d like to re-connect viaSocket and your ${pluginData[0]?.name} account, check `
+                : '';
 
         const integrationText =
             pluginData?.length <= 1
                 ? `Create integrations between ${pluginData[0]?.name} and your favorite App`
-                : `Create integrations between ${pluginData[0]?.name} and ${pluginData[1]?.name}`;
+                : `Create integrations between ${pluginData[1]?.name} and ${pluginData[0]?.name}`;
         return (
             <>
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
@@ -36,65 +47,95 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
                             >
                                 {pluginData?.length &&
-                                    pluginData.map((plug, index) => {
-                                        return (
-                                            <div key={plug?.id || index} className="flex items-center gap-3  w-fit">
-                                                {index > 0 && <span className="text-3xl mx-4"> + </span>}
-                                                {plug?.iconurl && (
-                                                    <Image
-                                                        src={plug.iconurl}
-                                                        width={40}
-                                                        height={40}
-                                                        className="h-auto w-[30px] md:w-[36px]"
-                                                        alt="notion"
-                                                    />
-                                                )}
-                                                <div className="flex flex-col">
-                                                    {plug?.name && (
-                                                        <div className="md:text-2xl text-lg font-bold">
-                                                            {plug?.name}
-                                                        </div>
+                                    pluginData
+                                        .slice()
+                                        .reverse()
+                                        .map((plug, index) => {
+                                            return (
+                                                <div key={plug?.id || index} className="flex items-center gap-3  w-fit">
+                                                    {index > 0 && <span className="text-3xl mx-4"> + </span>}
+                                                    {plug?.iconurl && (
+                                                        <Image
+                                                            src={plug.iconurl}
+                                                            width={40}
+                                                            height={40}
+                                                            className="h-auto w-[30px] md:w-[36px]"
+                                                            alt="notion"
+                                                        />
                                                     )}
-                                                    {plug?.category && (
-                                                        <div className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
-                                                            {plug?.category &&
-                                                                plug?.category.map((item, catIndex) => (
-                                                                    <div key={item + catIndex}> {item} </div>
-                                                                ))}
-                                                        </div>
-                                                    )}
+                                                    <div className="flex flex-col">
+                                                        {plug?.name && (
+                                                            <div className="md:text-2xl text-lg font-bold">
+                                                                {plug?.name}
+                                                            </div>
+                                                        )}
+                                                        {plug?.category && (
+                                                            <div className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
+                                                                {plug?.category &&
+                                                                    plug?.category.map((item, catIndex) => (
+                                                                        <div key={item + catIndex}> {item} </div>
+                                                                    ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    })}
+                                            );
+                                        })}
                             </div>
                             <div className="flex gap-5 md:justify-end justify-center">
-                                {pluginData[0]?.name && (
-                                    <Link
-                                        href={
-                                            pluginData[0]?.domain?.startsWith('http')
-                                                ? pluginData[0]?.domain
-                                                : 'http://' + pluginData[0]?.domain
-                                        }
-                                        target="_blank"
-                                    >
-                                        <button
-                                            className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                        >
-                                            {pluginData[0]?.iconurl && (
-                                                <Image
-                                                    src={pluginData[0]?.iconurl}
-                                                    width={24}
-                                                    height={24}
-                                                    className="h-auto hidden sm:block"
-                                                    alt={pluginData[0]?.name}
-                                                />
-                                            )}
-                                            Login to {pluginData[0]?.name}
-                                            <MdOpenInNew className="hidden sm:block" />
-                                        </button>
-                                    </Link>
-                                )}
+                                {pluginData.length > 1
+                                    ? pluginData[1]?.name && (
+                                          <Link
+                                              href={
+                                                  pluginData[1]?.domain?.startsWith('http')
+                                                      ? pluginData[1]?.domain
+                                                      : 'http://' + pluginData[1]?.domain
+                                              }
+                                              target="_blank"
+                                          >
+                                              <button
+                                                  className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                              >
+                                                  {pluginData[1]?.iconurl && (
+                                                      <Image
+                                                          src={pluginData[1]?.iconurl}
+                                                          width={24}
+                                                          height={24}
+                                                          className="h-auto hidden sm:block"
+                                                          alt={pluginData[1]?.name}
+                                                      />
+                                                  )}
+                                                  Login to {pluginData[1]?.name}
+                                                  <MdOpenInNew className="hidden sm:block" />
+                                              </button>
+                                          </Link>
+                                      )
+                                    : pluginData[0]?.name && (
+                                          <Link
+                                              href={
+                                                  pluginData[0]?.domain?.startsWith('http')
+                                                      ? pluginData[0]?.domain
+                                                      : 'http://' + pluginData[0]?.domain
+                                              }
+                                              target="_blank"
+                                          >
+                                              <button
+                                                  className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                              >
+                                                  {pluginData[0]?.iconurl && (
+                                                      <Image
+                                                          src={pluginData[0]?.iconurl}
+                                                          width={24}
+                                                          height={24}
+                                                          className="h-auto hidden sm:block"
+                                                          alt={pluginData[0]?.name}
+                                                      />
+                                                  )}
+                                                  Login to {pluginData[0]?.name}
+                                                  <MdOpenInNew className="hidden sm:block" />
+                                              </button>
+                                          </Link>
+                                      )}
 
                                 <Link href={'/login'} target="_blank">
                                     <button
@@ -113,12 +154,32 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 </Link>
                             </div>
                         </div>
-                        <h2
-                            className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
-                        >
-                            {integrationText}
-                        </h2>
-
+                        {isDisconnected ? (
+                            <div className="flex flex-col gap-2 py-12">
+                                <h1
+                                    className={`lg:text-4xl md:text-3xl text-2xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                >
+                                    {disconnectedTextH2}
+                                </h1>
+                                <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
+                                    {`Your ${pluginData[0]?.name} integration has been disconnected. You will no longer be able to sync data directly from your ${pluginData[0]?.name} account in viaSocket.`}
+                                </p>
+                                <p className={`text-2xl ${mode === 'dark' ? 'text-white' : 'text-dark'}`}>
+                                    {disconnectedTextP}
+                                    <Link className="underline" href={'#blogSection'}>
+                                        help page
+                                    </Link>
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col gap-2">
+                                <h1
+                                    className={`lg:text-6xl md:text-4xl text-3xl font-bold ${mode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                >
+                                    {integrationText}
+                                </h1>
+                            </div>
+                        )}
                         {pluginData.length > 1 ? (
                             pluginData[0]?.events?.length && pluginData[1]?.events?.length ? (
                                 combinationData?.combinations?.length > 0 ? (

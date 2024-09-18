@@ -40,7 +40,7 @@ export default function PostItem({ post }) {
             <div className="blog-card__content">
                 <div className="blog-card-body">
                     <h2 className="title">{post.title}</h2>
-                    <p className="content">{post?.description}</p>k
+                    <p className="content">{post?.description}</p>
                 </div>
                 <div className="blog-card-footer">
                     <div className="blog-card-tags">

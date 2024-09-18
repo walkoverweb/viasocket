@@ -35,6 +35,7 @@ const CardComponent = ({ card }) => {
         <Link
             href={`/blog/${card?.slug}`}
             target="_blank"
+            id="blogSection"
             className="card card-compact bg-white-100 w-70  hover:shadow-2xl bg-neutral"
         >
             <figure className="h-60">
