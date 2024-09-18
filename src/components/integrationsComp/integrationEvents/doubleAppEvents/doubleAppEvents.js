@@ -255,6 +255,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                             <div>
                                 <button
 
+
                                     className="btn md:btn-md btn-sm lg:text-base bg-gray-200 text-black p-2 rounded hover:bg-black hover:text-white"
 
                                     onClick={handleCancelClick}
