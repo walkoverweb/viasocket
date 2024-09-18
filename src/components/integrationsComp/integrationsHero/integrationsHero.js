@@ -94,7 +94,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                     src={pluginData[0]?.iconurl}
                                                     width={24}
                                                     height={24}
-                                                    className="h-auto hidden sm:block"
+                                                    className="h-auto hidden sm:block bg-gray-100"
                                                     alt={pluginData[0]?.name}
                                                 />
                                             )}
@@ -112,7 +112,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                             src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/brand/favicon_${mode === 'dark' ? 'light' : 'dark'}.svg`}
                                             width={24}
                                             height={24}
-                                            className="h-auto hidden sm:block"
+                                            className="h-auto hidden sm:block bg-gray-100"
                                             alt="viaSocket"
                                         />
                                         Login to viaSocket
