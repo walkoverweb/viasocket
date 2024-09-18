@@ -103,7 +103,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         </button>
                                     </Link>
                                 )}
-
                                 <Link href={'/login'} target="_blank">
                                     <button
                                         className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
