@@ -56,11 +56,11 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                     {index > 0 && <span className="text-3xl mx-4"> + </span>}
                                                     {plug?.iconurl && (
                                                         <Image
-                                                            src={plug.iconurl}
+                                                            src={plug.iconurl || 'https://placehold.co/40x40'}
                                                             width={40}
                                                             height={40}
                                                             className="h-auto w-[30px] md:w-[36px]"
-                                                            alt="notion"
+                                                            alt={plug?.name}
                                                         />
                                                     )}
                                                     <div className="flex flex-col">
