@@ -83,6 +83,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         })}
                             </div>
                             <div className="flex gap-5 md:justify-end justify-center">
+
                                 {pluginData.length > 1
                                     ? pluginData[1]?.name && (
                                           <Link
@@ -141,6 +142,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                           </Link>
                                       )}
 
+
                                 <Link href={'/login'} target="_blank">
                                     <button
                                         className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
@@ -149,7 +151,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                             src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/brand/favicon_${mode === 'dark' ? 'light' : 'dark'}.svg`}
                                             width={24}
                                             height={24}
-                                            className="h-auto hidden sm:block"
+                                            className="h-auto hidden sm:block bg-gray-100"
                                             alt="viaSocket"
                                         />
                                         Login to viaSocket
