@@ -15,7 +15,6 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
     const [selectedTriggerImage, setSelectedTriggerImage] = useState(null);
     const [selectedActionImage, setSelectedActionImage] = useState(null);
     const [cnt, setCnt] = useState(0);
-
     const getIconUrl = (plugin) => {
         const iconUrl = plugins.find((plug) => plug?.appslugname === plugin)?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
@@ -234,7 +233,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                         <div className="flex flex-row gap-3 item-start">
                             <div>
                                 <Link
-                                    href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action?events${actionEvents[selectedAction]?.rowid}`}
+                                    href={`https://flow.viasocket.com/makeflow/trigger/${triggerEvent[selectedTrigger]?.rowid}/action?events=${actionEvents[selectedAction]?.rowid}`}
                                     target="_blank"
                                     aria-label="try the combination"
                                 >
