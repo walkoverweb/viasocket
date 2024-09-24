@@ -160,6 +160,9 @@ export default function Support({ navData, footerData, metaData }) {
                             <Link href="https://viasocket.com/faq" target="_blank">
                                 <button className="btn btn-primary btn-outline">Help Doc</button>
                             </Link>
+                            <Link href="https://viasocket.com/community" target="_blank">
+                                <button className="btn btn-primary btn-outline">Community </button>
+                            </Link>
                         </div>
                     </div>
 
