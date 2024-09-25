@@ -181,6 +181,19 @@ const Index = ({
             industry.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     };
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'ArrowDown') {
+            setHighlightedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : prevIndex));
+        } else if (e.key === 'ArrowUp') {
+            setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+        } else if (e.key === 'Enter') {
+            if (highlightedIndex >= 0 && highlightedIndex < searchData.length) {
+                handleSelectApp(searchData[highlightedIndex].appslugname);
+            }
+        }
+    };
 
     return (
         <>
@@ -275,7 +288,6 @@ const Index = ({
                                     ))}
                                 </>
                             )}
-
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
@@ -291,6 +303,7 @@ const Index = ({
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                             ref={inputRef}
+                                            onKeyDown={handleKeyDown}
                                         />
                                         <span
                                             className="btn icon border-none bg-transparent p-0"
@@ -318,11 +331,14 @@ const Index = ({
                                         ) : (
                                             <>
                                                 {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app) => (
+                                                    searchData.map((app, index) => (
                                                         <div
                                                             key={app.appslugname}
-                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
+                                                                index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
+                                                            } hover:bg-gray-100`}
                                                             onClick={() => handleSelectApp(app?.appslugname)}
+                                                            onMouseEnter={() => setHighlightedIndex(index)}
                                                         >
                                                             <Image
                                                                 src={app?.iconurl}
@@ -350,6 +366,7 @@ const Index = ({
                                     <MdAdd color="white" fontSize={24} />
                                 </span>
                             )}
+
                             <h2 className="text-3xl">in</h2>
 
                             <div className="dropdown">
@@ -491,18 +508,24 @@ const CaseStudyLink = ({ caseStudy }) => {
 
     return (
         <div
-            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden `}
+            className={`${linkClass} bg-neutral flex flex-col ${
+                isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'
+            } items-start rounded-md overflow-hidden`}
             aria-label="casestudy"
         >
-            <>
-                <div className="casestudy_img w-full h-full">
-                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
-                </div>
-                <div className="p-4 flex flex-col gap-2 w-full">
-                    <p>{caseStudy?.title}</p>
-                    <LinkButton href={caseStudy?.link} title={'Read More'} />
-                </div>
-            </>
+            <div className="casestudy_img w-full lg:w-auto md:w-1/2 h-auto lg:h-full">
+                <Image
+                    src={caseStudy?.image[0]}
+                    width={1080}
+                    height={1080}
+                    alt={caseStudy?.title}
+                    className="object-cover"
+                />
+            </div>
+            <div className="p-4 flex flex-col gap-2 w-full ">
+                <p className="text-lg font-medium">{caseStudy?.title}</p>
+                <LinkButton href={caseStudy?.link} title={'Read More'} />
+            </div>
         </div>
     );
 };
