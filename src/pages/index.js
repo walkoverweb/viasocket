@@ -492,7 +492,7 @@ const TestimonialsSection = ({ testimonials }) => (
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
         <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
-        <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
+        <div className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px]">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
             ))}
@@ -502,20 +502,26 @@ const CaseStudiesSection = ({ caseStudies }) => (
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
-    const linkClass = isPriority
-        ? 'lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6'
-        : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
-
     return (
         <div
-            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden `}
             aria-label="casestudy"
+            className={` bg-neutral flex rounded-md overflow-hidden col-span-6 row-span-2    ${
+                isPriority
+                    ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
+                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+            }`}
         >
             <>
-                <div className="casestudy_img w-full h-full">
-                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
+                <div className=" casestudy_img overflow-hidden w-full h-full ">
+                    <Image
+                        className="h-full w-full"
+                        src={caseStudy?.image[0]}
+                        width={1080}
+                        height={1080}
+                        alt={caseStudy?.title}
+                    />
                 </div>
-                <div className="p-4 flex flex-col gap-2 w-full">
+                <div className="w-full p-3 bg-neutral flex flex-col gap-3 justify-center">
                     <p>{caseStudy?.title}</p>
                     <LinkButton href={caseStudy?.link} title={'Read More'} />
                 </div>
