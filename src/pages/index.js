@@ -508,18 +508,24 @@ const CaseStudyLink = ({ caseStudy }) => {
 
     return (
         <div
-            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden `}
+            className={`${linkClass} bg-neutral flex flex-col ${
+                isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'
+            } items-start rounded-md overflow-hidden`}
             aria-label="casestudy"
         >
-            <>
-                <div className="casestudy_img w-full h-full">
-                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
-                </div>
-                <div className="p-4 flex flex-col gap-2 w-full">
-                    <p>{caseStudy?.title}</p>
-                    <LinkButton href={caseStudy?.link} title={'Read More'} />
-                </div>
-            </>
+            <div className="casestudy_img w-full lg:w-auto md:w-1/2 h-auto lg:h-full">
+                <Image
+                    src={caseStudy?.image[0]}
+                    width={1080}
+                    height={1080}
+                    alt={caseStudy?.title}
+                    className="object-cover"
+                />
+            </div>
+            <div className="p-4 flex flex-col gap-2 w-full ">
+                <p className="text-lg font-medium">{caseStudy?.title}</p>
+                <LinkButton href={caseStudy?.link} title={'Read More'} />
+            </div>
         </div>
     );
 };
