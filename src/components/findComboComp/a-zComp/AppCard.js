@@ -1,6 +1,8 @@
 import Image from 'next/image';
 
-export default function AppCard({ appName }) {
+export default function AppCard({ appName, appslug }) {
+    console.log(appName, 8757826);
+    console.log(appslug, 7812478);
     return (
         <div className="border p-16 rounded flex flex-col gap-6 items-center justify-center">
             <div className="flex items-center gap-2">

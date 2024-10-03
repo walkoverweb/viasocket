@@ -38,11 +38,11 @@ export default function Alphabet({ firstApp, apps, navData, footerData, metaData
                         <div className="flex flex-col gap-20  items-center justify-center">
                             <div className=" border  p-16 rounded flex flex-col gap-6 h-[260px] min-w-[400px] items-center justify-center">
                                 <div className="flex items-center gap-2">
-                                    <Image src={apps[1]?.iconurl} width={28} height={28} alt={apps[0]?.name} />
+                                    <Image src={apps[0]?.iconurl} width={28} height={28} alt={apps[0]?.name} />
                                     <h1 className="capitalize text-xl font-semibold">{apps[0]?.name} </h1>
                                 </div>
                                 <Link className="text-link capitalize" href={`/integrations/${apps[0]?.appslugname}`}>
-                                    Go to {apps[1]?.name} integratioins
+                                    Go to {apps[0]?.name} integratioins
                                 </Link>
                             </div>
 
