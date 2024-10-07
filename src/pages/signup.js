@@ -1,70 +1,74 @@
-import { useLayoutEffect } from 'react'
-import Image from 'next/image'
-import TrustedBy from '@/components/trustedBy/trustedBy'
-import { getDbdashData } from './api'
-import Link from 'next/link'
-import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp'
+import { useLayoutEffect } from 'react';
+import Image from 'next/image';
+import TrustedBy from '@/components/trustedBy/trustedBy';
+import { getDbdashData } from './api';
+import Link from 'next/link';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 
 export async function getServerSideProps() {
-    const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656']
+    const { redirect_to } = context.query;
 
-    const dataPromises = IDs.map((id) => getDbdashData(id))
-    const results = await Promise.all(dataPromises)
+    const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656'];
+
+    const dataPromises = IDs.map((id) => getDbdashData(id));
+    const results = await Promise.all(dataPromises);
 
     return {
         props: {
             trustedBy: results[0].data.rows,
             testimonials: results[1].data.rows,
             metaData: results[2].data.rows,
+            redirect_to,
         },
-    }
+    };
 }
 
-const Login = ({ metaData, testimonials, trustedBy, pathArray }) => {
+const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to }) => {
     useLayoutEffect(() => {
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
             success: (data) => {
-                console.log('success response', data)
+                console.log('success response', data);
             },
             failure: (error) => {
-                console.log('failure reason', error)
+                console.log('failure reason', error);
             },
+        };
+        if (redirect_to) {
+            configuration.addInfo = {};
+            configuration.addInfo = {
+                redirect_path: redirect_to,
+            };
         }
         if (typeof window.initVerification === 'function') {
-            window.initVerification(configuration)
+            window.initVerification(configuration);
         } else {
-            const script = document.createElement('script')
-            script.type = 'text/javascript'
-            script.src =
-                'https://proxy.msg91.com/assets/proxy-auth/proxy-auth.js'
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://proxy.msg91.com/assets/proxy-auth/proxy-auth.js';
 
             const handleLoad = () => {
                 if (typeof window.initVerification === 'function') {
-                    window.initVerification(configuration)
+                    window.initVerification(configuration);
                 } else {
-                    console.error('initVerification function not found')
+                    console.error('initVerification function not found');
                 }
-            }
+            };
 
-            script.addEventListener('load', handleLoad)
+            script.addEventListener('load', handleLoad);
 
-            document.body.appendChild(script)
+            document.body.appendChild(script);
 
             return () => {
-                document.body.removeChild(script)
-                script.removeEventListener('load', handleLoad)
-            }
+                document.body.removeChild(script);
+                script.removeEventListener('load', handleLoad);
+            };
         }
-    }, [])
+    }, []);
 
     return (
         <>
-            <MetaHeadComp
-                metaData={metaData}
-                page={'/signup'}
-                pathArray={pathArray}
-            />
+            <MetaHeadComp metaData={metaData} page={'/signup'} pathArray={pathArray} />
 
             <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
                 <div className="md:py-10 md:pl-10 py-4 pl-3 md:pr-0 pr-3 flex flex-col md:w-3/5 w-full overflow-x-hidden overflow-y-scroll gap-6 bg-[#EDE8DE] ">
@@ -78,13 +82,9 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray }) => {
                         />
                     </a>
 
-                    <h2 className=" text-2xl">
-                        Upgrade yout team with powerful automation tool
-                    </h2>
+                    <h2 className=" text-2xl">Upgrade yout team with powerful automation tool</h2>
                     <div>
-                        <p className="text-xl font-bold">
-                            We’ll help you get started, with our
-                        </p>
+                        <p className="text-xl font-bold">We’ll help you get started, with our</p>
                         <p className="text-xl ">24x7 Chat Support</p>
                     </div>
 
@@ -119,17 +119,13 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray }) => {
                                             </div>
                                         </div>
                                     </div>
-                                )
+                                );
                             })}
                     </div>
                 </div>
 
                 <div className="md:w-2/5 w-full bg-white  py-6 px-3 md:p-10 flex flex-col gap-6 ">
-                    <a
-                        href="/"
-                        className="md:hidden block"
-                        aria-label="brand logo"
-                    >
+                    <a href="/" className="md:hidden block" aria-label="brand logo">
                         <Image
                             className="md:hidden block"
                             src="/assets/brand/logo.svg"
@@ -139,24 +135,16 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray }) => {
                         />
                     </a>
                     <h2 className="text-2xl font-bold">Create an account</h2>
-                    <div
-                        id={process.env.NEXT_PUBLIC_REFERENCE_ID}
-                        className="loginBtn_google"
-                    />
+                    <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} className="loginBtn_google" />
                     <div className="flex ">
-                        <span className="text-sm">
-                            If you already have an account,
-                        </span>
-                        <Link
-                            href="/login"
-                            className="ms-1 text-sm text-sky-700"
-                        >
+                        <span className="text-sm">If you already have an account,</span>
+                        <Link href="/login" className="ms-1 text-sm text-sky-700">
                             Login
                         </Link>
                     </div>
                 </div>
             </div>
         </>
-    )
-}
-export default Login
+    );
+};
+export default Login;
