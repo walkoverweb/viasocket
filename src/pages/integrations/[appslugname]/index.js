@@ -4,6 +4,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import { getUseCases } from '@/pages/api/fetch-usecases';
 import axios from 'axios';
+import fetchApps from '@/utils/getApps';
 
 const IntegrationSlugPage = ({
     getStartedData,
@@ -15,6 +16,8 @@ const IntegrationSlugPage = ({
     posts,
     navData,
     footerData,
+    apps,
+    query,
 }) => {
     if (combos && !combos.error && combos?.plugins?.[pathSlugs[0]]) {
         return (
@@ -27,6 +30,8 @@ const IntegrationSlugPage = ({
 
                 {combos?.plugins?.[pathSlugs[0]] && (
                     <IntegrationsComp
+                        apps={apps}
+                        query={query}
                         combinationData={combos}
                         pluginData={[combos?.plugins?.[pathSlugs[0]]]}
                         faqData={faqData}
@@ -59,6 +64,7 @@ export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
     const { params } = context;
+    const query = { page: context?.query?.page || 1, currentcategory: context?.query?.currentcategory || 'All' };
     const pathSlugs = [params.appslugname];
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases(pathSlugs[0]);
@@ -67,7 +73,7 @@ export async function getServerSideProps(context) {
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
+    const apps = (await fetchApps(query)) || [];
     const tag = pathSlugs;
     const defaultTag = 'integrations';
     const res = await axios.get(
@@ -87,6 +93,8 @@ export async function getServerSideProps(context) {
             footerData: results[4]?.data?.rows,
             usecase: usecase ?? [],
             posts,
+            apps,
+            query,
         },
     };
 }

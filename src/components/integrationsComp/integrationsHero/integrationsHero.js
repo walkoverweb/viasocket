@@ -83,7 +83,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         })}
                             </div>
                             <div className="flex gap-5 md:justify-end justify-center">
-
                                 {pluginData.length > 1
                                     ? pluginData[1]?.name && (
                                           <Link
@@ -102,9 +101,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                           src={pluginData[1]?.iconurl}
                                                           width={24}
                                                           height={24}
-
                                                           className="h-auto hidden sm:block bg-gray-100"
-
                                                           alt={pluginData[1]?.name}
                                                       />
                                                   )}
@@ -130,9 +127,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                           src={pluginData[0]?.iconurl}
                                                           width={24}
                                                           height={24}
-
                                                           className="h-auto hidden sm:block bg-gray-100"
-
                                                           alt={pluginData[0]?.name}
                                                       />
                                                   )}
@@ -141,7 +136,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                               </button>
                                           </Link>
                                       )}
-
 
                                 <Link href={'/login'} target="_blank">
                                     <button

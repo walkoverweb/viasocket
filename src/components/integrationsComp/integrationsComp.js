@@ -9,6 +9,7 @@ import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
 
 export default function IntegrationsComp({
+    apps,
     posts,
     combinationData,
     pluginData,
@@ -20,13 +21,14 @@ export default function IntegrationsComp({
     pathSlugs,
     hideApps,
     showCategories,
+    query,
 }) {
     return (
         <>
             <IntegrationsHero combinationData={combinationData} pluginData={pluginData} />
 
             {type !== 'doubleApp' && !hideApps && (
-                <IntegrationsApps pluginData={pluginData} showCategories={showCategories} />
+                <IntegrationsApps apps={apps} pluginData={pluginData} showCategories={showCategories} query={query} />
             )}
 
             {pluginData?.length && <IntegrationEvents plugins={pluginData} pathSlugs={pathSlugs} />}

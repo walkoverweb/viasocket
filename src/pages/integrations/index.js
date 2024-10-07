@@ -5,6 +5,7 @@ import { getUseCases } from '@/pages/api/fetch-usecases';
 import axios from 'axios';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
+import fetchApps from '@/utils/getApps';
 
 const IntegrationSlugPage = ({
     getStartedData,
@@ -16,6 +17,8 @@ const IntegrationSlugPage = ({
     posts,
     navData,
     footerData,
+    apps,
+    query,
 }) => {
     return (
         <>
@@ -27,6 +30,7 @@ const IntegrationSlugPage = ({
             />
             <Navbar navData={navData} />
             <IntegrationsComp
+                apps={apps}
                 posts={posts}
                 combinationData={combos}
                 faqData={faqData}
@@ -36,6 +40,7 @@ const IntegrationSlugPage = ({
                 getStartedData={getStartedData}
                 isHero={'false'}
                 showCategories={true}
+                query={query}
             />
             <Footer footerData={footerData} />
         </>
@@ -45,10 +50,11 @@ const IntegrationSlugPage = ({
 export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
+    const query = { page: context?.query?.page || 1, currentcategory: context?.query?.currentcategory || 'All' };
     const pathSlugs = [];
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases();
-
+    const apps = (await fetchApps(query)) || [];
     const IDs = ['tbl2bk656', 'tblvgm05y', 'tblnoi7ng', 'tbl7lj8ev', 'tbl6u2cba'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -72,6 +78,8 @@ export async function getServerSideProps(context) {
             footerData: results[4]?.data?.rows,
             usecase: usecase ?? [],
             posts,
+            apps,
+            query,
         },
     };
 }
