@@ -4,14 +4,16 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { MdAdd, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
+import Autocomplete from 'react-autocomplete';
 
 export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
     const [searchTerm, setSearchTerm] = useState('');
+    const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
     const [searchedApps, setSearchedApps] = useState([]);
     const [debounceValue, setDebounceValue] = useState('');
-
     const [searchLoading, setSearchLoading] = useState(false);
     const [visibleCategories, setVisibleCategories] = useState('20');
+    const [filteredCategories, setFilteredCategories] = useState(categories?.categories);
 
     useEffect(() => {
         if (searchTerm) {
@@ -45,6 +47,17 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
             console.log(error.message);
         }
     };
+    const filterCategory = async (search) => {
+        setCatSearchTerm(search);
+        const filteredCategories = categories?.categories?.filter((category) =>
+            category.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilteredCategories(filteredCategories);
+    };
+
+    const handleCategorySelect = (category) => {
+        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${category}`;
+    };
 
     return (
         <>
@@ -69,9 +82,42 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                         </div>
                     </>
                 )}
-                <div className=" flex gap-4 my-12">
+
+                <div className="flex md:flex-row flex-col gap-4 my-12">
+                    <div
+                        tabIndex={0}
+                        className="md:hidden  dropdown-content menu bg-base-100 rounded-box z-[1] p-0 max-w-[320px] industry-autocomplete"
+                    >
+                        <Autocomplete
+                            getItemValue={(item) => item.label}
+                            items={filteredCategories.map((cat) => ({
+                                label: cat,
+                            }))}
+                            renderItem={(item) => (
+                                <Link
+                                    className="px-2 py-1 cursor-pointer hover:bg-secondary"
+                                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${item.label}`}
+                                >
+                                    {item.label}
+                                </Link>
+                            )}
+                            value={catSearchTerm}
+                            onChange={(e) => filterCategory(e.target.value)}
+                            onSelect={(val) => handleCategorySelect(val)}
+                            menuStyle={{
+                                position: 'absolute',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                overflow: 'auto',
+                                maxHeight: '400px',
+                                background: 'white',
+                            }}
+                            inputProps={{ placeholder: 'Select Category', id: 'categoryAutoComplete' }}
+                        />
+                    </div>
+
                     {showCategories && (
-                        <ul className="min-w-[300px] flex flex-col gap-3">
+                        <ul className=" md:flex hidden min-w-[300px] md:flex-col gap-3">
                             {categories?.categories.map((category, index) => {
                                 return (
                                     <li key={index} className={visibleCategories > index ? '' : 'hidden'}>
