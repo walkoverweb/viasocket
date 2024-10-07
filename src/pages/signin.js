@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getDbdashData } from './api';
 
 export async function getServerSideProps() {
+    const { redirect_to } = context.query;
     const IDs = ['tblvo36my'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -13,11 +14,12 @@ export async function getServerSideProps() {
     return {
         props: {
             features: results[0].data.rows,
+            redirect_to,
         },
     };
 }
 
-const Login = ({ features }) => {
+const Login = ({ features, redirect_to }) => {
     let featuresArrOne = [];
     let featuresArrTwo = [];
     features.map((feature) => {
@@ -38,6 +40,12 @@ const Login = ({ features }) => {
                 console.log('failure reason', error);
             },
         };
+        if (redirect_to) {
+            configuration.addInfo = {};
+            configuration.addInfo = {
+                redirect_path: redirect_to,
+            };
+        }
         if (typeof window.initVerification === 'function') {
             window.initVerification(configuration);
         } else {
