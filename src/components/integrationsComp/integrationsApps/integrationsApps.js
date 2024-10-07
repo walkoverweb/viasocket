@@ -2,35 +2,47 @@ import fetchSearchResults from '@/utils/searchIntegrationApps';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { MdAdd, MdArrowDropDown, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown, MdMoveDown } from 'react-icons/md';
+import { MdAdd, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 
 export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchedApps, setSearchedApps] = useState([]);
-    const debounceValue = useDebounce(searchTerm, 300);
+    const [debounceValue, setDebounceValue] = useState('');
+
     const [searchLoading, setSearchLoading] = useState(false);
     const [visibleCategories, setVisibleCategories] = useState('20');
 
     useEffect(() => {
-        async function loadApps() {
-            const filteredApps = await searchApps(debounceValue);
-            setSearchedApps(filteredApps);
+        if (searchTerm) {
+            const handler = setTimeout(() => {
+                setDebounceValue(searchTerm);
+            }, 300);
+
+            return () => {
+                clearTimeout(handler);
+            };
         }
-        loadApps();
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (debounceValue) {
+            setSearchLoading(true);
+            async function loadApps() {
+                const filteredApps = await searchApps(debounceValue);
+                setSearchedApps(filteredApps);
+                setSearchLoading(false);
+            }
+            loadApps();
+        }
     }, [debounceValue]);
 
     const searchApps = async (debounceValue) => {
-        if (debounceValue) {
-            setSearchLoading(true);
-            try {
-                const result = await fetchSearchResults(debounceValue);
-                return result;
-            } catch (error) {
-                console.log(error.message);
-            } finally {
-                setSearchLoading(false);
-            }
+        try {
+            const result = await fetchSearchResults(debounceValue);
+            return result;
+        } catch (error) {
+            console.log(error.message);
         }
     };
 
@@ -64,7 +76,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                 return (
                                     <li key={index} className={visibleCategories > index ? '' : 'hidden'}>
                                         <Link
-                                            className={query?.currentcategory === category && 'font-bold'}
+                                            className={query?.currentcategory === category ? 'font-bold' : ''}
                                             href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${category}`}
                                         >
                                             {category}
@@ -108,7 +120,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                             </label>
                         </div>
 
-                        {searchTerm ? (
+                        {searchTerm || searchLoading ? (
                             <div className="flex flex-wrap gap-4">
                                 {searchLoading
                                     ? Array.from({ length: 20 }).map((_, index) => (
@@ -222,20 +234,4 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
             </div>
         </>
     );
-}
-
-function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedValue(value);
-        }, delay);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [value, delay]);
-
-    return debouncedValue;
 }
