@@ -15,7 +15,6 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
     const [selectedTriggerImage, setSelectedTriggerImage] = useState(null);
     const [selectedActionImage, setSelectedActionImage] = useState(null);
     const [cnt, setCnt] = useState(0);
-
     const getIconUrl = (plugin) => {
         const iconUrl = plugins.find((plug) => plug?.appslugname === plugin)?.iconurl || 'https://placehold.co/40x40';
         return iconUrl;
