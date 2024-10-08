@@ -14,6 +14,10 @@
     }
 }
 
+.flex-col {
+    @apply flex;
+}
+
 .container {
     max-width: 1560px;
     margin-left: auto;

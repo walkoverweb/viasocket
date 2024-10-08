@@ -15,11 +15,14 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
         const [mode, setMode] = useState('dark');
 
         useEffect(() => {
-            if (pluginData[0]?.brandcolor) {
+            if (pluginData.length > 1) {
+                if (pluginData[1]?.brandcolor) {
+                    setNewBrandColor(pluginData[1].brandcolor);
+                }
+            } else if (pluginData[0]?.brandcolor) {
                 setNewBrandColor(pluginData[0].brandcolor);
             }
         }, [pluginData[0]?.brandcolor]);
-
         useEffect(() => {
             setMode(GetColorMode(newBrandColor));
         }, [newBrandColor]);
@@ -34,7 +37,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
         const integrationText =
             pluginData?.length <= 1
                 ? `Create integrations between ${pluginData[0]?.name} and your favorite App`
-                : `Create integrations between ${pluginData[0]?.name} and ${pluginData[1]?.name}`;
+                : `Create integrations between ${pluginData[1]?.name} and ${pluginData[0]?.name}`;
         return (
             <>
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
@@ -44,37 +47,40 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                 className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
                             >
                                 {pluginData?.length &&
-                                    pluginData.map((plug, index) => {
-                                        return (
-                                            <div key={plug?.id || index} className="flex items-center gap-3  w-fit">
-                                                {index > 0 && <span className="text-3xl mx-4"> + </span>}
-                                                {plug?.iconurl && (
-                                                    <Image
-                                                        src={plug.iconurl}
-                                                        width={40}
-                                                        height={40}
-                                                        className="h-auto w-[30px] md:w-[36px]"
-                                                        alt="notion"
-                                                    />
-                                                )}
-                                                <div className="flex flex-col">
-                                                    {plug?.name && (
-                                                        <div className="md:text-2xl text-lg font-bold">
-                                                            {plug?.name}
-                                                        </div>
+                                    pluginData
+                                        .slice()
+                                        .reverse()
+                                        .map((plug, index) => {
+                                            return (
+                                                <div key={plug?.id || index} className="flex items-center gap-3  w-fit">
+                                                    {index > 0 && <span className="text-3xl mx-4"> + </span>}
+                                                    {plug?.iconurl && (
+                                                        <Image
+                                                            src={plug.iconurl}
+                                                            width={40}
+                                                            height={40}
+                                                            className="h-auto w-[30px] md:w-[36px]"
+                                                            alt="notion"
+                                                        />
                                                     )}
-                                                    {plug?.category && (
-                                                        <div className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
-                                                            {plug?.category &&
-                                                                plug?.category.map((item, catIndex) => (
-                                                                    <div key={item + catIndex}> {item} </div>
-                                                                ))}
-                                                        </div>
-                                                    )}
+                                                    <div className="flex flex-col">
+                                                        {plug?.name && (
+                                                            <div className="md:text-2xl text-lg font-bold">
+                                                                {plug?.name}
+                                                            </div>
+                                                        )}
+                                                        {plug?.category && (
+                                                            <div className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
+                                                                {plug?.category &&
+                                                                    plug?.category.map((item, catIndex) => (
+                                                                        <div key={item + catIndex}> {item} </div>
+                                                                    ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    })}
+                                            );
+                                        })}
                             </div>
                             <div className="flex gap-5 md:justify-end justify-center">
                                 {pluginData[0]?.name && (
@@ -94,7 +100,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                                     src={pluginData[0]?.iconurl}
                                                     width={24}
                                                     height={24}
-                                                    className="h-auto hidden sm:block"
+                                                    className="h-auto hidden sm:block bg-gray-100"
                                                     alt={pluginData[0]?.name}
                                                 />
                                             )}
@@ -103,7 +109,6 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         </button>
                                     </Link>
                                 )}
-
                                 <Link href={'/login'} target="_blank">
                                     <button
                                         className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
@@ -112,7 +117,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                             src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/brand/favicon_${mode === 'dark' ? 'light' : 'dark'}.svg`}
                                             width={24}
                                             height={24}
-                                            className="h-auto hidden sm:block"
+                                            className="h-auto hidden sm:block bg-gray-100"
                                             alt="viaSocket"
                                         />
                                         Login to viaSocket

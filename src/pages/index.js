@@ -181,6 +181,19 @@ const Index = ({
             industry.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     };
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'ArrowDown') {
+            setHighlightedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : prevIndex));
+        } else if (e.key === 'ArrowUp') {
+            setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+        } else if (e.key === 'Enter') {
+            if (highlightedIndex >= 0 && highlightedIndex < searchData.length) {
+                handleSelectApp(searchData[highlightedIndex].appslugname);
+            }
+        }
+    };
 
     return (
         <>
@@ -275,7 +288,6 @@ const Index = ({
                                     ))}
                                 </>
                             )}
-
                             {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
@@ -291,6 +303,7 @@ const Index = ({
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                             ref={inputRef}
+                                            onKeyDown={handleKeyDown}
                                         />
                                         <span
                                             className="btn icon border-none bg-transparent p-0"
@@ -318,11 +331,14 @@ const Index = ({
                                         ) : (
                                             <>
                                                 {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app) => (
+                                                    searchData.map((app, index) => (
                                                         <div
                                                             key={app.appslugname}
-                                                            className="flex items-center gap-2 bg-white px-3 py-2 cursor-pointer w-full hover:bg-slate-100"
+                                                            className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
+                                                                index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
+                                                            } hover:bg-gray-100`}
                                                             onClick={() => handleSelectApp(app?.appslugname)}
+                                                            onMouseEnter={() => setHighlightedIndex(index)}
                                                         >
                                                             <Image
                                                                 src={app?.iconurl}
@@ -350,6 +366,7 @@ const Index = ({
                                     <MdAdd color="white" fontSize={24} />
                                 </span>
                             )}
+
                             <h2 className="text-3xl">in</h2>
 
                             <div className="dropdown">
@@ -475,7 +492,7 @@ const TestimonialsSection = ({ testimonials }) => (
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
         <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
-        <div className="grid grid-rows-6 grid-cols-6 gap-6 container md:max-h-[700px]">
+        <div className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px]">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
             ))}
@@ -485,20 +502,26 @@ const CaseStudiesSection = ({ caseStudies }) => (
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
-    const linkClass = isPriority
-        ? 'lg:row-span-6 lg:col-span-3 md:row-span-3 md:col-span-6 row-span-2 col-span-6'
-        : 'lg:row-span-3 lg:col-span-3 md:row-span-3 md:col-span-3 row-span-2 col-span-6';
-
     return (
         <div
-            className={`${linkClass} bg-neutral flex flex-col ${isPriority ? 'md:flex-row lg:flex-col' : 'lg:flex-row lg:items-center'} items-start rounded-md overflow-hidden `}
             aria-label="casestudy"
+            className={` bg-neutral flex rounded-md overflow-hidden col-span-6 row-span-2    ${
+                isPriority
+                    ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
+                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+            }`}
         >
             <>
-                <div className="casestudy_img w-full h-full">
-                    <Image src={caseStudy?.image[0]} width={1080} height={1080} alt={caseStudy?.title} />
+                <div className=" casestudy_img overflow-hidden w-full h-full ">
+                    <Image
+                        className="h-full w-full"
+                        src={caseStudy?.image[0]}
+                        width={1080}
+                        height={1080}
+                        alt={caseStudy?.title}
+                    />
                 </div>
-                <div className="p-4 flex flex-col gap-2 w-full">
+                <div className="w-full p-3 bg-neutral flex flex-col gap-3 justify-center">
                     <p>{caseStudy?.title}</p>
                     <LinkButton href={caseStudy?.link} title={'Read More'} />
                 </div>
