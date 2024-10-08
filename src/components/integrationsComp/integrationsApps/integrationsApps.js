@@ -210,7 +210,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                             key={index}
                                             rel="noopener noreferrer"
                                             aria-label="apps"
-                                            href={`/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
+                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
                                         >
                                             <div className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white">
                                                 {app?.iconurl && (
