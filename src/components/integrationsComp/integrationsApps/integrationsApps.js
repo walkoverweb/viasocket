@@ -2,36 +2,61 @@ import fetchSearchResults from '@/utils/searchIntegrationApps';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { MdAdd, MdArrowDropDown, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown, MdMoveDown } from 'react-icons/md';
+import { MdAdd, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
+import Autocomplete from 'react-autocomplete';
 
 export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
     const [searchTerm, setSearchTerm] = useState('');
+    const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
     const [searchedApps, setSearchedApps] = useState([]);
-    const debounceValue = useDebounce(searchTerm, 300);
+    const [debounceValue, setDebounceValue] = useState('');
     const [searchLoading, setSearchLoading] = useState(false);
     const [visibleCategories, setVisibleCategories] = useState('20');
+    const [filteredCategories, setFilteredCategories] = useState(categories?.categories);
 
     useEffect(() => {
-        async function loadApps() {
-            const filteredApps = await searchApps(debounceValue);
-            setSearchedApps(filteredApps);
+        if (searchTerm) {
+            const handler = setTimeout(() => {
+                setDebounceValue(searchTerm);
+            }, 300);
+
+            return () => {
+                clearTimeout(handler);
+            };
         }
-        loadApps();
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (debounceValue) {
+            setSearchLoading(true);
+            async function loadApps() {
+                const filteredApps = await searchApps(debounceValue);
+                setSearchedApps(filteredApps);
+                setSearchLoading(false);
+            }
+            loadApps();
+        }
     }, [debounceValue]);
 
     const searchApps = async (debounceValue) => {
-        if (debounceValue) {
-            setSearchLoading(true);
-            try {
-                const result = await fetchSearchResults(debounceValue);
-                return result;
-            } catch (error) {
-                console.log(error.message);
-            } finally {
-                setSearchLoading(false);
-            }
+        try {
+            const result = await fetchSearchResults(debounceValue);
+            return result;
+        } catch (error) {
+            console.log(error.message);
         }
+    };
+    const filterCategory = async (search) => {
+        setCatSearchTerm(search);
+        const filteredCategories = categories?.categories?.filter((category) =>
+            category.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilteredCategories(filteredCategories);
+    };
+
+    const handleCategorySelect = (category) => {
+        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${category}`;
     };
 
     return (
@@ -57,14 +82,47 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                         </div>
                     </>
                 )}
-                <div className=" flex gap-4 my-12">
+
+                <div className="flex md:flex-row flex-col gap-4 my-12">
+                    <div
+                        tabIndex={0}
+                        className="md:hidden  dropdown-content menu bg-base-100 rounded-box z-[1] p-0 max-w-[320px] industry-autocomplete"
+                    >
+                        <Autocomplete
+                            getItemValue={(item) => item.label}
+                            items={filteredCategories.map((cat) => ({
+                                label: cat,
+                            }))}
+                            renderItem={(item) => (
+                                <Link
+                                    className="px-2 py-1 cursor-pointer hover:bg-secondary"
+                                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${item.label}`}
+                                >
+                                    {item.label}
+                                </Link>
+                            )}
+                            value={catSearchTerm}
+                            onChange={(e) => filterCategory(e.target.value)}
+                            onSelect={(val) => handleCategorySelect(val)}
+                            menuStyle={{
+                                position: 'absolute',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                overflow: 'auto',
+                                maxHeight: '400px',
+                                background: 'white',
+                            }}
+                            inputProps={{ placeholder: 'Select Category', id: 'categoryAutoComplete' }}
+                        />
+                    </div>
+
                     {showCategories && (
-                        <ul className="min-w-[300px] flex flex-col gap-3">
+                        <ul className=" md:flex hidden min-w-[300px] md:flex-col gap-3">
                             {categories?.categories.map((category, index) => {
                                 return (
                                     <li key={index} className={visibleCategories > index ? '' : 'hidden'}>
                                         <Link
-                                            className={query?.currentcategory === category && 'font-bold'}
+                                            className={query?.currentcategory === category ? 'font-bold' : ''}
                                             href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${category}`}
                                         >
                                             {category}
@@ -108,7 +166,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                             </label>
                         </div>
 
-                        {searchTerm ? (
+                        {searchTerm || searchLoading ? (
                             <div className="flex flex-wrap gap-4">
                                 {searchLoading
                                     ? Array.from({ length: 20 }).map((_, index) => (
@@ -152,7 +210,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                             key={index}
                                             rel="noopener noreferrer"
                                             aria-label="apps"
-                                            href={`/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
+                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
                                         >
                                             <div className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white">
                                                 {app?.iconurl && (
@@ -222,20 +280,4 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
             </div>
         </>
     );
-}
-
-function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedValue(value);
-        }, delay);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [value, delay]);
-
-    return debouncedValue;
 }
