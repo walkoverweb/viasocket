@@ -6,8 +6,10 @@ import { MdArrowForward } from 'react-icons/md';
 import Link from 'next/link';
 import { getDbdashData } from './api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { redirect } from 'next/dist/server/api-utils';
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+    const { redirect_to } = context.query;
     const IDs = ['tblvo36my', 'tbl2bk656'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -17,11 +19,12 @@ export async function getServerSideProps() {
         props: {
             features: results[0].data.rows,
             metaData: results[1].data.rows,
+            redirect_to,
         },
     };
 }
 
-const Login = ({ features, metaData, pathArray }) => {
+const Login = ({ features, metaData, pathArray, redirect_to }) => {
     let featuresArrOne = [];
     let featuresArrTwo = [];
     features.map((feature) => {
@@ -45,6 +48,13 @@ const Login = ({ features, metaData, pathArray }) => {
                 console.log('failure reason', error);
             },
         };
+        if (redirect_to) {
+            configuration.addInfo = {};
+            configuration.addInfo = {
+                redirect_path: redirect_to,
+            };
+        }
+        // console.log(configuration,"configuration")
         const initializeVerification = () => {
             if (typeof window.initVerification === 'function') {
                 window.initVerification(configuration);
