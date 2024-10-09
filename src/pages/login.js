@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
         props: {
             features: results[0].data.rows,
             metaData: results[1].data.rows,
-            redirect_to,
+            redirect_to: redirect_to || '',
         },
     };
 }
