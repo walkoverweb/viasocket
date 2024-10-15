@@ -10,6 +10,7 @@ export default function noDataGrid({ plugin, mode }) {
         email: '',
         useCase: '',
         app_name: currentUrl || ' ',
+        plugin: plugin,
     });
 
     const handleInputChange = (event) => {
@@ -20,6 +21,10 @@ export default function noDataGrid({ plugin, mode }) {
         }));
     };
     const handleSubmit = async () => {
+        if (!formData.name || !formData.email) {
+            alert('Name and Email are required.');
+            return;
+        }
         setIsLoading(true);
         try {
             const response = await fetch('https://flow.sokt.io/func/scrioitLgnvb', {
