@@ -2,11 +2,14 @@ import Image from 'next/image';
 import styles from './noDataGrid.module.scss';
 import { useState } from 'react';
 export default function noDataGrid({ plugin, mode }) {
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+    console.log('Current URL:', currentUrl);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         useCase: '',
+        app_name: currentUrl || ' ',
     });
 
     const handleInputChange = (event) => {
