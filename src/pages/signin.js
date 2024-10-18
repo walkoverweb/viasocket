@@ -46,6 +46,15 @@ const Login = ({ features, redirect_to }) => {
                 redirect_path: redirect_to,
             };
         }
+        if (pathArray.length > 0) {
+            configuration.state = JSON.stringify({
+                utm_source: pathArray.join('/'),
+            });
+        } else {
+            configuration.state = {
+                'utm_source': 'website',
+            };
+        }
         if (typeof window.initVerification === 'function') {
             window.initVerification(configuration);
         } else {

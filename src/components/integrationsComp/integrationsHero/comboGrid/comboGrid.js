@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { MdChevronRight } from 'react-icons/md';
 import style from './comboGrid.module.scss';
 
-export default function ComboGrid({ combos, loading, showNoData, mode }) {
+export default function ComboGrid({ combos, loading, showNoData, mode, pathArray }) {
     const [visibleComboItems, setVisibleComboItems] = useState(9);
     const cardsData = combos?.combinations;
     const plugins = combos?.plugins;
@@ -25,6 +25,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                                         index={index}
                                         visibleComboItems={visibleComboItems}
                                         plugins={plugins}
+                                        pathArray={pathArray}
                                     />
                                 );
                             })}
@@ -88,7 +89,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
     }
 }
 
-export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
+export function RecomendedCard({ index, visibleComboItems, card, plugins, pathArray }) {
     const action = card.actions[0].name;
     const trigger = card.trigger.name;
     const plugs = {
@@ -114,7 +115,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=integration_page&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=${pathArray.join('/')}&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
                 target="_blank"
             >
                 <div
