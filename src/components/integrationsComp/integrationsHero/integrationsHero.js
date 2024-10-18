@@ -9,7 +9,6 @@ import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 
 export default function IntegrationsHero({ combinationData, pluginData, pathArray }) {
-    console.log('🚀 ~ IntegrationsHero ~ pathArray:', pathArray);
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');

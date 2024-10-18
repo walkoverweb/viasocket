@@ -115,7 +115,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins, pathAr
             <Link
                 className={index >= visibleComboItems ? 'hidden' : ' h-full'}
                 key={index}
-                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=${pathArray?.length > 0 ? pathArray.join('/') : 'website'}&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
+                href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/actionutm_source=${pathArray?.length > 0 ? pathArray.join('/') : 'website'}&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
                 target="_blank"
             >
                 <div
