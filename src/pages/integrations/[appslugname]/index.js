@@ -18,6 +18,7 @@ const IntegrationSlugPage = ({
     footerData,
     apps,
     query,
+    pathArray,
 }) => {
     if (combos && !combos.error && combos?.plugins?.[pathSlugs[0]]) {
         return (
@@ -41,6 +42,7 @@ const IntegrationSlugPage = ({
                         getStartedData={getStartedData}
                         isHero={'false'}
                         pathSlugs={pathSlugs}
+                        pathArray={pathArray}
                     />
                 )}
             </>

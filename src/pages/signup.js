@@ -5,7 +5,7 @@ import { getDbdashData } from './api';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
 
     const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656'];
@@ -18,7 +18,7 @@ export async function getServerSideProps() {
             trustedBy: results[0].data.rows,
             testimonials: results[1].data.rows,
             metaData: results[2].data.rows,
-            redirect_to,
+            redirect_to: redirect_to || '',
         },
     };
 }
@@ -38,6 +38,15 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to }) =>
             configuration.addInfo = {};
             configuration.addInfo = {
                 redirect_path: redirect_to,
+            };
+        }
+        if (pathArray.length > 0) {
+            configuration.state = JSON.stringify({
+                utm_source: pathArray.join('/'),
+            });
+        } else {
+            configuration.state = {
+                'utm_source': 'website',
             };
         }
         if (typeof window.initVerification === 'function') {

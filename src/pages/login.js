@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
         props: {
             features: results[0].data.rows,
             metaData: results[1].data.rows,
-            redirect_to,
+            redirect_to: redirect_to || '',
         },
     };
 }
@@ -54,7 +54,15 @@ const Login = ({ features, metaData, pathArray, redirect_to }) => {
                 redirect_path: redirect_to,
             };
         }
-        // console.log(configuration,"configuration")
+        if (pathArray.length > 0) {
+            configuration.state = JSON.stringify({
+                utm_source: pathArray.join('/'),
+            });
+        } else {
+            configuration.state = {
+                'utm_source': 'website',
+            };
+        }
         const initializeVerification = () => {
             if (typeof window.initVerification === 'function') {
                 window.initVerification(configuration);

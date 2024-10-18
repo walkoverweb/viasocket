@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import styles from './noDataGrid.module.scss';
-
-export default function NoDataGrid({ plugin, mode }) {
+export default function noDataGrid({ plugin, mode }) {
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+    console.log('Current URL:', currentUrl);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         useCase: '',
-        url: '',
+        app_name: currentUrl || ' ',
+        plugin: plugin,
     });
     const [emailError, setEmailError] = useState('');
 
@@ -41,11 +43,10 @@ export default function NoDataGrid({ plugin, mode }) {
     };
 
     const handleSubmit = async () => {
-        if (emailError) {
-            console.error('Invalid email address');
+        if (!formData.name || !formData.email) {
+            alert('Name and Email are required.');
             return;
         }
-
         setIsLoading(true);
 
         try {
