@@ -87,6 +87,7 @@ const IntegrationSlugPage = ({
     navData,
     posts,
     footerData,
+    pathArray,
 }) => {
     return (
         <>
@@ -107,6 +108,7 @@ const IntegrationSlugPage = ({
                     isHero={'false'}
                     pathSlugs={pathSlugs}
                     posts={posts}
+                    pathArray={pathArray}
                 />
             ) : (
                 <ErrorComp footerData={footerData} navData={navData} />
