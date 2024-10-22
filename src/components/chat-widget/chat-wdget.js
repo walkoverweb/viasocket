@@ -17,7 +17,7 @@ export default function ChatWidget() {
     return (
         <>
             <button onClick={toggleChatWidget} className={style.chat_widget} aria-label="Talk to an expert">
-                <MdCircle color="#00ED64" fontSize={12} /> Live Chat
+                <MdCircle color="#dc3545" fontSize={12} /> Live Chat
             </button>
         </>
     );

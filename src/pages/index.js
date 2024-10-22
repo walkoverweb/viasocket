@@ -203,7 +203,7 @@ const Index = ({
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
                         <span className="text-3xl font-medium flex gap-2 items-center">
-                            <MdAutoAwesome color="#00ED64" /> AI First
+                            <MdAutoAwesome color="#dc3545" /> AI First
                         </span>
                         <h1 className="md:text-6xl text-4xl font-medium">
                             Connect your favorite apps and automate your repetitive tasks
