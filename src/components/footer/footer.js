@@ -30,7 +30,7 @@ const Footer = ({ footerData }) => {
                                             href={
                                                 item?.link
                                                     ? item.link
-                                                    : `/${item?.name.toLowerCase().replace(/\s+/g, '-')}`
+                                                    : `/${item?.name?.toLowerCase().replace(/\s+/g, '-')}`
                                             }
                                             key={index}
                                             aria-label={item?.name}
