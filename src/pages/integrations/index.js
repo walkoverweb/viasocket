@@ -28,7 +28,7 @@ const IntegrationSlugPage = ({
                 pathArray={pathArray}
                 plugin={[combos?.plugins?.[pathArray[2]]]}
             />
-            <Navbar navData={navData} />
+            <Navbar navData={navData} utm={'/integrations'} />
             <IntegrationsComp
                 apps={apps}
                 posts={posts}

@@ -11,7 +11,7 @@ import Footer from '@/components/footer/footer';
 export default function Index({ getStartedData, posts, tags, pagination, navData, footerData }) {
     return (
         <>
-            <Navbar navData={navData} />
+            <Navbar navData={navData} utm={'/blogs'} />
             <Layout>
                 <PostList posts={posts} tags={tags} pagination={pagination} />
             </Layout>

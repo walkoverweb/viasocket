@@ -11,7 +11,7 @@ export default function ErrorComp({ navData, footerData }) {
     return (
         <>
             <div>
-                <Navbar navData={navData} />
+                <Navbar navData={navData} page={'/404'} />
                 <div className="flex flex-col items-center justify-center py-6 w-dvw px-2">
                     <Image
                         src="/assets/img/404.svg"
