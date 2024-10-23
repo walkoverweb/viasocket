@@ -5,7 +5,7 @@ import styles from './navbar.module.scss';
 import NotificationBar from '../notificationBar/notificationbar';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
-const Navbar = ({ navData }) => {
+const Navbar = ({ navData, utm }) => {
     var shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
@@ -89,10 +89,13 @@ const Navbar = ({ navData }) => {
                                     }
                                 }
                             })}
-                        <Link href="/login" className="btn btn-outline btn-primary btn-sm ">
+                        <Link href={`/login?utm_source=${utm}`} className="btn btn-outline btn-primary btn-sm ">
                             Login
                         </Link>
-                        <Link href="/signup" className="btn btn-accent btn-sm outline-primary outline-1 outline">
+                        <Link
+                            href={`/signup?utm_source=${utm}`}
+                            className="btn btn-accent btn-sm outline-primary outline-1 outline"
+                        >
                             Sign Up
                         </Link>
                     </div>

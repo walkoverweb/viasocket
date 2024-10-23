@@ -26,7 +26,7 @@ const Privacy = ({ navData, footerData, metaData }) => {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/privacy'} />
-            <Navbar navData={navData} />
+            <Navbar navData={navData} utm={'/privacy'} />
             <div className="container mb-4 mt-28">
                 <style
                     dangerouslySetInnerHTML={{

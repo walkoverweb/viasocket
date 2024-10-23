@@ -198,7 +198,7 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <Navbar navData={navData} />
+            <Navbar navData={navData} utm={'index'} />
             <div className="grid gap-20">
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
@@ -505,7 +505,7 @@ const Index = ({
                                     </button>
                                 </div>
                             </div>
-                            <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
+                            <ComboGrid combos={renderCombos} loading={combinationLoading} utm={'index'} showNoData />
                         </div>
                     </div>
                 </div>
