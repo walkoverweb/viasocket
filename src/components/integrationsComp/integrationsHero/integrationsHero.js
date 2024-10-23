@@ -44,7 +44,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                     <div className={`container flex flex-col md:gap-12 gap-6`}>
                         <div className="flex flex-col gap-3 justify-between items-center md:flex-row">
                             <div
-                                className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 rounded-md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
+                                className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 -md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
                             >
                                 {pluginData?.length &&
                                     pluginData

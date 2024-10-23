@@ -213,7 +213,7 @@ const Index = ({
                         <h2 className="text-3xl font-medium md:w-2/3">
                             Discover Top Solutions for Effortless Connectivity.
                         </h2>
-                        <div className="p-8 bg-neutral rounded flex flex-col gap-9">
+                        <div className="p-8 bg-neutral  flex flex-col gap-9">
                             <div className="flex flex-wrap gap-2 items-center">
                                 <h2 className="text-3xl">How</h2>
                                 <div className="dropdown">
@@ -233,7 +233,7 @@ const Index = ({
                                     {showIndusDropdown && (
                                         <div
                                             tabIndex={0}
-                                            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                            className="dropdown-content menu bg-base-100  z-[1] w-52 p-2 shadow industry-autocomplete"
                                         >
                                             <Autocomplete
                                                 getItemValue={(item) => item.label}
@@ -267,7 +267,7 @@ const Index = ({
                                         {' '}
                                         {[...Array(3)].map((_, index) => (
                                             <div
-                                                className="bg-white rounded  items-center flex w-[120px] gap-1 p-2 "
+                                                className="bg-white   items-center flex w-[120px] gap-1 p-2 "
                                                 key={index}
                                             >
                                                 <div className="skeleton max-h-[17px] max-w-[17px] min-h-[17px] min-w-[16px] bg-gray-200 "></div>
@@ -279,7 +279,7 @@ const Index = ({
                                     <>
                                         {selectedApps.map((app, index) => (
                                             <div
-                                                className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
+                                                className="flex items-center gap-2 bg-white w-fit px-2 py-1  "
                                                 key={app.appslugname}
                                             >
                                                 <Image src={app?.iconurl} width={16} height={16} alt="ico" />
@@ -294,7 +294,7 @@ const Index = ({
                                 )}
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
-                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white "
                                         tabIndex={0}
                                         role="button"
                                     >
@@ -320,7 +320,7 @@ const Index = ({
                                     </label>
                                     <ul
                                         tabIndex={0}
-                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1]  max-h-[290px] w-[300px] overflow-scroll p-0"
                                     >
                                         {searchLoading ? (
                                             [...Array(12)].map((_, index) => (
@@ -459,7 +459,7 @@ const Index = ({
                                     {showDeptDropdown && (
                                         <div
                                             tabIndex={0}
-                                            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                            className="dropdown-content menu bg-base-100  z-[1] w-52 p-2 shadow industry-autocomplete"
                                         >
                                             <Autocomplete
                                                 getItemValue={(item) => item.label}
@@ -539,7 +539,7 @@ const TestimonialsSection = ({ testimonials }) => (
         <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {testimonials.map((testimonial, index) => (
-                <div className="flex flex-col rounded-md p-8 gap-8 bg-neutral" key={index}>
+                <div className="flex flex-col  p-8 gap-8 bg-neutral" key={index}>
                     <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left">
                         " {testimonial?.testimonial}"
                     </p>
@@ -582,7 +582,7 @@ const CaseStudyLink = ({ caseStudy }) => {
     return (
         <div
             aria-label="casestudy"
-            className={` bg-neutral flex rounded-md overflow-hidden col-span-6 row-span-2    ${
+            className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
                 isPriority
                     ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
                     : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'

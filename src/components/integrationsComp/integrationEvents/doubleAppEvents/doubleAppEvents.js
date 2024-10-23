@@ -77,7 +77,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                     <div className="flex items-center gap-4">
                                         <MdOutlineAdsClick size={24} />
                                         <h5 className=" text-xl font-bold ">When this happens</h5>
-                                        <p className="text-sm text-red-600 bg-red-200 px-3 py-1 rounded-full font-normal">
+                                        <p className="text-sm text-red-600 bg-red-200 px-3 py-1  font-normal">
                                             Triggers
                                         </p>
                                     </div>
@@ -85,7 +85,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                         triggerEvent.map((card, index) => (
                                             <div
                                                 key={index}
-                                                className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
+                                                className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC]  cursor-pointer relative hover:drop-shadow-lg ${
                                                     selectedCardIndex === index ? 'selected-card' : ''
                                                 }`}
                                                 onClick={() => {
@@ -128,7 +128,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                     <div className="flex items-center gap-4">
                                         <MdOutlineTaskAlt size={24} />
                                         <h5 className="text-xl font-bold ">Do this</h5>
-                                        <p className="text-sm text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-normal">
+                                        <p className="text-sm text-blue-600 bg-blue-200 px-3 py-1  font-normal">
                                             Actions
                                         </p>
                                     </div>
@@ -137,7 +137,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                         actionEvents.map((card, i) => (
                                             <div
                                                 key={i}
-                                                className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] rounded-lg cursor-pointer relative hover:drop-shadow-lg ${
+                                                className={`flex gap-6 justify-between items-center bg-white py-3 px-6 border border-[#CCCCCC] cursor-pointer relative hover:drop-shadow-lg ${
                                                     selectedActionCardIndex === i ? 'selected-card' : ''
                                                 }`}
                                                 onClick={() => {
@@ -185,7 +185,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                 <div className={`bg-white ${cnt < 1 ? 'hidden' : 'fixed'} bottom-0 w-[100%] z-30`}>
                     <div className="container flex gap-6 flex-wrap lg:justify-start items-start py-4 ">
                         <div className="flex flex-row flex-wrap items-center gap-4">
-                            <div className="flex flex-row gap-4 bg-white border px-5 py-2 rounded-lg w-[400px] items-center">
+                            <div className="flex flex-row gap-4 bg-white border px-5 py-2 w-[400px] items-center">
                                 {selectedTrigger !== null ? (
                                     <>
                                         <Image
@@ -208,7 +208,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                 <MdAdd size={20} />
                             </div>
 
-                            <div className="flex flex-row items-center gap-4 bg-white border px-5 py-2 rounded-lg w-[400px]">
+                            <div className="flex flex-row items-center gap-4 bg-white border px-5 py-2  w-[400px]">
                                 {selectedAction !== null ? (
                                     <>
                                         <Image
@@ -238,7 +238,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                                     aria-label="try the combination"
                                 >
                                     <button
-                                        className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2 rounded hover:bg-black hover:text-white"
+                                        className="btn md:btn-md btn-sm lg:text-base bg-black text-white p-2  hover:bg-black hover:text-white"
                                         disabled={cnt !== 2}
                                         aria-label="try the combination"
                                     >
@@ -248,7 +248,7 @@ export default function DoubleAppEvents({ pathSlugs, plugins }) {
                             </div>
                             <div>
                                 <button
-                                    className="btn md:btn-md btn-sm lg:text-base bg-gray-200 text-black p-2 rounded hover:bg-black hover:text-white"
+                                    className="btn md:btn-md btn-sm lg:text-base bg-gray-200 text-black p-2  hover:bg-black hover:text-white"
                                     onClick={handleCancelClick}
                                     aria-label="cancel"
                                 >

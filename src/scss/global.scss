@@ -28,7 +28,7 @@
     @apply gap-3 mx-auto items-center;
 
     .active {
-        @apply bg-slate-300 px-1 rounded-sm;
+        @apply bg-slate-300 px-1;
     }
 }
 
@@ -99,7 +99,7 @@
 .industry-autocomplete {
     div {
         input {
-            @apply input w-full input-sm h-[36px] border-[#CCCCCC] flex items-center gap-2 bg-white rounded;
+            @apply input w-full input-sm h-[36px] border-[#CCCCCC] flex items-center gap-2 bg-white;
         }
     }
 }
