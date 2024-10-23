@@ -45,7 +45,7 @@ const Navbar = ({ navData }) => {
                                                 </div>
                                                 <ul
                                                     tabIndex={0}
-                                                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                                                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100  w-52"
                                                 >
                                                     {shorterData.map((child, childIndex) => {
                                                         if (child.group_name && child.group_name === option.name) {
@@ -100,10 +100,7 @@ const Navbar = ({ navData }) => {
                         <div tabIndex={0} role="button" className="" aria-label="dropdown nav">
                             <MdMenu className="w-[24px] h-[24px]" />
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className="dropdown-content z-[1] menu p-2  bg-base-100 rounded-md w-52 shadow-lg"
-                        >
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100  w-52 shadow-lg">
                             {shorterData &&
                                 shorterData.map((option, index) => {
                                     if (!option.is_parent) {

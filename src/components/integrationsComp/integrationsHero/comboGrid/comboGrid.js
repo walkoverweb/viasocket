@@ -33,7 +33,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                             <div className="flex flex-row justify-center items-center">
                                 <button
                                     onClick={handleComboLoadMore}
-                                    className={`py-2 px-5 text-sm border rounded-sm   ${mode === 'dark' ? ' border-white text-white' : 'border-gray-600  text-primary'}`}
+                                    className={`py-2 px-5 text-sm border    ${mode === 'dark' ? ' border-white text-white' : 'border-gray-600  text-primary'}`}
                                     aria-label="load more button"
                                 >
                                     Load More
@@ -47,7 +47,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
             return (
                 <>
                     {showNoData && (
-                        <div className=" rounded-md text-2xl font-semibold">
+                        <div className=" text-2xl font-semibold">
                             Combination Unavailable. <br />
                             Please explore other Apps or Industries.
                         </div>
@@ -61,7 +61,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                 <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
                     {[...Array(9)].map((_, index) => (
                         <div
-                            className="bg-white rounded-md overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out"
+                            className="bg-white  overflow-hidden hover:shadow-xl h-full flex flex-col transition duration-300 ease-in-out"
                             key={index}
                         >
                             <div className="p-8 flex flex-col gap-4 h-full">
@@ -118,7 +118,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins }) {
                 target="_blank"
             >
                 <div
-                    className={`${style.card} border rounded-md  overflow-hidden h-full flex flex-col hover:shadow-lg hover:bg-secondary  transition-all cursor-pointer`}
+                    className={`${style.card} border  overflow-hidden h-full flex flex-col hover:shadow-lg hover:bg-secondary  transition-all cursor-pointer`}
                 >
                     <div className="p-8 bg-white flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 flex-wrap">
