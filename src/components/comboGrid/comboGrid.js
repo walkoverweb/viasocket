@@ -40,7 +40,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode }) {
                             <div className="flex flex-row justify-center items-center">
                                 <button
                                     onClick={handleComboLoadMore}
-                                    className={`py-2 px-5 text-sm border rounded-sm   ${mode === 'dark' ? ' border-white text-white' : 'border-gray-600  text-primary'}`}
+                                    className={`py-2 px-5 text-sm border   ${mode === 'dark' ? ' border-white text-white' : 'border-gray-600  text-primary'}`}
                                     aria-label="load more button"
                                 >
                                     Load More

@@ -27,7 +27,7 @@ module.exports = {
                     neutral: '#fafafa',
                     'primary-content': '#ffffff',
                     link: '#4485F2',
-                    '--rounded-btn': '2px',
+                    '--rounded-btn': '0.0px',
                 },
             },
         ],
