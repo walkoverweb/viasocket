@@ -4,7 +4,6 @@ import { MdCircle } from 'react-icons/md';
 
 export default function ChatWidget() {
     const [launcher, setLauncher] = useState(false);
-
     const toggleChatWidget = () => {
         if (launcher) {
             window.chatWidget.close();
