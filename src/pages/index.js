@@ -499,7 +499,7 @@ const Index = ({
                                     <button
                                         disabled={selectedApps.length < 2}
                                         onClick={handleGenerate}
-                                        className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                                        className="btn btn-accent h-[30px] w-auto flex items-center justify-center  btn-sm border border-black"
                                     >
                                         Search Automations
                                     </button>
