@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export async function getServerSideProps(context) {
     const { params } = context;
+    const utm = context?.resolvedUrl.split(/[?#]/)[0];
     const pathSlugs = [params.pageslug, params.appslugname];
 
     const combos = await fetchCombos(pathSlugs);
@@ -40,6 +41,7 @@ export async function getServerSideProps(context) {
             footerData: results[4]?.data?.rows,
             plugins,
             posts,
+            utm,
         },
     };
 }
@@ -87,6 +89,7 @@ const IntegrationSlugPage = ({
     navData,
     posts,
     footerData,
+    utm,
 }) => {
     return (
         <>
@@ -107,9 +110,10 @@ const IntegrationSlugPage = ({
                     isHero={'false'}
                     pathSlugs={pathSlugs}
                     posts={posts}
+                    utm={utm}
                 />
             ) : (
-                <ErrorComp footerData={footerData} navData={navData} />
+                <ErrorComp footerData={footerData} navData={navData} utm={utm} />
             )}
         </>
     );

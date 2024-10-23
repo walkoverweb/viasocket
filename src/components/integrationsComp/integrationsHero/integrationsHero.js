@@ -8,7 +8,7 @@ import { GetColorMode } from '@/utils/getColorMode';
 import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 
-export default function IntegrationsHero({ combinationData, pluginData }) {
+export default function IntegrationsHero({ combinationData, pluginData, utm }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
@@ -109,7 +109,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                                         </button>
                                     </Link>
                                 )}
-                                <Link href={'/login'} target="_blank">
+                                <Link href={`/login?utm_source=${utm}`} target="_blank">
                                     <button
                                         className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
                                     >
@@ -155,7 +155,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                         {pluginData.length > 1 ? (
                             pluginData[0]?.events?.length && pluginData[1]?.events?.length ? (
                                 combinationData?.combinations?.length > 0 ? (
-                                    <ComboGrid combos={combinationData} mode={mode} />
+                                    <ComboGrid combos={combinationData} mode={mode} utm={utm} />
                                 ) : (
                                     <div className="flex gap-3">
                                         <EventGrid plugin={pluginData} mode={mode} />
@@ -166,7 +166,7 @@ export default function IntegrationsHero({ combinationData, pluginData }) {
                             )
                         ) : pluginData[0]?.events?.length ? (
                             combinationData?.combinations?.length > 0 ? (
-                                <ComboGrid combos={combinationData} mode={mode} />
+                                <ComboGrid combos={combinationData} mode={mode} utm={utm} />
                             ) : (
                                 <div className="flex gap-3">
                                     <EventGrid plugin={pluginData} mode={mode} />

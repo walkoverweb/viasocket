@@ -5,13 +5,13 @@ import { MdArrowBackIos } from 'react-icons/md';
 import Footer from '../footer/footer';
 import Navbar from '../navbar/navbar';
 
-export default function ErrorComp({ navData, footerData }) {
+export default function ErrorComp({ navData, footerData, utm }) {
     const router = useRouter();
 
     return (
         <>
             <div>
-                <Navbar navData={navData} page={'/404'} />
+                <Navbar navData={navData} page={utm || '/404'} />
                 <div className="flex flex-col items-center justify-center py-6 w-dvw px-2">
                     <Image
                         src="/assets/img/404.svg"

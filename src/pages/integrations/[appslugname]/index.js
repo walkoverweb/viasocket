@@ -18,6 +18,7 @@ const IntegrationSlugPage = ({
     footerData,
     apps,
     query,
+    utm,
 }) => {
     if (combos && !combos.error && combos?.plugins?.[pathSlugs[0]]) {
         return (
@@ -30,6 +31,7 @@ const IntegrationSlugPage = ({
 
                 {combos?.plugins?.[pathSlugs[0]] && (
                     <IntegrationsComp
+                        utm={utm}
                         apps={apps}
                         query={query}
                         combinationData={combos}
@@ -54,7 +56,7 @@ const IntegrationSlugPage = ({
                     plugin={[combos?.plugins?.[pathSlugs[0]]]}
                     pathSlugs={pathSlugs}
                 />
-                <ErrorComp footerData={footerData} navData={navData} />
+                <ErrorComp footerData={footerData} navData={navData} utm={utm} />
             </>
         );
     }
@@ -64,8 +66,9 @@ export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
     const { params } = context;
+    const utm = context?.resolvedUrl.split(/[?#]/)[0];
     const query = { page: context?.query?.page || 1, currentcategory: context?.query?.currentcategory || 'All' };
-    const pathSlugs = [params.appslugname];
+    const pathSlugs = [params?.appslugname];
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases(pathSlugs[0]);
 
@@ -95,6 +98,7 @@ export async function getServerSideProps(context) {
             posts,
             apps,
             query,
+            utm,
         },
     };
 }
