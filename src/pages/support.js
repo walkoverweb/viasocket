@@ -90,7 +90,7 @@ export default function Support({ navData, footerData, metaData }) {
 
             <div className="container flex flex-col justify-center items-center md:gap-16 gap-4 my-12 md:my-24">
                 <div className="flex flex-col gap-3 md:text-center text-start md:items-center md:w-full sm:w-1/2 w-full min-w-[300px}">
-                    <h1 className="md:text-5xl text-4xl font-semibold">ViaSocket Support</h1>
+                    <h1 className="md:text-5xl text-4xl font-semibold">viaSocket Support</h1>
                     <p className="md:text-xl text-lg font-medium md:w-2/3">
                         We are here to assist you with any questions, concerns, or feedback you may have. Whether you're
                         seeking support, have a business inquiry, or simply want to connect with us, we are eager to

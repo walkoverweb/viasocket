@@ -1,6 +1,6 @@
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import styles from './noDataGrid.module.scss';
-import { useState } from 'react';
 export default function noDataGrid({ plugin, mode }) {
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
     console.log('Current URL:', currentUrl);
@@ -12,6 +12,14 @@ export default function noDataGrid({ plugin, mode }) {
         app_name: currentUrl || ' ',
         plugin: plugin,
     });
+    const [emailError, setEmailError] = useState('');
+
+    useEffect(() => {
+        setFormData((prevState) => ({
+            ...prevState,
+            url: window.location.href,
+        }));
+    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -19,13 +27,28 @@ export default function noDataGrid({ plugin, mode }) {
             ...prevState,
             [name]: value,
         }));
+
+        if (name === 'email') {
+            validateEmail(value);
+        }
     };
+
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            setEmailError('Invalid email address');
+        } else {
+            setEmailError('');
+        }
+    };
+
     const handleSubmit = async () => {
         if (!formData.name || !formData.email) {
             alert('Name and Email are required.');
             return;
         }
         setIsLoading(true);
+
         try {
             const response = await fetch('https://flow.sokt.io/func/scrioitLgnvb', {
                 method: 'POST',
@@ -46,6 +69,7 @@ export default function noDataGrid({ plugin, mode }) {
             setIsLoading(false);
         }
     };
+
     return (
         <>
             <div style={{ backgroundColor: `${plugin[1]?.brandcolor}` }} className="py-12 ">
@@ -58,9 +82,11 @@ export default function noDataGrid({ plugin, mode }) {
                             builders before making it accessible to end users. This process may take 15 to 30 days.
                         </h2>
                         <h2
-                            className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
+                            className={`lg:text-3xl md:text-2xl text-xl font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
                         >
-                            If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
+                            {plugin.length === 1
+                                ? 'If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.'
+                                : ' If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.'}
                         </h2>
                         {plugin?.length <= 1 ? (
                             <div className="flex gap-3">
@@ -84,8 +110,8 @@ export default function noDataGrid({ plugin, mode }) {
                     </div>
                 </div>
             </div>
-            <dialog id="beta_request" className="modal">
-                <div className="modal-box">
+            <dialog id="beta_request" className="  modal w-full h-full ">
+                <div className="modal-box rounded">
                     <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
@@ -98,8 +124,8 @@ export default function noDataGrid({ plugin, mode }) {
                             className="h-[36px] w-fit"
                         />
                         <h3 className="font-bold text-lg">Please fill the following details</h3>
-                        <div className="flex gap-3 flex-col">
-                            <label className="form-control w-full max-w-xs">
+                        <div className="flex gap-3 flex-col ">
+                            <label className="form-control w-full ">
                                 <div className="label">
                                     <span className="label-text">Name:</span>
                                 </div>
@@ -108,12 +134,12 @@ export default function noDataGrid({ plugin, mode }) {
                                     type="text"
                                     name="name"
                                     placeholder="Enter your name"
-                                    className="input input-bordered w-full max-w-xs"
+                                    className="input input-bordered w-full  bg-white rounded"
                                     value={formData.name}
                                     onChange={handleInputChange}
                                 />
                             </label>
-                            <label className="form-control w-full max-w-xs">
+                            <label className="form-control w-full ">
                                 <div className="label">
                                     <span className="label-text">Email:</span>
                                 </div>
@@ -122,27 +148,28 @@ export default function noDataGrid({ plugin, mode }) {
                                     type="text"
                                     name="email"
                                     placeholder="Enter your Email"
-                                    className="input input-bordered w-full max-w-xs"
+                                    className="input input-bordered w-full  bg-white rounded"
                                     value={formData.email}
                                     onChange={handleInputChange}
                                 />
+                                {emailError && <p className="text-red-500">{emailError}</p>}
                             </label>
-                            <label className="form-control w-full max-w-xs">
+                            <label className="form-control w-full ">
                                 <div className="label">
                                     <span className="label-text">Use Case:</span>
                                 </div>
                                 <textarea
                                     required
                                     name="useCase"
-                                    className="textarea textarea-bordered"
-                                    placeholder="Please describe your usecase"
+                                    className="textarea textarea-bordered bg-white rounded   min-h-[200px] max-h-[350px] h-fit"
+                                    placeholder="Please describe your use case"
                                     value={formData.useCase}
                                     onChange={handleInputChange}
                                 ></textarea>
                             </label>
                             <div className="flex gap-3">
                                 <button disabled={isLoading} className="btn btn-md btn-primary" onClick={handleSubmit}>
-                                    {isLoading ? 'Submiting...' : 'Submit'}
+                                    {isLoading ? 'Submitting...' : 'Submit'}
                                 </button>
                                 <button
                                     className="btn btn-md btn-link"

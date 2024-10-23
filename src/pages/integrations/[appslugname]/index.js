@@ -43,6 +43,7 @@ const IntegrationSlugPage = ({
                         getStartedData={getStartedData}
                         isHero={'false'}
                         pathSlugs={pathSlugs}
+                        pathArray={pathArray}
                     />
                 )}
             </>

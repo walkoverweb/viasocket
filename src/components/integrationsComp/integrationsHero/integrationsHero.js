@@ -158,7 +158,7 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
                                     <ComboGrid combos={combinationData} mode={mode} utm={utm} />
                                 ) : (
                                     <div className="flex gap-3">
-                                        <EventGrid plugin={pluginData} mode={mode} />
+                                        <EventGrid plugin={pluginData} mode={mode} pathArray={pathArray} />
                                     </div>
                                 )
                             ) : (
@@ -169,7 +169,7 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
                                 <ComboGrid combos={combinationData} mode={mode} utm={utm} />
                             ) : (
                                 <div className="flex gap-3">
-                                    <EventGrid plugin={pluginData} mode={mode} />
+                                    <EventGrid plugin={pluginData} mode={mode} pathArray={pathArray} />
                                 </div>
                             )
                         ) : (
