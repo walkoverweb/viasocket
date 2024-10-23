@@ -92,7 +92,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
                                     <li>Offer your clients free credits worth your service charges.</li>
                                 </ul>
                                 <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
-                                    <button className="btn btn-md btn-accent rounded-sm w-fit">Be an Expert</button>
+                                    <button className="btn btn-md btn-accent w-fit">Be an Expert</button>
                                 </Link>
                             </div>
                             <Image
@@ -111,7 +111,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
                         {expertsHelp &&
                             expertsHelp.map((expertsHelpBlog, index) => {
                                 return (
-                                    <div key={index} className="flex flex-col gap-4 bg-white p-6 rounded-md">
+                                    <div key={index} className="flex flex-col gap-4 bg-white p-6 ">
                                         <MdOutlineArticle color="#8F9396" fontSize={36} />
                                         <p className="text-xl ">{expertsHelpBlog?.description}</p>
                                         {expertsHelpBlog?.link && (

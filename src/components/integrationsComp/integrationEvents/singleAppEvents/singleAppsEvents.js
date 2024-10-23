@@ -16,7 +16,7 @@ export default function SingleAppsEvents({ plugins }) {
                                             return (
                                                 <div
                                                     key={event.rowid}
-                                                    className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center"
+                                                    className="flex gap-3 border border-gray-300  p-3 items-center"
                                                 >
                                                     <Image
                                                         width={24}
@@ -50,7 +50,7 @@ export default function SingleAppsEvents({ plugins }) {
                                             return (
                                                 <div
                                                     key={event.rowid}
-                                                    className="flex gap-3 border border-gray-300 rounded-sm p-3 items-center"
+                                                    className="flex gap-3 border border-gray-300 p-3 items-center"
                                                 >
                                                     <Image
                                                         width={24}

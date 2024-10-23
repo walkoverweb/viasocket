@@ -20,7 +20,7 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             href={feature?.link ? feature?.link : '#'}
                                             target="_blank"
-                                            className={`${styles.r2c2} col-span-2 row-span-2  bg-secondary rounded-lg justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg `}
+                                            className={`${styles.r2c2} col-span-2 row-span-2  bg-secondaryjustify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg `}
                                             aria-label="feature"
                                         >
                                             <div className="flex flex-col gap-3 lg:p-5 md:p-3 p-3">
@@ -72,7 +72,7 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             href={feature?.link ? feature?.link : '#'}
                                             target="_blank"
-                                            className={`${styles.r1c2} bg-neutral  col-span-2 row-span-1 flex sm:flex-row flex-col rounded-lg w-full h-full hover:shadow-lg`}
+                                            className={`${styles.r1c2} bg-neutral  col-span-2 row-span-1 flex sm:flex-row flex-col  w-full h-full hover:shadow-lg`}
                                             aria-label="feature"
                                         >
                                             <div className="flex flex-col gap-3 h-full justify-between  lg:p-5 md:p-3 p-3 sm:w-1/2 w-1/1">
@@ -125,7 +125,7 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             target="_blank"
                                             aria-label="feature"
-                                            className={`col-span-2 md:col-span-1 row-span-1 min-h-[200px] bg-neutral lg:p-5 md:p-3 p-3 rounded-lg justify-between gap-1  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
+                                            className={`col-span-2 md:col-span-1 row-span-1 min-h-[200px] bg-neutral lg:p-5 md:p-3 p-3  justify-between gap-1  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
                                         >
                                             <div className="flex flex-col gap-3">
                                                 {feature?.icon ? (

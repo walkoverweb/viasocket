@@ -40,7 +40,7 @@ export default function NotificationBar() {
                         aria-label="update"
                     >
                         <span
-                            className="  text-xs rounded-full px-2 h-fit"
+                            className="  text-xs  px-2 h-fit"
                             style={{
                                 backgroundColor: data[3]?.details,
                                 color: data[4]?.details,
@@ -55,9 +55,9 @@ export default function NotificationBar() {
             ) : (
                 <div className="container p-2 flex flex-wrap items-center justify-center animate-pulse  ">
                     <div className="w-[400px] flex gap-2 items-center justify-center">
-                        <div className="h-4 bg-gray-600 rounded w-[70px]"></div>
-                        <div className="h-4 bg-gray-600 rounded w-[300px]"></div>
-                        <div className="h-4 bg-gray-600 rounded w-[70px]"></div>
+                        <div className="h-4 bg-gray-600  w-[70px]"></div>
+                        <div className="h-4 bg-gray-600  w-[300px]"></div>
+                        <div className="h-4 bg-gray-600  w-[70px]"></div>
                     </div>
                 </div>
             )}
