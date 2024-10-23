@@ -21,10 +21,10 @@ module.exports = {
         themes: [
             {
                 light: {
-                    primary: '#273f2b',
-                    secondary: '#dfffcb',
+                    primary: '#0000',
+                    secondary: '#f5f5f5',
                     accent: '#dc3545',
-                    neutral: '#f2f5eb',
+                    neutral: '#fafafa',
                     'primary-content': '#ffffff',
                     link: '#4485F2',
                     '--rounded-btn': '0.0px',
