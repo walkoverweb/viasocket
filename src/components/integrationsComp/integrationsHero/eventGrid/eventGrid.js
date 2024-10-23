@@ -26,9 +26,7 @@ export default function EventGrid({ plugin, mode }) {
                         {triggerEvents.length > 0 && (
                             <div className="flex flex-col gap-6">
                                 <div className="flex items-center gap-4">
-                                    <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-medium">
-                                        Triggers
-                                    </p>
+                                    <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1  font-medium">Triggers</p>
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                                     {triggerEvents.map((card, i) => (
@@ -40,9 +38,7 @@ export default function EventGrid({ plugin, mode }) {
                         {actionEvents.length > 0 && (
                             <div className="flex flex-col gap-6">
                                 <div className="flex items-center gap-4">
-                                    <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1 rounded-full font-medium">
-                                        Actions
-                                    </p>
+                                    <p className="text-lg text-blue-600 bg-blue-200 px-3 py-1  font-medium">Actions</p>
                                 </div>
                                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                                     {actionEvents.map((card, i) => (
@@ -67,7 +63,7 @@ export function EventCard({ card, plugin }) {
         return iconUrl;
     };
     return (
-        <div className={`${style.card} bg-white px-6 py-6 rounded-lg hover:shadow-xl`}>
+        <div className={`${style.card} bg-white px-6 py-6  hover:shadow-xl`}>
             <div className="flex flex-col gap-4">
                 <Image
                     src={getIconUrl(card?.pluginslugname)}

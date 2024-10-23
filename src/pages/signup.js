@@ -104,7 +104,7 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to }) =>
                             testimonials.map((testimonial, index) => {
                                 return (
                                     <div
-                                        className="flex flex-col rounded-md md:min-w-[380px] min-w-full p-4 md:p-8 gap-8 bg-[#F6F4EE] "
+                                        className="flex flex-col  md:min-w-[380px] min-w-full p-4 md:p-8 gap-8 bg-[#F6F4EE] "
                                         key={index}
                                     >
                                         <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left ">

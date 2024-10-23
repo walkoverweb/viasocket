@@ -67,7 +67,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                         <h2 className="lg:text-3xl text-2xl md:text-3xl font-semibold">
                             Integrate with specific service
                         </h2>
-                        <div className="flex gap-2 justify-center items-center bg-white border py-4 px-6 rounded-md w-fit">
+                        <div className="flex gap-2 justify-center items-center bg-white border py-4 px-6  w-fit">
                             <Image
                                 className="w-[26px] h-[26px]"
                                 src={pluginData[0]?.iconurl || 'https://placehold.co/40x40'}
@@ -86,7 +86,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                 <div className="flex md:flex-row flex-col gap-4 my-12">
                     <div
                         tabIndex={0}
-                        className="md:hidden  dropdown-content menu bg-base-100 rounded-box z-[1] p-0 max-w-[320px] industry-autocomplete"
+                        className="md:hidden  dropdown-content menu bg-base-100  z-[1] p-0 max-w-[320px] industry-autocomplete"
                     >
                         <Autocomplete
                             getItemValue={(item) => item.label}
@@ -143,7 +143,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
 
                     <div className="flex-col gap-8">
                         <div className="lg:w-[500px] md:w-[400px] w-[250px]">
-                            <label className="input border-[#CCCCCC] flex items-center gap-2 bg-white rounded">
+                            <label className="input border-[#CCCCCC] flex items-center gap-2 bg-white ">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 16 16"
@@ -172,10 +172,10 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                     ? Array.from({ length: 20 }).map((_, index) => (
                                           <div
                                               key={index}
-                                              className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white animate-pulse"
+                                              className="flex flex-row justify-center items-center gap-2 px-5 py-3  border border-[#CCCCCC] bg-white animate-pulse"
                                           >
-                                              <div className="h-6 w-6 bg-gray-300 rounded"></div>
-                                              <div className="h-4 w-24 bg-gray-300 rounded"></div>
+                                              <div className="h-6 w-6 bg-gray-300 "></div>
+                                              <div className="h-4 w-24 bg-gray-300 "></div>
                                           </div>
                                       ))
                                     : searchedApps?.length > 0 &&
@@ -186,7 +186,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                               aria-label="apps"
                                               href={`/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
                                           >
-                                              <div className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white">
+                                              <div className="flex flex-row justify-center items-center gap-2 px-5 py-3  border border-[#CCCCCC] bg-white">
                                                   {app?.iconurl && (
                                                       <Image
                                                           src={
@@ -212,7 +212,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                             aria-label="apps"
                                             href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
                                         >
-                                            <div className="flex flex-row justify-center items-center gap-2 px-5 py-3 rounded border border-[#CCCCCC] bg-white">
+                                            <div className="flex flex-row justify-center items-center gap-2 px-5 py-3  border border-[#CCCCCC] bg-white">
                                                 {app?.iconurl && (
                                                     <Image
                                                         src={app?.iconurl ? app?.iconurl : 'https://placehold.co/24x24'}

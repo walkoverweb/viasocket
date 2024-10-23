@@ -111,7 +111,7 @@ const Login = ({ features, metaData, pathArray, redirect_to }) => {
                             featuresArrTwo.map((feature, index) => (
                                 <div
                                     key={index}
-                                    className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 rounded"
+                                    className="signup_img md:p-6 p-2 bg-[#D8E2DC] flex flex-col col-span-2 gap-6 "
                                 >
                                     <Image
                                         className=""

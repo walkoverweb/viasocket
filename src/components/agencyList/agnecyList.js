@@ -26,12 +26,12 @@ const AgencyList = ({ agencies, type }) => {
                         ) {
                             return (
                                 <div className="" key={index + offset}>
-                                    <div className="flex flex-col col-span-1 bg-white border rounded-md overflow-hidden  border-slate-200  h-full">
+                                    <div className="flex flex-col col-span-1 bg-white border overflow-hidden  border-slate-200  h-full">
                                         <div className="p-6">
                                             <div className={` h-[30px] pe-16`}>
                                                 {agency?.logo ? (
                                                     <Image
-                                                        className={`w-auto max-w-full  h-full  ${agency?.background_color && agency?.background_color !== '#F5F5F5' ? 'p-1 rounded' : 'p-0'}`}
+                                                        className={`w-auto max-w-full  h-full  ${agency?.background_color && agency?.background_color !== '#F5F5F5' ? 'p-1 ' : 'p-0'}`}
                                                         style={{
                                                             backgroundColor:
                                                                 agency?.background_color &&

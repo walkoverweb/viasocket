@@ -166,7 +166,7 @@ export default function Support({ navData, footerData, metaData }) {
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-center justify-center gap-5 w-full md:w-full sm:w-1/2 md:max-w-[500px] bg-[#EDE8DE] lg:p-12 md:p-8 sm:p-12 p-4 rounded  h-[500px]">
+                    <div className="flex flex-col items-center justify-center gap-5 w-full md:w-full sm:w-1/2 md:max-w-[500px] bg-[#EDE8DE] lg:p-12 md:p-8 sm:p-12 p-4  h-[500px]">
                         {issubmit ? (
                             <div className="flex flex-col items-center gap-4 max-w-[300px]">
                                 <Image
@@ -190,7 +190,7 @@ export default function Support({ navData, footerData, metaData }) {
                                     placeholder="Name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className={`input bg-white w-full outline-none focus:outline-none rounded ${errors.name ? 'border-red-500' : ''}`}
+                                    className={`input bg-white w-full outline-none focus:outline-none  ${errors.name ? 'border-red-500' : ''}`}
                                 />
                                 <input
                                     required
@@ -199,7 +199,7 @@ export default function Support({ navData, footerData, metaData }) {
                                     placeholder="Email address"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className={`input bg-white w-full outline-none focus:outline-none rounded ${errors.email ? 'border-red-500' : ''}`}
+                                    className={`input bg-white w-full outline-none focus:outline-none  ${errors.email ? 'border-red-500' : ''}`}
                                 />
                                 <textarea
                                     style={{ resize: 'none' }}
@@ -208,9 +208,9 @@ export default function Support({ navData, footerData, metaData }) {
                                     placeholder="Message"
                                     value={formData.message}
                                     onChange={handleChange}
-                                    className="input bg-white w-full min-h-[170px] outline-none py-2 focus:outline-none rounded"
+                                    className="input bg-white w-full min-h-[170px] outline-none py-2 focus:outline-none "
                                 />
-                                <button className="btn btn-accent rounded-md " onClick={handleSubmit}>
+                                <button className="btn btn-accent  " onClick={handleSubmit}>
                                     {isSend ? <p>Sending </p> : <p> Send us message </p>}
                                 </button>
                             </div>
