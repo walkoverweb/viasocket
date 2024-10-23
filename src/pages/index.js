@@ -203,92 +203,165 @@ const Index = ({
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
                         <span className="text-3xl font-medium flex gap-2 items-center">
-                            <MdAutoAwesome color="#00ED64" /> AI First
+                            <MdAutoAwesome color="#dc3545" /> AI First
                         </span>
-                        <h1 className="md:text-6xl text-4xl font-medium">
+                        <h1 className="md:text-6xl text-4xl font-medium md:w-2/3">
                             Connect your favorite apps and automate your repetitive tasks
                         </h1>
                     </div>
-                    <div className="p-8 bg-neutral rounded flex flex-col gap-9">
-                        <div className="flex flex-wrap gap-2 items-center">
-                            <h2 className="text-3xl">How</h2>
-                            <div className="dropdown">
-                                <h2
-                                    onClick={() => {
-                                        setShowIndusDropdown(true);
-                                        setTimeout(() => {
-                                            document.getElementById('indusAutoComplete').focus();
-                                        }, 0);
-                                    }}
-                                    tabIndex={0}
-                                    role="button"
-                                    className="text-3xl underline decoration-dotted text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
-                                >
-                                    {selectedIndus || 'All'}
-                                </h2>
-                                {showIndusDropdown && (
-                                    <div
+                    <div className="flex flex-col gap-4">
+                        <h2 className="text-3xl font-medium md:w-2/3">
+                            Discover Top Solutions for Effortless Connectivity.
+                        </h2>
+                        <div className="p-8 bg-neutral rounded flex flex-col gap-9">
+                            <div className="flex flex-wrap gap-2 items-center">
+                                <h2 className="text-3xl">How</h2>
+                                <div className="dropdown">
+                                    <h2
+                                        onClick={() => {
+                                            setShowIndusDropdown(true);
+                                            setTimeout(() => {
+                                                document.getElementById('indusAutoComplete').focus();
+                                            }, 0);
+                                        }}
                                         tabIndex={0}
-                                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                        role="button"
+                                        className="text-3xl underline decoration-dotted text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                     >
-                                        <Autocomplete
-                                            getItemValue={(item) => item.label}
-                                            items={filterIndustries(indusSearchTerm).map((industry) => ({
-                                                label: industry.name,
-                                            }))}
-                                            renderItem={(item) => (
-                                                <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
-                                                    {item.label}
-                                                </div>
-                                            )}
-                                            value={indusSearchTerm}
-                                            onChange={(e) => setIndusSearchTerm(e.target.value)}
-                                            onSelect={(val) => handleSelectIndus(val)}
-                                            menuStyle={{
-                                                position: 'flex',
-                                                overflow: 'auto',
-                                                maxHeight: '400px',
-                                            }}
-                                            inputProps={{ placeholder: 'Select Industry', id: 'indusAutoComplete' }}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-
-                            <h2 className="text-3xl">
-                                industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
-                            </h2>
-                            {appLoading ? (
-                                <>
-                                    {' '}
-                                    {[...Array(3)].map((_, index) => (
+                                        {selectedIndus || 'All'}
+                                    </h2>
+                                    {showIndusDropdown && (
                                         <div
-                                            className="bg-white rounded  items-center flex w-[120px] gap-1 p-2 "
-                                            key={index}
+                                            tabIndex={0}
+                                            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
                                         >
-                                            <div className="skeleton max-h-[17px] max-w-[17px] min-h-[17px] min-w-[16px] bg-gray-200 "></div>
-                                            <div className="skeleton h-[12px] w-full bg-gray-200"></div>
-                                        </div>
-                                    ))}
-                                </>
-                            ) : (
-                                <>
-                                    {selectedApps.map((app, index) => (
-                                        <div
-                                            className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
-                                            key={app.appslugname}
-                                        >
-                                            <Image src={app?.iconurl} width={16} height={16} alt="ico" />
-                                            <span>{app?.name}</span>
-                                            <MdClose
-                                                className="text-gray-300 hover:text-gray-950 cursor-pointer"
-                                                onClick={() => removeAppFromArray(index)}
+                                            <Autocomplete
+                                                getItemValue={(item) => item.label}
+                                                items={filterIndustries(indusSearchTerm).map((industry) => ({
+                                                    label: industry.name,
+                                                }))}
+                                                renderItem={(item) => (
+                                                    <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                        {item.label}
+                                                    </div>
+                                                )}
+                                                value={indusSearchTerm}
+                                                onChange={(e) => setIndusSearchTerm(e.target.value)}
+                                                onSelect={(val) => handleSelectIndus(val)}
+                                                menuStyle={{
+                                                    position: 'flex',
+                                                    overflow: 'auto',
+                                                    maxHeight: '400px',
+                                                }}
+                                                inputProps={{ placeholder: 'Select Industry', id: 'indusAutoComplete' }}
                                             />
                                         </div>
-                                    ))}
-                                </>
-                            )}
-                            {showInput ? (
+                                    )}
+                                </div>
+
+                                <h2 className="text-3xl">
+                                    industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
+                                </h2>
+                                {appLoading ? (
+                                    <>
+                                        {' '}
+                                        {[...Array(3)].map((_, index) => (
+                                            <div
+                                                className="bg-white rounded  items-center flex w-[120px] gap-1 p-2 "
+                                                key={index}
+                                            >
+                                                <div className="skeleton max-h-[17px] max-w-[17px] min-h-[17px] min-w-[16px] bg-gray-200 "></div>
+                                                <div className="skeleton h-[12px] w-full bg-gray-200"></div>
+                                            </div>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        {selectedApps.map((app, index) => (
+                                            <div
+                                                className="flex items-center gap-2 bg-white w-fit px-2 py-1 rounded "
+                                                key={app.appslugname}
+                                            >
+                                                <Image src={app?.iconurl} width={16} height={16} alt="ico" />
+                                                <span>{app?.name}</span>
+                                                <MdClose
+                                                    className="text-gray-300 hover:text-gray-950 cursor-pointer"
+                                                    onClick={() => removeAppFromArray(index)}
+                                                />
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
+                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
+                                    <label
+                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
+                                        tabIndex={0}
+                                        role="button"
+                                    >
+                                        <MdSearch color="#CCCCCC" fontSize={20} />
+                                        <input
+                                            type="text"
+                                            className="grow"
+                                            placeholder="Add a new app"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            ref={inputRef}
+                                            onKeyDown={handleKeyDown}
+                                        />
+                                        <span
+                                            className="btn icon border-none bg-transparent p-0"
+                                            onClick={() => {
+                                                setSearchTerm('');
+                                                setShowInput(false);
+                                            }}
+                                        >
+                                            <MdClose color="black" fontSize={24} />
+                                        </span>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
+                                    >
+                                        {searchLoading ? (
+                                            [...Array(12)].map((_, index) => (
+                                                <div
+                                                    className="rounded-none bg-white px-3 py-2 flex w-full"
+                                                    key={index}
+                                                >
+                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none"></div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <>
+                                                {searchData && searchData.length > 0 ? (
+                                                    searchData.map((app, index) => (
+                                                        <div
+                                                            key={app.appslugname}
+                                                            className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
+                                                                index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
+                                                            } hover:bg-gray-100`}
+                                                            onClick={() => handleSelectApp(app?.appslugname)}
+                                                            onMouseEnter={() => setHighlightedIndex(index)}
+                                                        >
+                                                            <Image
+                                                                src={app?.iconurl}
+                                                                width={16}
+                                                                height={16}
+                                                                alt="ico"
+                                                            />
+                                                            <span>{app?.name}</span>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
+                                                        No app found.
+                                                    </p>
+                                                )}
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+                                {/* {showInput ? (
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
                                         className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
@@ -365,71 +438,75 @@ const Index = ({
                                 >
                                     <MdAdd color="white" fontSize={24} />
                                 </span>
-                            )}
+                            )} */}
 
-                            <h2 className="text-3xl">in</h2>
+                                <h2 className="text-3xl">in</h2>
 
-                            <div className="dropdown">
-                                <h2
-                                    onClick={() => {
-                                        setShowDeptDropdown(true);
-                                        setTimeout(() => {
-                                            document.getElementById('deptAutoComplete').focus();
-                                        }, 0);
-                                    }}
-                                    tabIndex={0}
-                                    role="button"
-                                    className="text-3xl underline decoration-dotted  text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
-                                >
-                                    {selectedDept || 'all their'}
-                                </h2>
-                                {showDeptDropdown && (
-                                    <div
+                                <div className="dropdown">
+                                    <h2
+                                        onClick={() => {
+                                            setShowDeptDropdown(true);
+                                            setTimeout(() => {
+                                                document.getElementById('deptAutoComplete').focus();
+                                            }, 0);
+                                        }}
                                         tabIndex={0}
-                                        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                        role="button"
+                                        className="text-3xl underline decoration-dotted  text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
                                     >
-                                        <Autocomplete
-                                            getItemValue={(item) => item.label}
-                                            items={filterDepts(deptSearchTerm).map((dept) => ({
-                                                label: dept.name,
-                                            }))}
-                                            renderItem={(item) => (
-                                                <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
-                                                    {item.label}
-                                                </div>
-                                            )}
-                                            value={deptSearchTerm}
-                                            onChange={(e) => setDeptSearchTerm(e.target.value)}
-                                            onSelect={(val) => handleSelectDept(val)}
-                                            inputProps={{ placeholder: 'Select Department', id: 'deptAutoComplete' }}
-                                            menuStyle={{
-                                                position: 'flex',
-                                                overflow: 'auto',
-                                                maxHeight: '400px',
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                            <h2 className="text-3xl" id="dept">
-                                department
-                            </h2>
-                            <div
-                                className={
-                                    selectedApps.length < 2 ? 'tooltip tooltip-error tooltip-top text-white' : ''
-                                }
-                                data-tip="Select at least 2 apps to search automations"
-                            >
-                                <button
-                                    disabled={selectedApps.length < 2}
-                                    onClick={handleGenerate}
-                                    className="btn btn-accent h-[30px] w-auto flex items-center justify-center rounded btn-sm border border-black"
+                                        {selectedDept || 'all their'}
+                                    </h2>
+                                    {showDeptDropdown && (
+                                        <div
+                                            tabIndex={0}
+                                            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow industry-autocomplete"
+                                        >
+                                            <Autocomplete
+                                                getItemValue={(item) => item.label}
+                                                items={filterDepts(deptSearchTerm).map((dept) => ({
+                                                    label: dept.name,
+                                                }))}
+                                                renderItem={(item) => (
+                                                    <div className="px-2 py-1 cursor-pointer hover:bg-secondary">
+                                                        {item.label}
+                                                    </div>
+                                                )}
+                                                value={deptSearchTerm}
+                                                onChange={(e) => setDeptSearchTerm(e.target.value)}
+                                                onSelect={(val) => handleSelectDept(val)}
+                                                inputProps={{
+                                                    placeholder: 'Select Department',
+                                                    id: 'deptAutoComplete',
+                                                }}
+                                                menuStyle={{
+                                                    position: 'flex',
+                                                    overflow: 'auto',
+                                                    maxHeight: '400px',
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                                <h2 className="text-3xl" id="dept">
+                                    department
+                                </h2>
+                                <div
+                                    className={
+                                        selectedApps.length < 2 ? 'tooltip tooltip-error tooltip-top text-white' : ''
+                                    }
+                                    data-tip="Select at least 2 apps to search automations"
                                 >
-                                    Search Automations
-                                </button>
+                                    <button
+                                        disabled={selectedApps.length < 2}
+                                        onClick={handleGenerate}
+                                        className="btn btn-accent h-[30px] w-auto flex items-center justify-center  btn-sm border border-black"
+                                    >
+                                        Search Automations
+                                    </button>
+                                </div>
                             </div>
+                            <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
                         </div>
-                        <ComboGrid combos={renderCombos} loading={combinationLoading} showNoData />
                     </div>
                 </div>
                 {features && <FeaturesGrid features={features} page={'overall'} />}
