@@ -206,13 +206,12 @@ const Index = ({
                             <MdAutoAwesome color="#dc3545" /> AI First
                         </span>
                         <h1 className="md:text-6xl text-4xl font-medium md:w-2/3">
-                            Connect your favorite apps and automate your repetitive tasks
+                            Connect your favorite apps and automate your repetitive tasks.
                         </h1>
                     </div>
-                    <div className="flex flex-col gap-4">
-                        <h2 className="text-3xl font-medium md:w-2/3">
-                            Discover Top Solutions for Effortless Connectivity.
-                        </h2>
+                    <div className="flex flex-col gap-4 ">
+                        <h2 className="md:text-6xl text-4xl font-medium my-4">For Example</h2>
+
                         <div className="p-8 bg-neutral  flex flex-col gap-9">
                             <div className="flex flex-wrap gap-2 items-center">
                                 <h2 className="text-3xl">How</h2>
