@@ -206,14 +206,16 @@ const Index = ({
                             <MdAutoAwesome color="#dc3545" /> AI First
                         </span>
                         <h1 className="md:text-6xl text-4xl font-medium md:w-2/3">
-                            Connect your favorite apps and automate your repetitive tasks
+                            Connect your favorite apps and automate your repetitive tasks.
                         </h1>
                     </div>
-                    <div className="flex flex-col gap-4">
-                        <h2 className="text-3xl font-medium md:w-2/3">
-                            Discover Top Solutions for Effortless Connectivity.
-                        </h2>
-                        <div className="p-8 bg-neutral  flex flex-col gap-9">
+                    <div className="flex flex-col gap-4 ">
+                        <h2 className="md:text-6xl text-4xl font-medium my-4">For Example</h2>
+
+                        <div
+                            className="p-8 bg-neutral border border-gray-300 flex flex-col gap-9"
+                            style={{ borderWidth: '1px' }}
+                        >
                             <div className="flex flex-wrap gap-2 items-center">
                                 <h2 className="text-3xl">How</h2>
                                 <div className="dropdown">
@@ -537,7 +539,7 @@ const Index = ({
 const TestimonialsSection = ({ testimonials }) => (
     <div className="flex flex-col gap-9">
         <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full border border-gray-300 style={{borderWidth: '1px'}}">
             {testimonials.map((testimonial, index) => (
                 <div className="flex flex-col  p-8 gap-8 bg-neutral" key={index}>
                     <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left">
@@ -569,7 +571,10 @@ const TestimonialsSection = ({ testimonials }) => (
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
         <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
-        <div className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px]">
+        <div
+            className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px]border border-gray-300 "
+            style={{ borderWidth: '1px' }}
+        >
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
             ))}

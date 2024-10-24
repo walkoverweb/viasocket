@@ -12,7 +12,10 @@ const BlogGrid = ({ posts }) => {
                     Know More About <br />
                     Viasocket Integrations
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
+                <div
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8 border border-gray-300"
+                    style={{ borderWidth: '1px' }}
+                >
                     {posts.map((post, index) => (
                         <CardComponent key={index} card={post} />
                     ))}
