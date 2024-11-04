@@ -86,7 +86,7 @@ export default function Support({ navData, footerData, metaData }) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/support'} />
-            <Navbar navData={navData} />
+            <Navbar navData={navData} utm={'/support'} />
 
             <div className="container flex flex-col justify-center items-center md:gap-16 gap-4 my-12 md:my-24">
                 <div className="flex flex-col gap-3 md:text-center text-start md:items-center md:w-full sm:w-1/2 w-full min-w-[300px}">

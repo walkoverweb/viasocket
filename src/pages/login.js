@@ -9,7 +9,8 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { redirect } from 'next/dist/server/api-utils';
 
 export async function getServerSideProps(context) {
-    const { redirect_to } = context.query;
+    const { redirect_to } = context?.query;
+    const { utm_source } = context?.query;
     const IDs = ['tblvo36my', 'tbl2bk656'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -20,11 +21,12 @@ export async function getServerSideProps(context) {
             features: results[0].data.rows,
             metaData: results[1].data.rows,
             redirect_to: redirect_to || '',
+            utm_source: utm_source || '',
         },
     };
 }
 
-const Login = ({ features, metaData, pathArray, redirect_to }) => {
+const Login = ({ features, metaData, pathArray, redirect_to, utm_source }) => {
     let featuresArrOne = [];
     let featuresArrTwo = [];
     features.map((feature) => {
@@ -54,7 +56,15 @@ const Login = ({ features, metaData, pathArray, redirect_to }) => {
                 redirect_path: redirect_to,
             };
         }
-        // console.log(configuration,"configuration")
+        if (utm_source) {
+            configuration.state = JSON.stringify({
+                utm_source: utm_source,
+            });
+        } else {
+            configuration.state = {
+                'utm_source': 'website',
+            };
+        }
         const initializeVerification = () => {
             if (typeof window.initVerification === 'function') {
                 window.initVerification(configuration);

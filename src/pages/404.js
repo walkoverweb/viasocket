@@ -1,6 +1,4 @@
 import ErrorComp from '@/components/404/404Comp';
-import Footer from '@/components/footer/footer';
-import Navbar from '@/components/navbar/navbar';
 import { getDbdashData } from './api';
 import Head from 'next/head';
 
