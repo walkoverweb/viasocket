@@ -7,8 +7,6 @@ import categories from '@/assets/data/categories.json';
 import Autocomplete from 'react-autocomplete';
 
 export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
-    console.log(query, 'quer');
-
     const [searchTerm, setSearchTerm] = useState('');
     const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
     const [searchedApps, setSearchedApps] = useState([]);
