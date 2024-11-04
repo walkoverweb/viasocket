@@ -50,7 +50,7 @@ const IntegrationSlugPage = ({
 export default IntegrationSlugPage;
 
 export async function getServerSideProps(context) {
-    const query = { page: context?.query?.page || 1, currentcategory: context?.query?.currentcategory || 'All' };
+    const query = { page: context?.query?.page || 1, currentcategory: context?.query?.category || 'All' };
     const pathSlugs = [];
     const combos = await fetchCombos(pathSlugs);
     const usecase = await getUseCases();

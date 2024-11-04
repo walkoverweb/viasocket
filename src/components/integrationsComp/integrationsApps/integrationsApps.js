@@ -7,6 +7,8 @@ import categories from '@/assets/data/categories.json';
 import Autocomplete from 'react-autocomplete';
 
 export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
+    console.log(query, 'quer');
+
     const [searchTerm, setSearchTerm] = useState('');
     const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
     const [searchedApps, setSearchedApps] = useState([]);
@@ -56,7 +58,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
     };
 
     const handleCategorySelect = (category) => {
-        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${category}`;
+        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${category}`;
     };
 
     return (
@@ -96,7 +98,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                             renderItem={(item) => (
                                 <Link
                                     className="px-2 py-1 cursor-pointer hover:bg-secondary"
-                                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${item.label}`}
+                                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${item.label}`}
                                 >
                                     {item.label}
                                 </Link>
@@ -123,7 +125,7 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                     <li key={index} className={visibleCategories > index ? '' : 'hidden'}>
                                         <Link
                                             className={query?.currentcategory === category ? 'font-bold' : ''}
-                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?currentcategory=${category}`}
+                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${category}`}
                                         >
                                             {category}
                                         </Link>
@@ -231,14 +233,14 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                         <>
                                             {' '}
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?currentcategory=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     <MdChevronLeft /> Previous Page{' '}
                                                 </button>
                                             </Link>
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?currentcategory=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     {Number(query?.page) - 1}
@@ -251,14 +253,14 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                                     {apps?.length >= 100 && (
                                         <>
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?currentcategory=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     {Number(query?.page) + 1}
                                                 </button>
                                             </Link>
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?currentcategory=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     Next Page <MdChevronRight />
