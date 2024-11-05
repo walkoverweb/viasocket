@@ -56,15 +56,16 @@ const Login = ({ features, metaData, pathArray, redirect_to, utm_source }) => {
                 redirect_path: redirect_to,
             };
         }
-        if (utm_source) {
-            configuration.state = JSON.stringify({
-                utm_source: utm_source,
-            });
-        } else {
-            configuration.state = {
-                'utm_source': 'website',
-            };
-        }
+        // if (utm_source) {
+        //     configuration.state = JSON.stringify({
+        //         utm_source: utm_source,
+        //     });
+        // }
+        // else {
+        //     configuration.state = {
+        //         'utm_source': 'website',
+        //     };
+        // }
         const initializeVerification = () => {
             if (typeof window.initVerification === 'function') {
                 window.initVerification(configuration);
