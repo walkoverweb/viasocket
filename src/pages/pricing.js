@@ -6,8 +6,10 @@ import { useState } from 'react';
 import IntegrationFooter from '@/components/integrationsComp/integrationsFooter/integrationsFooter';
 import NewFooter from '@/components/newfooter/newfooter';
 import React from 'react';
+import NewNavbar from '@/components/newnavbar/newnavbar';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 export async function getServerSideProps() {
-    const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr'];
+    const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev'];
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
@@ -16,16 +18,23 @@ export async function getServerSideProps() {
             faqData: results[0].data.rows,
             footerData: results[1]?.data?.rows,
             betterChoice: results[2]?.data?.rows,
+            navData: results[3]?.data?.rows,
         },
     };
 }
 
-const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, getStartedData, faqName }) => {
+const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaData, getStartedData, faqName }) => {
+    console.log(navData, 'navvdata');
+
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     return (
         <>
-            <div className="container flex flex-col justify-center gap-6 my-12 md:my-24">
+            <MetaHeadComp metaData={metaData} page={'/'} />
+            <div>
+                <NewNavbar navData={navData} utm={'pricing'} />
+            </div>
+            <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24">
                 <div className="border-2 border-black">
                     <div className="h-24"></div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
