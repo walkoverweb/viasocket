@@ -6,7 +6,6 @@ export default function FAQSection({ faqData, faqName }) {
             {faqData?.length > 0 && (
                 <div className=" py-12">
                     <div className="container flex flex-col gap-9">
-                        <h2 className="md:text-6xl text-4xl font-medium">Frequently Asked Questions</h2>
                         <div className="flex flex-col">
                             {faqData.map((faq, index) => {
                                 if (faq?.page === faqName)
