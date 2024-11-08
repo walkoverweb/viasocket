@@ -47,8 +47,8 @@ const NewFooter = ({ footerData }) => {
     return (
         <>
             <div className="flex flex-col lg:flex-row sm:flex-row">
-                <div className="grid grid-cols-1 gap-y-8 lg:gap-y-48 w-full justify-between border border-black p-6 sm:p-12">
-                    <div className="flex flex-col gap-4 mb-12 sm:mb-24">
+                <div className="grid grid-cols-1 gap-y-8 lg:gap-y-48 w-full justify-between border border-black p-6  sm:p-12">
+                    <div className="flex flex-col gap-4 mb-12 sm:mb-24 py-4">
                         <Link href="/" aria-label="socket fav icon">
                             <Image
                                 src="/assets/brand/socket_fav_dark.svg"
