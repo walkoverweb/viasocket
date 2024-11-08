@@ -523,6 +523,8 @@ const Index = ({
                         <BlogGrid posts={posts} />
                     </div>
                 )}
+                <h2 className=" lg:mx-12 md:text-6xl text-4xl font-medium">Frequently Asked Questions</h2>
+
                 {faqData?.length > 0 && <FAQSection faqData={faqData} faqName={'/index'} />}
                 {getStartedData && (
                     <div className="container">
