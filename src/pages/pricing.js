@@ -24,16 +24,12 @@ export async function getServerSideProps() {
 }
 
 const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaData, getStartedData, faqName }) => {
-    console.log(navData, 'navvdata');
-
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     return (
         <>
-            <MetaHeadComp metaData={metaData} page={'/'} />
-            <div>
-                <NewNavbar navData={navData} utm={'pricing'} />
-            </div>
+            <NewNavbar navData={navData} utm={'pricing'} />
+
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24">
                 <div className="border-2 border-black">
                     <div className="h-24"></div>
@@ -62,7 +58,6 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            {/* Starter Plan */}
                             <div className="flex flex-col gap-y-8 border border-black font-normal">
                                 <div className="flex flex-col gap-12 my-12 px-6">
                                     <div className="subheading font-semibold text-3xl md:text-4xl">Starter</div>
@@ -71,22 +66,21 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                         <div className="font-semibold">month/workspace</div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <div>Invocations: 10,000/month</div>
-                                        <div>Execution time limit: 30 seconds</div>
-                                        <div>Min. Polling Time: 15 Min.</div>
+                                        <div>Invocations: 10,000/Month</div>
+                                        <div>Execution Time Limit: 30 Seconds</div>
+                                        <div>Min. Polling time: 1 Min</div>
                                         <div>Unlimited Active Workflows</div>
                                     </div>
                                     <div>For individuals who need higher limits.</div>
                                 </div>
                                 <a
                                     href="/start-trial"
-                                    className="flex justify-center items-center border-t border-black"
+                                    className="flex justify-center items-center border-t border-black "
                                 >
                                     <button className="inline-block text-center p-4 font-bold">Start Free Trial</button>
                                 </a>
                             </div>
 
-                            {/* Team Plan */}
                             <div className="flex flex-col gap-y-8 border border-black font-normal">
                                 <div className="flex flex-col gap-12 my-12 px-6">
                                     <div className="subheading font-semibold text-3xl md:text-4xl">Team</div>
@@ -122,7 +116,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                         Get unrestricted access to all features, no matter your choice of plan.
                     </div>
                     <div className="flex justify-start">
-                        <button className="btn btn-active bg-red-700 text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 py-2">
+                        <button className="btn btn-active bg-red-700 text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 py-2 hover:bg-red-800 hover:text-white">
                             SEE ALL FEATURES
                         </button>
                     </div>
@@ -161,7 +155,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                         We support organizations driving change with free access to our automation solutions
                     </div>
                     <div className="flex justify-start">
-                        <button className="btn btn-active bg-red-700 text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 py-2">
+                        <button className="btn btn-active bg-red-700 text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 py-2 hover:bg-red-800 hover:text-white">
                             CLICK HERE
                         </button>
                     </div>

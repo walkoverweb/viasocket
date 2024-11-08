@@ -6,8 +6,6 @@ import NotificationBar from '../notificationBar/notificationbar';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const NewNavbar = ({ navData, utm }) => {
-    console.log(navData, 'navvv');
-
     var shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
@@ -16,10 +14,9 @@ const NewNavbar = ({ navData, utm }) => {
     }
     return (
         <>
-            <div className={`${styles.navbar_cont} flex w-full flex-col `}>
-                <NotificationBar />
-                <div className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}>
-                    <div className="">
+            <div className={`${styles.navbar_cont} flex w-full flex-col mt-12`}>
+                <div className={`${styles.navbar} flex justify-between items-center w-full container `}>
+                    <div className="border-2 border-black p-4">
                         <Link href="/" aria-label="logo">
                             <Image
                                 className="h-[40px] w-auto"
@@ -31,13 +28,13 @@ const NewNavbar = ({ navData, utm }) => {
                         </Link>
                     </div>
 
-                    <div className="gap-6 lg:flex hidden items-center">
+                    <div className="gap-6 lg:gap-0 lg:flex hidden ">
                         {shorterData &&
                             shorterData.map((option, index) => {
                                 if (option.group_name === null && option.is_mininavonly === null) {
                                     if (option.is_parent) {
                                         return (
-                                            <div className="dropdown dropdown-bottom" key={index}>
+                                            <div className="dropdown dropdown-bottom " key={index}>
                                                 <div
                                                     tabIndex={0}
                                                     role="button"
@@ -49,7 +46,7 @@ const NewNavbar = ({ navData, utm }) => {
                                                 </div>
                                                 <ul
                                                     tabIndex={0}
-                                                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100  w-52"
+                                                    className="dropdown-content z-[1] menu  shadow bg-base-100  w-52"
                                                 >
                                                     {shorterData.map((child, childIndex) => {
                                                         if (child.group_name && child.group_name === option.name) {
@@ -83,7 +80,7 @@ const NewNavbar = ({ navData, utm }) => {
                                             <Link
                                                 key={index}
                                                 href={`${option.link ? option.link : '#'}`}
-                                                className="  hover:underline"
+                                                className="  hover:underline border border-black p-6"
                                                 target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
                                                 aria-label={option?.name}
                                             >
@@ -93,15 +90,19 @@ const NewNavbar = ({ navData, utm }) => {
                                     }
                                 }
                             })}
-                        <Link href={`/login?utm_source=${utm}`} className="btn btn-outline btn-primary btn-sm ">
-                            Login
-                        </Link>
-                        <Link
-                            href={`/signup?utm_source=${utm}`}
-                            className="btn btn-accent btn-sm outline-primary outline-1 outline"
-                        >
-                            Sign Up
-                        </Link>
+                        <div className="border border-black p-3 bg-white">
+                            <Link href={`/login?utm_source=${utm}`} className="btn p-4  bg-white btn-sm border-none ">
+                                Login
+                            </Link>
+                        </div>
+                        <div className="border border-black p-3 bg-red-700">
+                            <Link
+                                href={`/signup?utm_source=${utm}`}
+                                className="btn bg-red-700 btn-sm p-4 border-none text-white"
+                            >
+                                Sign Up
+                            </Link>
+                        </div>
                     </div>
                     <div className="dropdown dropdown-end lg:hidden block">
                         <div tabIndex={0} role="button" className="" aria-label="dropdown nav">
