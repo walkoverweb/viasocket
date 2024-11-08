@@ -23,10 +23,16 @@ export default function IntegrationsComp({
     showCategories,
     query,
     utm,
+    pathArray,
 }) {
     return (
         <>
-            <IntegrationsHero combinationData={combinationData} pluginData={pluginData} utm={utm} />
+            <IntegrationsHero
+                combinationData={combinationData}
+                pluginData={pluginData}
+                utm={utm}
+                pathArray={pathArray}
+            />
 
             {type !== 'doubleApp' && !hideApps && (
                 <IntegrationsApps apps={apps} pluginData={pluginData} showCategories={showCategories} query={query} />

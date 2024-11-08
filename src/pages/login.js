@@ -60,8 +60,7 @@ const Login = ({ features, metaData, pathArray, redirect_to, utm_source }) => {
         //     configuration.state = JSON.stringify({
         //         utm_source: utm_source,
         //     });
-        // }
-        // else {
+        // } else {
         //     configuration.state = {
         //         'utm_source': 'website',
         //     };

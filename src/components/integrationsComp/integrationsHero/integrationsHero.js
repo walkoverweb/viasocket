@@ -8,7 +8,7 @@ import { GetColorMode } from '@/utils/getColorMode';
 import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
 
-export default function IntegrationsHero({ combinationData, pluginData, utm }) {
+export default function IntegrationsHero({ combinationData, pluginData, utm, pathArray }) {
     const isDisconnected = typeof window !== 'undefined' && window.location.search.includes('?status=disconnected');
     if (pluginData?.length) {
         const [newBrandColor, setNewBrandColor] = useState('#F6F4EE');
@@ -158,7 +158,7 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
                                     <ComboGrid combos={combinationData} mode={mode} utm={utm} />
                                 ) : (
                                     <div className="flex gap-3">
-                                        <EventGrid plugin={pluginData} mode={mode} />
+                                        <EventGrid plugin={pluginData} mode={mode} pathArray={pathArray} />
                                     </div>
                                 )
                             ) : (
@@ -169,7 +169,7 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
                                 <ComboGrid combos={combinationData} mode={mode} utm={utm} />
                             ) : (
                                 <div className="flex gap-3">
-                                    <EventGrid plugin={pluginData} mode={mode} />
+                                    <EventGrid plugin={pluginData} mode={mode} pathArray={pathArray} />
                                 </div>
                             )
                         ) : (
