@@ -29,7 +29,6 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
     return (
         <>
             <NewNavbar navData={navData} utm={'pricing'} />
-
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24">
                 <div className="border-2 border-black">
                     <div className="h-24"></div>
