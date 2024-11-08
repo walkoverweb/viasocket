@@ -31,9 +31,9 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             <NewNavbar navData={navData} utm={'pricing'} />
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24">
                 <div className="border-2 border-black">
-                    <div className="h-24"></div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="flex flex-col gap-8 p-12">
+                    <div className="h-24 bg-gradient-to-r from-green-300 to-green-200 to-pink-200 to-pink-100"></div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 ">
+                        <div className="flex flex-col gap-8 p-12 bg-gradient-to-r from-green-300 to-green-200 to-pink-200 to-pink-100">
                             <h1 className="font-bold text-4xl md:text-6xl overflow-hidden">
                                 Simple Pricing For Powerful Automation
                             </h1>
