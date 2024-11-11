@@ -30,10 +30,10 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
         <>
             <NewNavbar navData={navData} utm={'pricing'} />
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24">
-                <div className="border-2 border-black">
-                    <div className="h-24 bg-gradient-to-r from-green-300 to-green-200 to-pink-200 to-pink-100"></div>
+                <div className="border border-black">
+                    <div className="h-24 "></div>
                     <div className="grid grid-cols-1 md:grid-cols-2 ">
-                        <div className="flex flex-col gap-8 p-12 bg-gradient-to-r from-green-300 to-green-200 to-pink-200 to-pink-100">
+                        <div className="flex flex-col gap-8 p-12 ">
                             <h1 className="font-bold text-4xl md:text-6xl overflow-hidden">
                                 Simple Pricing For Powerful Automation
                             </h1>
@@ -42,7 +42,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 <br />
                                 No credit card required.
                             </h2>
-                            <div className="border-2 border-black p-4 w-full md:w-1/2">
+                            <div className="border border-black p-4 w-full md:w-1/2">
                                 <div className="form-control flex items-center">
                                     <label className="cursor-pointer flex items-center">
                                         <span className="font-semibold mx-2 text-xl md:text-2xl">Billed Yearly</span>
@@ -57,12 +57,12 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            <div className="flex flex-col gap-y-8 border border-black font-normal">
+                            <div className="flex flex-col gap-y-8 border border-b-0 border-black font-normal">
                                 <div className="flex flex-col gap-12 my-12 px-6">
                                     <div className="subheading font-semibold text-3xl md:text-4xl">Starter</div>
                                     <div className="flex flex-col gap-2">
                                         <div className="text-4xl md:text-6xl">${isToggled ? 30 * 10 : 30}</div>
-                                        <div className="font-semibold">month/workspace</div>
+                                        <div className="font-semibold">${isToggled ? 'Year' : 'month'}/workspace</div>
                                     </div>
                                     <div className="flex flex-col">
                                         <div>Invocations: 10,000/Month</div>
@@ -80,12 +80,12 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 </a>
                             </div>
 
-                            <div className="flex flex-col gap-y-8 border border-black font-normal">
+                            <div className="flex flex-col gap-y-8 border-t border-black font-normal">
                                 <div className="flex flex-col gap-12 my-12 px-6">
                                     <div className="subheading font-semibold text-3xl md:text-4xl">Team</div>
                                     <div className="flex flex-col gap-2">
                                         <div className="text-4xl md:text-6xl">${isToggled ? 60 * 10 : 60}</div>
-                                        <div className="font-semibold">month/workspace</div>
+                                        <div className="font-semibold">${isToggled ? 'Year' : 'month'}/workspace</div>
                                     </div>
                                     <div className="flex flex-col">
                                         <div>Invocations: 10,000/Month</div>
@@ -107,7 +107,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 </div>
             </div>
             <div className="container flex flex-col justify-center gap-6 md:gap-16 my-12 md:my-24">
-                <div className="border-2 border-black p-6 md:p-12 flex flex-col gap-4 md:gap-8">
+                <div className="border border-black p-6 md:p-12 flex flex-col gap-4 md:gap-8">
                     <div className="text-3xl md:text-4xl lg:text-6xl xl:w-1/2">
                         Explore Hundreds of Features, Available on Every Plan
                     </div>
@@ -127,7 +127,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     What Makes <span className="text-red-700">Viasocket</span> A Better Choice
                 </h2>
 
-                <div className="flex flex-col lg:flex-row border-2 border-black">
+                <div className="flex flex-col lg:flex-row border border-black">
                     <div className="flex flex-col w-full lg:w-1/2 py-12 md:py-24 px-6 md:px-12 text-base md:text-xl gap-4">
                         {betterChoice.length > 0 &&
                             betterChoice.map((choice, index) => (
@@ -146,7 +146,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 </div>
             </div>
             <div className="container flex flex-col justify-center gap-6 md:gap-16 my-12 md:my-24">
-                <div className="border-2 border-black p-6 md:p-12 flex flex-col gap-4 md:gap-8">
+                <div className="border border-black p-6 md:p-12 flex flex-col gap-4 md:gap-8">
                     <div className="text-3xl md:text-4xl lg:text-6xl xl:w-1/2">
                         Free Services for Impactful Organizations
                     </div>
@@ -162,7 +162,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             </div>
 
             <div className="container flex flex-col justify-center  md:gap-16 gap-6 my-12 md:my-24 ">
-                <div className="flex flex-col border-2 border-black">
+                <div className="flex flex-col border border-black">
                     <h2 className="md:text-4xl sm:text-3xl lg:text-6xl  font-normal px-12 mt-24 overflow-hidden">
                         Trendy Questions
                     </h2>
@@ -179,7 +179,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             </div>
 
             <div className="container flex flex-col justify-center  md:gap-16 gap-6 my-12 md:my-24 ">
-                <div className="border-2 border-black  flex flex-col gap-8 ">
+                <div className="border border-black  flex flex-col gap-8 ">
                     <NewFooter footerData={footerData} />
                 </div>
             </div>

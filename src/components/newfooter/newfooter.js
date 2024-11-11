@@ -47,7 +47,7 @@ const NewFooter = ({ footerData }) => {
     return (
         <>
             <div className="flex flex-col lg:flex-row sm:flex-row">
-                <div className="grid grid-cols-1 gap-y-8 lg:gap-y-48 w-full justify-between border border-black p-6 sm:p-12">
+                <div className="grid grid-cols-1 gap-y-8 lg:gap-y-48 w-full justify-between p-6 sm:p-12">
                     <div className="flex flex-col gap-4 mb-12 sm:mb-24 py-4">
                         <Link href="/" aria-label="socket fav icon">
                             <Image
@@ -68,15 +68,15 @@ const NewFooter = ({ footerData }) => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 lg:gap-8 w-full border border-black p-6 sm:p-16">
+                <div className="grid grid-cols-1 gap-4 lg:gap-8 w-full border-l border-black p-6 sm:p-16">
                     {renderedGroups.slice(0, 2)}
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 lg:gap-8 w-full border border-black p-6 sm:p-16">
+                <div className="grid grid-cols-1 gap-4 lg:gap-8 w-full border-l border-black p-6 sm:p-16">
                     {renderedGroups.slice(2, 4)}
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 lg:gap-8 w-full border border-black p-6 sm:p-16">
+                <div className="grid grid-cols-1 gap-4 lg:gap-8 w-full border-l border-black p-6 sm:p-16">
                     {renderedGroups.slice(4, 6)}
                 </div>
             </div>
