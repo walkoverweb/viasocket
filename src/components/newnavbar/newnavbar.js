@@ -15,30 +15,31 @@ const NewNavbar = ({ navData, utm }) => {
     return (
         <>
             <div className={`${styles.navbar_cont} flex w-full flex-col mt-12`}>
-                <div className={`${styles.navbar} flex justify-between items-center w-full container `}>
-                    <div className="border-2 border-black p-4">
-                        <Link href="/" aria-label="logo">
+                <div className={`${styles.navbar} flex justify-between items-center w-full container gap-4`}>
+                    <div className="w-[165px] h-[56px] border border-black border-b-0 p-2 flex items-center justify-center px-20">
+                        <Link className="flex flex-row gap-2 items-center justify-center" href="/" aria-label="logo">
                             <Image
-                                className="h-[40px] w-auto"
-                                src={'/assets/brand/logo.svg'}
-                                width={1080}
-                                height={400}
+                                className="h-[32px] w-[32px]"
+                                src={'/assets/brand/favicon_dark.svg'}
+                                width={32}
+                                height={32}
                                 alt="viasocket"
                             />
+                            <span className="flex items-center">SOCKET</span>
                         </Link>
                     </div>
 
-                    <div className="gap-6 lg:gap-0 lg:flex hidden ">
+                    <div className="lg:flex hidden menu-horizontal ">
                         {shorterData &&
                             shorterData.map((option, index) => {
                                 if (option.group_name === null && option.is_mininavonly === null) {
                                     if (option.is_parent) {
                                         return (
-                                            <div className="dropdown dropdown-bottom " key={index}>
+                                            <div className="dropdown dropdown-bottom w-[165px]" key={index}>
                                                 <div
                                                     tabIndex={0}
                                                     role="button"
-                                                    className=" flex items-center gap-1 hover:underline"
+                                                    className="btn h-[56px] w-full normal-case justify-between text-black font-times-now text-lg font-normal border  border-black bg-white hover:bg-gray-50"
                                                     aria-label="nav option"
                                                 >
                                                     <span>{option?.name}</span>
@@ -46,7 +47,7 @@ const NewNavbar = ({ navData, utm }) => {
                                                 </div>
                                                 <ul
                                                     tabIndex={0}
-                                                    className="dropdown-content z-[1] menu  shadow bg-base-100  w-52"
+                                                    className="dropdown-content menu shadow bg-base-100 w-full"
                                                 >
                                                     {shorterData.map((child, childIndex) => {
                                                         if (child.group_name && child.group_name === option.name) {
@@ -55,6 +56,7 @@ const NewNavbar = ({ navData, utm }) => {
                                                                     {child.name === 'Live Chat' ? (
                                                                         <button
                                                                             onClick={openChatWidget}
+                                                                            className="btn h-[56px] normal-case text-black font-times-now text-lg font-normal"
                                                                             aria-label="Chat"
                                                                         >
                                                                             Live Chat
@@ -62,6 +64,7 @@ const NewNavbar = ({ navData, utm }) => {
                                                                     ) : (
                                                                         <Link
                                                                             href={`${child.link ? child.link : ''}`}
+                                                                            className="btn h-[56px] normal-case text-black font-times-now text-lg font-normal"
                                                                             target="_blank"
                                                                             aria-label="logo"
                                                                         >
@@ -77,38 +80,51 @@ const NewNavbar = ({ navData, utm }) => {
                                         );
                                     } else {
                                         return (
-                                            <Link
-                                                key={index}
-                                                href={`${option.link ? option.link : '#'}`}
-                                                className="  hover:underline border border-black p-6"
-                                                target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
-                                                aria-label={option?.name}
-                                            >
-                                                {option?.name}
-                                            </Link>
+                                            <div className="w-[165px]" key={index}>
+                                                <Link
+                                                    href={`${option.link ? option.link : '#'}`}
+                                                    className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0  border-black bg-white hover:bg-gray-50"
+                                                    target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
+                                                    aria-label={option?.name}
+                                                >
+                                                    {option?.name}
+                                                </Link>
+                                            </div>
                                         );
                                     }
                                 }
                             })}
-                        <div className="border border-black p-3 bg-white">
-                            <Link href={`/login?utm_source=${utm}`} className="btn p-4  bg-white btn-sm border-none ">
+                        {/* Login Button */}
+                        <div className="w-[165px]">
+                            <Link
+                                href={`/login?utm_source=${utm}`}
+                                className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0 border-black bg-white hover:bg-gray-50"
+                            >
                                 Login
                             </Link>
                         </div>
-                        <div className="border border-black p-3 bg-red-700">
+                        {/* Sign Up Button */}
+                        <div className="w-[165px]">
                             <Link
                                 href={`/signup?utm_source=${utm}`}
-                                className="btn bg-red-700 btn-sm p-4 border-none text-white"
+                                className="btn h-[56px] w-full normal-case text-white font-times-now text-lg font-normal border border-black border-b-0 bg-red-700 hover:bg-red-800"
                             >
                                 Sign Up
                             </Link>
                         </div>
                     </div>
+
+                    {/* Mobile Menu */}
                     <div className="dropdown dropdown-end lg:hidden block">
-                        <div tabIndex={0} role="button" className="" aria-label="dropdown nav">
+                        <div
+                            tabIndex={0}
+                            role="button"
+                            className="w-[165px] h-[56px] flex items-center justify-center border border-black"
+                            aria-label="dropdown nav"
+                        >
                             <MdMenu className="w-[24px] h-[24px]" />
                         </div>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100  w-52 shadow-lg">
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-base-100 w-[165px] shadow-lg">
                             {shorterData &&
                                 shorterData.map((option, index) => {
                                     if (!option.is_parent) {
@@ -118,8 +134,8 @@ const NewNavbar = ({ navData, utm }) => {
                                                     href={`${option.link ? option.link : '#'}`}
                                                     target="_blank"
                                                     aria-label={option?.name}
+                                                    className="text-black font-times-now text-lg font-normal"
                                                 >
-                                                    {' '}
                                                     {option?.name}
                                                 </Link>
                                             </li>
