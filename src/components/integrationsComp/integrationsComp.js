@@ -52,7 +52,6 @@ export default function IntegrationsComp({
                     <BlogGrid posts={posts} />
                 </div>
             )}
-            <h2 className=" container md:text-6xl text-4xl font-medium">Frequently Asked Questions</h2>
 
             {faqData && faqName && <FAQSection faqData={faqData} faqName={faqName} />}
 

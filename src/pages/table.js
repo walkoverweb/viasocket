@@ -33,8 +33,6 @@ const Table = ({ trustedBy, getStartedData, productData, features, metaData, pat
                 page={pathArray[1]}
             />
             <div className="bg-white py-20 mt-20">
-                <h2 className=" container md:text-6xl text-4xl font-medium">Frequently Asked Questions</h2>
-
                 {faqData && faqData.length > 0 && (
                     <div className="container">
                         <FAQSection faqData={faqData} faqName={`/table`} />
