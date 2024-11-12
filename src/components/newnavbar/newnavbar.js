@@ -87,7 +87,7 @@ const NewNavbar = ({ navData, utm }) => {
                                                     target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
                                                     aria-label={option?.name}
                                                 >
-                                                    {option?.name}
+                                                    {option?.name?.toUpperCase()}
                                                 </Link>
                                             </div>
                                         );
