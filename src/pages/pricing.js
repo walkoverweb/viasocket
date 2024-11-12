@@ -195,9 +195,6 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
 
             <div className="container flex flex-col justify-center  my-12 md:my-24 ">
                 <div className="flex flex-col border border-black">
-                    <h2 className="md:text-4xl sm:text-3xl lg:text-6xl  font-normal px-12 mt-24 overflow-hidden">
-                        Frequently Asked Questions
-                    </h2>
                     <div className="flex flex-col text-xl">
                         <div className="bg-white">
                             {faqData && faqData.length > 0 && (
