@@ -26,7 +26,7 @@
         @apply px-12;
     }
     @media only screen and (max-width: 1280px) {
-        @apply px-12;
+        @apply px-20;
     }
     @media only screen and (max-width: 780px) {
         @apply px-6;
@@ -40,7 +40,7 @@
     @apply py-24;
 
     @media only screen and (max-width: 1280px) {
-        @apply py-20;
+        @apply py-24;
     }
     @media only screen and (max-width: 780px) {
         @apply py-12;

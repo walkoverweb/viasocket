@@ -34,10 +34,11 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     <div className="h-24 "></div>
                     <div className="grid  grid-cols-1 md:grid-cols-2 ">
                         <div className=" flex flex-col gap-8 p-12 justify-center ">
-                            <h1 className="font-bold text-4xl md:text-6xl overflow-hidden text-black font-times-now font-normal text-60px leading-normal tracking-tight-0p5">
-                                Simple Pricing For Powerful Automation
+                            <h1 className="font-bold text-4xl md:text-6xl overflow-hidden font-times-now font-normal text-60px leading-normal tracking-tight-0p5 font-family: 'TimesNowSemiLight';">
+                                Simple Pricing for Powerful Automation
                             </h1>
-                            <h2 className="text-xl md:text-2xl font-semibold w-full ">
+
+                            <h2 className="text-xl  w-full  text-[252525] font-normal">
                                 Enjoy a 30-Day Free Trial.
                                 <br />
                                 No credit card required.
@@ -57,11 +58,11 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 bg-white">
-                            <div className="flex flex-col gap-y-8 border border-b-0 border-black font-normal">
-                                <div className="flex flex-col gap-12 my-12 px-6">
-                                    <div className="subheading font-semibold text-3xl md:text-4xl">
-                                        {'Starter'.toUpperCase()}
-                                    </div>
+                            <div className="flex flex-col gap-y-8 border border-b-0 border-black font-normal ">
+                                <div className="subheading font-semibold text-3xl md:text-4xl justify-around mt-16 mx-6">
+                                    {'Starter'.toUpperCase()}
+                                </div>
+                                <div className="flex flex-col gap-8 my-12 px-6">
                                     <div class="flex flex-col gap-2">
                                         <p class="text-4xl md:text-6xl">${isToggled ? 30 * 10 : 30}</p>
                                         <p class="font-semibold lg:text-xl sm:text-sm overflow-hidden">
@@ -76,7 +77,10 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     </div>
                                     <div>For individuals who need higher limits.</div>
                                 </div>
-                                <a href="/start-trial" className="flex flex-col items-center border-t border-black">
+                                <a
+                                    href="/start-trial"
+                                    className="flex flex-col items-center mt-auto border-t border-black"
+                                >
                                     <div className="flex justify-center">
                                         <button className="inline-block text-center p-4 font-bold">
                                             {'Start Free Trial'.toUpperCase()}
@@ -86,10 +90,10 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             </div>
 
                             <div className="flex flex-col gap-y-8 border-t border-black font-normal">
+                                <div className="subheading font-semibold text-3xl md:text-4xl justify-around mt-16 mx-6">
+                                    {'Team'.toUpperCase()}
+                                </div>
                                 <div className="flex flex-col gap-12 my-12 px-6">
-                                    <div className="subheading font-semibold text-3xl md:text-4xl">
-                                        {'Team'.toUpperCase()}
-                                    </div>
                                     <div className="flex flex-col gap-2">
                                         <div className="text-4xl md:text-6xl">${isToggled ? 60 * 10 : 60}</div>
                                         <div className="font-semibold lg:text-xl sm:text-sm overflow-hidden">
