@@ -29,11 +29,11 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
     return (
         <>
             <NewNavbar navData={navData} utm={'pricing'} />
-            <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24">
-                <div className="border border-black">
-                    <div className="h-24 gradient-background"></div>
+            <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24 ">
+                <div className="border border-black gradient-background">
+                    <div className="h-24 "></div>
                     <div className="grid  grid-cols-1 md:grid-cols-2 ">
-                        <div className="gradient-background flex flex-col gap-8 p-12 ">
+                        <div className=" flex flex-col gap-8 p-12 justify-center ">
                             <h1 className="font-bold text-4xl md:text-6xl overflow-hidden text-black font-times-now font-normal text-60px leading-normal tracking-tight-0p5">
                                 Simple Pricing For Powerful Automation
                             </h1>
@@ -42,7 +42,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 <br />
                                 No credit card required.
                             </h2>
-                            <div className="border border-black p-4 w-full md:w-1/3">
+                            <div className="border border-black py-4 w-full lg:w-1/2">
                                 <div className="form-control flex items-center">
                                     <label className="cursor-pointer flex flex-row gap-2 items-center">
                                         <span className="font-bold text-xl md:text-2xl">BILLED YEARLY </span>
@@ -56,15 +56,17 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 bg-white">
                             <div className="flex flex-col gap-y-8 border border-b-0 border-black font-normal">
                                 <div className="flex flex-col gap-12 my-12 px-6">
                                     <div className="subheading font-semibold text-3xl md:text-4xl">
                                         {'Starter'.toUpperCase()}
                                     </div>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="text-4xl md:text-6xl">${isToggled ? 30 * 10 : 30}</div>
-                                        <div className="font-semibold">${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE</div>
+                                    <div class="flex flex-col gap-2">
+                                        <p class="text-4xl md:text-6xl">${isToggled ? 30 * 10 : 30}</p>
+                                        <p class="font-semibold lg:text-xl sm:text-sm overflow-hidden">
+                                            ${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                        </p>
                                     </div>
                                     <div className="flex flex-col">
                                         <div>Invocations: 10,000/Month</div>
@@ -74,14 +76,12 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     </div>
                                     <div>For individuals who need higher limits.</div>
                                 </div>
-                                <a
-                                    href="/start-trial"
-                                    className="flex justify-center items-center border-t border-black "
-                                >
-                                    <button className="inline-block text-center p-4 font-bold">
-                                        {' '}
-                                        {'Start Free Trial'.toUpperCase()}
-                                    </button>
+                                <a href="/start-trial" className="flex flex-col items-center border-t border-black">
+                                    <div className="flex justify-center">
+                                        <button className="inline-block text-center p-4 font-bold">
+                                            {'Start Free Trial'.toUpperCase()}
+                                        </button>
+                                    </div>
                                 </a>
                             </div>
 
@@ -92,7 +92,9 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <div className="text-4xl md:text-6xl">${isToggled ? 60 * 10 : 60}</div>
-                                        <div className="font-semibold">${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE</div>
+                                        <div className="font-semibold lg:text-xl sm:text-sm overflow-hidden">
+                                            ${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                        </div>
                                     </div>
                                     <div className="flex flex-col">
                                         <div>Invocations: 10,000/Month</div>
