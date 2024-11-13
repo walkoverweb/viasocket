@@ -25,7 +25,7 @@ const NewNavbar = ({ navData, utm }) => {
                                 height={32}
                                 alt="viasocket"
                             />
-                            <span className="flex items-center">SOCKET</span>
+                            <span className="flex items-center font-normal text-md md:text-lg">SOCKET</span>
                         </Link>
                     </div>
 
@@ -39,7 +39,7 @@ const NewNavbar = ({ navData, utm }) => {
                                                 <div
                                                     tabIndex={0}
                                                     role="button"
-                                                    className="btn h-[56px] w-full normal-case justify-between text-black font-times-now text-lg font-normal border  border-black bg-white hover:bg-gray-50"
+                                                    className="btn h-[56px] w-full normal-case justify-between text-black font-times-now text-lg font-semibold border  border-black bg-white hover:bg-gray-50 text-md md:text-lg"
                                                     aria-label="nav option"
                                                 >
                                                     <span>{option?.name}</span>
@@ -83,7 +83,7 @@ const NewNavbar = ({ navData, utm }) => {
                                             <div className="w-[165px]" key={index}>
                                                 <Link
                                                     href={`${option.link ? option.link : '#'}`}
-                                                    className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0  border-black bg-white hover:bg-gray-50"
+                                                    className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0  border-black bg-white hover:bg-gray-50 text-md md:text-lg"
                                                     target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
                                                     aria-label={option?.name}
                                                 >
@@ -98,7 +98,7 @@ const NewNavbar = ({ navData, utm }) => {
                         <div className="w-[165px]">
                             <Link
                                 href={`/login?utm_source=${utm}`}
-                                className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0 border-black bg-white hover:bg-gray-50"
+                                className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0 border-black bg-white hover:bg-gray-50 text-md md:text-lg"
                             >
                                 Login
                             </Link>
@@ -107,7 +107,7 @@ const NewNavbar = ({ navData, utm }) => {
                         <div className="w-[165px]">
                             <Link
                                 href={`/signup?utm_source=${utm}`}
-                                className="btn h-[56px] w-full normal-case text-white font-times-now text-lg font-normal border border-black border-b-0 bg-red-700 hover:bg-red-800"
+                                className="btn h-[56px] w-full normal-case text-white font-times-now text-lg font-normal border border-black border-b-0 bg-red-700 hover:bg-red-800 text-md md:text-lg"
                             >
                                 Sign Up
                             </Link>

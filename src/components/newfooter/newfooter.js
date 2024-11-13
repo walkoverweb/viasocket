@@ -19,9 +19,9 @@ const NewFooter = ({ footerData }) => {
         Object.entries(groupedData).map(([groupName, items]) => {
             if (items.length > 0) {
                 return (
-                    <div className="flex flex-col gap-4 w-full" key={groupName}>
+                    <div className="flex flex-col gap-8 w-full" key={groupName}>
                         <h2 className="font-bold">{groupName}</h2>
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-4">
                             {items.map(
                                 (item, index) =>
                                     !item.hidden && (
@@ -60,7 +60,7 @@ const NewFooter = ({ footerData }) => {
                         <p> © 2024 viaSocket</p>
                         <p>All rights reserved.</p>
                     </div>
-                    <div className="flex items-end gap-2 w-full flex-wrap mt-8 ">
+                    <div className="flex items-end gap-2 w-full flex-wrap my-8 ">
                         <span>A product of</span>
                         <Link href="https://walkover.in/" target="_blank" aria-label="walkover">
                             <Image src="/assets/brand/walkover.svg" alt="walkover" width={100} height={20} />
