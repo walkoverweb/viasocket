@@ -87,14 +87,14 @@ const NewNavbar = ({ navData, utm }) => {
                                                     target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
                                                     aria-label={option?.name}
                                                 >
-                                                    {option?.name?.toUpperCase()}
+                                                    {option?.name}
                                                 </Link>
                                             </div>
                                         );
                                     }
                                 }
                             })}
-                        {/* Login Button */}
+
                         <div className="w-[165px]">
                             <Link
                                 href={`/login?utm_source=${utm}`}
@@ -103,7 +103,7 @@ const NewNavbar = ({ navData, utm }) => {
                                 Login
                             </Link>
                         </div>
-                        {/* Sign Up Button */}
+
                         <div className="w-[165px]">
                             <Link
                                 href={`/signup?utm_source=${utm}`}
