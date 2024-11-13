@@ -32,8 +32,8 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24 ">
                 <div className="border border-black gradient-background">
                     <div className="h-28 "></div>
-                    <div className="flex flex-row ">
-                        <div className=" flex flex-col gap-8 p-12 justify-center w-3/5">
+                    <div className="grid grid-cols-1 md:grid-cols-2">
+                        <div className=" flex flex-col gap-8 p-12 justify-center ">
                             <h1 className="heading md:text-6xl overflow-hidden text-60px leading-normal tracking-lose-0p5 font-family-times-now ">
                                 Simple Pricing for Powerful Automation
                             </h1>
@@ -44,9 +44,9 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 No credit card required.
                             </h2>
                             <div className="border border-black py-4 w-full lg:w-1/3">
-                                <div className="form-control flex items-center">
+                                <div className="form-control flex items-center ">
                                     <label className="cursor-pointer flex flex-row gap-2 items-center">
-                                        <span className="font-semibold text-md md:text-lg ">BILLED YEARLY </span>
+                                        <span className="font-semibold text-md  ">BILLED YEARLY </span>
                                         <input
                                             type="checkbox"
                                             className="toggle"
@@ -57,9 +57,9 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 bg-white w-2/5">
+                        <div className="grid grid-cols-1 md:grid-cols-2 bg-white ">
                             <div className="flex flex-col gap-y-2 border border-b-0 border-black font-normal ">
-                                <div className="subheading font-semibold text-md md:text-lg justify-around mt-12 mx-6">
+                                <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
                                     {'Starter'.toUpperCase()}
                                 </div>
                                 <div className="flex flex-col gap-8 my-12 px-6">
@@ -84,7 +84,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     className="flex flex-col items-center mt-auto border-t border-black"
                                 >
                                     <div className="flex justify-center">
-                                        <button className="inline-block text-center p-4 font-semibold text-md md:text-lg">
+                                        <button className="inline-block text-center p-4 font-semibold text-md ">
                                             {'Start Free Trial'.toUpperCase()}
                                         </button>
                                     </div>
@@ -92,10 +92,10 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             </div>
 
                             <div className="flex flex-col gap-y-2 border-t border-black font-normal">
-                                <div className="subheading font-semibold text-md md:text-lg justify-around mt-12 mx-6">
+                                <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
                                     {'Team'.toUpperCase()}
                                 </div>
-                                <div className="flex flex-col gap-12 my-12 px-6">
+                                <div className="flex flex-col gap-8 my-12 px-6">
                                     <div className="flex flex-col gap-2">
                                         <div className="text-4xl md:text-6xl font-family-times-now">
                                             ${isToggled ? 60 * 10 : 60}
@@ -116,7 +116,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     href="/start-trial"
                                     className="flex justify-center items-center border-t border-black bg-black text-white"
                                 >
-                                    <button className="inline-block text-center p-4 font-semibold text-md md:text-lg">
+                                    <button className="inline-block text-center p-4 font-semibold text-md ">
                                         {' '}
                                         {'Start Free Trial'.toUpperCase()}
                                     </button>
@@ -126,7 +126,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     </div>
                 </div>
             </div>
-            {/* <div className="container flex flex-col justify-center gap-6 md:gap-16 my-12 md:my-24">
+            {/* <div className="container flex flex-col justify-center gap-6 md:gap-16 my-24 md:my-48">
                 <div className="border border-black p-6 md:p-12 flex flex-col gap-4 md:gap-8">
                     <div className="text-3xl md:text-4xl lg:text-6xl xl:w-1/2">
                         Explore Hundreds of Features, Available on Every Plan
@@ -142,9 +142,9 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 </div>
             </div> */}
 
-            <div className="container flex flex-col justify-center gap-6 md:gap-16 my-12 md:my-24">
-                <h2 className="text-3xl md:text-4xl lg:text-6xl md:w-2/3 font-normal px-6 md:px-12">
-                    What Makes <span className="text-red-700 italic">Viasocket</span> A Better Choice
+            <div className="container flex flex-col justify-center gap-6 md:gap-8 my-24 md:my-48">
+                <h2 className="text-3xl md:text-4xl lg:text-6xl md:w-2/3 font-normal font-family-times-now">
+                    What makes <br /> <span className="text-red-700 italic">viaSocket</span> a better choice ?
                 </h2>
 
                 <div className="flex flex-col lg:flex-row border border-black">
@@ -161,24 +161,24 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             ))}
                     </div>
                     <div
-                        className="flex flex-col w-full lg:w-1/2  md:py-12 px-6 md:px-12"
+                        className="flex flex-col w-full lg:w-1/2  md:py-12 px-6 md:px-12  bg-opacity-200"
                         style={{
                             backgroundImage: `url('/assets/img/pricing.png')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                         }}
                     >
-                        <div class="bg-white/70 p-4 h-full flex items-center justify-center">
-                            <p class="text-base md:text-lg">{betterChoice[selectedIndex]?.description}</p>
+                        <div class=" p-12 h-full flex items-center justify-center">
+                            <p class="text-base md:text-lg text-white">{betterChoice[selectedIndex]?.description}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="container flex flex-col justify-center  gap-6 md:gap-16 my-12 md:my-24">
+            <div className="container flex flex-col justify-center  gap-6 md:gap-16 my-24 md:my-48">
                 <div className=" border border-t-0 border-black">
                     <div className="flex items-center justify-center  -mt-8">
                         <div className="border-t border-black flex-grow" />
-                        <div className="text-3xl md:text-4xl lg:text-6xl px-4">
+                        <div className="text-3xl md:text-4xl lg:text-6xl px-4 font-family-times-now">
                             Free Services for Impactful Organizations
                         </div>
                         <div className="border-t border-black flex-grow" />
@@ -189,7 +189,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             We support organizations driving change with free access to our automation solutions
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn btn-active bg-red-700 text-white text-xs sm:text-sm md:text-base lg:text-lg px-4 py-2 hover:bg-black hover:text-white font-normal">
+                            <button className="btn btn-active bg-red-700 text-white  px-4 py-2 hover:bg-black hover:text-white font-semibold text-md">
                                 CLICK HERE
                             </button>
                         </div>
@@ -197,7 +197,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 </div>
             </div>
 
-            <div className="container flex flex-col justify-center  mt-12 md:mt-24 ">
+            <div className="container flex flex-col justify-center  my-24 md:my-48 ">
                 <div className="flex flex-col border border-black">
                     <div className="flex flex-col text-xl">
                         <div className="bg-white">
@@ -209,7 +209,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                         </div>
                     </div>
                 </div>
-                <div className="border border-black border-t-0 flex flex-col gap-8 ">
+                <div className="border border-black  border-t-0 flex flex-col gap-8 ">
                     <NewFooter footerData={footerData} />
                 </div>
             </div>

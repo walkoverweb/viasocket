@@ -11,6 +11,13 @@
 .font-family-times-now {
     font-family: 'Times Now';
 }
+.toggle:checked {
+    @apply bg-black text-white;
+}
+
+.toggle:checked + .font-semibold.text-md {
+    @apply text-white;
+}
 .casestudy_img {
     // height: 295px!important;
     // overflow: hidden;
