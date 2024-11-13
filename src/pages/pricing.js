@@ -32,7 +32,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24 ">
                 <div className="border border-black gradient-background">
                     <div className="h-28 "></div>
-                    <div className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className=" flex flex-col gap-8 p-12 justify-center ">
                             <h1 className="heading md:text-6xl overflow-hidden text-60px leading-normal tracking-lose-0p5 font-family-times-now ">
                                 Simple Pricing for Powerful Automation
@@ -58,7 +58,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 bg-white ">
-                            <div className="flex flex-col gap-y-2 border border-b-0 border-black font-normal ">
+                            <div className="flex flex-col gap-y-2 border border-l-0 min-[1003px]:border-l border-r-0 min-[768px]:border-r border-b-0 border-black font-normal ">
                                 <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
                                     {'Starter'.toUpperCase()}
                                 </div>
@@ -189,7 +189,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             We support organizations driving change with free access to our automation solutions
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn btn-active bg-red-700 text-white  px-4 py-2 hover:bg-black hover:text-white font-semibold text-md">
+                            <button className="btn btn-active bg-red-700 text-white  px-6 py-2 hover:bg-black hover:text-white font-semibold text-md">
                                 CLICK HERE
                             </button>
                         </div>

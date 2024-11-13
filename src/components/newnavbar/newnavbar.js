@@ -14,9 +14,9 @@ const NewNavbar = ({ navData, utm }) => {
     }
     return (
         <>
-            <div className={`${styles.navbar_cont} flex w-full flex-col mt-12`}>
+            <div className={`${styles.navbar_cont}container  flex w-full flex-col mt-12`}>
                 <div className={`${styles.navbar} flex justify-between items-center w-full container gap-4`}>
-                    <div className="w-[165px] h-[56px] border border-black border-b-0 p-2 flex items-center justify-center px-20">
+                    <div className="w-auto lg:w-[165px] h-[56px] border border-black border-b-0 p-2 flex items-center justify-center px-20">
                         <Link className="flex flex-row gap-2 items-center justify-center" href="/" aria-label="logo">
                             <Image
                                 className="h-[32px] w-[32px]"
@@ -95,7 +95,7 @@ const NewNavbar = ({ navData, utm }) => {
                                 }
                             })}
 
-                        <div className="w-[165px]">
+                        <div className="lg:w-[165px]">
                             <Link
                                 href={`/login?utm_source=${utm}`}
                                 className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0 border-black bg-white hover:bg-gray-50 text-md md:text-lg"
@@ -114,12 +114,11 @@ const NewNavbar = ({ navData, utm }) => {
                         </div>
                     </div>
 
-                    {/* Mobile Menu */}
                     <div className="dropdown dropdown-end lg:hidden block">
                         <div
                             tabIndex={0}
                             role="button"
-                            className="w-[165px] h-[56px] flex items-center justify-center border border-black"
+                            className="w-[165px] h-[56px] flex items-center justify-center border min-[377px]:border-b-0 border-b border-black"
                             aria-label="dropdown nav"
                         >
                             <MdMenu className="w-[24px] h-[24px]" />
