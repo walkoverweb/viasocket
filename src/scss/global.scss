@@ -5,7 +5,12 @@
 
 //check import file for imports
 @import 'import';
-
+.heading {
+    font-family: 'Times Now';
+}
+.font-family-times-now {
+    font-family: 'Times Now';
+}
 .casestudy_img {
     // height: 295px!important;
     // overflow: hidden;
@@ -120,9 +125,146 @@
         }
     }
 }
-@font-face {
-    font-family: 'TimesNowSemiLight';
-    src:
-        url('/fonts/TimesNow-SemiLight.woff2') format('woff2'),
-        url('/fonts/TimesNow-SemiLight.woff') format('woff');
-}
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-SemiLight.eot');
+//     src: local('/fonts/times-now/Times Now SemiLight'), local('TimesNow-SemiLight'),
+//        url('/fonts/times-now/TimesNow-SemiLight.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-SemiLight.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-SemiLight.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-SemiLight.ttf') format('truetype');
+//     font-weight: 300;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now//fonts/times-now/TimesNow-LightItalic.eot');
+//     src: local('/fonts/times-now/Times Now Light Italic'), local('TimesNow-LightItalic'),
+//        url('/fonts/times-now/TimesNow-LightItalic.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-LightItalic.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-LightItalic.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-LightItalic.ttf') format('truetype');
+//     font-weight: 300;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-Bold.eot');
+//     src: local('Times Now Bold'), local('TimesNow-Bold'),
+//        url('/fonts/times-now/TimesNow-Bold.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-Bold.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-Bold.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-Bold.ttf') format('truetype');
+//     font-weight: bold;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-BoldItalic.eot');
+//     src: local('Times Now Bold Italic'), local('TimesNow-BoldItalic'),
+//        url('/fonts/times-now/TimesNow-BoldItalic.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-BoldItalic.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-BoldItalic.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-BoldItalic.ttf') format('truetype');
+//     font-weight: bold;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-SemiBoldItalic.eot');
+//     src: local('Times Now SemiBold Italic'), local('TimesNow-SemiBoldItalic'),
+//        url('/fonts/times-now/TimesNow-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-SemiBoldItalic.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-SemiBoldItalic.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-SemiBoldItalic.ttf') format('truetype');
+//     font-weight: 600;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-SemiLightItalic.eot');
+//     src: local('Times Now SemiLight Italic'), local('TimesNow-SemiLightItalic'),
+//        url('/fonts/times-now/TimesNow-SemiLightItalic.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-SemiLightItalic.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-SemiLightItalic.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-SemiLightItalic.ttf') format('truetype');
+//     font-weight: 300;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-SemiBold.eot');
+//     src: local('Times Now SemiBold'), local('TimesNow-SemiBold'),
+//        url('/fonts/times-now/TimesNow-SemiBold.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-SemiBold.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-SemiBold.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-SemiBold.ttf') format('truetype');
+//     font-weight: 600;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-ExtraLightItalic.eot');
+//     src: local('Times Now ExtraLight Italic'), local('TimesNow-ExtraLightItalic'),
+//        url('/fonts/times-now/TimesNow-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-ExtraLightItalic.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-ExtraLightItalic.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-ExtraLightItalic.ttf') format('truetype');
+//     font-weight: 200;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-ExtraLight.eot');
+//     src: local('Times Now ExtraLight'), local('TimesNow-ExtraLight'),
+//        url('/fonts/times-now/TimesNow-ExtraLight.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-ExtraLight.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-ExtraLight.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-ExtraLight.ttf') format('truetype');
+//     font-weight: 200;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-ExtraBold.eot');
+//     src: local('Times Now ExtraBold'), local('TimesNow-ExtraBold'),
+//        url('/fonts/times-now/TimesNow-ExtraBold.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-ExtraBold.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-ExtraBold.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-ExtraBold.ttf') format('truetype');
+//     font-weight: 800;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-ExtraBoldItalic.eot');
+//     src: local('Times Now ExtraBold Italic'), local('TimesNow-ExtraBoldItalic'),
+//        url('/fonts/times-now/TimesNow-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-ExtraBoldItalic.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-ExtraBoldItalic.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-ExtraBoldItalic.ttf') format('truetype');
+//     font-weight: 800;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src:url('/fonts/times-now/TimesNow-Light.eot');
+//     src: local('Times Now Light'), local('TimesNow-Light'),
+//        url('/fonts/times-now/TimesNow-Light.eot?#iefix') format('embedded-opentype'),
+//        url('/fonts/times-now/TimesNow-Light.woff2') format('woff2'),
+//        url('/fonts/times-now/TimesNow-Light.woff') format('woff'),
+//        url('/fonts/times-now/TimesNow-Light.ttf') format('truetype');
+//     font-weight: 300;
+//     font-style: normal;
+// }

@@ -31,22 +31,22 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             <NewNavbar navData={navData} utm={'pricing'} />
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24 ">
                 <div className="border border-black gradient-background">
-                    <div className="h-24 "></div>
-                    <div className="grid  grid-cols-1 md:grid-cols-2 ">
-                        <div className=" flex flex-col gap-8 p-12 justify-center ">
-                            <h1 className="font-bold text-4xl md:text-6xl overflow-hidden font-times-now font-normal text-60px leading-normal tracking-tight-0p5 font-family: 'TimesNowSemiLight';">
+                    <div className="h-28 "></div>
+                    <div className="flex flex-row ">
+                        <div className=" flex flex-col gap-8 p-12 justify-center w-3/5">
+                            <h1 className="heading md:text-6xl overflow-hidden text-60px leading-normal tracking-lose-0p5 font-family-times-now ">
                                 Simple Pricing for Powerful Automation
                             </h1>
 
-                            <h2 className="text-xl  w-full  text-[252525] font-normal">
+                            <h2 className="text-xl  w-full  text-[252525] font-normal text-normal">
                                 Enjoy a 30-Day Free Trial.
                                 <br />
                                 No credit card required.
                             </h2>
-                            <div className="border border-black py-4 w-full lg:w-1/2">
+                            <div className="border border-black py-4 w-full lg:w-1/3">
                                 <div className="form-control flex items-center">
                                     <label className="cursor-pointer flex flex-row gap-2 items-center">
-                                        <span className="font-bold text-xl md:text-2xl">BILLED YEARLY </span>
+                                        <span className="font-semibold text-md md:text-lg ">BILLED YEARLY </span>
                                         <input
                                             type="checkbox"
                                             className="toggle"
@@ -57,19 +57,21 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 bg-white">
-                            <div className="flex flex-col gap-y-8 border border-b-0 border-black font-normal ">
-                                <div className="subheading font-semibold text-3xl md:text-4xl justify-around mt-16 mx-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 bg-white w-2/5">
+                            <div className="flex flex-col gap-y-2 border border-b-0 border-black font-normal ">
+                                <div className="subheading font-semibold text-md md:text-lg justify-around mt-12 mx-6">
                                     {'Starter'.toUpperCase()}
                                 </div>
                                 <div className="flex flex-col gap-8 my-12 px-6">
                                     <div class="flex flex-col gap-2">
-                                        <p class="text-4xl md:text-6xl">${isToggled ? 30 * 10 : 30}</p>
-                                        <p class="font-semibold lg:text-xl sm:text-sm overflow-hidden">
+                                        <p class="text-4xl md:text-6xl font-family-times-now">
+                                            ${isToggled ? 30 * 10 : 30}
+                                        </p>
+                                        <p class="font-normal tracking-wide overflow-hidden">
                                             ${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                         </p>
                                     </div>
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col font-normal text-normal">
                                         <div>Invocations: 10,000/Month</div>
                                         <div>Execution Time Limit: 30 Seconds</div>
                                         <div>Min. Polling time: 1 Min</div>
@@ -82,25 +84,27 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     className="flex flex-col items-center mt-auto border-t border-black"
                                 >
                                     <div className="flex justify-center">
-                                        <button className="inline-block text-center p-4 font-bold">
+                                        <button className="inline-block text-center p-4 font-semibold text-md md:text-lg">
                                             {'Start Free Trial'.toUpperCase()}
                                         </button>
                                     </div>
                                 </a>
                             </div>
 
-                            <div className="flex flex-col gap-y-8 border-t border-black font-normal">
-                                <div className="subheading font-semibold text-3xl md:text-4xl justify-around mt-16 mx-6">
+                            <div className="flex flex-col gap-y-2 border-t border-black font-normal">
+                                <div className="subheading font-semibold text-md md:text-lg justify-around mt-12 mx-6">
                                     {'Team'.toUpperCase()}
                                 </div>
                                 <div className="flex flex-col gap-12 my-12 px-6">
                                     <div className="flex flex-col gap-2">
-                                        <div className="text-4xl md:text-6xl">${isToggled ? 60 * 10 : 60}</div>
-                                        <div className="font-semibold lg:text-xl sm:text-sm overflow-hidden">
+                                        <div className="text-4xl md:text-6xl font-family-times-now">
+                                            ${isToggled ? 60 * 10 : 60}
+                                        </div>
+                                        <div class="font-normal tracking-wide overflow-hidden">
                                             ${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                         </div>
                                     </div>
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col font-normal text-normal">
                                         <div>Invocations: 10,000/Month</div>
                                         <div>Execution Time Limit: 60 Seconds</div>
                                         <div>Min. Polling time: 1 Min</div>
@@ -112,7 +116,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     href="/start-trial"
                                     className="flex justify-center items-center border-t border-black bg-black text-white"
                                 >
-                                    <button className="inline-block text-center p-4 font-bold">
+                                    <button className="inline-block text-center p-4 font-semibold text-md md:text-lg">
                                         {' '}
                                         {'Start Free Trial'.toUpperCase()}
                                     </button>
@@ -193,7 +197,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 </div>
             </div>
 
-            <div className="container flex flex-col justify-center  my-12 md:my-24 ">
+            <div className="container flex flex-col justify-center  mt-12 md:mt-24 ">
                 <div className="flex flex-col border border-black">
                     <div className="flex flex-col text-xl">
                         <div className="bg-white">
@@ -209,12 +213,6 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     <NewFooter footerData={footerData} />
                 </div>
             </div>
-
-            {/* <div className="container flex flex-col justify-center  md:gap-16 gap-6 my-12 md:mb-24 ">
-                <div className="border border-black  flex flex-col gap-8 ">
-                    <NewFooter footerData={footerData} />
-                </div>
-            </div> */}
         </>
     );
 };
