@@ -157,19 +157,36 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     onClick={() => setSelectedIndex(index)}
                                 >
                                     <div>{choice.name}</div>
+
+                                    <div
+                                        className="lg:hidden mt-2 text-base md:text-lg text-gray-700 "
+                                        style={{
+                                            backgroundImage: `url('/assets/img/pricing.png')`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                        }}
+                                    >
+                                        <p className="text-base md:text-lg text-white mx-24">
+                                            {' '}
+                                            {selectedIndex === index && choice.description}
+                                        </p>
+                                    </div>
                                 </div>
                             ))}
                     </div>
+
                     <div
-                        className="flex flex-col w-full lg:w-1/2  md:py-12 px-6 md:px-12  bg-opacity-200"
+                        className="lg:flex hidden w-full lg:w-1/2 md:py-12 px-6 md:px-12 bg-opacity-200"
                         style={{
                             backgroundImage: `url('/assets/img/pricing.png')`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                         }}
                     >
-                        <div class=" p-12 h-full flex items-center justify-center">
-                            <p class="text-base md:text-lg text-white">{betterChoice[selectedIndex]?.description}</p>
+                        <div className="p-12 h-full flex items-center justify-center">
+                            <p className="text-base md:text-lg text-white">
+                                {betterChoice[selectedIndex]?.description}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -178,18 +195,18 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 <div className=" border border-t-0 border-black">
                     <div className="flex items-center justify-center  -mt-8">
                         <div className="border-t border-black flex-grow" />
-                        <div className="text-3xl md:text-4xl lg:text-6xl px-4 font-family-times-now">
+                        <div className="text-3xl md:text-4xl lg:text-6xl px-4 font-family-times-now text-center">
                             Free Services for Impactful Organizations
                         </div>
                         <div className="border-t border-black flex-grow" />
                     </div>
 
                     <div className="flex flex-col gap-4 md:gap-8 items-center text-center py-16 border-black">
-                        <div className="text-base md:text-lg xl:w-1/2">
+                        <div className="text-base md:text-lg xl:w-1/2 text-center">
                             We support organizations driving change with free access to our automation solutions
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn btn-active bg-red-700 text-white  px-6 py-2 hover:bg-black hover:text-white font-semibold text-md">
+                            <button className="btn btn-active bg-red-700 text-white  px-24 py-2 hover:bg-black hover:text-white font-semibold text-md">
                                 CLICK HERE
                             </button>
                         </div>
