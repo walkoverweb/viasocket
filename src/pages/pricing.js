@@ -166,7 +166,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                             backgroundPosition: 'center',
                                         }}
                                     >
-                                        <p className="text-base md:text-lg text-white mx-24">
+                                        <p className="text-base md:text-lg text-white md:mx-24 mx-4">
                                             {' '}
                                             {selectedIndex === index && choice.description}
                                         </p>

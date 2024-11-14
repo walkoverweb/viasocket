@@ -16,16 +16,16 @@ const NewNavbar = ({ navData, utm }) => {
         <>
             <div className={`${styles.navbar_cont}container  flex w-full flex-col mt-12`}>
                 <div className={`${styles.navbar} flex justify-between items-center w-full container gap-4`}>
-                    <div className="w-auto lg:w-[165px] h-[56px] border border-black border-b-0 p-2 flex items-center justify-center px-20">
+                    <div className="w-auto lg:w-[165px]  sm:w-[80px] h-[56px] border border-black border-b-0 p-2 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-20">
                         <Link className="flex flex-row gap-2 items-center justify-center" href="/" aria-label="logo">
                             <Image
-                                className="h-[32px] w-[32px]"
+                                className="h-[24px] sm:h-[16px] w-[24px] sm:w-[16px]"
                                 src={'/assets/brand/favicon_dark.svg'}
                                 width={32}
                                 height={32}
                                 alt="viasocket"
                             />
-                            <span className="flex items-center font-normal text-md md:text-lg">SOCKET</span>
+                            <span className="flex items-center font-normal text-xs sm:text-sm  lg:text-lg">SOCKET</span>
                         </Link>
                     </div>
 
@@ -80,7 +80,7 @@ const NewNavbar = ({ navData, utm }) => {
                                         );
                                     } else {
                                         return (
-                                            <div className="w-[165px]" key={index}>
+                                            <div className="w-[165px] " key={index}>
                                                 <Link
                                                     href={`${option.link ? option.link : '#'}`}
                                                     className="btn h-[56px] w-full normal-case text-black font-times-now text-lg font-normal border border-r-0 border-b-0  border-black bg-white hover:bg-gray-50 text-md md:text-lg"
