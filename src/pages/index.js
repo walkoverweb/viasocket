@@ -195,6 +195,34 @@ const Index = ({
         }
     };
 
+    useEffect(() => {
+        let threadId = localStorage.getItem('threadId');
+        if (!threadId) {
+            const generateRandomId = (length) =>
+                Array.from({ length }, () =>
+                    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.charAt(
+                        Math.floor(Math.random() * 62)
+                    )
+                ).join('');
+            // generate a random threadid which includes numbers and strings
+            threadId = generateRandomId(8);
+            localStorage.setItem('threadId', threadId);
+        }
+        const timer = setInterval(() => {
+            if (typeof SendDataToChatbot !== 'undefined') {
+                SendDataToChatbot({
+                    'bridgeName': 'viasocket.com',
+                    'threadId': threadId,
+                    'hideIcon': true,
+                });
+            }
+            clearInterval(timer);
+        }, 300);
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />

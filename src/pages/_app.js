@@ -31,23 +31,23 @@ export default function MyApp({ Component, pageProps, pagesData }) {
         showNavbar = true;
     }
 
-    useEffect(() => {
-        const helloConfig = {
-            widgetToken: 'a13cc',
-            show_close_button: false,
-            hide_launcher: true,
-        };
+    // useEffect(() => {
+    //     const helloConfig = {
+    //         widgetToken: 'a13cc',
+    //         show_close_button: false,
+    //         hide_launcher: true,
+    //     };
 
-        const script = document.createElement('script');
-        script.src = 'https://control.msg91.com/app/assets/widget/chat-widget.js';
-        script.onload = () => initChatWidget(helloConfig, 50);
+    //     const script = document.createElement('script');
+    //     script.src = 'https://control.msg91.com/app/assets/widget/chat-widget.js';
+    //     script.onload = () => initChatWidget(helloConfig, 50);
 
-        document.head.appendChild(script);
+    //     document.head.appendChild(script);
 
-        return () => {
-            document.head.removeChild(script);
-        };
-    }, []);
+    //     return () => {
+    //         document.head.removeChild(script);
+    //     };
+    // }, []);
 
     return (
         <>
