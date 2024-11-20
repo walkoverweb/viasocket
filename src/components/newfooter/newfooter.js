@@ -5,7 +5,7 @@ import { FaInstagramSquare, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons
 const NewFooter = ({ footerData }) => {
     const groupedData = footerData?.reduce((acc, obj) => {
         const groupName = obj.group_name;
-        if (obj?.hidden === null) {
+        if (!obj?.hidden) {
             if (!acc[groupName]) {
                 acc[groupName] = [];
             }
@@ -78,7 +78,7 @@ const NewFooter = ({ footerData }) => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full  min-[768px]:border-l border-black p-6 sm:p-16 border-b lg:border-b-0 border-l min-[768px]:border-t-0 md:order-3">
-                    {renderedGroups.slice(5, 6)}
+                    {renderedGroups.slice(4, 5)}
                     <div className="flex flex-col-4 gap-2 mb-12 sm:mb-24 py-4">
                         <Link
                             href={`https://www.linkedin.com/company/viasocket-walkover/`}
