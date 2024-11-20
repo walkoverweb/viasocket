@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to }) => {
+const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to, utm_source }) => {
     useLayoutEffect(() => {
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
