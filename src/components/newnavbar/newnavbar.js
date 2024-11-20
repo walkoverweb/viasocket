@@ -1,132 +1,136 @@
-import { MdMenu } from 'react-icons/md';
+import { MdMenu, MdLogin, MdPersonAdd } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './newnavbar.module.scss';
-import NotificationBar from '../notificationBar/notificationbar';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const NewNavbar = ({ navData, utm }) => {
-    var shorterData;
+    let shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
             return parseInt(a.priority) - parseInt(b.priority);
         });
     }
+
     return (
         <>
-            <div className={`${styles.navbar_cont} flex w-full flex-col mt-12`}>
-                <div className={`${styles.navbar} flex justify-between items-center w-full container `}>
-                    <div className="border-2 border-black p-4">
-                        <Link href="/" aria-label="logo">
-                            <Image
-                                className="h-[40px] w-auto"
-                                src={'/assets/brand/logo.svg'}
-                                width={1080}
-                                height={400}
-                                alt="viasocket"
-                            />
-                        </Link>
+            <div className={`${styles.navbar_cont} container flex flex-col w-full mt-12 mb-0`}>
+                <div className="flex items-center justify-between w-full  ">
+                    <div className=" border border-black border-b-0 ">
+                        <div className="flex items-center h-12 px-3 lg:px-4 ">
+                            <Link href="/" aria-label="logo" className="flex items-center gap-2">
+                                <Image
+                                    src="/assets/brand/favicon_dark.svg"
+                                    width={32}
+                                    height={32}
+                                    alt="viasocket"
+                                    className="h-6 w-6"
+                                />
+                                <span className="text-lg font-semibold hidden sm:inline font-times-now text-lg font-normal">
+                                    SOCKET
+                                </span>
+                            </Link>
+                        </div>
                     </div>
 
-                    <div className="gap-6 lg:gap-0 lg:flex hidden ">
+                    <div className="hidden lg:flex items-center flex-1 justify-end ">
                         {shorterData &&
-                            shorterData.map((option, index) => {
-                                if (option.group_name === null && option.is_mininavonly === null) {
-                                    if (option.is_parent) {
-                                        return (
-                                            <div className="dropdown dropdown-bottom " key={index}>
-                                                <div
-                                                    tabIndex={0}
-                                                    role="button"
-                                                    className=" flex items-center gap-1 hover:underline"
-                                                    aria-label="nav option"
-                                                >
-                                                    <span>{option?.name}</span>
-                                                    <MdOutlineKeyboardArrowDown size={20} />
-                                                </div>
-                                                <ul
-                                                    tabIndex={0}
-                                                    className="dropdown-content z-[1] menu  shadow bg-base-100  w-52"
-                                                >
-                                                    {shorterData.map((child, childIndex) => {
-                                                        if (child.group_name && child.group_name === option.name) {
-                                                            return (
-                                                                <li key={childIndex}>
-                                                                    {child.name === 'Live Chat' ? (
-                                                                        <button
-                                                                            onClick={openChatWidget}
-                                                                            aria-label="Chat"
-                                                                        >
-                                                                            Live Chat
-                                                                        </button>
-                                                                    ) : (
-                                                                        <Link
-                                                                            href={`${child.link ? child.link : ''}`}
-                                                                            target="_blank"
-                                                                            aria-label="logo"
-                                                                        >
-                                                                            {child.name}
-                                                                        </Link>
-                                                                    )}
-                                                                </li>
-                                                            );
-                                                        }
-                                                    })}
-                                                </ul>
-                                            </div>
-                                        );
-                                    } else {
-                                        return (
-                                            <Link
-                                                key={index}
-                                                href={`${option.link ? option.link : '#'}`}
-                                                className="  hover:underline border border-black p-6"
-                                                target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
-                                                aria-label={option?.name}
+                            shorterData.map((option, index) => (
+                                <div key={index} className="relative">
+                                    {option.is_parent ? (
+                                        <div className="dropdown dropdown-hover">
+                                            <button
+                                                tabIndex={0}
+                                                className="btn text-base text-black bg-white border border-black  flex items-center justify-between w-auto lg:w-40 h-10"
                                             >
-                                                {option?.name}
-                                            </Link>
-                                        );
-                                    }
-                                }
-                            })}
-                        <div className="border border-black p-3 bg-white">
-                            <Link href={`/login?utm_source=${utm}`} className="btn p-4  bg-white btn-sm border-none ">
-                                Login
-                            </Link>
-                        </div>
-                        <div className="border border-black p-3 bg-red-700">
-                            <Link
-                                href={`/signup?utm_source=${utm}`}
-                                className="btn bg-red-700 btn-sm p-4 border-none text-white"
-                            >
-                                Sign Up
-                            </Link>
-                        </div>
+                                                {option.name}
+                                                <MdOutlineKeyboardArrowDown size={20} />
+                                            </button>
+                                            <ul
+                                                tabIndex={0}
+                                                className="dropdown-content menu shadow bg-white border border-gray-200 w-40"
+                                            >
+                                                {shorterData.map(
+                                                    (child, childIndex) =>
+                                                        child.group_name === option.name && (
+                                                            <li key={childIndex}>
+                                                                <Link
+                                                                    href={child.link || '#'}
+                                                                    className="text-black text-sm hover:bg-gray-100 px-2 py-1 block "
+                                                                >
+                                                                    {child.name}
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                )}
+                                            </ul>
+                                        </div>
+                                    ) : (
+                                        <Link
+                                            href={option.link || '#'}
+                                            className="btn w-40 h-10 text-base text-black bg-white border border-black lg:border-r-0 lg:border-b-0 flex items-center justify-center"
+                                        >
+                                            {option.name}
+                                        </Link>
+                                    )}
+                                </div>
+                            ))}
                     </div>
-                    <div className="dropdown dropdown-end lg:hidden block">
-                        <div tabIndex={0} role="button" className="" aria-label="dropdown nav">
-                            <MdMenu className="w-[24px] h-[24px]" />
+
+                    <div className="flex items-center ">
+                        <Link
+                            href={`/login?utm_source=${utm}`}
+                            className="hidden lg:inline-block btn px-4 py-2 text-black  bg-white font-times-now text-lg font-normal border border-r-0 border-b-0 border-black bg-white hover:bg-gray-50 text-md md:text-lgw-auto lg:w-40 h-10"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            href={`/signup?utm_source=${utm}`}
+                            className="hidden lg:inline-block btn px-4 py-2  text-white font-times-now text-lg font-normal border border-black border-b-0 bg-red-700 hover:bg-red-800 text-md md:text-lg w-auto lg:w-40 h-10"
+                        >
+                            Sign Up
+                        </Link>
+
+                        <Link
+                            href={`/login?utm_source=${utm}`}
+                            className="lg:hidden text-black p-3  border border-black border-b-0 border-r-0 "
+                            aria-label="Login"
+                        >
+                            <MdLogin size={24} />
+                        </Link>
+                        <Link
+                            href={`/signup?utm_source=${utm}`}
+                            className="lg:hidden text-white p-3  bg-red-700 hover:bg-red-800 border border-black border-b-0 border-r-0"
+                            aria-label="Sign Up"
+                        >
+                            <MdPersonAdd size={24} />
+                        </Link>
+
+                        <div className="dropdown dropdown-end lg:hidden">
+                            <button
+                                tabIndex={0}
+                                className="p-3 border border-black border-b-0  bg-white "
+                                aria-label="Menu"
+                            >
+                                <MdMenu size={24} />
+                            </button>
+                            <ul
+                                tabIndex={0}
+                                className="dropdown-content menu  shadow bg-white border border-gray-300 w-48 "
+                            >
+                                {shorterData &&
+                                    shorterData.map((option, index) => (
+                                        <li key={index}>
+                                            <Link
+                                                href={option.link || '#'}
+                                                className="text-black text-sm hover:bg-gray-100 block px-2 "
+                                            >
+                                                {option.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                            </ul>
                         </div>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100  w-52 shadow-lg">
-                            {shorterData &&
-                                shorterData.map((option, index) => {
-                                    if (!option.is_parent) {
-                                        return (
-                                            <li key={index}>
-                                                <Link
-                                                    href={`${option.link ? option.link : '#'}`}
-                                                    target="_blank"
-                                                    aria-label={option?.name}
-                                                >
-                                                    {' '}
-                                                    {option?.name}
-                                                </Link>
-                                            </li>
-                                        );
-                                    }
-                                })}
-                        </ul>
                     </div>
                 </div>
             </div>
