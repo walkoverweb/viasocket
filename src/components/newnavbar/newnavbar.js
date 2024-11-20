@@ -17,7 +17,7 @@ const NewNavbar = ({ navData, utm }) => {
             <div className={`${styles.navbar_cont} container flex flex-col w-full mt-12 mb-0`}>
                 <div className="flex items-center justify-between w-full  ">
                     <div className=" border border-black border-b-0 ">
-                        <div className="flex items-center p-2 lg:px-4 ">
+                        <div className="flex items-center h-12 px-3 lg:px-4 ">
                             <Link href="/" aria-label="logo" className="flex items-center gap-2">
                                 <Image
                                     src="/assets/brand/favicon_dark.svg"
