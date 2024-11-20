@@ -6,9 +6,9 @@ export default function ChatWidget() {
     const [launcher, setLauncher] = useState(false);
     const toggleChatWidget = () => {
         if (launcher) {
-            window.chatWidget.close();
+            window.openChatbot();
         } else {
-            window.chatWidget.open();
+            window.openChatbot();
         }
         setLauncher(!launcher);
     };
