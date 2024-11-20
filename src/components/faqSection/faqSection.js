@@ -14,11 +14,17 @@ export default function FAQSection({ faqData, faqName }) {
                             {faqData.map((faq, index) => {
                                 if (faq?.page === faqName)
                                     return (
-                                        <div key={index} className="collapse collapse-plus border-b rounded-none">
-                                            <input type="radio" name="my-accordion-3" defaultChecked={index == 0} />
-                                            <div className="collapse-title text-xl font-medium">{faq?.que}</div>
-                                            <div className="collapse-content flex flex-col gap-2  text-lg">
-                                                <p>{faq?.ans}</p>
+                                        <div key={index} className="collapse collapse-arrow border-none rounded-none">
+                                            <input
+                                                type="radio"
+                                                name="my-accordion-3 border-none "
+                                                defaultChecked={index == 0}
+                                            />
+                                            <div className="collapse-title text-xl font-medium px-0  border-none">
+                                                {faq?.que}
+                                            </div>
+                                            <div className="collapse-content flex flex-col gap-2 text-lg px-0 mx-0 bg-none border-none">
+                                                <p className="bg-white">{faq?.ans}</p>
                                                 {faq?.link && <LinkButton title="Learn More" href={faq?.link} />}
                                             </div>
                                         </div>

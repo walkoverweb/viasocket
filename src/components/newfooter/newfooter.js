@@ -68,15 +68,15 @@ const NewFooter = ({ footerData }) => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4 w-full border-l border-b border-black p-6 sm:p-16  md:order-1">
+                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4 w-full border-l border-b border-black p-6 sm:p-16 lg:border-b-0 md:order-1">
                     {renderedGroups.slice(0, 2)}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4 w-full border-l border-black p-6 sm:p-16 min-[768px]:border-l min-[1024px]:border-l md:order-2  border-b min-[1024]:border-b-0 ">
+                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4 w-full border-l border-black p-6 sm:p-16 lg:border-b-0 md:order-2 border-b">
                     {renderedGroups.slice(2, 4)}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4 w-full  min-[768px]:border-l border-black p-6 sm:p-16 border-b min-[1024]:border-b-0  border-l min-[768px]:border-t-0 md:order-3">
+                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4 w-full  min-[768px]:border-l border-black p-6 sm:p-16 border-b lg:border-b-0 border-l min-[768px]:border-t-0 md:order-3">
                     {renderedGroups.slice(4, 6)}
                 </div>
             </div>
