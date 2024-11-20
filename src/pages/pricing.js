@@ -114,7 +114,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 </div>
                                 <a
                                     href="/start-trial"
-                                    className="flex justify-center items-center border-t border-black bg-black text-white"
+                                    className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
                                 >
                                     <button className="inline-block text-center p-4 font-semibold text-md ">
                                         {' '}
@@ -196,7 +196,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
             </div>
             <div className="container flex flex-col justify-center  gap-6 md:gap-16 my-24 md:my-48">
                 <div className=" border border-t-0 border-black">
-                    <div className="flex items-center justify-center  -mt-8">
+                    <div className="flex items-center justify-center sm:-mt-5 md:-mt-5 lg:-mt-8">
                         <div className="border-t border-black flex-grow" />
                         <div className="text-3xl md:text-4xl lg:text-6xl px-4 font-family-times-now text-center">
                             Free Services for Impactful Organizations
@@ -209,7 +209,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             We support organizations driving change with free access to our automation solutions
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn btn-active bg-red-700 text-white  px-24 py-2 hover:bg-black hover:text-white font-semibold text-md">
+                            <button className="btn btn-active bg-red-700 text-white  px-20 py-2 hover:bg-black hover:text-white font-semibold text-md">
                                 CLICK HERE
                             </button>
                         </div>
@@ -217,7 +217,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 </div>
             </div>
 
-            <div className="container flex flex-col justify-center  my-24 md:my-48 ">
+            <div className="container flex flex-col justify-center  my-24 md:mt-48 ">
                 <div className="flex flex-col border border-black">
                     <div className="flex flex-col text-xl">
                         <div className="bg-white">
