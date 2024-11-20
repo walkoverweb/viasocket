@@ -26,6 +26,7 @@ export async function getServerSideProps() {
 const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaData, getStartedData, faqName }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
+
     return (
         <>
             <NewNavbar navData={navData} utm={'pricing'} />
