@@ -158,25 +158,28 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 >
                                     <div>{choice.name}</div>
 
-                                    <div
-                                        className="lg:hidden mt-2 text-base md:text-lg text-gray-700 "
-                                        style={{
-                                            backgroundImage: `url('/assets/img/pricing.png')`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
-                                        }}
-                                    >
-                                        <p className="text-base md:text-lg text-white md:mx-24 mx-4">
-                                            {' '}
-                                            {selectedIndex === index && choice.description}
-                                        </p>
-                                    </div>
+                                    {selectedIndex === index && (
+                                        <div
+                                            className="lg:hidden mt-2 text-base md:text-lg text-gray-700"
+                                            style={{
+                                                backgroundImage: `url('/assets/img/pricing.png')`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                            }}
+                                        >
+                                            <div className=" md:p-8 mx-4 md:mx-24">
+                                                <p className="text-base md:text-lg text-white  p-4">
+                                                    {choice.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                     </div>
 
                     <div
-                        className="lg:flex hidden w-full lg:w-1/2 md:py-12 px-6 md:px-12 bg-opacity-200"
+                        className="lg:flex hidden w-full lg:w-1/2 md:py-12 px-6 md:px-12 bg-opacity-200 "
                         style={{
                             backgroundImage: `url('/assets/img/pricing.png')`,
                             backgroundSize: 'cover',
@@ -226,7 +229,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                         </div>
                     </div>
                 </div>
-                <div className="border border-black  border-t-0 flex flex-col gap-8 ">
+                <div className="border border-black border-l-0 border-b-0  border-t-0 flex flex-col gap-8 ">
                     <NewFooter footerData={footerData} />
                 </div>
             </div>
