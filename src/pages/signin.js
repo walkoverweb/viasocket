@@ -6,6 +6,7 @@ import { getDbdashData } from './api';
 
 export async function getServerSideProps() {
     const { redirect_to } = context.query;
+    const { utm_source } = context?.query;
     const IDs = ['tblvo36my'];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -15,6 +16,7 @@ export async function getServerSideProps() {
         props: {
             features: results[0].data.rows,
             redirect_to,
+            utm_source: utm_source || 'website',
         },
     };
 }
@@ -46,6 +48,10 @@ const Login = ({ features, redirect_to }) => {
                 redirect_path: redirect_to,
             };
         }
+        configuration.state = JSON.stringify({
+            utm_source: utm_source,
+        });
+
         if (typeof window.initVerification === 'function') {
             window.initVerification(configuration);
         } else {
