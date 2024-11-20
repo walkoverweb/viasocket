@@ -44,6 +44,16 @@
     }
 }
 
+.collapse:not(.collapse-close):has(> input[type='radio']:checked) .collapse-title {
+    background: none;
+}
+// temp{
+#interfaceEmbed {
+    display: none !important;
+    opacity: 0;
+    height: 0px !important;
+}
+
 .form-parent {
     position: fixed;
     top: 50%;
