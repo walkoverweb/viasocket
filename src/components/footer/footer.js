@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Footer = ({ footerData }) => {
     const groupedData = footerData?.reduce((acc, obj) => {
         const groupName = obj.group_name;
-        if (obj?.hidden === null) {
+        if (!obj?.hidden) {
             if (!acc[groupName]) {
                 acc[groupName] = [];
             }
