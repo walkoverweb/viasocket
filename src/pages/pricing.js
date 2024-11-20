@@ -44,7 +44,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 <br />
                                 No credit card required.
                             </h2>
-                            <div className="border border-black py-4 w-full lg:w-1/3">
+                            <div className="border border-black py-4 w-full lg:w-1/2 xl:w-1/3">
                                 <div className="form-control flex items-center ">
                                     <label className="cursor-pointer flex flex-row gap-2 items-center">
                                         <span className="font-semibold text-md  ">BILLED YEARLY </span>
