@@ -7,6 +7,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
+    const { utm_source } = context?.query;
 
     const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656'];
 
@@ -19,6 +20,7 @@ export async function getServerSideProps(context) {
             testimonials: results[1].data.rows,
             metaData: results[2].data.rows,
             redirect_to: redirect_to || '',
+            utm_source: utm_source || 'website',
         },
     };
 }
@@ -40,15 +42,10 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to }) =>
                 redirect_path: redirect_to,
             };
         }
-        if (pathArray.length > 0) {
-            configuration.state = JSON.stringify({
-                utm_source: pathArray.join('/'),
-            });
-        } else {
-            configuration.state = {
-                'utm_source': 'website',
-            };
-        }
+        configuration.state = JSON.stringify({
+            utm_source: utm_source,
+        });
+
         if (typeof window.initVerification === 'function') {
             window.initVerification(configuration);
         } else {
