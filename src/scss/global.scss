@@ -43,7 +43,9 @@
         @apply bg-slate-300 px-1;
     }
 }
-
+.collapse:not(.collapse-close):has(> input[type='radio']:checked) .collapse-title {
+    background: none;
+}
 // temp{
 #interfaceEmbed {
     display: none !important;
