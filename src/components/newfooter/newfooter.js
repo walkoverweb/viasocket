@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaInstagramSquare, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaInstagramSquare, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter, FaInstagram } from 'react-icons/fa6';
+import { FiLinkedin, FiYoutube } from 'react-icons/fi';
 
 const NewFooter = ({ footerData }) => {
     const groupedData = footerData?.reduce((acc, obj) => {
@@ -79,27 +81,27 @@ const NewFooter = ({ footerData }) => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8 w-full  min-[768px]:border-l border-black p-6 sm:p-16 border-b lg:border-b-0 border-l min-[768px]:border-t-0 md:order-3">
                     {renderedGroups.slice(4, 5)}
-                    <div className="flex flex-col-4 gap-2 mb-12 sm:mb-24 py-4">
-                        <Link
-                            href={`https://www.linkedin.com/company/viasocket-walkover/`}
-                            className=""
-                            aria-label="facebook"
-                        >
-                            <FaLinkedin size={24} />
-                        </Link>
-
-                        <Link href={`https://www.youtube.com/@viasocket`} className="" aria-label="youtube">
-                            <FaYoutube size={24} />
-                        </Link>
-                        <Link href={`https://x.com/viasocket`} className="" aria-label="twitter">
-                            <FaTwitter size={24} />
-                        </Link>
+                    <div className="flex flex-col-4 gap-2 mb-12 sm:mb-24 py-4 gap-4">
                         <Link
                             href={`https://www.instagram.com/walkover.inc/?igsh=MWEyZnptZmw3Z3phOQ%3D%3D`}
                             className=""
                             aria-label="instagram"
                         >
-                            <FaInstagramSquare size={24} />
+                            <FaInstagram size={24} />
+                        </Link>
+                        <Link
+                            href={`https://www.linkedin.com/company/viasocket-walkover/`}
+                            className=""
+                            aria-label="facebook"
+                        >
+                            <FiLinkedin size={24} />
+                        </Link>
+
+                        <Link href={`https://x.com/viasocket`} className="" aria-label="twitter">
+                            <FaXTwitter size={24} />
+                        </Link>
+                        <Link href={`https://www.youtube.com/@viasocket`} className="" aria-label="youtube">
+                            <FiYoutube size={24} />
                         </Link>
                     </div>
                 </div>
