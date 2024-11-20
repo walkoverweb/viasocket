@@ -5,7 +5,19 @@
 
 //check import file for imports
 @import 'import';
+.heading {
+    font-family: 'Times Now';
+}
+.font-family-times-now {
+    font-family: 'Times Now';
+}
+.toggle:checked {
+    @apply bg-black text-white;
+}
 
+.toggle:checked + .font-semibold.text-md {
+    @apply text-white;
+}
 .casestudy_img {
     // height: 295px!important;
     // overflow: hidden;
@@ -30,6 +42,16 @@
     .active {
         @apply bg-slate-300 px-1;
     }
+}
+
+.collapse:not(.collapse-close):has(> input[type='radio']:checked) .collapse-title {
+    background: none;
+}
+// temp{
+#interfaceEmbed {
+    display: none !important;
+    opacity: 0;
+    height: 0px !important;
 }
 
 .form-parent {
@@ -58,6 +80,23 @@
 
 .wrapper {
     border-radius: 4px !important;
+}
+.gradient-background {
+    background: linear-gradient(300deg, #a2ffe0, #ccd9fc, #fdcdf2, #fff1a9);
+    background-size: 240% 240%;
+    animation: gradient-animation 24s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 .rmsc {
     .dropdown-container {

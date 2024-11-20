@@ -551,6 +551,7 @@ const Index = ({
                         <BlogGrid posts={posts} />
                     </div>
                 )}
+
                 {faqData?.length > 0 && <FAQSection faqData={faqData} faqName={'/index'} />}
                 {getStartedData && (
                     <div className="container">
