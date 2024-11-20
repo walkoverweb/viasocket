@@ -25,7 +25,7 @@ export default function GetStarted({ data, isHero }) {
                                         key={index}
                                         href={faq?.link && faq?.link}
                                         target={faq?.link === '#chat' ? '' : '_blank'}
-                                        onClick={() => faq?.link === '#chat' && window.chatWidget.open()}
+                                        onClick={() => faq?.link === '#chat' && window.openChatbot()}
                                         aria-label="chat"
                                     >
                                         <button

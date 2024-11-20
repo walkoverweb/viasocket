@@ -43,6 +43,7 @@
         @apply bg-slate-300 px-1;
     }
 }
+
 .collapse:not(.collapse-close):has(> input[type='radio']:checked) .collapse-title {
     background: none;
 }
@@ -52,6 +53,7 @@
     opacity: 0;
     height: 0px !important;
 }
+
 .form-parent {
     position: fixed;
     top: 50%;
