@@ -11,6 +11,7 @@ const NewNavbar = ({ navData, utm }) => {
             return parseInt(a.priority) - parseInt(b.priority);
         });
     }
+    console.log('🚀 ~ NewNavbar ~ shorterData:', shorterData);
 
     return (
         <>
@@ -54,12 +55,13 @@ const NewNavbar = ({ navData, utm }) => {
                                                     (child, childIndex) =>
                                                         child.group_name === option.name && (
                                                             <li key={childIndex}>
-                                                                <Link
+                                                                <a
+                                                                    target="_blank"
                                                                     href={child.link || '#'}
                                                                     className="text-black text-sm hover:bg-gray-100 px-2 py-1 block "
                                                                 >
                                                                     {child.name}
-                                                                </Link>
+                                                                </a>
                                                             </li>
                                                         )
                                                 )}
@@ -67,6 +69,7 @@ const NewNavbar = ({ navData, utm }) => {
                                         </div>
                                     ) : (
                                         <Link
+                                            target={option.link?.startsWith('http') ? '_blank' : '_self'}
                                             href={option.link || '#'}
                                             className="btn w-40 h-10 text-base text-black bg-white border border-black lg:border-r-0 lg:border-b-0 flex items-center justify-center"
                                         >
