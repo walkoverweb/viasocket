@@ -69,7 +69,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                             ${isToggled ? 30 * 10 : 30}
                                         </p>
                                         <p class="font-normal tracking-wide overflow-hidden">
-                                            ${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                            /{isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                         </p>
                                     </div>
                                     <div className="flex flex-col font-normal text-normal">
@@ -102,7 +102,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                             ${isToggled ? 60 * 10 : 60}
                                         </div>
                                         <div class="font-normal tracking-wide overflow-hidden">
-                                            ${isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                            /{isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                         </div>
                                     </div>
                                     <div className="flex flex-col font-normal text-normal">
