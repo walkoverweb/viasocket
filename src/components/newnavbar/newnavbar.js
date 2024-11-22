@@ -11,7 +11,6 @@ const NewNavbar = ({ navData, utm }) => {
             return parseInt(a.priority) - parseInt(b.priority);
         });
     }
-    console.log('🚀 ~ NewNavbar ~ shorterData:', shorterData);
 
     return (
         <>

@@ -34,7 +34,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                 <div className="border border-black gradient-background">
                     <div className="h-28 "></div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
-                        <div className=" flex flex-col gap-8 p-12 justify-center ">
+                        <div className=" flex flex-col gap-8 md:p-12 p-6 justify-center ">
                             <h1 className="heading md:text-6xl overflow-hidden text-60px leading-normal tracking-lose-0p5 font-family-times-now ">
                                 Simple Pricing for Powerful Automation
                             </h1>
@@ -44,19 +44,16 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                 <br />
                                 No credit card required.
                             </h2>
-                            <div className="border border-black py-4 w-full lg:w-1/2 xl:w-1/3">
-                                <div className="form-control flex items-center ">
-                                    <label className="cursor-pointer flex flex-row gap-2 items-center">
-                                        <span className="font-semibold text-md  ">BILLED YEARLY </span>
-                                        <input
-                                            type="checkbox"
-                                            className="toggle"
-                                            checked={isToggled}
-                                            onChange={() => setIsToggled(!isToggled)}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
+
+                            <label className="cursor-pointer flex flex-row gap-3 items-center p-4 border border-black w-fit hover:bg-slate-50 transition-all duration-300">
+                                <span className="font-semibold text-md  ">BILLED YEARLY </span>
+                                <input
+                                    type="checkbox"
+                                    className="toggle"
+                                    checked={isToggled}
+                                    onChange={() => setIsToggled(!isToggled)}
+                                />
+                            </label>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 bg-white ">
                             <div className="flex flex-col gap-y-2 border border-l-0 min-[1003px]:border-l border-r-0 min-[768px]:border-r border-b-0 border-black font-normal ">
@@ -69,7 +66,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                             ${isToggled ? 30 * 10 : 30}
                                         </p>
                                         <p class="font-normal tracking-wide overflow-hidden">
-                                            /{isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                            {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                         </p>
                                     </div>
                                     <div className="flex flex-col font-normal text-normal">
@@ -102,7 +99,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                             ${isToggled ? 60 * 10 : 60}
                                         </div>
                                         <div class="font-normal tracking-wide overflow-hidden">
-                                            /{isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                            {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                         </div>
                                     </div>
                                     <div className="flex flex-col font-normal text-normal">
@@ -195,7 +192,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     </div>
                 </div>
             </div>
-            <div className="container flex flex-col justify-center  gap-6 md:gap-16 my-24 md:my-48">
+            <div className="container flex flex-col justify-center  gap-6 md:gap-18 my-24 md:my-48">
                 <div className=" border border-t-0 border-black">
                     <div className="flex items-center justify-center sm:-mt-5 md:-mt-5 lg:-mt-8">
                         <div className="border-t border-black flex-grow" />
@@ -205,7 +202,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                         <div className="border-t border-black flex-grow" />
                     </div>
 
-                    <div className="flex flex-col gap-4 md:gap-8 items-center text-center py-16 border-black">
+                    <div className="flex flex-col gap-4 md:gap-8 items-center text-center py-8 border-black">
                         <div className="text-base md:text-lg xl:w-1/2 text-center">
                             We support organizations driving change with free access to our automation solutions
                         </div>
