@@ -3,7 +3,7 @@ import { getDbdashData } from './api';
 //import Footer from '@/components/footer/footer';
 import { useState } from 'react';
 
-import IntegrationFooter from '@/components/integrationsComp/integrationsFooter/integrationsFooter';
+import IntegrationFooter from '@/components/integrationsCompOLD/integrationsFooter/integrationsFooter';
 import NewFooter from '@/components/newfooter/newfooter';
 import React from 'react';
 import NewNavbar from '@/components/newnavbar/newnavbar';

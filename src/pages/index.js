@@ -9,7 +9,7 @@ import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
+import ComboGrid from '@/components/integrationsCompOLD/integrationsHero/comboGrid/comboGrid';
 import fetchSearchResults from '@/utils/searchIntegrationApps';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
