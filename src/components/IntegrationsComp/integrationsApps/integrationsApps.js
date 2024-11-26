@@ -6,7 +6,7 @@ import { MdAdd, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown } from 'react
 import categories from '@/assets/data/categories.json';
 import Autocomplete from 'react-autocomplete';
 
-export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
+export default function IntegrationsApps({ data, pageInfo, apps, query, pluginData, showCategories }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
     const [searchedApps, setSearchedApps] = useState([]);

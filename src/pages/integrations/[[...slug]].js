@@ -1,4 +1,4 @@
-import IntegrationsHeaderComp from '@/components/IntegrationsComp/IntegrationsHeaderComp';
+import IntegrationsHeaderComp from '@/components/IntegrationsComp/IntegrationsHeaderComp/IntegrationsHeaderComp';
 import getPageData from '@/utils/getPageData';
 import getPageInfo from '@/utils/getPageInfo';
 

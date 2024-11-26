@@ -78,7 +78,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     <div>For individuals who need higher limits.</div>
                                 </div>
                                 <a
-                                    href="/start-trial"
+                                    href={`/signup?utm_source=pricing&plan=starter&duration=${isToggled ? 'yearly' : 'monthly'}`}
                                     className="flex flex-col items-center mt-auto border-t border-black"
                                 >
                                     <div className="flex justify-center">
@@ -111,7 +111,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     <div>For teams who want to collaborate on work.</div>
                                 </div>
                                 <a
-                                    href="/start-trial"
+                                    href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
                                     className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
                                 >
                                     <button className="inline-block text-center p-4 font-semibold text-md ">
@@ -192,7 +192,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     </div>
                 </div>
             </div>
-            <div className="container flex flex-col justify-center  gap-6 md:gap-18 my-24 md:my-48">
+            {/* <div className="container flex flex-col justify-center  gap-6 md:gap-18 my-24 md:my-48">
                 <div className=" border border-t-0 border-black">
                     <div className="flex items-center justify-center sm:-mt-5 md:-mt-5 lg:-mt-8">
                         <div className="border-t border-black flex-grow" />
@@ -207,13 +207,13 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                             We support organizations driving change with free access to our automation solutions
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn btn-active bg-red-700 text-white  px-20 py-2 hover:bg-black hover:text-white font-semibold text-md">
+                            <a  href='https://viasocket.com/blog/best-software-discounts-for-nonprofit-2024/' target='_blank' className="btn btn-active bg-red-700 text-white  px-20 py-2 hover:bg-black hover:text-white font-semibold text-md">
                                 CLICK HERE
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="container flex flex-col justify-center  my-24 md:mt-48 ">
                 <div className="flex flex-col border border-black">

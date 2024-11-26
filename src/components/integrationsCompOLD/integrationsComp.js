@@ -1,5 +1,5 @@
 import IntegrationsHero from './integrationsHero/integrationsHero';
-import IntegrationsApps from './integrationsApps/integrationsApps';
+import IntegrationsApps from '../IntegrationsComp/integrationsApps/integrationsApps';
 import FAQSection from '../faqSection/faqSection';
 import IntegrationsAbout from './integrationsAbout/integrationsAbout';
 import BlogGrid from '../blogGrid/blogGrid';
