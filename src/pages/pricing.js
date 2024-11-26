@@ -78,7 +78,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     <div>For individuals who need higher limits.</div>
                                 </div>
                                 <a
-                                    href="/start-trial"
+                                    href={`/signup?utm_source=pricing&plan=starter&duration=${isToggled ? 'yearly' : 'monthly'}`}
                                     className="flex flex-col items-center mt-auto border-t border-black"
                                 >
                                     <div className="flex justify-center">
@@ -111,7 +111,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                                     <div>For teams who want to collaborate on work.</div>
                                 </div>
                                 <a
-                                    href="/start-trial"
+                                    href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
                                     className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
                                 >
                                     <button className="inline-block text-center p-4 font-semibold text-md ">
