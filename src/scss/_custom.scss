@@ -50,6 +50,16 @@
     }
 }
 
+.cont {
+    @apply flex flex-col;
+    &__py {
+        @apply py-20;
+    }
+    &__gap {
+        @apply gap-4;
+    }
+}
+
 .tooltip-error {
     --tooltip-color: #4b4b4b;
     --tooltip-text-color: white;

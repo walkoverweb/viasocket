@@ -3,3 +3,13 @@
     src: url('../../public/fonts/times-now/TimesNow-Light.woff');
     font-style: normal;
 }
+
+.h1 {
+    @apply text-5xl font-bold;
+}
+
+.sub {
+    &__h1 {
+        @apply text-xl;
+    }
+}
