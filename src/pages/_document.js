@@ -14,11 +14,11 @@ export default function Document({ pagesData }) {
             </head>
             <Head></Head>
             <body>
-                <script
+                {/* <script
                     id="chatbot-main-script"
                     embedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdfaWQiOiIxMjc3IiwiY2hhdGJvdF9pZCI6IjY2NTA2MjhhZDQ4ZTIwZTYxY2Y3MDFhMCIsInVzZXJfaWQiOiJxYXp3c3hlZGNyZiIsImlhdCI6MTczMjAxNDcyMn0._38nKpNX9oNkRPldK8FonqWTe6eBHTWzFJWJ2PkSnew"
                     src="https://chatbot-embed.viasocket.com/chatbot-prod.js"
-                ></script>
+                ></script> */}
                 <noscript>
                     <iframe
                         src="https://www.googletagmanager.com/ns.html?id=GTM-THTCRSLN"
