@@ -6,9 +6,10 @@ import { MdAdd, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown } from 'react
 import categories from '@/assets/data/categories.json';
 import Autocomplete from 'react-autocomplete';
 
-export default function IntegrationsApps({ data, pageInfo, apps, query, pluginData, showCategories }) {
+export default function IntegrationsApps({ data, pageInfo, apps, pluginData }) {
+    const query = pageInfo?.query;
     const [searchTerm, setSearchTerm] = useState('');
-    const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
+    const [catSearchTerm, setCatSearchTerm] = useState(query?.category);
     const [searchedApps, setSearchedApps] = useState([]);
     const [debounceValue, setDebounceValue] = useState('');
     const [searchLoading, setSearchLoading] = useState(false);
@@ -47,6 +48,7 @@ export default function IntegrationsApps({ data, pageInfo, apps, query, pluginDa
             console.log(error.message);
         }
     };
+
     const filterCategory = async (search) => {
         setCatSearchTerm(search);
         const filteredCategories = categories?.categories?.filter((category) =>
@@ -116,13 +118,13 @@ export default function IntegrationsApps({ data, pageInfo, apps, query, pluginDa
                         />
                     </div>
 
-                    {showCategories && (
+                    {data?.showCategories && (
                         <ul className=" md:flex hidden min-w-[300px] md:flex-col gap-3">
                             {categories?.categories.map((category, index) => {
                                 return (
                                     <li key={index} className={visibleCategories > index ? '' : 'hidden'}>
                                         <Link
-                                            className={query?.currentcategory === category ? 'font-bold' : ''}
+                                            className={query?.category === category ? 'font-bold' : ''}
                                             href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${category}`}
                                         >
                                             {category}
@@ -231,14 +233,14 @@ export default function IntegrationsApps({ data, pageInfo, apps, query, pluginDa
                                         <>
                                             {' '}
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.category}&page=${Number(query?.page) - 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     <MdChevronLeft /> Previous Page{' '}
                                                 </button>
                                             </Link>
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.category}&page=${Number(query?.page) - 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     {Number(query?.page) - 1}
@@ -251,14 +253,14 @@ export default function IntegrationsApps({ data, pageInfo, apps, query, pluginDa
                                     {apps?.length >= 100 && (
                                         <>
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.category}&page=${Number(query?.page) + 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     {Number(query?.page) + 1}
                                                 </button>
                                             </Link>
                                             <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
+                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.category}&page=${Number(query?.page) + 1}`}
                                             >
                                                 <button className="btn btn-primary btn-outline btn-sm ">
                                                     Next Page <MdChevronRight />
@@ -271,7 +273,7 @@ export default function IntegrationsApps({ data, pageInfo, apps, query, pluginDa
                         ) : (
                             <p className="text-2xl font-semibold text-red-600">
                                 {' '}
-                                No App fond in {query?.currentcategory} category. <br />
+                                No App fond in {query?.category} category. <br />
                                 Please select another category
                             </p>
                         )}

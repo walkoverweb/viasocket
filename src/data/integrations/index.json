@@ -2,5 +2,8 @@
     "IntegrationsHeaderComp": {
         "heading": "5000+ viaSocket Integrations",
         "subheading": "Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing, E-Commerce, Helpdesk, Payments, Web forms, Collaboration, and more for streamlined business success."
+    },
+    "IntegrationsApps": {
+        "showCategories": true
     }
 }

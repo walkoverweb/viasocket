@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export default async function fetchApps(query) {
+export default async function getApps(query) {
     try {
         const fetchUrl = `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all`;
         const response = await axios.get(fetchUrl, {
             headers: { 'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY },
             params: {
-                category: (query?.currentcategory !== 'All' && query?.currentcategory) || '',
+                category: (query?.category !== 'All' && query?.category) || '',
                 limit: 100,
                 offset: query?.page ? (Number(query.page) - 1) * 100 : 0,
             },

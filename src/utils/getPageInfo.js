@@ -8,6 +8,7 @@ export default function getPageInfo(params) {
         pageURL:
             '/integrations/' +
             (params?.slug?.includes('page') ? params?.slug?.slice(0, -2).join('/') : params?.slug?.join('/')),
+        query: params || {},
     };
 
     switch (params?.slug?.length) {
