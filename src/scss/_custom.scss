@@ -1,4 +1,6 @@
 .btn {
+    @apply w-fit px-10 uppercase tracking-wider;
+
     &.btn-white {
         @apply border-white text-white hover:bg-gray-700;
     }
@@ -6,6 +8,7 @@
     &.btn-primary {
         @apply hover:text-primary hover:bg-gray-100;
     }
+
     &.btn-accent {
         @apply text-white;
     }
@@ -47,6 +50,16 @@
     }
     @media only screen and (max-width: 480px) {
         @apply py-8;
+    }
+}
+
+.cont {
+    @apply flex flex-col;
+    &__py {
+        @apply py-20;
+    }
+    &__gap {
+        @apply gap-6;
     }
 }
 
@@ -98,4 +111,9 @@
         background-color: #f5f5f5;
         color: #000;
     }
+}
+
+.feature_grid {
+    background-image: url('/assets/img/program_feature_grid.png');
+    background-position: center center;
 }

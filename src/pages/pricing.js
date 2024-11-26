@@ -29,7 +29,7 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
 
     return (
         <>
-            <NewNavbar navData={navData} utm={'pricing'} />
+            <NewNavbar navData={navData} utm={'pricing'} borderClass={'border-b-0'} />
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24 ">
                 <div className="border border-black gradient-background">
                     <div className="h-28 "></div>
@@ -227,9 +227,8 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                         </div>
                     </div>
                 </div>
-                <div className="border border-black border-l-0 border-b-0  border-t-0 flex flex-col gap-8 ">
-                    <NewFooter footerData={footerData} />
-                </div>
+
+                <NewFooter footerData={footerData} borderClass={'border-t-0'} />
             </div>
         </>
     );
