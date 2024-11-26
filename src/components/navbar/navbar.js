@@ -53,7 +53,7 @@ const Navbar = ({ navData, utm }) => {
                                                                 <li key={childIndex}>
                                                                     {child.name === 'Live Chat' ? (
                                                                         <button
-                                                                            onClick={() => window.openChatbot()}
+                                                                            onClick={() => window.chatWidget.open()}
                                                                             aria-label="Chat"
                                                                         >
                                                                             Live Chat
