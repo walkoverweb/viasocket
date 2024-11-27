@@ -9,7 +9,7 @@ export default function ProductComp(props) {
     let pageData = props?.productData.find((page) => page?.name?.toLowerCase() === props?.page);
 
     const openChatWidget = () => {
-        window.openChatbot();
+        window.chatWidget.open();
     };
 
     return (

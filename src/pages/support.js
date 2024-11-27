@@ -151,7 +151,7 @@ export default function Support({ navData, footerData, metaData }) {
                             </div>
                         </div>
                         <div className="flex flex-wrap w-full gap-3">
-                            <button className="btn btn-accent" onClick={() => window.openChatbot()}>
+                            <button className="btn btn-accent" onClick={() => window.chatWidget.open()}>
                                 Live Chat
                             </button>
                             <Link href="https://calendly.com/rpaliwal71/15-mins?month=2024-07" target="_blank">
