@@ -198,7 +198,9 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <Navbar navData={navData} utm={'index'} />
+            <div className="pt-12">
+                <Navbar navData={navData} utm={'/index'} />
+            </div>
             <div className="grid gap-20">
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-2">
@@ -531,8 +533,9 @@ const Index = ({
                     </div>
                 )}
             </div>
-
-            <Footer footerData={footerData} />
+            <div className="container py-16">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };

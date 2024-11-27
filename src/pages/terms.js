@@ -25,7 +25,9 @@ const Terms = ({ navData, footerData, metaData }) => {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/terms'} />
-            <Navbar navData={navData} utm={'/terms'} />
+            <div className="pt-12">
+                <Navbar navData={navData} utm={'/terms'} />
+            </div>
             <div className="container mt-28">
                 <style
                     dangerouslySetInnerHTML={{
@@ -6932,7 +6934,9 @@ const Terms = ({ navData, footerData, metaData }) => {
                     .
                 </div>
             </div>
-            <Footer footerData={footerData} />
+            <div className="container py-16">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };
