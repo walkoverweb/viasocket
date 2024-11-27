@@ -1,132 +1,134 @@
-import { MdMenu } from 'react-icons/md';
+import { MdMenu, MdLogin, MdPersonAdd } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navbar.module.scss';
-import NotificationBar from '../notificationBar/notificationbar';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
-const Navbar = ({ navData, utm }) => {
-    var shorterData;
+export default function Navbar({ navData, utm, borderClass }) {
+    let shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
             return parseInt(a.priority) - parseInt(b.priority);
         });
     }
+
     return (
         <>
-            <div className={`${styles.navbar_cont} flex w-full flex-col `}>
-                <NotificationBar />
-                <div className={`${styles.navbar} flex justify-between items-center w-full py-4 container my-auto`}>
-                    <Link href="/" aria-label="logo">
-                        <Image
-                            className="h-[40px] w-auto"
-                            src={'/assets/brand/logo.svg'}
-                            width={1080}
-                            height={400}
-                            alt="viasocket"
-                        />
+            <div className="container justify-between lg:flex hidden">
+                <Link
+                    href="/"
+                    aria-label="logo"
+                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black ${borderClass} `}
+                >
+                    <Image
+                        src="/assets/brand/logo.svg"
+                        className="h-[32px] w-auto "
+                        width={48}
+                        height={48}
+                        alt="viasocket"
+                    />
+                </Link>
+
+                <div className="flex">
+                    {shorterData &&
+                        shorterData?.map((option, index) => {
+                            return (
+                                <Link
+                                    key={index}
+                                    target={option.link?.startsWith('http') ? '_blank' : '_self'}
+                                    href={option.link || '#'}
+                                >
+                                    <div
+                                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass}`}
+                                    >
+                                        {option.name}
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    <Link
+                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass}`}
+                        href={`/login?utm_source=${utm}`}
+                    >
+                        Login
+                    </Link>
+                    <Link
+                        className={`w-[142px] h-[56px] text-sm flex  justify-center bg-accent text-white items-center font-semibold border  border-black ${borderClass}`}
+                        href={`/signup?utm_source=${utm}`}
+                    >
+                        Sign Up
+                    </Link>
+                </div>
+            </div>
+            <div className="container justify-between  flex lg:hidden">
+                <Link
+                    href="/"
+                    aria-label="logo"
+                    className={`h-[56px] w-[192px] hidden sm:flex justify-center items-center border border-black ${borderClass}`}
+                >
+                    <Image
+                        src="/assets/brand/logo.svg"
+                        className="h-[32px] w-auto "
+                        width={48}
+                        height={48}
+                        alt="viasocket"
+                    />
+                </Link>
+                <Link
+                    href="/"
+                    aria-label="logo"
+                    className={`h-[56px] w-[56px] flex sm:hidden  justify-center items-center border border-black ${borderClass}`}
+                >
+                    <Image
+                        src="/assets/brand/favicon_dark.svg"
+                        className="h-[32px] w-auto "
+                        width={48}
+                        height={48}
+                        alt="viasocket"
+                    />
+                </Link>
+                <div className=" flex">
+                    <Link
+                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black border-r-0 ${borderClass} `}
+                        href={`/login?utm_source=${utm}`}
+                        aria-label="Login"
+                    >
+                        <MdLogin size={24} />
+                    </Link>
+                    <Link
+                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black bg-accent text-white border-r-0 ${borderClass} `}
+                        href={`/signup?utm_source=${utm}`}
+                        aria-label="Sign Up"
+                    >
+                        <MdPersonAdd size={24} />
                     </Link>
 
-                    <div className="gap-6 lg:flex hidden items-center">
-                        {shorterData &&
-                            shorterData.map((option, index) => {
-                                if (option.group_name === null && option.is_mininavonly === null) {
-                                    if (option.is_parent) {
-                                        return (
-                                            <div className="dropdown dropdown-bottom" key={index}>
-                                                <div
-                                                    tabIndex={0}
-                                                    role="button"
-                                                    className=" flex items-center gap-1 hover:underline"
-                                                    aria-label="nav option"
-                                                >
-                                                    <span>{option?.name}</span>
-                                                    <MdOutlineKeyboardArrowDown size={20} />
-                                                </div>
-                                                <ul
-                                                    tabIndex={0}
-                                                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100  w-52"
-                                                >
-                                                    {shorterData.map((child, childIndex) => {
-                                                        if (child.group_name && child.group_name === option.name) {
-                                                            return (
-                                                                <li key={childIndex}>
-                                                                    {child.name === 'Live Chat' ? (
-                                                                        <button
-                                                                            onClick={() => window.chatWidget.open()}
-                                                                            aria-label="Chat"
-                                                                        >
-                                                                            Live Chat
-                                                                        </button>
-                                                                    ) : (
-                                                                        <Link
-                                                                            href={`${child.link ? child.link : ''}`}
-                                                                            target="_blank"
-                                                                            aria-label="logo"
-                                                                        >
-                                                                            {child.name}
-                                                                        </Link>
-                                                                    )}
-                                                                </li>
-                                                            );
-                                                        }
-                                                    })}
-                                                </ul>
-                                            </div>
-                                        );
-                                    } else {
-                                        return (
-                                            <Link
-                                                key={index}
-                                                href={`${option.link ? option.link : '#'}`}
-                                                className="  hover:underline"
-                                                target={option?.name?.toLowerCase() === 'home' ? '' : '_blank'}
-                                                aria-label={option?.name}
-                                            >
-                                                {option?.name}
-                                            </Link>
-                                        );
-                                    }
-                                }
-                            })}
-                        <Link href={`/login?utm_source=${utm}`} className="btn btn-outline btn-primary btn-sm ">
-                            Login
-                        </Link>
-                        <Link
-                            href={`/signup?utm_source=${utm}`}
-                            className="btn btn-accent btn-sm outline-primary outline-1 outline"
+                    <div className="dropdown dropdown-end  ">
+                        <button
+                            tabIndex={0}
+                            className={`h-[56px] w-[56px] flex justify-center items-center border border-black ${borderClass} `}
+                            aria-label="Menu"
                         >
-                            Sign Up
-                        </Link>
-                    </div>
-                    <div className="dropdown dropdown-end lg:hidden block">
-                        <div tabIndex={0} role="button" className="" aria-label="dropdown nav">
-                            <MdMenu className="w-[24px] h-[24px]" />
-                        </div>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100  w-52 shadow-lg">
+                            <MdMenu size={24} />
+                        </button>
+                        <ul
+                            tabIndex={0}
+                            className="dropdown-content menu  shadow bg-white border border-gray-300 w-48 "
+                        >
                             {shorterData &&
-                                shorterData.map((option, index) => {
-                                    if (!option.is_parent) {
-                                        return (
-                                            <li key={index}>
-                                                <Link
-                                                    href={`${option.link ? option.link : '#'}`}
-                                                    target="_blank"
-                                                    aria-label={option?.name}
-                                                >
-                                                    {' '}
-                                                    {option?.name}
-                                                </Link>
-                                            </li>
-                                        );
-                                    }
-                                })}
+                                shorterData.map((option, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={option.link || '#'}
+                                            className="text-black text-sm hover:bg-gray-100 block px-2 "
+                                        >
+                                            {option.name}
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </div>
                 </div>
             </div>
         </>
     );
-};
-
-export default Navbar;
+}

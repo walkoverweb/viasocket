@@ -26,7 +26,10 @@ const Privacy = ({ navData, footerData, metaData }) => {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/privacy'} />
-            <Navbar navData={navData} utm={'/privacy'} />
+
+            <div className="pt-12">
+                <Navbar navData={navData} utm={'/privacy'} />
+            </div>
             <div className="container mb-4 mt-28">
                 <style
                     dangerouslySetInnerHTML={{
@@ -11260,7 +11263,9 @@ const Privacy = ({ navData, footerData, metaData }) => {
                     </div>
                 </div>
             </div>
-            <Footer footerData={footerData} />
+            <div className="container py-16">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };

@@ -1,13 +1,9 @@
 import FAQSection from '@/components/faqSection/faqSection';
 import { getDbdashData } from './api';
-//import Footer from '@/components/footer/footer';
 import { useState } from 'react';
-
-import IntegrationFooter from '@/components/integrationsComp/integrationsFooter/integrationsFooter';
-import NewFooter from '@/components/newfooter/newfooter';
 import React from 'react';
-import NewNavbar from '@/components/newnavbar/newnavbar';
-import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import Navbar from '@/components/navbar/navbar';
+import Footer from '@/components/footer/footer';
 export async function getServerSideProps() {
     const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev'];
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -23,23 +19,23 @@ export async function getServerSideProps() {
     };
 }
 
-const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaData, getStartedData, faqName }) => {
+const pricing = ({ navData, footerData, faqData, betterChoice }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
 
     return (
         <>
-            <NewNavbar navData={navData} utm={'pricing'} borderClass={'border-b-0'} />
+            <div className="pt-12">
+                <Navbar navData={navData} utm={'/pricing'} borderClass={'border-b-0'} />
+            </div>
             <div className="container flex flex-col justify-center gap-6 mb-12 md:mb-24 ">
                 <div className="border border-black gradient-background">
                     <div className="h-28 "></div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className=" flex flex-col gap-8 md:p-12 p-6 justify-center ">
-                            <h1 className="heading md:text-6xl overflow-hidden text-60px leading-normal tracking-lose-0p5 font-family-times-now ">
-                                Simple Pricing for Powerful Automation
-                            </h1>
+                            <h1 className="h1">Simple Pricing for Powerful Automation</h1>
 
-                            <h2 className="text-xl  w-full  text-[252525] font-normal text-normal">
+                            <h2 className="sub__h1">
                                 Enjoy a 30-Day Free Trial.
                                 <br />
                                 No credit card required.
@@ -228,7 +224,9 @@ const pricing = ({ pathArray, navData, footerData, faqData, betterChoice, metaDa
                     </div>
                 </div>
 
-                <NewFooter footerData={footerData} borderClass={'border-t-0'} />
+                <div className="container py-16">
+                    <Footer footerData={footerData} />
+                </div>
             </div>
         </>
     );

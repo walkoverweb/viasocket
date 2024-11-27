@@ -48,7 +48,9 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
-            <Navbar navData={navData} utm={'/expers'} />
+            <div className="pt-12">
+                <Navbar navData={navData} utm={'/experts'} />
+            </div>
             <div className="">
                 <div className=" py-container container">
                     <div className="flex flex-col gap-9 md:w-2/3 w-full">
@@ -128,7 +130,9 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
                     </div>
                 </div>
             </div>
-            <Footer footerData={footerData} />
+            <div className="container py-16">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };
