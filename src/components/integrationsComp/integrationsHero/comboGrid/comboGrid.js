@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { MdChevronRight } from 'react-icons/md';
+import { MdArrowOutward, MdChevronRight } from 'react-icons/md';
 import style from './comboGrid.module.scss';
 
 export default function ComboGrid({ combos, loading, showNoData, mode, utm }) {
@@ -16,7 +16,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode, utm }) {
             return (
                 <>
                     <div className="flex flex-col gap-8">
-                        <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 ">
+                        <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1">
                             {cardsData.map((card, index) => {
                                 return (
                                     <RecomendedCard
@@ -119,34 +119,35 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins, utm })
                 target="_blank"
             >
                 <div
-                    className={`${style.card} border  overflow-hidden h-full flex flex-col hover:shadow-lg hover:bg-secondary  transition-all cursor-pointer`}
+                    className={`${style.card} border border-black  overflow-hidden h-full flex flex-col cursor-pointer `}
                 >
-                    <div className="p-8 bg-white flex flex-col gap-4 h-full ">
-                        <div className="flex gap-4 flex-wrap">
-                            <Image
-                                src={getIconUrl(card?.trigger?.name)}
-                                height={30}
-                                width={30}
-                                alt={card?.trigger?.name}
-                            />
-                            {card?.actions.length > 0 &&
-                                card?.actions.map((action, index) => {
-                                    return (
-                                        <Image
-                                            key={index}
-                                            src={getIconUrl(action?.name)}
-                                            height={30}
-                                            width={30}
-                                            alt="ico"
-                                        />
-                                    );
-                                })}
+                    <div className="p-12 flex flex-col gap-4 h-full ">
+                        <div className="flex gap-4 ">
+                            <div className="flex gap-0 flex-wrap">
+                                <Image
+                                    src={getIconUrl(card?.trigger?.name)}
+                                    height={30}
+                                    width={30}
+                                    alt={card?.trigger?.name}
+                                />
+                                {card?.actions.length > 0 &&
+                                    card?.actions.map((action, index) => {
+                                        return (
+                                            <Image
+                                                key={index}
+                                                src={getIconUrl(action?.name)}
+                                                height={30}
+                                                width={30}
+                                                alt="ico"
+                                            />
+                                        );
+                                    })}
+                            </div>
+                            <div className="flex items-center text-white">
+                                TRY IT <MdArrowOutward fontSize={24} />
+                            </div>
                         </div>
-                        <h2 className="text-lg int-card-des mb-auto">{getCardDescription(card)}</h2>
-                    </div>
-                    <div className={`${style.try_it} gap-1 px-8 py-4 flex items-center justify-end`}>
-                        Try It
-                        <MdChevronRight fontSize={20} />
+                        <p className="">{getCardDescription(card)}</p>
                     </div>
                 </div>
             </Link>

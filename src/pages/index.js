@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { MdAdd, MdClose, MdSearch, MdAutoAwesome } from 'react-icons/md';
+import { MdClose, MdSearch, MdArrowForward, MdAutoAwesome, MdOutlineAutoAwesome } from 'react-icons/md';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -198,30 +197,17 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <div className="pt-12">
-                <Navbar navData={navData} utm={'/index'} />
-            </div>
+            <Navbar navData={navData} utm={'index'} />
             <div className="grid gap-20">
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
-                    <div className="flex flex-col gap-2">
-                        <span className="text-3xl font-medium flex gap-2 items-center">
-                            <MdAutoAwesome color="#dc3545" /> AI First
-                        </span>
-                        <h1 className="md:text-6xl text-4xl font-medium md:w-2/3">
-                            Connect your favorite apps and automate your repetitive tasks.
-                        </h1>
-                    </div>
                     <div className="flex flex-col gap-4 ">
-                        <h2 className="md:text-6xl text-4xl font-medium my-4">For Example</h2>
+                        <h2 className="h1">For Example</h2>
 
-                        <div
-                            className="p-8 bg-neutral border border-gray-300 flex flex-col gap-9"
-                            style={{ borderWidth: '1px' }}
-                        >
-                            <div className="flex flex-wrap gap-2 items-center">
-                                <h2 className="text-3xl">How</h2>
+                        <div className="gap-6 flex flex-col">
+                            <div className="flex flex-wrap gap-2 items-center ">
+                                <h3 className="">How</h3>
                                 <div className="dropdown">
-                                    <h2
+                                    <h3
                                         onClick={() => {
                                             setShowIndusDropdown(true);
                                             setTimeout(() => {
@@ -230,10 +216,10 @@ const Index = ({
                                         }}
                                         tabIndex={0}
                                         role="button"
-                                        className="text-3xl underline decoration-dotted text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                        className=" cursor-pointer dropdown underline text-accent"
                                     >
                                         {selectedIndus || 'All'}
-                                    </h2>
+                                    </h3>
                                     {showIndusDropdown && (
                                         <div
                                             tabIndex={0}
@@ -263,9 +249,7 @@ const Index = ({
                                     )}
                                 </div>
 
-                                <h2 className="text-3xl">
-                                    industry {selectedIndus === 'All' ? 'are' : 'is'} automating with
-                                </h2>
+                                <h3 className="">industry {selectedIndus === 'All' ? 'are' : 'is'} automating with</h3>
                                 {appLoading ? (
                                     <>
                                         {' '}
@@ -283,10 +267,16 @@ const Index = ({
                                     <>
                                         {selectedApps.map((app, index) => (
                                             <div
-                                                className="flex items-center gap-2 bg-white w-fit px-2 py-1  "
+                                                className="flex items-center gap-2 bg-[#FAFAFA] w-fit px-2 h-[42px] border border-black  "
                                                 key={app.appslugname}
                                             >
-                                                <Image src={app?.iconurl} width={16} height={16} alt="ico" />
+                                                <Image
+                                                    src={app?.iconurl}
+                                                    width={20}
+                                                    height={20}
+                                                    className="h-[24px] w-fit"
+                                                    alt="ico"
+                                                />
                                                 <span>{app?.name}</span>
                                                 <MdClose
                                                     className="text-gray-300 hover:text-gray-950 cursor-pointer"
@@ -298,7 +288,7 @@ const Index = ({
                                 )}
                                 <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
                                     <label
-                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white "
+                                        className="input flex items-center h-[42px] gap-2 border border-black "
                                         tabIndex={0}
                                         role="button"
                                     >
@@ -306,14 +296,14 @@ const Index = ({
                                         <input
                                             type="text"
                                             className="grow"
-                                            placeholder="Add a new app"
+                                            placeholder="Add your favorite App"
                                             value={searchTerm}
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                             ref={inputRef}
                                             onKeyDown={handleKeyDown}
                                         />
                                         <span
-                                            className="btn icon border-none bg-transparent p-0"
+                                            className=""
                                             onClick={() => {
                                                 setSearchTerm('');
                                                 setShowInput(false);
@@ -365,86 +355,8 @@ const Index = ({
                                         )}
                                     </ul>
                                 </div>
-                                {/* {showInput ? (
-                                <div className="w-[300px] transition-all duration-300 relative bg-white dropdown">
-                                    <label
-                                        className="input input-sm border-[#CCCCCC] flex items-center gap-2 bg-white rounded"
-                                        tabIndex={0}
-                                        role="button"
-                                    >
-                                        <MdSearch color="#CCCCCC" fontSize={20} />
-                                        <input
-                                            type="text"
-                                            className="grow"
-                                            placeholder="Add a new app"
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
-                                            ref={inputRef}
-                                            onKeyDown={handleKeyDown}
-                                        />
-                                        <span
-                                            className="btn icon border-none bg-transparent p-0"
-                                            onClick={() => {
-                                                setSearchTerm('');
-                                                setShowInput(false);
-                                            }}
-                                        >
-                                            <MdClose color="black" fontSize={24} />
-                                        </span>
-                                    </label>
-                                    <ul
-                                        tabIndex={0}
-                                        className="dropdown-content menu flex-nowrap bg-base-100 shadow-xl mt-2 z-[1] rounded max-h-[290px] w-[300px] overflow-scroll p-0"
-                                    >
-                                        {searchLoading ? (
-                                            [...Array(12)].map((_, index) => (
-                                                <div
-                                                    className="rounded-none bg-white px-3 py-2 flex w-full"
-                                                    key={index}
-                                                >
-                                                    <div className="w-[280px] skeleton bg-slate-100 rounded-none"></div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <>
-                                                {searchData && searchData.length > 0 ? (
-                                                    searchData.map((app, index) => (
-                                                        <div
-                                                            key={app.appslugname}
-                                                            className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
-                                                                index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
-                                                            } hover:bg-gray-100`}
-                                                            onClick={() => handleSelectApp(app?.appslugname)}
-                                                            onMouseEnter={() => setHighlightedIndex(index)}
-                                                        >
-                                                            <Image
-                                                                src={app?.iconurl}
-                                                                width={16}
-                                                                height={16}
-                                                                alt="ico"
-                                                            />
-                                                            <span>{app?.name}</span>
-                                                        </div>
-                                                    ))
-                                                ) : (
-                                                    <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
-                                                        No app found.
-                                                    </p>
-                                                )}
-                                            </>
-                                        )}
-                                    </ul>
-                                </div>
-                            ) : (
-                                <span
-                                    onClick={() => setShowInput(true)}
-                                    className="p-0 flex items-center justify-center bg-primary w-[30px] h-[30px] rounded"
-                                >
-                                    <MdAdd color="white" fontSize={24} />
-                                </span>
-                            )} */}
 
-                                <h2 className="text-3xl">in</h2>
+                                <h2 className="">in</h2>
 
                                 <div className="dropdown">
                                     <h2
@@ -456,7 +368,7 @@ const Index = ({
                                         }}
                                         tabIndex={0}
                                         role="button"
-                                        className="text-3xl underline decoration-dotted  text-slate-500 decoration-slate-400 decoration-2 underline-offset-2 cursor-pointer dropdown"
+                                        className=" dropdown underline text-accent"
                                     >
                                         {selectedDept || 'all their'}
                                     </h2>
@@ -491,7 +403,7 @@ const Index = ({
                                         </div>
                                     )}
                                 </div>
-                                <h2 className="text-3xl" id="dept">
+                                <h2 className="" id="dept">
                                     department
                                 </h2>
                                 <div
@@ -503,9 +415,9 @@ const Index = ({
                                     <button
                                         disabled={selectedApps.length < 2}
                                         onClick={handleGenerate}
-                                        className="btn btn-accent h-[30px] w-auto flex items-center justify-center  btn-sm border border-black"
+                                        className="h-[32px] w-[32px] flex items-center justify-center bg-accent text-white"
                                     >
-                                        Search Automations
+                                        <MdArrowForward />
                                     </button>
                                 </div>
                             </div>
@@ -533,37 +445,32 @@ const Index = ({
                     </div>
                 )}
             </div>
-            <div className="container py-16">
-                <Footer footerData={footerData} />
-            </div>
+
+            <Footer footerData={footerData} />
         </>
     );
 };
 
 const TestimonialsSection = ({ testimonials }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="md:text-6xl text-4xl font-medium">What clients says</h2>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full border border-gray-300 style={{borderWidth: '1px'}}">
+        <h2 className="h1 flex gap-2 flex-wrap">
+            What clients says <MdOutlineAutoAwesome />
+        </h2>
+        <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full border border-black ">
             {testimonials.map((testimonial, index) => (
-                <div className="flex flex-col  p-8 gap-8 bg-neutral" key={index}>
-                    <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left">
-                        " {testimonial?.testimonial}"
-                    </p>
+                <div className="flex flex-col border border-black sm:p-12 p-6 gap-8" key={index}>
+                    <p className="">" {testimonial?.testimonial}"</p>
                     <div className="flex items-center gap-2 mt-auto">
                         <Image
-                            className="rounded-full"
+                            className="border border-black"
                             src={testimonial?.client_img[0]}
-                            width={36}
-                            height={36}
+                            width={120}
+                            height={120}
                             alt={testimonial?.given_by}
                         />
-                        <div>
-                            <p className="font-inter font-semibold leading-4 tracking-normal text-left">
-                                {testimonial?.given_by}
-                            </p>
-                            <p className="font-inter text-sm font-normal leading-4 tracking-normal text-left pt-1 text-gray-400">
-                                {testimonial?.giver_title}
-                            </p>
+                        <div className="flex flex-col gap-1">
+                            <p className=" tracking-wider uppercase font-bold ">{testimonial?.given_by}</p>
+                            <p className="text-gray-400">{testimonial?.giver_title}</p>
                         </div>
                     </div>
                 </div>
@@ -576,7 +483,7 @@ const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
         <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
         <div
-            className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px]border border-gray-300 "
+            className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px] border border-gray-300 "
             style={{ borderWidth: '1px' }}
         >
             {caseStudies.map((caseStudy, index) => (
