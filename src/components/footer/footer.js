@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
-const Footer = ({ footerData }) => {
+import { FaInstagramSquare, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter, FaInstagram } from 'react-icons/fa6';
+import { FiLinkedin, FiYoutube } from 'react-icons/fi';
+export default function Footer({ footerData, borderClass }) {
     const groupedData = footerData?.reduce((acc, obj) => {
         const groupName = obj.group_name;
-
-        if (obj?.hidden === null || obj?.hidden === false) {
+        if (!obj?.hidden) {
             if (!acc[groupName]) {
                 acc[groupName] = [];
             }
@@ -20,9 +21,9 @@ const Footer = ({ footerData }) => {
         Object.entries(groupedData).map(([groupName, items]) => {
             if (items.length > 0) {
                 return (
-                    <div className="flex flex-col gap-4 w-full" key={groupName}>
+                    <div className="flex flex-col gap-6 w-full" key={groupName}>
                         <h2 className="font-bold">{groupName}</h2>
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-2">
                             {items.map(
                                 (item, index) =>
                                     !item.hidden && (
@@ -47,9 +48,11 @@ const Footer = ({ footerData }) => {
         });
     return (
         <>
-            <div className="container flex sm:flex-row flex-col-reverse my-12 py-8 gap-12 ">
-                <div className="flex w-full lg:max-w-[260px] md:max-w-[140px] max-w-[200px] flex-col justify-between ">
-                    <div className="flex flex-col gap-2">
+            <div
+                className={`grid lg:grid-rows-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1  ms:grid-cols-4 grid-cols-1 border  border-black ${borderClass}`}
+            >
+                <div className="row-span-1 col-span-4 lg:col-span-1 order-last lg:order-first md:p-10 p-4 h-full lg:border-r border-r-0 border-black flex flex-col ">
+                    <div className="flex flex-col gap-2 mb-12 sm:mb-6 py-4">
                         <Link href="/" aria-label="socket fav icon">
                             <Image
                                 src="/assets/brand/socket_fav_dark.svg"
@@ -58,22 +61,53 @@ const Footer = ({ footerData }) => {
                                 alt="socket fav icon"
                             />
                         </Link>
-
-                        <p> © 2024 viaSocket</p>
+                        <p>© 2024 viaSocket</p>
                         <p>All rights reserved.</p>
                     </div>
-                    <div className="flex items-center  gap-2 w-full flex-wrap">
+                    <div className="flex items-end gap-2 w-full flex-wrap mt-auto">
                         <span>A product of</span>
                         <Link href="https://walkover.in/" target="_blank" aria-label="walkover">
                             <Image src="/assets/brand/walkover.svg" alt="walkover" width={100} height={20} />
                         </Link>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 gap-8  flex-wrap w-full">
-                    {renderedGroups}
+                <div className=" row-span-1 col-span-4 lg:col-span-3 grid sm:grid-cols-3 grid-cols-1">
+                    <div className="flex flex-col gap-28 md:p-10 p-4 lg:border-b-0  border-b sm:border-r border-black">
+                        {renderedGroups.slice(0, 2)}
+                    </div>
+
+                    <div className="flex flex-col gap-28 md:p-10 p-4 sm:border-r lg:border-b-0  border-b border-black">
+                        {renderedGroups.slice(2, 4)}
+                    </div>
+
+                    <div className="flex flex-col lg:border-b-0 border-b border-black gap-28 md:p-10 p-4 ">
+                        {renderedGroups.slice(4, 5)}
+                        <div className="flex gap-2 md:gap-4 mt-auto">
+                            <Link
+                                href={`https://www.instagram.com/walkover.inc/?igsh=MWEyZnptZmw3Z3phOQ%3D%3D`}
+                                className=""
+                                aria-label="instagram"
+                            >
+                                <FaInstagram size={24} />
+                            </Link>
+                            <Link
+                                href={`https://www.linkedin.com/company/viasocket-walkover/`}
+                                className=""
+                                aria-label="facebook"
+                            >
+                                <FiLinkedin size={24} />
+                            </Link>
+
+                            <Link href={`https://x.com/viasocket`} className="" aria-label="twitter">
+                                <FaXTwitter size={24} />
+                            </Link>
+                            <Link href={`https://www.youtube.com/@viasocket`} className="" aria-label="youtube">
+                                <FiYoutube size={24} />
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
     );
-};
-export default Footer;
+}
