@@ -116,4 +116,11 @@
 .feature_grid {
     background-image: url('/assets/img/program_feature_grid.png');
     background-position: center center;
+    .grid-block {
+        @apply transition-all duration-200;
+        border: 1px solid rgb(135, 135, 135);
+        &:hover {
+            background: #00000025;
+        }
+    }
 }

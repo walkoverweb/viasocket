@@ -51,7 +51,7 @@ export default function Programs({ footerData, navData, metaData }) {
                             <Link
                                 key={index}
                                 href={`/signup?utm_source=programs`}
-                                className={`${index % 5 === 0 ? 'md:col-span-1 col-span-2 row-span-1' : index % 5 === 1 ? 'md:col-span-1 col-span-2 md:row-span-2 row-span-1' : index % 5 === 2 ? 'md:col-span-1 col-span-2 md:row-span-2 row-sapn-1' : index % 5 === 3 ? 'md:col-span-1 col-span-2 row-span-1' : 'col-span-2 row-span-1'} border-white border flex flex-col gap-1 items-center justify-center p-4 text-center`}
+                                className={`${index % 5 === 0 ? 'md:col-span-1 col-span-2 row-span-1' : index % 5 === 1 ? 'md:col-span-1 col-span-2 md:row-span-2 row-span-1' : index % 5 === 2 ? 'md:col-span-1 col-span-2 md:row-span-2 row-sapn-1' : index % 5 === 3 ? 'md:col-span-1 col-span-2 row-span-1' : 'col-span-2 row-span-1'} flex flex-col gap-1 items-center justify-center p-4 text-center grid-block`}
                             >
                                 <h2 className="text-white h2">{item?.heading}</h2>
                                 <p className="text-white sub__h2">{item?.description}</p>
