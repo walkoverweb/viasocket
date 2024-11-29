@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
-import { MdClose, MdSearch, MdArrowForward, MdAutoAwesome, MdOutlineAutoAwesome } from 'react-icons/md';
+import {
+    MdClose,
+    MdSearch,
+    MdArrowForward,
+    MdAutoAwesome,
+    MdOutlineAutoAwesome,
+    Md23Mp,
+    MdArrowOutward,
+} from 'react-icons/md';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -15,6 +23,7 @@ import { LinkButton } from '@/components/uiComponents/buttons';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
+import Link from 'next/link';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -197,8 +206,46 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <div className="pt-12">
+            <div
+                className="w-full h-dvh min-h-fit py-8 flex flex-col"
+                style={{ background: 'url(/assets/img/index_banner_image.png) center/cover' }}
+            >
                 <Navbar navData={navData} utm={'/index'} />
+                <div className="container flex flex-col mt-auto cont__py cont__gap">
+                    <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
+                        <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8">
+                            <div className="flex flex-col gap-1">
+                                <h1 className="h1 text-white">
+                                    <span className="text-accent">Connect</span> your favorite apps and automate your
+                                    repetitive tasks
+                                </h1>
+                                <h2 className="sub__h1 text-white">
+                                    Discover Top Solutions for Effortless Connectivity.
+                                </h2>
+                            </div>
+                            <button className="btn btn-white ">Get Started</button>
+                        </div>
+                        <div className="flex items-center gap-2 w-fit">
+                            <Image
+                                src={'/assets/img/chat_expert.jpeg'}
+                                width={100}
+                                height={100}
+                                className="h-11 w-11 rounded-full border-white border-2"
+                                alt="Chat Experts"
+                            />
+                            <div className="text-white text-start">
+                                <p className="text-sm uppercase tracking-wider">Need to automate ?</p>
+                                <span className="flex items-center text-gray-300">
+                                    <span className="text-sm tracking-wider">Ask a Specialist for Free </span>
+                                    <MdArrowOutward />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center w-full">
+                        <a className="version-link">Latest Version out !</a>
+                    </div>
+                </div>
             </div>
             <div className="grid gap-20">
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
@@ -520,7 +567,9 @@ const CaseStudyLink = ({ caseStudy }) => {
                 </div>
                 <div className="w-full p-3 bg-neutral flex flex-col gap-3 justify-center">
                     <p>{caseStudy?.title}</p>
-                    <LinkButton href={caseStudy?.link} title={'Read More'} />
+                    {/* <LinkButton href={caseStudy?.link} title={'Read More'} />
+                     */}
+                    <LinkButton href={caseStudy?.link} content={'Know More'} />
                 </div>
             </>
         </div>

@@ -142,3 +142,25 @@
         }
     }
 }
+
+.version-link {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    color: white;
+    @apply uppercase tracking-wider;
+}
+.version-link::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 1px;
+    bottom: -2px;
+    left: 50%;
+    background-color: currentColor;
+    transition: width 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+.version-link:hover::after {
+    width: 40px;
+}

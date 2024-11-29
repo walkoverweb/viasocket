@@ -18,3 +18,10 @@
         @apply border border-black border-s-0 border-t-0;
     }
 }
+
+.index_blog_grid {
+    @apply border border-black border-r-0 border-b-0;
+    .block_border {
+        @apply border border-black border-s-0 border-t-0;
+    }
+}
