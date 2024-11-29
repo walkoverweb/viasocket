@@ -3,6 +3,12 @@
     src: url('../../public/fonts/times-now/TimesNow-Light.woff');
     font-style: normal;
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    font-family: 'Inter', serif;
+    color: #252525;
+}
 
 .h1 {
     @apply md:text-6xl text-4xl font-normal;
@@ -22,4 +28,9 @@
         @apply md:text-lg;
         line-height: 1.2em;
     }
+}
+
+//Text Color
+.text-grey {
+    color: #8f9396;
 }

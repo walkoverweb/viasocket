@@ -18,6 +18,22 @@ module.exports = {
                 'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
         },
+        screens: {
+            'sm': '641px',
+            // => @media (min-width: 640px) { ... }
+
+            'md': '769px',
+            // => @media (min-width: 768px) { ... }
+
+            'lg': '1025px',
+            // => @media (min-width: 1024px) { ... }
+
+            'xl': '1281px',
+            // => @media (min-width: 1280px) { ... }
+
+            '2xl': '1537px',
+            // => @media (min-width: 1536px) { ... }
+        },
     },
     plugins: [require('daisyui')],
     daisyui: {

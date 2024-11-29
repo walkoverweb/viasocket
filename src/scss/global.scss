@@ -7,7 +7,13 @@
 @import 'import';
 .heading {
     font-family: 'Times Now';
+    color: #252525;
 }
+
+.border-05 {
+    border: 0.5px solid #252525 !important;
+}
+
 .font-family-times-now {
     font-family: 'Times Now';
 }

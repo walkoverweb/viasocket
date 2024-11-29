@@ -1,0 +1,20 @@
+.index_feature_grid {
+    @apply border border-black border-l-0 border-b-0;
+    .block_border {
+        @apply border border-black border-e-0 border-t-0;
+    }
+}
+
+.index_combo_grid {
+    @apply border border-black border-r-0 border-b-0;
+    .block_border {
+        @apply border border-black border-s-0 border-t-0;
+    }
+}
+
+.index_client_grid {
+    @apply border border-black border-r-0 border-b-0;
+    .block_border {
+        @apply border border-black border-s-0 border-t-0;
+    }
+}

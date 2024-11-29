@@ -16,7 +16,7 @@ export default function ComboGrid({ combos, loading, showNoData, mode, utm }) {
             return (
                 <>
                     <div className="flex flex-col gap-8">
-                        <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1">
+                        <div className="index_combo_grid grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1">
                             {cardsData.map((card, index) => {
                                 return (
                                     <RecomendedCard
@@ -118,10 +118,8 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins, utm })
                 href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=${utm}&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
                 target="_blank"
             >
-                <div
-                    className={`${style.card} border border-black  overflow-hidden h-full flex flex-col cursor-pointer `}
-                >
-                    <div className="p-12 flex flex-col gap-4 h-full ">
+                <div className={`block_border  overflow-hidden h-full flex flex-col cursor-pointer `}>
+                    <div className="p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12 flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 ">
                             <div className="flex gap-0 flex-wrap">
                                 <Image

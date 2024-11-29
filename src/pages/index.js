@@ -197,7 +197,9 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <Navbar navData={navData} utm={'index'} />
+            <div className="pt-12">
+                <Navbar navData={navData} utm={'/index'} />
+            </div>
             <div className="grid gap-20">
                 <div className="flex flex-col gap-16 container lg:pb-12 pt-8">
                     <div className="flex flex-col gap-4 ">
@@ -446,7 +448,9 @@ const Index = ({
                 )}
             </div>
 
-            <Footer footerData={footerData} />
+            <div className="container py-16">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };
@@ -456,23 +460,23 @@ const TestimonialsSection = ({ testimonials }) => (
         <h2 className="h1 flex gap-2 flex-wrap">
             What clients says <MdOutlineAutoAwesome />
         </h2>
-        <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full border border-black ">
+        <div className="index_client_grid grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full  ">
             {testimonials.map((testimonial, index) => (
-                <div className="flex flex-col border border-black sm:p-12 p-6 gap-8" key={index}>
-                    <p className="">" {testimonial?.testimonial}"</p>
-                    <div className="flex items-center gap-2 mt-auto">
+                <div className="block_border flex flex-col sm:p-12 p-6 gap-4" key={index}>
+                    <div className="flex flex-col  gap-2 ">
                         <Image
                             className="border border-black"
                             src={testimonial?.client_img[0]}
-                            width={120}
-                            height={120}
+                            width={50}
+                            height={50}
                             alt={testimonial?.given_by}
                         />
-                        <div className="flex flex-col gap-1">
-                            <p className=" tracking-wider uppercase font-bold ">{testimonial?.given_by}</p>
-                            <p className="text-gray-400">{testimonial?.giver_title}</p>
+                        <div className="flex flex-col">
+                            <p className="text-sm tracking-wider uppercase font-bold ">{testimonial?.given_by}</p>
+                            <p className="text-sm  text-grey">{testimonial?.giver_title}</p>
                         </div>
                     </div>
+                    <p className="text-[#373737]">" {testimonial?.testimonial}"</p>
                 </div>
             ))}
         </div>

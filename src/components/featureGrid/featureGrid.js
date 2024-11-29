@@ -8,8 +8,10 @@ export function FeaturesGrid({ features, page }) {
     return (
         <>
             <div className="grid gap-12 container">
-                <h2 className="md:text-6xl text-4xl font-medium">Features</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-black  overflow-hidden ">
+                <h2 className="h1">Features</h2>
+                <div
+                    className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-black  overflow-hidden index_feature_grid`}
+                >
                     {features
                         .sort((a, b) => a.priority - b.priority)
                         .map((feature, index) => {
@@ -21,7 +23,7 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             href={feature?.link ? feature?.link : '#'}
                                             target="_blank"
-                                            className={`${styles.r2c2} col-span-2 row-span-2 justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg border border-black `}
+                                            className={`block_border col-span-2 row-span-2 justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg  `}
                                             aria-label="feature"
                                         >
                                             <div className="flex flex-col gap-2 p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12">
@@ -66,7 +68,7 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             target="_blank"
                                             aria-label="feature"
-                                            className={`col-span-2 md:col-span-1 hover:text-white hover:bg-[#252525] transition-all duration-150 row-span-1 min-h-[200px] p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12 border border-black  justify-between gap-2  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
+                                            className={`col-span-2 block_border md:col-span-1 hover:text-white hover:bg-[#252525] transition-all duration-150 row-span-1 min-h-[200px] p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12   justify-between gap-2  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
                                         >
                                             <div className="text-6xl flex flex-col gap-3">
                                                 <MdIcon />
