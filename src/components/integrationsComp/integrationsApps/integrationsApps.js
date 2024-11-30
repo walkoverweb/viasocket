@@ -1,62 +1,87 @@
-import fetchSearchResults from '@/utils/searchIntegrationApps';
+import searchApps from '@/utils/searchApps';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { MdAdd, MdChevronLeft, MdChevronRight, MdKeyboardArrowDown } from 'react-icons/md';
+import { MdAdd, MdExpandMore, MdKeyboardArrowDown } from 'react-icons/md';
 import categories from '@/assets/data/categories.json';
 import Autocomplete from 'react-autocomplete';
+import style from './integrationsApps.module.scss';
+import fetchApps from '@/utils/getApps';
+import { useRouter } from 'next/router';
 
-export default function IntegrationsApps({ apps, query, pluginData, showCategories }) {
+export default function IntegrationsApps({ pluginData, showCategories }) {
+    const router = useRouter();
+    const [visibleCategories, setVisibleCategories] = useState(30);
+    const [offset, setOffset] = useState(0);
+    const [apps, setApps] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [catSearchTerm, setCatSearchTerm] = useState(query?.currentcategory);
-    const [searchedApps, setSearchedApps] = useState([]);
+    const [catSearchTerm, setCatSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
-    const [searchLoading, setSearchLoading] = useState(false);
-    const [visibleCategories, setVisibleCategories] = useState('20');
+    const [showMore, setShowMore] = useState(true);
     const [filteredCategories, setFilteredCategories] = useState(categories?.categories);
-
+    const [qurey, setQurey] = useState({
+        category: router?.query?.category || '',
+        offset: offset,
+    });
     useEffect(() => {
-        if (searchTerm) {
-            const handler = setTimeout(() => {
-                setDebounceValue(searchTerm);
-            }, 300);
+        const handler = setTimeout(() => {
+            setDebounceValue(searchTerm);
+        }, 300);
 
-            return () => {
-                clearTimeout(handler);
-            };
-        }
+        return () => {
+            clearTimeout(handler);
+        };
     }, [searchTerm]);
 
     useEffect(() => {
+        const loadApps = async () => {
+            const fetchedApps = await fetchApps(qurey);
+            setApps(fetchedApps || []);
+        };
+        loadApps();
+    }, [qurey]);
+
+    useEffect(() => {
         if (debounceValue) {
-            setSearchLoading(true);
-            async function loadApps() {
-                const filteredApps = await searchApps(debounceValue);
-                setSearchedApps(filteredApps);
-                setSearchLoading(false);
-            }
+            const filteredCategories = categories?.categories?.filter((category) =>
+                category.toLowerCase().includes(debounceValue.toLowerCase())
+            );
+            setFilteredCategories(filteredCategories);
+            const loadApps = async () => {
+                const fetchedApps = await searchApps(debounceValue);
+                setApps(fetchedApps || []);
+            };
+            loadApps();
+        } else {
+            setFilteredCategories(categories?.categories);
+            const loadApps = async () => {
+                const fetchedApps = await fetchApps(qurey);
+                setApps(fetchedApps || []);
+            };
             loadApps();
         }
     }, [debounceValue]);
 
-    const searchApps = async (debounceValue) => {
-        try {
-            const result = await fetchSearchResults(debounceValue);
-            return result;
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-    const filterCategory = async (search) => {
-        setCatSearchTerm(search);
-        const filteredCategories = categories?.categories?.filter((category) =>
-            category.toLowerCase().includes(search.toLowerCase())
-        );
-        setFilteredCategories(filteredCategories);
+    const handleLoadMore = async () => {
+        setVisibleCategories(visibleCategories + 30);
+        setOffset(offset + 100);
+        const fetchedApps = await fetchApps({
+            category: router?.query?.category || '',
+            offset: offset + 100,
+        });
+        setApps((prevApps) => [...prevApps, ...fetchedApps]);
     };
 
     const handleCategorySelect = (category) => {
-        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${category}`;
+        setSearchTerm('');
+        setQurey({ category: category || '', offset: 0 });
+        setOffset(0);
+        setVisibleCategories(30);
+        const newUrl = {
+            pathname: decodeURIComponent(router.pathname),
+            query: { category: decodeURIComponent(category) },
+        };
+        router.replace(newUrl, undefined, { shallow: true });
     };
 
     return (
@@ -81,201 +106,119 @@ export default function IntegrationsApps({ apps, query, pluginData, showCategori
                             <MdAdd fontSize={46} />
                         </div>
                     </>
-                )}
-
-                <div className="flex md:flex-row flex-col gap-4 my-12">
-                    <div
-                        tabIndex={0}
-                        className="md:hidden  dropdown-content menu bg-base-100  z-[1] p-0 max-w-[320px] industry-autocomplete"
-                    >
-                        <Autocomplete
-                            getItemValue={(item) => item.label}
-                            items={filteredCategories.map((cat) => ({
-                                label: cat,
-                            }))}
-                            renderItem={(item) => (
-                                <Link
-                                    className="px-2 py-1 cursor-pointer hover:bg-secondary"
-                                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${item.label}`}
-                                >
-                                    {item.label}
-                                </Link>
-                            )}
-                            value={catSearchTerm}
-                            onChange={(e) => filterCategory(e.target.value)}
-                            onSelect={(val) => handleCategorySelect(val)}
-                            menuStyle={{
-                                position: 'absolute',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                overflow: 'auto',
-                                maxHeight: '400px',
-                                background: 'white',
-                            }}
-                            inputProps={{ placeholder: 'Select Category', id: 'categoryAutoComplete' }}
-                        />
-                    </div>
-
-                    {showCategories && (
-                        <ul className=" md:flex hidden min-w-[300px] md:flex-col gap-3">
-                            {categories?.categories.map((category, index) => {
-                                return (
-                                    <li key={index} className={visibleCategories > index ? '' : 'hidden'}>
-                                        <Link
-                                            className={query?.currentcategory === category ? 'font-bold' : ''}
-                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations?category=${category}`}
-                                        >
-                                            {category}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                            <li
-                                onClick={() => {
-                                    setVisibleCategories(Number(visibleCategories) + 10);
-                                }}
-                                className={`flex text-link underline items-center gap-2 cursor-pointer ${visibleCategories > categories?.categories.length ? 'hidden' : 'flex'}`}
+                )}{' '}
+                <div className="w-full">
+                    <div className="lg:w-[400px] md:w-[400px] w-[250px]">
+                        <label
+                            className={`${style.input} input  text-white flex items-center gap-2 bg-black focus:outline-none focus:border-0 `}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-5 h-5"
                             >
-                                Load More <MdKeyboardArrowDown fontSize={20} />
-                            </li>
-                        </ul>
-                    )}
-
-                    <div className="flex-col gap-8">
-                        <div className="lg:w-[500px] md:w-[400px] w-[250px]">
-                            <label className="input border-[#CCCCCC] flex items-center gap-2 bg-white ">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 16 16"
-                                    fill="currentColor"
-                                    className="w-4 h-4 opacity-70"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                                <input
-                                    type="text"
-                                    className="grow"
-                                    placeholder="Search integrations"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                <path
+                                    fillRule="evenodd"
+                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                    clipRule="evenodd"
                                 />
-                            </label>
+                            </svg>
+                            <input
+                                type="text"
+                                className={`${style.input} grow`}
+                                placeholder="Search your favoirts tools "
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                    <div className="flex h-fit min-h-[600px]   md:flex-row flex-col gap-8 border border-black ">
+                        <div
+                            tabIndex={0}
+                            className="md:hidden  dropdown-content menu bg-base-100  z-[1] p-0 max-w-[320px] industry-autocomplete"
+                        >
+                            <Autocomplete
+                                getItemValue={(item) => item.label}
+                                items={filteredCategories.map((cat) => ({
+                                    label: 'cat',
+                                }))}
+                                renderItem={(item) => (
+                                    <span
+                                        className={`uppercase  tracking-wider cursor-pointer text-sm ${qurey?.category === item ? 'font-bold' : ''}`}
+                                        onClick={() => handleCategorySelect(item)}
+                                    >
+                                        {item}
+                                    </span>
+                                )}
+                                value={catSearchTerm}
+                                onChange={(e) => filterCategory(e.target.value)}
+                                onSelect={(val) => setCatSearchTerm(val)}
+                                menuStyle={{
+                                    position: 'absolute',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    overflow: 'auto',
+                                    maxHeight: '400px',
+                                    background: 'white',
+                                }}
+                                inputProps={{ placeholder: 'Select Category', id: 'categoryAutoComplete' }}
+                            />
                         </div>
 
-                        {searchTerm || searchLoading ? (
-                            <div className="flex flex-wrap gap-4">
-                                {searchLoading
-                                    ? Array.from({ length: 20 }).map((_, index) => (
-                                          <div
-                                              key={index}
-                                              className="flex flex-row justify-center items-center gap-2 px-5 py-3  border border-[#CCCCCC] bg-white animate-pulse"
-                                          >
-                                              <div className="h-6 w-6 bg-gray-300 "></div>
-                                              <div className="h-4 w-24 bg-gray-300 "></div>
-                                          </div>
-                                      ))
-                                    : searchedApps?.length > 0 &&
-                                      searchedApps.map((app, index) => (
-                                          <a
-                                              key={index}
-                                              rel="noopener noreferrer"
-                                              aria-label="apps"
-                                              href={`/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
-                                          >
-                                              <div className="flex flex-row justify-center items-center gap-2 px-5 py-3  border border-[#CCCCCC] bg-white">
-                                                  {app?.iconurl && (
-                                                      <Image
-                                                          src={
-                                                              app?.iconurl ? app?.iconurl : 'https://placehold.co/24x24'
-                                                          }
-                                                          alt={app?.name}
-                                                          height={24}
-                                                          width={24}
-                                                      />
-                                                  )}
-                                                  <span className="text-base font-medium">{app?.name}</span>
-                                              </div>
-                                          </a>
-                                      ))}
-                            </div>
-                        ) : apps?.length > 0 ? (
-                            <div className="flex flex-col gap-8">
-                                <div className="flex flex-wrap gap-4">
-                                    {apps.map((app, index) => (
-                                        <a
-                                            key={index}
-                                            rel="noopener noreferrer"
-                                            aria-label="apps"
-                                            href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
-                                        >
-                                            <div className="flex flex-row justify-center items-center gap-2 px-5 py-3  border border-[#CCCCCC] bg-white">
-                                                {app?.iconurl && (
-                                                    <Image
-                                                        src={app?.iconurl ? app?.iconurl : 'https://placehold.co/24x24'}
-                                                        alt={app?.name}
-                                                        height={24}
-                                                        width={24}
-                                                    />
-                                                )}
-                                                <span className="text-base font-medium">{app?.name}</span>
-                                            </div>
-                                        </a>
-                                    ))}
-                                </div>
-                                <div className="flex gap-4 justify-center">
-                                    {query?.page !== 1 && query?.page !== '1' && (
-                                        <>
-                                            {' '}
-                                            <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
+                        {showCategories && (
+                            <ul className="max-w-[280px] min-w-[280px]  max-h-full overflow-hidden flex flex-col border-r border-black gap-2 p-6">
+                                {filteredCategories?.slice(0, visibleCategories)?.map((category, index) => {
+                                    return (
+                                        <li key={index}>
+                                            <span
+                                                className={`uppercase  tracking-wider cursor-pointer text-sm ${qurey?.category === category ? 'font-bold' : ''}`}
+                                                onClick={() => handleCategorySelect(category)}
                                             >
-                                                <button className="btn btn-primary btn-outline btn-sm ">
-                                                    <MdChevronLeft /> Previous Page{' '}
-                                                </button>
-                                            </Link>
-                                            <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) - 1}`}
-                                            >
-                                                <button className="btn btn-primary btn-outline btn-sm ">
-                                                    {Number(query?.page) - 1}
-                                                </button>{' '}
-                                            </Link>
-                                        </>
-                                    )}
-
-                                    <button className="btn btn-primary  btn-sm ">{query?.page}</button>
-                                    {apps?.length >= 100 && (
-                                        <>
-                                            <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
-                                            >
-                                                <button className="btn btn-primary btn-outline btn-sm ">
-                                                    {Number(query?.page) + 1}
-                                                </button>
-                                            </Link>
-                                            <Link
-                                                href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}?category=${query?.currentcategory}&page=${Number(query?.page) + 1}`}
-                                            >
-                                                <button className="btn btn-primary btn-outline btn-sm ">
-                                                    Next Page <MdChevronRight />
-                                                </button>
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                        ) : (
-                            <p className="text-2xl font-semibold text-red-600">
-                                {' '}
-                                No App fond in {query?.currentcategory} category. <br />
-                                Please select another category
-                            </p>
+                                                {category}
+                                            </span>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                         )}
+
+                        <div className="flex flex-wrap gap-4 h-fit p-6 items-start ">
+                            {apps?.length > 0 &&
+                                apps.map((app, index) => (
+                                    <a
+                                        className="flex gap-2 h-[48px] items-center border px-6 overflow-hidden"
+                                        key={index}
+                                        rel="noopener noreferrer"
+                                        aria-label="apps"
+                                        href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations${pluginData?.length && pluginData[0]?.appslugname ? '/' + pluginData[0]?.appslugname : ''}/${app?.appslugname}`}
+                                    >
+                                        {app?.iconurl && (
+                                            <Image
+                                                className="h-fit"
+                                                src={app?.iconurl ? app?.iconurl : 'https://placehold.co/24x24'}
+                                                alt={app?.name}
+                                                height={24}
+                                                width={24}
+                                            />
+                                        )}
+                                        <span className="text-base font-medium">{app?.name}</span>
+                                    </a>
+                                ))}
+                        </div>
                     </div>
+                    {apps?.length >= offset + 100 && (
+                        <div className="w-full flex justify-end">
+                            <button
+                                onClick={() => {
+                                    handleLoadMore();
+                                }}
+                                className="btn btn-primary btn-outline border-t-0"
+                            >
+                                Load more <MdExpandMore fontSize={26} />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

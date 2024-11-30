@@ -181,8 +181,10 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
         );
     } else {
         return (
-            <div className="container pt-24 flex flex-col gap-6">
-                <h1 className="lg:text-5xl text-3xl  font-bold">5000+ viaSocket Integrations</h1>
+            <div className="container pt-24 flex flex-col gap-4">
+                <h1 className="h1 ">
+                    <span className="text-accent italic">5000+ </span> viaSocket Integrations
+                </h1>
                 <p className="text-lg  lg:w-[900px] ">
                     Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing, E-Commerce, Helpdesk,
                     Payments, Web forms, Collaboration, and more for streamlined business success.

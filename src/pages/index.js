@@ -17,7 +17,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
-import fetchSearchResults from '@/utils/searchIntegrationApps';
+import searchApps from '@/utils/searchApps';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
 import Navbar from '@/components/navbar/navbar';
@@ -129,7 +129,7 @@ const Index = ({
         if (debounceValue) {
             setSearchLoading(true);
             try {
-                const result = await fetchSearchResults(debounceValue);
+                const result = await searchApps(debounceValue);
                 setSearchData(filterSelectedApps(result));
             } catch (error) {
                 console.error(error);
