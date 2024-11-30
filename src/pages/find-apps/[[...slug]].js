@@ -32,7 +32,7 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
                 </div>
             )}
             {step == 1 && (
-                <div className="flex flex-col gap-8 items-center">
+                <div className="w-full  flex flex-col gap-8 items-center">
                     <div className="flex flex-col gap-8 items-center">
                         <h1 className="text-center lg:text-2xl md:text-xl text-lg font-semibold pb-4">
                             Browse apps by name - {alphabet?.toUpperCase() || '-'}
@@ -41,7 +41,7 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
                         <AlphabeticalComponent alphabet={alphabet} appDetails={appDetails} step={step} />
                     </div>
 
-                    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 justify-center items-center py-4">
+                    <div className="w-full  grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 justify-center items-center py-4">
                         {apps?.map((app) => (
                             <a
                                 key={app?.rowid}
@@ -51,7 +51,7 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
                                 className="block"
                                 aria-label="app"
                             >
-                                <p className="text-base py-1 ">{app.name}</p>
+                                <p className=" hover:text-blue-600 text-base py-1 ">{app.name}</p>
                             </a>
                         ))}
                     </div>
@@ -84,30 +84,50 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
 
             {step == 3 && (
                 <div className=" w-full flex flex-col gap-8 items-center">
-                    <div className="flex flex-col gap-8 items-center">
+                    <div className="flex flex-col gap-6 items-center">
+                        <a
+                            target="_blank"
+                            href={`/integrations/${appDetails?.appslugname}`}
+                            className="flex gap-2  items-center"
+                        >
+                            <Image
+                                src={appDetails?.iconurl}
+                                className="h-8 w-fit"
+                                width={46}
+                                height={46}
+                                alt={appDetails?.name}
+                            />
+                            <span className="text-3xl font-semibold">{appDetails?.name}</span>
+                        </a>
+                        <span className="text-4xl"> + </span>
                         <h1 className="text-center lg:text-2xl md:text-xl text-lg font-semibold pb-4">
                             Browse apps by name - {alphabet?.toUpperCase() || '-'} - {appDetails?.name} -{' '}
                             {alphabet2?.toUpperCase()}
                         </h1>
+                        <AlphabeticalComponent alphabet={alphabet} appDetails={appDetails} step={step} />
                     </div>
 
                     <div className=" w-full grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 justify-center items-center py-4">
-                        {apps?.map((app) => (
-                            <a
-                                key={app?.rowid}
-                                href={
-                                    app?.appslugname
-                                        ? `/integrations/${app?.appslugname}/${appDetails?.appslugname}`
-                                        : `/noplugin`
-                                }
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block"
-                                aria-label="app"
-                            >
-                                <p className="text-base py-1 ">{app.name}</p>
-                            </a>
-                        ))}
+                        {apps?.map((app) => {
+                            if (app?.appslugname !== appDetails?.appslugname) {
+                                return (
+                                    <a
+                                        key={app?.rowid}
+                                        href={
+                                            app?.appslugname
+                                                ? `/integrations/${appDetails?.appslugname}/${app?.appslugname}`
+                                                : `/noplugin`
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block"
+                                        aria-label="app"
+                                    >
+                                        <p className="hover:text-blue-600 text-base py-1 ">{app.name}</p>
+                                    </a>
+                                );
+                            }
+                        })}
                     </div>
                 </div>
             )}

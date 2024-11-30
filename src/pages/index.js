@@ -532,7 +532,7 @@ const Index = ({
                     </div>
                 )}
             </div>
-            <AlphabeticalComponent step="0" />
+            <AlphabeticalComponent step={0} />
             <Footer footerData={footerData} />
         </>
     );
