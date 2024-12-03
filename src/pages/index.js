@@ -1,14 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
-import {
-    MdClose,
-    MdSearch,
-    MdArrowForward,
-    MdAutoAwesome,
-    MdOutlineAutoAwesome,
-    Md23Mp,
-    MdArrowOutward,
-} from 'react-icons/md';
+import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward } from 'react-icons/md';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -17,13 +9,11 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
-import searchApps from '@/utils/searchApps';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
-import Link from 'next/link';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -223,7 +213,11 @@ const Index = ({
                                     Discover Top Solutions for Effortless Connectivity.
                                 </h2>
                             </div>
-                            <button className="btn btn-white ">Get Started</button>
+                            <LinkButton
+                                content={'Get Started'}
+                                customClasses={'btn btn-white'}
+                                href={'/signup?utm_source=/index'}
+                            />
                         </div>
                         <div className="flex items-center gap-2 w-fit">
                             <Image
