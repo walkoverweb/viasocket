@@ -4,3 +4,9 @@
         @apply gap-3 transition-all;
     }
 }
+.card {
+    @apply hover:bg-[#252525] transition-all duration-150;
+    &:hover p {
+        @apply text-white;
+    }
+}

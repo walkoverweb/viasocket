@@ -47,7 +47,12 @@ export default function IntegrationsComp({
                 </div>
             )}
 
-            {faqData && faqName && <FAQSection faqData={faqData} faqName={faqName} />}
+            {faqData && faqName && (
+                <div className="my-24">
+                    {' '}
+                    <FAQSection faqData={faqData} faqName={faqName} />
+                </div>
+            )}
 
             {pluginData?.length && <IntegrationsAbout plugins={pluginData} />}
 

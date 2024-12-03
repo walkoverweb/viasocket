@@ -6,9 +6,9 @@ export default async function fetchApps(query) {
         const response = await axios.get(fetchUrl, {
             headers: { 'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY },
             params: {
-                category: (query?.currentcategory !== 'All' && query?.currentcategory) || '',
+                category: (query?.category !== 'All' && query?.category) || '',
                 limit: 100,
-                offset: query?.page ? (Number(query.page) - 1) * 100 : 0,
+                offset: query?.offset ? query?.offset : 0,
             },
         });
         const rawData = await response?.data?.data;

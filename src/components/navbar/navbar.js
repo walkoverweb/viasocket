@@ -3,12 +3,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './navbar.module.scss';
 
-export default function Navbar({ navData, utm, borderClass }) {
+export default function Navbar({ navData, utm }) {
     let shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
             return parseInt(a.priority) - parseInt(b.priority);
         });
+    }
+    let borderClass;
+    let backgroundClass;
+    if (utm && utm === '/pricing') {
+        borderClass = 'border-b-0';
+    }
+    if (utm && utm === '/index') {
+        backgroundClass = 'bg-[#FFFFFF80] ';
     }
 
     return (
@@ -17,13 +25,13 @@ export default function Navbar({ navData, utm, borderClass }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black ${borderClass} `}
+                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black ${borderClass} ${backgroundClass} `}
                 >
                     <Image
                         src="/assets/brand/logo.svg"
                         className="h-[32px] w-auto "
-                        width={48}
-                        height={48}
+                        width={60}
+                        height={60}
                         alt="viasocket"
                     />
                 </Link>
@@ -38,7 +46,7 @@ export default function Navbar({ navData, utm, borderClass }) {
                                     href={option.link || '#'}
                                 >
                                     <div
-                                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass}`}
+                                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} ${backgroundClass}`}
                                     >
                                         {option.name}
                                     </div>
@@ -46,13 +54,13 @@ export default function Navbar({ navData, utm, borderClass }) {
                             );
                         })}
                     <Link
-                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass}`}
+                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} ${backgroundClass}`}
                         href={`/login?utm_source=${utm}`}
                     >
                         Login
                     </Link>
                     <Link
-                        className={`w-[142px] h-[56px] text-sm flex  justify-center bg-accent text-white items-center font-semibold border  border-black ${borderClass}`}
+                        className={`w-[142px] h-[56px] text-sm flex  justify-center bg-accent text-white items-center font-semibold border  border-black ${borderClass} `}
                         href={`/signup?utm_source=${utm}`}
                     >
                         Sign Up
@@ -63,7 +71,7 @@ export default function Navbar({ navData, utm, borderClass }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] hidden sm:flex justify-center items-center border border-black ${borderClass}`}
+                    className={`h-[56px] w-[192px] hidden sm:flex justify-center items-center border border-black ${borderClass} ${backgroundClass}`}
                 >
                     <Image
                         src="/assets/brand/logo.svg"
@@ -76,7 +84,7 @@ export default function Navbar({ navData, utm, borderClass }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[56px] flex sm:hidden  justify-center items-center border border-black ${borderClass}`}
+                    className={`h-[56px] w-[56px] flex sm:hidden  justify-center items-center border border-black ${borderClass} ${backgroundClass}`}
                 >
                     <Image
                         src="/assets/brand/favicon_dark.svg"
@@ -88,7 +96,7 @@ export default function Navbar({ navData, utm, borderClass }) {
                 </Link>
                 <div className=" flex">
                     <Link
-                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black border-r-0 ${borderClass} `}
+                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black border-r-0 ${borderClass} ${backgroundClass}`}
                         href={`/login?utm_source=${utm}`}
                         aria-label="Login"
                     >
@@ -105,7 +113,7 @@ export default function Navbar({ navData, utm, borderClass }) {
                     <div className="dropdown dropdown-end  ">
                         <button
                             tabIndex={0}
-                            className={`h-[56px] w-[56px] flex justify-center items-center border border-black ${borderClass} `}
+                            className={`h-[56px] w-[56px] flex justify-center items-center border border-black ${borderClass} ${backgroundClass}`}
                             aria-label="Menu"
                         >
                             <MdMenu size={24} />
