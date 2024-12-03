@@ -118,7 +118,7 @@ export function RecomendedCard({ index, visibleComboItems, card, plugins, utm })
                 href={`https://flow.viasocket.com/makeflow/trigger/${card?.trigger?.id}/action?utm_source=${utm}&events=${card?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
                 target="_blank"
             >
-                <div className={`block_border  overflow-hidden h-full flex flex-col cursor-pointer `}>
+                <div className={`block_border  overflow-hidden h-full flex flex-col cursor-pointer bg-white `}>
                     <div className="p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12 flex flex-col gap-4 h-full ">
                         <div className="flex gap-4 ">
                             <div className="flex gap-0 flex-wrap">

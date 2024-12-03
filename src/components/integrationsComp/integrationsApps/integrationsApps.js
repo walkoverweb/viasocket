@@ -19,6 +19,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [debounceValue, setDebounceValue] = useState('');
     const [showMore, setShowMore] = useState(true);
     const [filteredCategories, setFilteredCategories] = useState(categories?.categories);
+    const [autoCompleteSearch, setAutoCompleteSearch] = useState('');
     const [qurey, setQurey] = useState({
         category: router?.query?.category || '',
         offset: offset,
@@ -41,6 +42,12 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         loadApps();
     }, [qurey]);
 
+    useEffect(() => {
+        const filteredCategories = categories?.categories?.filter((category) =>
+            category.toLowerCase().includes(autoCompleteSearch.toLowerCase())
+        );
+        setFilteredCategories(filteredCategories);
+    }, [autoCompleteSearch]);
     useEffect(() => {
         if (debounceValue) {
             const filteredCategories = categories?.categories?.filter((category) =>
@@ -74,6 +81,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
 
     const handleCategorySelect = (category) => {
         setSearchTerm('');
+        setAutoCompleteSearch(category);
         setQurey({ category: category || '', offset: 0 });
         setOffset(0);
         setVisibleCategories(30);
@@ -107,6 +115,34 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </div>
                     </>
                 )}{' '}
+                <div
+                    tabIndex={0}
+                    className="md:hidden  dropdown-content menu bg-base-100  z-[1] p-0 py-8 max-w-[320px] industry-autocomplete"
+                >
+                    <Autocomplete
+                        getItemValue={(item) => item.label}
+                        items={filteredCategories.map((cat) => ({
+                            label: cat,
+                        }))}
+                        renderItem={(item) => (
+                            <span className={`uppercase  tracking-wide cursor-pointer text-sm p-2 hover:bg-neutral `}>
+                                {item?.label}
+                            </span>
+                        )}
+                        value={autoCompleteSearch}
+                        onChange={(e) => setAutoCompleteSearch(e.target.value)}
+                        onSelect={(val) => handleCategorySelect(val)}
+                        menuStyle={{
+                            position: 'absolute',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'auto',
+                            maxHeight: '400px',
+                            background: 'white',
+                        }}
+                        inputProps={{ placeholder: 'Select Category', id: 'categoryAutoComplete' }}
+                    />
+                </div>
                 <div className="w-full">
                     <div className="lg:w-[400px] md:w-[400px] w-[250px]">
                         <label
@@ -134,40 +170,8 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         </label>
                     </div>
                     <div className="flex h-fit min-h-[600px]   md:flex-row flex-col gap-8 border border-black ">
-                        <div
-                            tabIndex={0}
-                            className="md:hidden  dropdown-content menu bg-base-100  z-[1] p-0 max-w-[320px] industry-autocomplete"
-                        >
-                            <Autocomplete
-                                getItemValue={(item) => item.label}
-                                items={filteredCategories.map((cat) => ({
-                                    label: 'cat',
-                                }))}
-                                renderItem={(item) => (
-                                    <span
-                                        className={`uppercase  tracking-wider cursor-pointer text-sm ${qurey?.category === item ? 'font-bold' : ''}`}
-                                        onClick={() => handleCategorySelect(item)}
-                                    >
-                                        {item}
-                                    </span>
-                                )}
-                                value={catSearchTerm}
-                                onChange={(e) => filterCategory(e.target.value)}
-                                onSelect={(val) => setCatSearchTerm(val)}
-                                menuStyle={{
-                                    position: 'absolute',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    overflow: 'auto',
-                                    maxHeight: '400px',
-                                    background: 'white',
-                                }}
-                                inputProps={{ placeholder: 'Select Category', id: 'categoryAutoComplete' }}
-                            />
-                        </div>
-
                         {showCategories && (
-                            <ul className="max-w-[280px] min-w-[280px]  max-h-full overflow-hidden flex flex-col border-r border-black gap-2 p-6">
+                            <ul className="hidden lg:flex max-w-[280px] min-w-[280px]  max-h-full overflow-hidden flex-col border-r border-black gap-2 p-6">
                                 {filteredCategories?.slice(0, visibleCategories)?.map((category, index) => {
                                     return (
                                         <li key={index}>
