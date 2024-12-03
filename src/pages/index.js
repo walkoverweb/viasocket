@@ -219,7 +219,7 @@ const Index = ({
                                 href={'/signup?utm_source=/index'}
                             />
                         </div>
-                        <div className="flex items-center gap-2 w-fit">
+                        {/* <div className="flex items-center gap-2 w-fit">
                             <Image
                                 src={'/assets/img/chat_expert.jpeg'}
                                 width={100}
@@ -234,11 +234,11 @@ const Index = ({
                                     <MdArrowOutward />
                                 </span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="flex items-center justify-center w-full">
+                    {/* <div className="flex items-center justify-center w-full">
                         <a className="version-link">Latest Version out !</a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="grid gap-20">
@@ -501,7 +501,7 @@ const TestimonialsSection = ({ testimonials }) => (
         <h2 className="h1 flex gap-2 flex-wrap">
             What clients says <MdOutlineAutoAwesome />
         </h2>
-        <div className="index_client_grid grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-full  ">
+        <div className="index_client_grid grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full  ">
             {testimonials.map((testimonial, index) => (
                 <div className="block_border flex flex-col sm:p-12 p-6 gap-4" key={index}>
                     <div className="flex flex-col  gap-2 ">
@@ -526,11 +526,8 @@ const TestimonialsSection = ({ testimonials }) => (
 
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="md:text-6xl text-4xl font-medium">Client Stories</h2>
-        <div
-            className="grid grid-rows-6 grid-cols-6 gap-6 container lg:max-h-[550px] md:max-h-[700px] max-h-[1200px] border border-gray-300 "
-            style={{ borderWidth: '1px' }}
-        >
+        <h2 className="h1">Client Stories</h2>
+        <div className="grid grid-rows-6 grid-cols-6 border-black border lg:max-h-[550px] md:max-h-[700px] max-h-[1200px] ">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
             ))}
