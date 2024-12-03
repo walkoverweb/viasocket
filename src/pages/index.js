@@ -14,6 +14,7 @@ import { LinkButton } from '@/components/uiComponents/buttons';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
+import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -489,6 +490,7 @@ const Index = ({
                 )}
             </div>
 
+            <AlphabeticalComponent step={0} />
             <div className="container py-16">
                 <Footer footerData={footerData} />
             </div>
