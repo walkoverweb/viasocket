@@ -17,8 +17,8 @@ const BlogGrid = ({ posts }) => {
                         <CardComponent key={index} card={post} />
                     ))}
                 </div>
-                <Link href="/blog" target="_blank">
-                    <LinkText children="Read more blogs" customClasses="btn btn-primary btn-outline btn-md" />
+                <Link href="/blog" target="_blank" className=" w-fit">
+                    <LinkText children="Read more blogs" customClasses="btn btn-primary btn-outline btn-md w-fit" />
                 </Link>
             </div>
         </>

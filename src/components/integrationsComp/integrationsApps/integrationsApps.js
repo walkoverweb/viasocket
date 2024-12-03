@@ -19,6 +19,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [debounceValue, setDebounceValue] = useState('');
     const [showMore, setShowMore] = useState(true);
     const [filteredCategories, setFilteredCategories] = useState(categories?.categories);
+    const [autoFilteredCategories, setAutoFilteredCategories] = useState(categories?.categories);
     const [autoCompleteSearch, setAutoCompleteSearch] = useState('');
     const [qurey, setQurey] = useState({
         category: router?.query?.category || '',
@@ -46,7 +47,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         const filteredCategories = categories?.categories?.filter((category) =>
             category.toLowerCase().includes(autoCompleteSearch.toLowerCase())
         );
-        setFilteredCategories(filteredCategories);
+        setAutoFilteredCategories(filteredCategories);
     }, [autoCompleteSearch]);
     useEffect(() => {
         if (debounceValue) {
@@ -121,7 +122,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                 >
                     <Autocomplete
                         getItemValue={(item) => item.label}
-                        items={filteredCategories.map((cat) => ({
+                        items={autoFilteredCategories.map((cat) => ({
                             label: cat,
                         }))}
                         renderItem={(item) => (

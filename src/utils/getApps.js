@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default async function fetchApps(query) {
-    console.log('🚀 ~ fetchApps ~ query:', query);
     try {
         const fetchUrl = `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all`;
         const response = await axios.get(fetchUrl, {

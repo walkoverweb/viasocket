@@ -16,7 +16,7 @@ export default function Navbar({ navData, utm }) {
         borderClass = 'border-b-0';
     }
     if (utm && utm === '/index') {
-        backgroundClass = 'bg-[#FFFFFF20] ';
+        backgroundClass = 'bg-[#FFFFFF80] ';
     }
 
     return (
@@ -30,8 +30,8 @@ export default function Navbar({ navData, utm }) {
                     <Image
                         src="/assets/brand/logo.svg"
                         className="h-[32px] w-auto "
-                        width={48}
-                        height={48}
+                        width={60}
+                        height={60}
                         alt="viasocket"
                     />
                 </Link>
