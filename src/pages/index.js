@@ -15,6 +15,7 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
+import searchApps from '@/utils/searchApps';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -49,17 +50,18 @@ const Index = ({
     const [selectedDept, setSelectedDept] = useState('');
     const [showDeptDropdown, setShowDeptDropdown] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+
     const [selectedApps, setSelectedApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const [appLoading, setAppLoading] = useState(true);
     const [searchLoading, setSearchLoading] = useState(false);
     const [combinationLoading, setCombinationLoading] = useState(true);
     const debounceValue = useDebounce(searchTerm, 300);
+
     const [renderCombos, setRenderCombos] = useState();
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
-
     const fetchAppsData = useCallback(async () => await fetchApps(), []);
 
     const filterSelectedApps = useCallback(
@@ -113,10 +115,10 @@ const Index = ({
     };
 
     useEffect(() => {
-        searchApps();
+        filterApps();
     }, [debounceValue]);
 
-    const searchApps = async () => {
+    const filterApps = async () => {
         if (debounceValue) {
             setSearchLoading(true);
             try {
