@@ -122,7 +122,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice }) => {
                     </div>
                 </div>
 
-                <div className="border border-black p-6 md:p-12 flex flex-col gap-6">
+                {/* <div className="border border-black p-6 md:p-12 flex flex-col gap-6">
                     <h2 className="h1 lg:w-1/2">Explore Hundreds of Features, Available on Every Plan</h2>
                     <p className="sub-h1">Get unrestricted access to all features, no matter your choice of plan.</p>
                     <div className="flex justify-start">
@@ -130,7 +130,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice }) => {
                             SEE ALL FEATURES
                         </button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className=" flex flex-col justify-center">
                     <h2 className="h1 p-6 md:p-12 ">
@@ -184,7 +184,8 @@ const pricing = ({ navData, footerData, faqData, betterChoice }) => {
                         </div>
                     </div>
                 </div>
-                <div className=" flex flex-col justify-center py-48">
+
+                {/* <div className=" flex flex-col justify-center py-48">
                     <div className=" border border-t-0 border-black">
                         <div className="flex items-center justify-center sm:-mt-5 md:-mt-5 lg:-mt-8">
                             <div className="border-t border-black flex-grow" />
@@ -207,7 +208,8 @@ const pricing = ({ navData, footerData, faqData, betterChoice }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+
                 <div className="flex flex-col">
                     <div className="flex flex-col border-black border border-b-0 p-6 md:p-12">
                         {faqData && faqData.length > 0 && <FAQSection faqData={faqData} faqName={`/pricing`} />}

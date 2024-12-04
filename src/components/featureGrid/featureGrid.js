@@ -5,6 +5,7 @@ import Image from 'next/image';
 import GetMdIcons from '@/utils/getMdIcons';
 
 export function FeaturesGrid({ features, page }) {
+    console.log('🚀 ~ FeaturesGrid ~ features:', features);
     return (
         <>
             <div className="grid gap-12 container">
