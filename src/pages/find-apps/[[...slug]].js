@@ -1,6 +1,5 @@
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) => {
     return (

@@ -200,7 +200,7 @@ const Index = ({
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full h-dvh min-h-fit cont__py flex flex-col"
+                className="w-full h-dvh min-h-fit py-10 flex flex-col"
                 style={{ background: 'url(/assets/img/index_banner_image.png) center/cover' }}
             >
                 <Navbar navData={navData} utm={'/index'} />
