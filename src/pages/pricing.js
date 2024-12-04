@@ -25,7 +25,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice }) => {
 
     return (
         <>
-            <div className="container cont cont__py gap-24">
+            <div className="container cont py-10 gap-24">
                 <div className="">
                     <Navbar navData={navData} utm={'/pricing'} borderClass={'border-b-0'} />
                     <div className=" flex flex-col justify-center gap-6  ">

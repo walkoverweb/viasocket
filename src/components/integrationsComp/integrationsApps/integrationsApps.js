@@ -22,7 +22,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
     const [autoFilteredCategories, setAutoFilteredCategories] = useState(categories?.categories);
     const [autoCompleteSearch, setAutoCompleteSearch] = useState('');
     const [qurey, setQurey] = useState({
-        category: router?.query?.category || '',
+        category: router?.query?.category || 'All',
         offset: offset,
     });
     useEffect(() => {
@@ -92,15 +92,12 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
         };
         router.replace(newUrl, undefined, { shallow: true });
     };
-
     return (
         <>
-            <div className="container flex-col gap-4 my-12">
+            <div className="container flex flex-col gap-10 my-12">
                 {pluginData?.length && (
-                    <>
-                        <h2 className="lg:text-3xl text-2xl md:text-3xl font-semibold">
-                            Integrate with specific service
-                        </h2>
+                    <div className="flex flex-col gap-10">
+                        <h2 className="h1">Integrate with specific service</h2>
                         <div className="flex gap-2 justify-center items-center bg-white border py-4 px-6  w-fit">
                             <Image
                                 className="w-[26px] h-[26px]"
@@ -114,7 +111,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                         <div className="px-8">
                             <MdAdd fontSize={46} />
                         </div>
-                    </>
+                    </div>
                 )}{' '}
                 <div
                     tabIndex={0}
@@ -212,7 +209,8 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                                 ))}
                         </div>
                     </div>
-                    {apps?.length >= offset + 100 && (
+
+                    {(apps?.length >= offset + 100 || visibleCategories <= categories?.categories?.length) && (
                         <div className="w-full flex justify-end">
                             <button
                                 onClick={() => {
