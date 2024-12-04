@@ -4,7 +4,7 @@ export default function FAQSection({ faqData, faqName }) {
         <>
             {' '}
             {faqData?.length > 0 && (
-                <div className="container flex flex-col gap-9">
+                <div className="flex flex-col gap-9">
                     <h2 className="h1">Frequently Asked Questions</h2>
 
                     <div className="flex flex-col">
@@ -22,7 +22,7 @@ export default function FAQSection({ faqData, faqName }) {
                                         />
                                         <div className="collapse-title text-lg font-semibold">{faq?.que}</div>
                                         <div className="collapse-content flex flex-col gap-2">
-                                            <p className="font-">{faq?.ans}</p>
+                                            <div className="font-">{faq?.ans}</div>
                                             {faq?.link && <LinkButton content="Learn More" href={faq?.link} />}
                                         </div>
                                     </div>

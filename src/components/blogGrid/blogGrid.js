@@ -45,7 +45,7 @@ const CardComponent = ({ card }) => {
                 <h3 className="uppercase tracking-wider font-semibold">{card?.title}</h3>
                 <p className="text-base">{card?.description}</p>
                 <div className="card-actions justify-start mt-auto">
-                    <LinkButton href={`/blog/${card?.slug}`} content="Know more" />
+                    <LinkText children="Know more" />
                 </div>
             </div>
         </Link>
