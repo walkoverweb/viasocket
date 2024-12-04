@@ -49,7 +49,7 @@ export default function Footer({ footerData, borderClass }) {
     return (
         <>
             <div
-                className={`grid lg:grid-rows-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1  ms:grid-cols-4 grid-cols-1 border  border-black ${borderClass}`}
+                className={` grid lg:grid-rows-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1  ms:grid-cols-4 grid-cols-1 border  border-black ${borderClass}`}
             >
                 <div className="row-span-1 col-span-4 lg:col-span-1 order-last lg:order-first md:p-10 p-4 h-full lg:border-r border-r-0 border-black flex flex-col ">
                     <div className="flex flex-col gap-2 mb-12 sm:mb-6 py-4">

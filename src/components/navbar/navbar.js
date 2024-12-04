@@ -16,7 +16,7 @@ export default function Navbar({ navData, utm }) {
         borderClass = 'border-b-0';
     }
     if (utm && utm === '/index') {
-        backgroundClass = 'bg-[#FFFFFF80] ';
+        backgroundClass = 'bg-[#FFFFFF80] hover:bg-black hover:text-white ';
     }
 
     return (
@@ -25,7 +25,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black ${borderClass} ${backgroundClass} `}
+                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black hover:bg-[#FFFFFF80] ${borderClass} ${backgroundClass} `}
                 >
                     <Image
                         src="/assets/brand/logo.svg"
@@ -60,7 +60,7 @@ export default function Navbar({ navData, utm }) {
                         Login
                     </Link>
                     <Link
-                        className={`w-[142px] h-[56px] text-sm flex  justify-center bg-accent text-white items-center font-semibold border  border-black ${borderClass} `}
+                        className={`w-[142px] h-[56px] text-sm flex  justify-center bg-accent  hover:bg-black text-white items-center font-semibold border  border-black ${borderClass} `}
                         href={`/signup?utm_source=${utm}`}
                     >
                         Sign Up
@@ -103,7 +103,7 @@ export default function Navbar({ navData, utm }) {
                         <MdLogin size={24} />
                     </Link>
                     <Link
-                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black bg-accent text-white border-r-0 ${borderClass} `}
+                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black bg-accent  hover:bg-black text-white border-r-0 ${borderClass} `}
                         href={`/signup?utm_source=${utm}`}
                         aria-label="Sign Up"
                     >

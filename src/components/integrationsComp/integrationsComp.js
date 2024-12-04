@@ -48,7 +48,7 @@ export default function IntegrationsComp({
             )}
 
             {faqData && faqName && (
-                <div className="my-24">
+                <div className="container my-24">
                     {' '}
                     <FAQSection faqData={faqData} faqName={faqName} />
                 </div>
