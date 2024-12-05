@@ -15,7 +15,7 @@ export function FeaturesGrid({ features, page }) {
                     {features
                         .sort((a, b) => a.priority - b.priority)
                         .map((feature, index) => {
-                            const MdIcon = GetMdIcons(feature?.iconname);
+                            const MdIcon = GetMdIcons(feature?.iconname || 'MdCropOriginal');
                             if (feature?.product?.toLowerCase() === page && feature?.hidden !== true) {
                                 if (feature.block_type === 'R2C2') {
                                     return (
@@ -28,7 +28,7 @@ export function FeaturesGrid({ features, page }) {
                                         >
                                             <div className="flex flex-col gap-2 p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12">
                                                 <div className="text-6xl  flex flex-col gap-3">
-                                                    <MdIcon />
+                                                    {MdIcon && <MdIcon />}
                                                 </div>
                                                 <div className="flex flex-col gap-2 justify-end">
                                                     <h3 className="uppercase tracking-wider font-bold">
@@ -70,9 +70,7 @@ export function FeaturesGrid({ features, page }) {
                                             aria-label="feature"
                                             className={`col-span-2 block_border md:col-span-1 hover:text-white hover:bg-[#252525] transition-all duration-150 row-span-1 min-h-[200px] p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12   justify-between gap-2  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
                                         >
-                                            <div className="text-6xl flex flex-col gap-3">
-                                                <MdIcon />
-                                            </div>
+                                            <div className="text-6xl flex flex-col gap-3">{MdIcon && <MdIcon />}</div>
                                             <div className="flex flex-col gap-2 justify-end  ">
                                                 <h3 className="uppercase tracking-wider font-bold">{feature.name}</h3>
                                                 <p>{feature?.description}</p>

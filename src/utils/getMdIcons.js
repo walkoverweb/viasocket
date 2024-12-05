@@ -1,4 +1,4 @@
 export default function GetMdIcons(icon) {
-    const FetchedIcon = require('react-icons/md')['MdCropOriginal'];
+    const FetchedIcon = require('react-icons/md')[icon];
     return FetchedIcon;
 }

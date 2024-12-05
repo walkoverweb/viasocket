@@ -25,7 +25,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black hover:bg-[#FFFFFF80] ${borderClass} ${backgroundClass} `}
+                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black hover:bg-[#FFFFFF80] ${borderClass} bg-[#FFFFFF80] hover:text-white `}
                 >
                     <Image
                         src="/assets/brand/logo.svg"
@@ -46,7 +46,7 @@ export default function Navbar({ navData, utm }) {
                                     href={option.link || '#'}
                                 >
                                     <div
-                                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} ${backgroundClass}`}
+                                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
                                     >
                                         {option.name}
                                     </div>
@@ -54,7 +54,7 @@ export default function Navbar({ navData, utm }) {
                             );
                         })}
                     <Link
-                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} ${backgroundClass}`}
+                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
                         href={`/login?utm_source=${utm}`}
                     >
                         Login
@@ -71,7 +71,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] hidden sm:flex justify-center items-center border border-black ${borderClass} ${backgroundClass}`}
+                    className={`h-[56px] w-[192px] hidden sm:flex justify-center items-center border border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
                 >
                     <Image
                         src="/assets/brand/logo.svg"
@@ -84,7 +84,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[56px] flex sm:hidden  justify-center items-center border border-black ${borderClass} ${backgroundClass}`}
+                    className={`h-[56px] w-[56px] flex sm:hidden  justify-center items-center border border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
                 >
                     <Image
                         src="/assets/brand/favicon_dark.svg"
@@ -96,7 +96,7 @@ export default function Navbar({ navData, utm }) {
                 </Link>
                 <div className=" flex">
                     <Link
-                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black border-r-0 ${borderClass} ${backgroundClass}`}
+                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black border-r-0 ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
                         href={`/login?utm_source=${utm}`}
                         aria-label="Login"
                     >
@@ -113,7 +113,7 @@ export default function Navbar({ navData, utm }) {
                     <div className="dropdown dropdown-end  ">
                         <button
                             tabIndex={0}
-                            className={`h-[56px] w-[56px] flex justify-center items-center border border-black ${borderClass} ${backgroundClass}`}
+                            className={`h-[56px] w-[56px] flex justify-center items-center border border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
                             aria-label="Menu"
                         >
                             <MdMenu size={24} />
