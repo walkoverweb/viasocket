@@ -1,21 +1,24 @@
 .btn {
+    @apply w-fit px-10 uppercase tracking-wider;
+
     &.btn-white {
-        @apply border-white text-white hover:bg-gray-700;
+        @apply bg-white border-0 hover:bg-gray-300 transition-all duration-200;
+        &.btn-outline {
+            @apply border-white text-white hover:bg-gray-700;
+        }
     }
 
     &.btn-primary {
         @apply hover:text-primary hover:bg-gray-100;
     }
+
     &.btn-accent {
         @apply text-white;
     }
+
     &:disabled {
         @apply bg-gray-200 text-black;
     }
-}
-
-.flex-col {
-    @apply flex;
 }
 
 .container {
@@ -47,6 +50,16 @@
     }
     @media only screen and (max-width: 480px) {
         @apply py-8;
+    }
+}
+
+.cont {
+    @apply flex flex-col;
+    &__py {
+        @apply py-20;
+    }
+    &__gap {
+        @apply gap-6;
     }
 }
 
@@ -97,5 +110,78 @@
     .collapse-title {
         background-color: #f5f5f5;
         color: #000;
+    }
+}
+
+.feature_grid {
+    background-image: url('/assets/img/program_feature_grid.png');
+    background-position: center center;
+    .grid-block {
+        @apply transition-all duration-200;
+        border: 1px solid rgb(135, 135, 135);
+        &:hover {
+            background: #00000025;
+        }
+    }
+}
+
+$button-transition-timing: 100ms;
+
+.link-btn {
+    @apply flex items-center gap-1 w-fit;
+
+    .arrow-icon {
+        overflow: visible;
+        margin-left: 3px;
+        width: 8px;
+    }
+
+    .arrow-head {
+        transform: translateX(0);
+        transition: transform $button-transition-timing ease-in-out;
+    }
+
+    .arrow-body {
+        opacity: 0;
+        transform: scaleX(1);
+        transition:
+            transform $button-transition-timing ease-in-out,
+            opacity $button-transition-timing ease-in-out;
+    }
+
+    &:hover {
+        // color: var(--link-color);
+        .arrow-head {
+            transform: translateX(3px);
+        }
+
+        .arrow-body {
+            opacity: 1;
+            transform: scaleX(2);
+        }
+    }
+
+    &.hide-ico {
+        .arrow-icon {
+            transition: all $button-transition-timing ease-in-out;
+            opacity: 0;
+        }
+    }
+}
+
+.LinkButtonCard:hover .link-btn {
+    .arrow-head {
+        transform: translateX(5px);
+    }
+
+    .arrow-body {
+        opacity: 1;
+        transform: scaleX(3);
+    }
+
+    &.hide-ico {
+        & .arrow-icon {
+            opacity: 1;
+        }
     }
 }

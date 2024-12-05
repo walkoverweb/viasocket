@@ -4,6 +4,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import ErrorComp from '@/components/404/404Comp';
 import axios from 'axios';
+import Footer from '@/components/footer/footer';
 
 export async function getServerSideProps(context) {
     const { params } = context;
@@ -115,6 +116,9 @@ const IntegrationSlugPage = ({
             ) : (
                 <ErrorComp footerData={footerData} navData={navData} utm={utm} />
             )}
+            <div className="py-8 container">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };

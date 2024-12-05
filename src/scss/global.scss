@@ -7,7 +7,13 @@
 @import 'import';
 .heading {
     font-family: 'Times Now';
+    color: #252525;
 }
+
+.border-05 {
+    border: 0.5px solid #252525 !important;
+}
+
 .font-family-times-now {
     font-family: 'Times Now';
 }
@@ -135,4 +141,30 @@
             @apply input w-full input-sm h-[36px] border-[#CCCCCC] flex items-center gap-2 bg-white;
         }
     }
+}
+
+.version-link {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    color: white;
+    @apply uppercase tracking-wider;
+}
+.version-link::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 1px;
+    bottom: -2px;
+    left: 50%;
+    background-color: currentColor;
+    transition: width 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+.version-link:hover::after {
+    width: 40px;
+}
+
+.hero_gradient {
+    background: linear-gradient(95.2deg, rgb(173, 215, 252) 26.8%, rgba(192, 229, 246, 1) 64%);
 }

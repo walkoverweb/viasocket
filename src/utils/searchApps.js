@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchSearchResults = async (query) => {
+export default async function searchApps(query) {
     const url = `${process.env.NEXT_PUBLIC_SEARCH_API_URL}/search?key=${query}`;
 
     try {
@@ -10,6 +10,4 @@ const fetchSearchResults = async (query) => {
         console.log(error);
     } finally {
     }
-};
-
-export default fetchSearchResults;
+}

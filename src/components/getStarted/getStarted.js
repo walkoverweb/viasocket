@@ -1,17 +1,36 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import style from './getStarted.module.scss';
 import { MdOutlineArrowForward } from 'react-icons/md';
-
 export default function GetStarted({ data, isHero }) {
     return (
         <>
             <div className="grid gap-10 ">
-                {isHero === 'false' && (
-                    <h2 className="md:text-6xl text-4xl font-medium">
-                        We'll help you get
-                        <br /> started
-                    </h2>
-                )}
-
+                <div className="flex justify-between flex-col md:flex-row">
+                    <div className="flex flex-col w-fit h-full">
+                        <h2 className="h1">
+                            We'll help you get
+                            <br /> started
+                        </h2>
+                        <p>Our team is all set to help you!</p>
+                    </div>
+                    <Link href={'/support'} className={style?.message_cont}>
+                        <Image
+                            className={`${style?.getstarted} ${style?.default}`}
+                            src={'/assets/img/get_started_message.svg'}
+                            width={300}
+                            height={200}
+                            alt="get started message"
+                        />
+                        <Image
+                            className={`${style?.getstarted} ${style?.active}`}
+                            src={'/assets/img/get_started_message_active.svg'}
+                            width={300}
+                            height={200}
+                            alt="get started message"
+                        />
+                    </Link>
+                </div>
                 <div className="flex  lg:gap-6 gap-4  flex-wrap">
                     {data[0] &&
                         data?.map((faq, index) => {
@@ -37,7 +56,7 @@ export default function GetStarted({ data, isHero }) {
                                             aria-label="get started"
                                         >
                                             <span>{faq?.name}</span>
-                                            <MdOutlineArrowForward />
+                                            {/* <MdOutlineArrowForward /> */}
                                         </button>
                                     </Link>
                                 );

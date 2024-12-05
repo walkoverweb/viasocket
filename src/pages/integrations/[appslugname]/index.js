@@ -5,6 +5,7 @@ import IntegrationsComp from '@/components/integrationsComp/integrationsComp';
 import { getUseCases } from '@/pages/api/fetch-usecases';
 import axios from 'axios';
 import fetchApps from '@/utils/getApps';
+import Footer from '@/components/footer/footer';
 
 const IntegrationSlugPage = ({
     getStartedData,
@@ -45,6 +46,9 @@ const IntegrationSlugPage = ({
                         pathSlugs={pathSlugs}
                     />
                 )}
+                <div className="py-8 container">
+                    <Footer footerData={footerData} />
+                </div>
             </>
         );
     } else {

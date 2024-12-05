@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './newnavbar.module.scss';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
-const NewNavbar = ({ navData, utm }) => {
+const NewNavbar = ({ navData, utm, borderClass }) => {
     let shorterData;
     if (navData?.length > 0) {
         shorterData = navData?.sort((a, b) => {
@@ -16,7 +16,7 @@ const NewNavbar = ({ navData, utm }) => {
         <>
             <div className={`${styles.navbar_cont} container flex flex-col w-full mt-12 mb-0`}>
                 <div className="flex items-center justify-between w-full  ">
-                    <div className=" border border-black border-b-0 ">
+                    <div className={`border border-black ${borderClass} `}>
                         <div className="flex items-center h-12 px-3 lg:px-4 ">
                             <Link href="/" aria-label="logo" className="flex items-center gap-2">
                                 <Image
@@ -70,7 +70,7 @@ const NewNavbar = ({ navData, utm }) => {
                                         <Link
                                             target={option.link?.startsWith('http') ? '_blank' : '_self'}
                                             href={option.link || '#'}
-                                            className="btn w-40 h-10 text-base text-black bg-white border border-black lg:border-r-0 lg:border-b-0 flex items-center justify-center"
+                                            className={`btn w-40 h-10 text-base text-black bg-white border border-black lg:border-r-0 flex items-center justify-center ${borderClass} `}
                                         >
                                             {option.name}
                                         </Link>
@@ -82,27 +82,27 @@ const NewNavbar = ({ navData, utm }) => {
                     <div className="flex items-center ">
                         <Link
                             href={`/login?utm_source=${utm}`}
-                            className="hidden lg:inline-block btn px-4 py-2 text-black  bg-white font-times-now text-lg font-normal border border-r-0 border-b-0 border-black bg-white hover:bg-gray-50 text-md md:text-lgw-auto lg:w-40 h-10"
+                            className={`hidden lg:inline-block btn px-4 py-2 text-black  bg-white font-times-now text-lg font-normal border border-r-0  border-black bg-white hover:bg-gray-50 text-md md:text-lgw-auto lg:w-40 h-10 ${borderClass} `}
                         >
                             Login
                         </Link>
                         <Link
                             href={`/signup?utm_source=${utm}`}
-                            className="hidden lg:inline-block btn px-4 py-2  text-white font-times-now text-lg font-normal border border-black border-b-0 bg-red-700 hover:bg-red-800 text-md md:text-lg w-auto lg:w-40 h-10"
+                            className={`hidden lg:inline-block btn px-4 py-2  text-white font-times-now text-lg font-normal border border-black bg-red-700 hover:bg-red-800 text-md md:text-lg w-auto lg:w-40 h-10 ${borderClass} `}
                         >
                             Sign Up
                         </Link>
 
                         <Link
                             href={`/login?utm_source=${utm}`}
-                            className="lg:hidden text-black p-3  border border-black border-b-0 border-r-0 "
+                            className={`lg:hidden text-black p-3  border border-black border-r-0 ${borderClass}`}
                             aria-label="Login"
                         >
                             <MdLogin size={24} />
                         </Link>
                         <Link
                             href={`/signup?utm_source=${utm}`}
-                            className="lg:hidden text-white p-3  bg-red-700 hover:bg-red-800 border border-black border-b-0 border-r-0"
+                            className={`lg:hidden text-white p-3  bg-red-700 hover:bg-red-800 border border-black  border-r-0 ${borderClass} `}
                             aria-label="Sign Up"
                         >
                             <MdPersonAdd size={24} />
@@ -111,7 +111,7 @@ const NewNavbar = ({ navData, utm }) => {
                         <div className="dropdown dropdown-end lg:hidden">
                             <button
                                 tabIndex={0}
-                                className="p-3 border border-black border-b-0  bg-white "
+                                className={`p-3 border border-black bg-white ${borderClass} `}
                                 aria-label="Menu"
                             >
                                 <MdMenu size={24} />

@@ -2,17 +2,20 @@ import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import styles from './featureGrid.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import GetMdIcons from '@/utils/getMdIcons';
 
 export function FeaturesGrid({ features, page }) {
     return (
         <>
             <div className="grid gap-12 container">
-                <h2 className="md:text-6xl text-4xl font-medium">Features</h2>
-
-                <div className="grid xl:grid-cols-4 lg:grid-cols-3 lg:grid-rows-3 md:grid-cols-3 md:grid-rows-4 sm:grid-cols-2 sm:grid-rows-6 md:gap-8 gap-3  overflow-hidden  border border-gray-300  style={{borderWidth: '1px'}}">
+                <h2 className="h1">Features</h2>
+                <div
+                    className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-black  overflow-hidden index_feature_grid`}
+                >
                     {features
                         .sort((a, b) => a.priority - b.priority)
                         .map((feature, index) => {
+                            const MdIcon = GetMdIcons(feature?.iconname || 'MdCropOriginal');
                             if (feature?.product?.toLowerCase() === page && feature?.hidden !== true) {
                                 if (feature.block_type === 'R2C2') {
                                     return (
@@ -20,26 +23,18 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             href={feature?.link ? feature?.link : '#'}
                                             target="_blank"
-                                            className={`${styles.r2c2} col-span-2 row-span-2  bg-secondaryjustify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg `}
+                                            className={`block_border col-span-2 row-span-2 justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidde hover:bg-[#f8f8f8]  `}
                                             aria-label="feature"
                                         >
-                                            <div className="flex flex-col gap-3 lg:p-5 md:p-3 p-3">
-                                                {feature?.icon ? (
-                                                    <Image
-                                                        src={feature.icon[0]}
-                                                        alt="feature 1"
-                                                        className={` `}
-                                                        height={40}
-                                                        width={40}
-                                                    />
-                                                ) : (
-                                                    <HiOutlineComputerDesktop size={35} />
-                                                )}
+                                            <div className="flex flex-col gap-2 p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12">
+                                                <div className="text-6xl  flex flex-col gap-3">
+                                                    {MdIcon && <MdIcon />}
+                                                </div>
                                                 <div className="flex flex-col gap-2 justify-end">
-                                                    <h2 className="md:text-xl text-lg font-semibold">{feature.name}</h2>
-                                                    <p className="md:text-sm text-xs text-gray-500">
-                                                        {feature?.description}
-                                                    </p>
+                                                    <h3 className="uppercase tracking-wider font-bold">
+                                                        {feature.name}
+                                                    </h3>
+                                                    <p>{feature?.description}</p>
                                                 </div>
                                             </div>
 
@@ -66,58 +61,6 @@ export function FeaturesGrid({ features, page }) {
                                             </div>
                                         </Link>
                                     );
-                                } else if (feature.block_type === 'R1C2') {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={feature?.link ? feature?.link : '#'}
-                                            target="_blank"
-                                            className={`${styles.r1c2} bg-neutral  col-span-2 row-span-1 flex sm:flex-row flex-col  w-full h-full hover:shadow-lg`}
-                                            aria-label="feature"
-                                        >
-                                            <div className="flex flex-col gap-3 h-full justify-between  lg:p-5 md:p-3 p-3 sm:w-1/2 w-1/1">
-                                                {feature?.icon ? (
-                                                    <Image
-                                                        src={feature.icon[0]}
-                                                        alt="feature 1"
-                                                        className={` `}
-                                                        height={40}
-                                                        width={40}
-                                                    />
-                                                ) : (
-                                                    <HiOutlineComputerDesktop size={35} />
-                                                )}
-                                                <div className="flex flex-col gap-2 justify-end">
-                                                    <h2 className="md:text-xl text-lg font-semibold">{feature.name}</h2>
-                                                    <p className="md:text-sm text-xs text-gray-500">
-                                                        {feature?.description}
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <div
-                                                className={`${styles.r1c2_img_cont} flex justify-end items-end sm:w-1/2 w-1/1 h-auto`}
-                                            >
-                                                {feature?.image ? (
-                                                    <Image
-                                                        src={feature.image}
-                                                        alt="feature 1"
-                                                        className={`${styles.r1c2_img} `}
-                                                        height={1080}
-                                                        width={1080}
-                                                    />
-                                                ) : (
-                                                    <Image
-                                                        src="https://placehold.co/1600x1600"
-                                                        alt="Placeholder"
-                                                        className={`${styles.r1c2_img} `}
-                                                        height={1080}
-                                                        width={1080}
-                                                    />
-                                                )}
-                                            </div>
-                                        </Link>
-                                    );
                                 } else {
                                     return (
                                         <Link
@@ -125,27 +68,12 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             target="_blank"
                                             aria-label="feature"
-                                            className={`col-span-2 md:col-span-1 row-span-1 min-h-[200px] bg-neutral lg:p-5 md:p-3 p-3  justify-between gap-1  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
+                                            className={`col-span-2 block_border md:col-span-1 hover:text-white hover:bg-[#252525] transition-all duration-150 row-span-1 min-h-[200px] p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12   justify-between gap-2  flex flex-col  md:aspect-square w-full h-full hover:shadow-lg`}
                                         >
-                                            <div className="flex flex-col gap-3">
-                                                {feature?.icon ? (
-                                                    <Image
-                                                        src={feature.icon[0]}
-                                                        alt="feature 1"
-                                                        className={` `}
-                                                        height={40}
-                                                        width={40}
-                                                    />
-                                                ) : (
-                                                    <HiOutlineComputerDesktop size={35} />
-                                                )}
-                                            </div>
-
-                                            <div className="flex flex-col gap-2 justify-end ">
-                                                <h2 className="md:text-xl text-lg  font-semibold">{feature.name}</h2>
-                                                <p className="md:text-sm text-xs text-gray-500">
-                                                    {feature?.description}
-                                                </p>
+                                            <div className="text-6xl flex flex-col gap-3">{MdIcon && <MdIcon />}</div>
+                                            <div className="flex flex-col gap-2 justify-end  ">
+                                                <h3 className="uppercase tracking-wider font-bold">{feature.name}</h3>
+                                                <p>{feature?.description}</p>
                                             </div>
                                         </Link>
                                     );

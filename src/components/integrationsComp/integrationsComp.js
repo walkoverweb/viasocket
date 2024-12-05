@@ -7,6 +7,7 @@ import UseCase from '../useCases/useCases';
 import IntegrationEvents from './integrationEvents/integrationEvents';
 import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
+import Footer from '../footer/footer';
 
 export default function IntegrationsComp({
     apps,
@@ -47,7 +48,12 @@ export default function IntegrationsComp({
                 </div>
             )}
 
-            {faqData && faqName && <FAQSection faqData={faqData} faqName={faqName} />}
+            {faqData && faqName && (
+                <div className="container my-24">
+                    {' '}
+                    <FAQSection faqData={faqData} faqName={faqName} />
+                </div>
+            )}
 
             {pluginData?.length && <IntegrationsAbout plugins={pluginData} />}
 

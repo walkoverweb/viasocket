@@ -28,7 +28,9 @@ const IntegrationSlugPage = ({
                 pathArray={pathArray}
                 plugin={[combos?.plugins?.[pathArray[2]]]}
             />
-            <Navbar navData={navData} utm={'/integrations'} />
+            <div className="py-8">
+                <Navbar navData={navData} utm={'/integrations'} />
+            </div>
             <IntegrationsComp
                 apps={apps}
                 posts={posts}
@@ -42,7 +44,9 @@ const IntegrationSlugPage = ({
                 showCategories={true}
                 query={query}
             />
-            <Footer footerData={footerData} />
+            <div className="py-8 container">
+                <Footer footerData={footerData} />
+            </div>
         </>
     );
 };
