@@ -7,6 +7,7 @@ import UseCase from '../useCases/useCases';
 import IntegrationEvents from './integrationEvents/integrationEvents';
 import GetStarted from '../getStarted/getStarted';
 import IntegrationFooter from './integrationsFooter/integrationsFooter';
+import Footer from '../footer/footer';
 
 export default function IntegrationsComp({
     apps,
