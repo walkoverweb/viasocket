@@ -23,7 +23,7 @@ export function FeaturesGrid({ features, page }) {
                                             key={index}
                                             href={feature?.link ? feature?.link : '#'}
                                             target="_blank"
-                                            className={`block_border col-span-2 row-span-2 justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidden hover:shadow-lg  `}
+                                            className={`block_border col-span-2 row-span-2 justify-between gap-4 w-full h-full flex flex-col md:aspect-square overflow-hidde hover:bg-[#f8f8f8]  `}
                                             aria-label="feature"
                                         >
                                             <div className="flex flex-col gap-2 p-6 sm:p-12 md:p-12 lg:p-6 xl:p-12">

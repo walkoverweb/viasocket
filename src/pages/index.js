@@ -200,19 +200,19 @@ const Index = ({
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full h-dvh min-h-fit py-10 flex flex-col"
-                style={{ background: 'url(/assets/img/index_banner_image.png) center/cover' }}
+                className="w-full h-dvh min-h-fit py-10 flex flex-col hero_gradint"
+                style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
             >
                 <Navbar navData={navData} utm={'/index'} />
                 <div className="container flex flex-col mt-auto  cont__gap">
                     <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
-                        <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8">
+                        <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
                             <div className="flex flex-col gap-1">
-                                <h1 className="h1 text-white">
+                                <h1 className="h1 text-black">
                                     <span className="text-accent">Connect</span> your favorite apps and automate your
                                     repetitive tasks
                                 </h1>
-                                <h2 className="sub__h1 text-white">
+                                <h2 className="sub__h1 text-black">
                                     Discover Top Solutions for Effortless Connectivity.
                                 </h2>
                             </div>
