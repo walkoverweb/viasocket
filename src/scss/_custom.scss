@@ -61,6 +61,9 @@
     &__gap {
         @apply gap-6;
     }
+    &__w {
+        @apply lg:w-[700px] w-full;
+    }
 }
 
 .tooltip-error {
