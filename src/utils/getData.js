@@ -31,7 +31,11 @@ export async function getMetaData() {
 }
 
 export async function getAllFeatures(query) {
-    handleQuery(query);
     const data = await getDataFromTable(ALLFEATURES, handleQuery(query));
+    return handleData(data);
+}
+
+export async function getFeatureData(query) {
+    const data = await getDataFromTable(ALLFEATURES, `?filter=slug='${query}'`);
     return handleData(data);
 }

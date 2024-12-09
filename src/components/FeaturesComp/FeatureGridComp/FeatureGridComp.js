@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { MdFace } from 'react-icons/md';
 
 export default function FeatureGridComp({ features }) {
-    console.log('🚀 ~ FeatureGridComp ~ features:', features);
     function handleGridLayout(blockIndex) {
         let gridClass;
         switch (blockIndex % 5) {
@@ -30,16 +29,15 @@ export default function FeatureGridComp({ features }) {
             gridClass
         );
     }
-    return (
-        <div className="container">
-            <div className=" features_grid grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 border border-black border-b-0 border-r-0">
-                {features?.length > 0 &&
-                    features?.slice(0, 20).map((feature, index) => {
+    if (features && features.length > 0) {
+        return (
+            <div className="container">
+                <div className=" features_grid grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 border border-black border-b-0 border-r-0">
+                    {features?.map((feature, index) => {
                         if (feature?.hidden != false) {
-                            console.log(feature.hidden, index);
                             return (
                                 <Link
-                                    href={`/feature/${feature?.slug}`}
+                                    href={`/features/${feature?.slug}`}
                                     key={index}
                                     className={handleGridLayout(index)}
                                 >
@@ -52,7 +50,8 @@ export default function FeatureGridComp({ features }) {
                             );
                         }
                     })}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
