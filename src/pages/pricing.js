@@ -5,8 +5,9 @@ import React from 'react';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 export async function getServerSideProps() {
-    const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev'];
+    const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev', 'tbl2bk656'];
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
 
@@ -16,16 +17,18 @@ export async function getServerSideProps() {
             footerData: results[1]?.data?.rows,
             betterChoice: results[2]?.data?.rows,
             navData: results[3]?.data?.rows,
+            metaData: results[4].data.rows,
         },
     };
 }
 
-const pricing = ({ navData, footerData, faqData, betterChoice }) => {
+const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
 
     return (
         <>
+            <MetaHeadComp metaData={metaData} page={'/pricing'} />
             <div className=" cont py-10 lg:gap-24 gap-6">
                 <div className="cont ">
                     <Navbar navData={navData} utm={'/pricing'} borderClass={'border-b-0'} />

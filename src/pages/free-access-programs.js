@@ -7,7 +7,7 @@ import Footer from '@/components/footer/footer';
 export default function Programs({ footerData, navData, metaData, progransData }) {
     return (
         <>
-            <MetaHeadComp metaData={metaData} page={'/programs'} />
+            <MetaHeadComp metaData={metaData} page={'/free-access-programs'} />
             <div className="pt-12">
                 <Navbar navData={navData} utm={'pricing'} />
             </div>
