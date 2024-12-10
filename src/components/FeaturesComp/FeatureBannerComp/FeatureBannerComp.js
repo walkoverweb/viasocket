@@ -29,9 +29,9 @@ export default function FeatureBannerComp({ navData, featureData }) {
                     </div>
                 </div>
                 {featureData?.image ? (
-                    <div className=" lg:p-20 p-4 flex flex-col items-center">
+                    <div className=" lg:p-20 p-4 bg-neutral flex flex-col items-center">
                         <Image
-                            className="max-w-[2000px]  w-full"
+                            className="max-w-[2000px] border border-black w-full"
                             src={featureData?.image[0]}
                             alt={featureData?.name}
                             width={1080}

@@ -25,16 +25,19 @@ export default function FeatureGridComp({ features }) {
                 break;
         }
         return (
-            'p-10 border border-black border-t-0 border-l-0 flex flex-col text-center items-center gap-8 h-full justify-center ' +
+            'p-10 border border-black border-t-0 border-l-0 flex flex-col text-center items-center gap-8 h-full justify-center  hover:bg-black hover:text-white ' +
             gridClass
         );
     }
+
+    const filteredFeatures = features.filter((feature) => feature.hidden !== true);
+
     if (features && features.length > 0) {
         return (
             <div className="container">
                 <div className=" features_grid grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 border border-black border-b-0 border-r-0">
-                    {features?.map((feature, index) => {
-                        if (feature?.hidden != false) {
+                    {filteredFeatures?.map((feature, index) => {
+                        if (feature?.hidden != true) {
                             return (
                                 <Link
                                     href={`/features/${feature?.slug}`}

@@ -2,17 +2,21 @@ import FeatureBannerComp from '@/components/FeaturesComp/FeatureBannerComp/Featu
 import FeatureContentComp from '@/components/FeaturesComp/FeatureContentComp/FeatureContentComp';
 import FeatureGridComp from '@/components/FeaturesComp/FeatureGridComp/FeatureGridComp';
 import FeaturesFooterComp from '@/components/FeaturesComp/FeaturesFooterComp/FeaturesFooterComp';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { ALLFEATURES_FIELDS } from '@/const/fields';
 import { getAllFeatures, getFeatureData, getFooterData, getNavData } from '@/utils/getData';
 
-export default function Features({ features, featureData, navData, footerData }) {
+export default function Features({ features, featureData, navData, footerData, metaData }) {
     return (
-        <div className="cont lg:gap-24 gap-6">
-            <FeatureBannerComp featureData={featureData} navData={navData} />
-            <FeatureGridComp features={features} />
-            <FeatureContentComp featureData={featureData?.faqs} />
-            <FeaturesFooterComp footerData={footerData} />
-        </div>
+        <>
+            <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
+            <div className="cont lg:gap-24 gap-6">
+                <FeatureBannerComp featureData={featureData} navData={navData} />
+                <FeatureGridComp features={features} />
+                <FeatureContentComp featureData={featureData?.faqs} />
+                <FeaturesFooterComp footerData={footerData} />
+            </div>
+        </>
     );
 }
 
