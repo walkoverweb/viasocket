@@ -4,32 +4,10 @@ import Link from 'next/link';
 import { getDbdashData } from './api';
 import Footer from '@/components/footer/footer';
 
-export default function Programs({ footerData, navData, metaData }) {
-    const data = [
-        {
-            'heading': 'NGO Heroes',
-            'description': 'Changing lives, transforming the world.',
-        },
-        {
-            'heading': 'Students and Education',
-            'description': 'Changing lives, transforming the world.',
-        },
-        {
-            'heading': 'Women Leaders',
-            'description': 'Changing lives, transforming the world.',
-        },
-        {
-            'heading': 'Students and Education',
-            'description': 'Changing lives, transforming the world.',
-        },
-        {
-            'heading': 'Students and Education',
-            'description': 'Changing lives, transforming the world.',
-        },
-    ];
+export default function Programs({ footerData, navData, metaData, progransData }) {
     return (
         <>
-            <MetaHeadComp metaData={metaData} page={'/'} />
+            <MetaHeadComp metaData={metaData} page={'/programs'} />
             <div className="pt-12">
                 <Navbar navData={navData} utm={'pricing'} />
             </div>
@@ -46,18 +24,19 @@ export default function Programs({ footerData, navData, metaData }) {
                 <div
                     className={`feature_grid grid grid-cols-2 md:grid-rows-4 grid-rows-5   xl:h-[1100px] md:h-[820px] h-[800px] bg-gray-500 `}
                 >
-                    {data?.map((item, index) => {
-                        return (
-                            <Link
-                                key={index}
-                                href={`/signup?utm_source=programs`}
-                                className={`${index % 5 === 0 ? 'md:col-span-1 col-span-2 row-span-1' : index % 5 === 1 ? 'md:col-span-1 col-span-2 md:row-span-2 row-span-1' : index % 5 === 2 ? 'md:col-span-1 col-span-2 md:row-span-2 row-sapn-1' : index % 5 === 3 ? 'md:col-span-1 col-span-2 row-span-1' : 'col-span-2 row-span-1'} flex flex-col gap-1 items-center justify-center p-5 text-center grid-block`}
-                            >
-                                <h2 className="text-white h2">{item?.heading}</h2>
-                                <p className="text-white sub__h2">{item?.description}</p>
-                            </Link>
-                        );
-                    })}
+                    {progransData?.length > 0 &&
+                        progransData?.map((item, index) => {
+                            return (
+                                <Link
+                                    key={index}
+                                    href={`/signup?utm_source=programs`}
+                                    className={`${index % 5 === 0 ? 'md:col-span-1 col-span-2 row-span-1' : index % 5 === 1 ? 'md:col-span-1 col-span-2 md:row-span-2 row-span-1' : index % 5 === 2 ? 'md:col-span-1 col-span-2 md:row-span-2 row-sapn-1' : index % 5 === 3 ? 'md:col-span-1 col-span-2 row-span-1' : 'col-span-2 row-span-1'} flex flex-col gap-1 items-center justify-center p-5 text-center grid-block`}
+                                >
+                                    <h2 className="text-white h2">{item?.name}</h2>
+                                    <p className="text-white sub__h2">{item?.tagine}</p>
+                                </Link>
+                            );
+                        })}
                 </div>
             </div>
             <div className="container py-16">
@@ -72,16 +51,17 @@ export async function getServerSideProps(context) {
         'tbl7lj8ev', // navData: results[o]
         'tbl6u2cba', // footerData: results[1] ,
         'tbl2bk656', // metaData: results[2]
+        'tbl44ztmk', // progransData: results[3]
     ];
 
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
     return {
         props: {
             navData: results[0].data.rows,
             footerData: results[1].data.rows,
             metaData: results[2].data.rows,
+            progransData: results[3].data.rows,
         },
     };
 }
