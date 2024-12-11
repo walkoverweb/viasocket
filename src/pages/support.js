@@ -147,7 +147,7 @@ export default function Support({ navData, footerData, metaData }) {
                                         href={'mailto:plug@viasocket.com'}
                                         className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
                                     >
-                                        plug@viasocket.com
+                                        plugs@viasocket.com
                                     </Link>
                                 </div>
                             </div>
