@@ -28,7 +28,7 @@ const IntegrationSlugPage = ({
                 pathArray={pathArray}
                 plugin={[combos?.plugins?.[pathArray[2]]]}
             />
-            <div className="py-8">
+            <div className="container py-8">
                 <Navbar navData={navData} utm={'/integrations'} />
             </div>
             <IntegrationsComp

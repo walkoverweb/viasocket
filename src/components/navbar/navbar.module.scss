@@ -14,3 +14,7 @@
     }
     z-index: 99999;
 }
+
+.nav_btn {
+    @apply h-[56px] text-sm   justify-center items-center border-black uppercase font-medium tracking-wider hover:bg-black;
+}

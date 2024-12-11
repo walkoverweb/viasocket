@@ -8,8 +8,8 @@ export default function Programs({ footerData, navData, metaData, progransData }
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/free-access-programs'} />
-            <div className="pt-12">
-                <Navbar navData={navData} utm={'pricing'} />
+            <div className="pt-8 container">
+                <Navbar navData={navData} utm={'/free-access-programs'} />
             </div>
             <div className="container cont cont__py cont__gap ">
                 <div className="cont gap-2">

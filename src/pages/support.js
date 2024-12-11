@@ -86,7 +86,7 @@ export default function Support({ navData, footerData, metaData }) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/support'} />
-            <div className="pt-12">
+            <div className="container pt-8">
                 <Navbar navData={navData} utm={'/support'} />
             </div>
 

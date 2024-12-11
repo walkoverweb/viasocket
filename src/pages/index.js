@@ -200,29 +200,30 @@ const Index = ({
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full h-dvh min-h-fit py-10 flex flex-col hero_gradint"
+                className="w-full  h-dvh min-h-fit py-10  hero_gradint"
                 style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
             >
-                <Navbar navData={navData} utm={'/index'} />
-                <div className="container flex flex-col mt-auto  cont__gap">
-                    <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
-                        <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
-                            <div className="flex flex-col gap-1">
-                                <h1 className="h1 text-black">
-                                    <span className="text-accent">Connect</span> your favorite apps and automate your
-                                    repetitive tasks
-                                </h1>
-                                <h2 className="sub__h1 text-black">
-                                    Discover Top Solutions for Effortless Connectivity.
-                                </h2>
+                <div className="container h-full flex flex-col">
+                    <Navbar navData={navData} utm={'/index'} />
+                    <div className=" flex flex-col mt-auto  cont__gap">
+                        <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
+                            <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
+                                <div className="flex flex-col gap-1">
+                                    <h1 className="h1 text-black">
+                                        <span className="text-accent">Connect</span> your favorite apps and automate
+                                        your repetitive tasks
+                                    </h1>
+                                    <h2 className="sub__h1 text-black">
+                                        Discover Top Solutions for Effortless Connectivity.
+                                    </h2>
+                                </div>
+                                <LinkButton
+                                    content={'Get Started'}
+                                    customClasses={'btn btn-accent btn-lg'}
+                                    href={'/signup?utm_source=/index'}
+                                />
                             </div>
-                            <LinkButton
-                                content={'Get Started'}
-                                customClasses={'btn btn-white'}
-                                href={'/signup?utm_source=/index'}
-                            />
-                        </div>
-                        {/* <div className="flex items-center gap-2 w-fit">
+                            {/* <div className="flex items-center gap-2 w-fit">
                             <Image
                                 src={'/assets/img/chat_expert.jpeg'}
                                 width={100}
@@ -238,10 +239,11 @@ const Index = ({
                                 </span>
                             </div>
                         </div> */}
-                    </div>
-                    {/* <div className="flex items-center justify-center w-full">
+                        </div>
+                        {/* <div className="flex items-center justify-center w-full">
                         <a className="version-link">Latest Version out !</a>
                     </div> */}
+                    </div>
                 </div>
             </div>
             <div className=" cont cont__py gap-36">

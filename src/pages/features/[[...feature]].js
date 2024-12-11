@@ -11,11 +11,15 @@ export default function Features({ features, featureData, navData, footerData, m
     return (
         <>
             <MetaHeadComp metaData={metaData} page={pathArray?.join('/')} pathArray={pathArray} />
-            <div className="cont lg:gap-24 gap-6">
+            <div className="cont ">
                 <FeatureBannerComp featureData={featureData} navData={navData} pageInfo={pageInfo} />
                 <FeatureGridComp features={features} pageInfo={pageInfo} />
                 <FeatureContentComp featureData={featureData?.faqs} pageInfo={pageInfo} />
-                <FeaturesFooterComp footerData={footerData} pageInfo={pageInfo} />
+                <FeaturesFooterComp
+                    featureData={featureData?.cta_content}
+                    footerData={footerData}
+                    pageInfo={pageInfo}
+                />
             </div>
         </>
     );

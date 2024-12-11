@@ -30,9 +30,9 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
         <>
             <MetaHeadComp metaData={metaData} page={'/pricing'} />
             <div className=" cont py-10 lg:gap-24 gap-6">
-                <div className="cont ">
+                <div className="cont container ">
                     <Navbar navData={navData} utm={'/pricing'} borderClass={'border-b-0'} />
-                    <div className="container">
+                    <div className="">
                         <div className=" flex flex-col justify-center gap-6  ">
                             <div className="border border-black gradient-background">
                                 <div className="h-28 "></div>
@@ -207,7 +207,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                                 </div>
                                 <div className="flex justify-center">
                                     <a href="/free-access-programs" target="_blank" className="btn btn-accent">
-                                        Click Here
+                                        Get Free Access
                                     </a>
                                 </div>
                             </div>
