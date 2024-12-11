@@ -15,7 +15,11 @@ export default function Features({ features, featureData, navData, footerData, m
                 <FeatureBannerComp featureData={featureData} navData={navData} pageInfo={pageInfo} />
                 <FeatureGridComp features={features} pageInfo={pageInfo} />
                 <FeatureContentComp featureData={featureData?.faqs} pageInfo={pageInfo} />
-                <FeaturesFooterComp footerData={footerData} pageInfo={pageInfo} />
+                <FeaturesFooterComp
+                    featureData={featureData?.cta_content}
+                    footerData={footerData}
+                    pageInfo={pageInfo}
+                />
             </div>
         </>
     );

@@ -13,9 +13,15 @@
     }
 
     &.btn-accent {
-        @apply text-white;
+        @apply text-white border-black;
+        &:hover {
+            @apply bg-black;
+        }
     }
 
+    &.btn-lg {
+        @apply min-h-[56px] h-[56px] text-[14px];
+    }
     &:disabled {
         @apply bg-gray-200 text-black;
     }
@@ -62,7 +68,7 @@
         @apply gap-6;
     }
     &__w {
-        @apply lg:w-[700px] w-full;
+        @apply lg:w-[800px] w-full;
     }
 }
 

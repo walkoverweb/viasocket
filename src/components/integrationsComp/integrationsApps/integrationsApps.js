@@ -161,7 +161,7 @@ export default function IntegrationsApps({ pluginData, showCategories }) {
                             <input
                                 type="text"
                                 className={`${style.input} grow`}
-                                placeholder="Search your favoirts tools "
+                                placeholder="Search your favorite tools "
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
