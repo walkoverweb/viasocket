@@ -40,7 +40,7 @@ export default function FeatureBannerComp({ navData, featureData, pageInfo }) {
                     </div>
                 ) : (
                     <Link href={`/signup?utm_source=${pageInfo?.url}`}>
-                        <button className="btn btn-accent">Start Free Trail</button>
+                        <button className="btn btn-accent">Start Free Trial</button>
                     </Link>
                 )}
             </div>
