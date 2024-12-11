@@ -144,7 +144,7 @@ export default function Support({ navData, footerData, metaData }) {
                                 <div className="flex flex-col justify-center">
                                     <h3 className="font-bold text-lg">For queries/request related to plugins</h3>
                                     <Link
-                                        href={'mailto:plug@viasocket.com'}
+                                        href={'mailto:plugs@viasocket.com'}
                                         className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
                                     >
                                         plugs@viasocket.com
