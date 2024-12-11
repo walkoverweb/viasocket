@@ -4,32 +4,34 @@ import FeatureGridComp from '@/components/FeaturesComp/FeatureGridComp/FeatureGr
 import FeaturesFooterComp from '@/components/FeaturesComp/FeaturesFooterComp/FeaturesFooterComp';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { ALLFEATURES_FIELDS } from '@/const/fields';
-import { getAllFeatures, getFeatureData, getFooterData, getNavData } from '@/utils/getData';
+import { getAllFeatures, getFeatureData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import GetPageInfo from '@/utils/getPageInfo';
 
-export default function Features({ features, featureData, navData, footerData, metaData }) {
+export default function Features({ features, featureData, navData, footerData, metaData, pathArray, pageInfo }) {
     return (
         <>
-            <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
+            <MetaHeadComp metaData={metaData} page={pathArray?.join('/')} pathArray={pathArray} />
             <div className="cont lg:gap-24 gap-6">
-                <FeatureBannerComp featureData={featureData} navData={navData} />
-                <FeatureGridComp features={features} />
-                <FeatureContentComp featureData={featureData?.faqs} />
-                <FeaturesFooterComp footerData={footerData} />
+                <FeatureBannerComp featureData={featureData} navData={navData} pageInfo={pageInfo} />
+                <FeatureGridComp features={features} pageInfo={pageInfo} />
+                <FeatureContentComp featureData={featureData?.faqs} pageInfo={pageInfo} />
+                <FeaturesFooterComp footerData={footerData} pageInfo={pageInfo} />
             </div>
         </>
     );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
+    const pageInfo = GetPageInfo(context);
+    const navData = await getNavData();
+    const footerData = await getFooterData();
+    const metaData = await getMetaData(pageInfo?.url);
     let feature = null;
     let features = [];
     let featureData = [];
     if (context?.params?.feature?.length > 0) {
         feature = context?.params?.feature[0];
     }
-
-    const navData = await getNavData();
-    const footerData = await getFooterData();
 
     if (!feature) {
         features = await getAllFeatures(ALLFEATURES_FIELDS);
@@ -43,13 +45,8 @@ export async function getStaticProps(context) {
             footerData: footerData || [],
             features: features || [],
             featureData: featureData[0] || {},
+            metaData: metaData || [],
+            pageInfo: pageInfo || {},
         },
-    };
-}
-
-export async function getStaticPaths() {
-    return {
-        paths: [],
-        fallback: 'blocking',
     };
 }

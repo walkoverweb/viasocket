@@ -188,3 +188,12 @@ $button-transition-timing: 100ms;
         }
     }
 }
+
+.feature_block .icon__dark,
+.feature_block:hover .icon__light {
+    display: block;
+}
+.feature_block:hover .icon__dark,
+.feature_block .icon__light {
+    display: none;
+}

@@ -14,6 +14,14 @@ const handleQuery = (query) => {
         return null;
     }
 };
+const handleFilter = (query) => {
+    if (query?.length > 0) {
+        const queryString = query.join('&fields=');
+        return '?fields=' + queryString;
+    } else {
+        return null;
+    }
+};
 
 export async function getNavData() {
     const data = await getDataFromTable(NAVIGATION);
@@ -25,8 +33,8 @@ export async function getFooterData() {
     return handleData(data);
 }
 
-export async function getMetaData() {
-    const data = await getDataFromTable(METADATA);
+export async function getMetaData(query) {
+    const data = await getDataFromTable(METADATA, `?filter=name='${query}'`);
     return handleData(data);
 }
 

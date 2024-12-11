@@ -1,10 +1,8 @@
-import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MdFace } from 'react-icons/md';
 
-export default function FeatureBannerComp({ navData, featureData }) {
+export default function FeatureBannerComp({ navData, featureData, pageInfo }) {
     return (
         <div
             style={{
@@ -21,10 +19,12 @@ export default function FeatureBannerComp({ navData, featureData }) {
             <div className="container cont__py cont cont__gap">
                 <div className="cont gap-6">
                     <div className="cont gap-2 cont__w text-white">
-                        <h1 className="h1">{featureData?.name || 'Step into a world of limitless features'}</h1>
+                        <h1 className="h1">
+                            {featureData?.name || 'Explore Hundreds of Features, Available on Every Plan'}
+                        </h1>
                         <p className="sub__h1">
                             {featureData?.description ||
-                                'Explore a variety of features made for you. including premium options that improve your experience-all a great price!'}
+                                'Get unrestricted access to all features, no matter your choice of plan.'}
                         </p>
                     </div>
                 </div>
@@ -39,7 +39,9 @@ export default function FeatureBannerComp({ navData, featureData }) {
                         />
                     </div>
                 ) : (
-                    <button className="btn btn-accent">Start Free Trail</button>
+                    <Link href={`/signup?utm_source=${pageInfo?.url}`}>
+                        <button className="btn btn-accent">Start Free Trail</button>
+                    </Link>
                 )}
             </div>
         </div>
