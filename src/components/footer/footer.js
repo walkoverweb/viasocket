@@ -73,15 +73,15 @@ export default function Footer({ footerData, borderClass }) {
                 </div>
                 <div className=" row-span-1 col-span-4 lg:col-span-3 grid sm:grid-cols-3 grid-cols-1">
                     <div className="flex flex-col gap-28 md:p-10 p-4 lg:border-b-0  border-b sm:border-r border-black">
-                        {renderedGroups.slice(0, 2)}
+                        {renderedGroups?.slice(0, 2)}
                     </div>
 
                     <div className="flex flex-col gap-28 md:p-10 p-4 sm:border-r lg:border-b-0  border-b border-black">
-                        {renderedGroups.slice(2, 4)}
+                        {renderedGroups?.slice(2, 4)}
                     </div>
 
                     <div className="flex flex-col lg:border-b-0 border-b border-black gap-28 md:p-10 p-4 ">
-                        {renderedGroups.slice(4, 5)}
+                        {renderedGroups?.slice(4, 5)}
                         <div className="flex gap-2 md:gap-4 mt-auto">
                             <Link
                                 href={`https://www.instagram.com/walkover.inc/?igsh=MWEyZnptZmw3Z3phOQ%3D%3D`}
