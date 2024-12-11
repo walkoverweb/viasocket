@@ -128,7 +128,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                     </div>{' '}
                 </div>
                 <div className="container cont lg:gap-24 gap-6">
-                    {/* <div className="border border-black p-6 md:p-12 flex flex-col gap-6">
+                    <div className="border border-black p-6 md:p-12 flex flex-col gap-6">
                         <h2 className="h1 lg:w-1/2">Explore Hundreds of Features, Available on Every Plan</h2>
                         <p className="sub-h1">
                             Get unrestricted access to all features, no matter your choice of plan.
@@ -138,7 +138,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                                 <button className="btn btn-accent">See All Features</button>
                             </Link>
                         </div>
-                    </div> */}
+                    </div>
 
                     <div className=" flex flex-col justify-center">
                         <h2 className="h1 p-6 md:p-12 ">
