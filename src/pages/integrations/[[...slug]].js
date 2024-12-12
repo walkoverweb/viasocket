@@ -9,6 +9,7 @@ import style from './integrations.module.scss';
 import getApps from '@/utils/getApps';
 import { getFooterData, getMetaData, getNavData } from '@/utils/getData';
 import getPageInfo from '@/utils/getPageInfo';
+import getIntegrationsInfo from '@/utils/getInterationsInfo';
 
 export default function Integrations({ pageInfo, navData, footerData, metadata, apps }) {
     return (
@@ -17,20 +18,19 @@ export default function Integrations({ pageInfo, navData, footerData, metadata, 
                 <Navbar navData={navData} />
             </div>
             <div className="container cont">
-                <input type="text" />
                 <label className="input border max-w-[400px] border-black flex items-center gap-2 focus-within:outline-none">
                     <MdSearch fontSize={20} />
                     <input type="text" className={`${style.input} grow`} placeholder="Search your favorite tools " />
                 </label>
                 <div className="flex">
                     <div className=" border border-black border-t-0 lg:block hidden">
-                        <div className="cont min-w-[252px] sticky top-0">
+                        <div className="cont min-w-[252px] ">
                             {categories?.categories.map((category, index) => {
                                 return (
                                     <Link
                                         key={index}
                                         className="uppercase text-sm font-medium tracking-wider px-5 py-2 hover:bg-black hover:text-white"
-                                        href={'/'}
+                                        href={`/integrations/category/${category}`}
                                     >
                                         {category}
                                     </Link>
@@ -54,7 +54,11 @@ export default function Integrations({ pageInfo, navData, footerData, metadata, 
                             {apps?.length > 0 &&
                                 apps.map((app, index) => {
                                     return (
-                                        <Link key={index} href={'/'} className={style.app}>
+                                        <Link
+                                            key={index}
+                                            href={`/integrations/${app?.appslugname}`}
+                                            className={style.app}
+                                        >
                                             <div className="flex items-center gap-2">
                                                 <div className="border flex items-center justify-center w-9 h-9 bg-white">
                                                     <Image
@@ -74,6 +78,14 @@ export default function Integrations({ pageInfo, navData, footerData, metadata, 
                         </div>
                     </div>
                 </div>
+                <div className="flex justify-end items-end w-fulls">
+                    <Link className="btn btn-outline border-t-0" href={'/'}>
+                        Prev
+                    </Link>
+                    <Link className="btn btn-outline border-t-0 border-l-0" href={'/'}>
+                        Next
+                    </Link>
+                </div>
             </div>
             <div className="container my-6">
                 <Footer footerData={footerData} />
@@ -83,6 +95,9 @@ export default function Integrations({ pageInfo, navData, footerData, metadata, 
 }
 export async function getServerSideProps(context) {
     const pageInfo = getPageInfo(context);
+    console.log('🚀 ~ getServerSideProps ~ pageInfo:', pageInfo);
+    const integrationsInfo = getIntegrationsInfo(pageInfo?.pathArray);
+    console.log('🚀 ~ getServerSideProps ~ integrationsInfo:', integrationsInfo);
     const navData = await getNavData();
     const footerData = await getFooterData();
     const metadata = await getMetaData();

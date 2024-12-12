@@ -6,7 +6,7 @@ export default async function getApps(query) {
         const response = await axios.get(fetchUrl, {
             params: {
                 category: (query?.category !== 'All' && query?.category) || '',
-                limit: 48,
+                limit: 45,
                 offset: query?.offset ? query?.offset : 0,
             },
         });
