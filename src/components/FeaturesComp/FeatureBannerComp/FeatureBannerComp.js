@@ -4,17 +4,17 @@ import Link from 'next/link';
 
 export default function FeatureBannerComp({ navData, featureData, pageInfo }) {
     return (
-        <div
-            className="container  mt-8"
-            style={{
-                backgroundImage: featureData?.image
-                    ? `url(/assets/img/bg/feature_page.png)`
-                    : 'url(/assets/img/bg/feature_index.png)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
-        >
-            <div className="lg:px-20  ">
+        <div className="container pt-8">
+            <div
+                style={{
+                    backgroundImage: featureData?.image
+                        ? `url(/assets/img/bg/feature_page.png)`
+                        : 'url(/assets/img/bg/feature_index.png)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+                className="lg:px-20 px-4 h-fit  "
+            >
                 <Navbar navData={navData} utm={pageInfo?.url} />
                 <div className="py-32 cont gap-16 h-full flex justify-center ">
                     <div className="cont gap-6">

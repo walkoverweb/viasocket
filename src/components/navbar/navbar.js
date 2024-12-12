@@ -49,11 +49,11 @@ export default function Navbar({ navData, utm }) {
 
     return (
         <>
-            <div className="mt-8 justify-between xl:flex hidden">
+            <div className="pt-8 justify-between lg:flex hidden">
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={` ${style.nav_btn} w-[192px] ${borderClass} ${backgroundClass} border flex bg-[#FFFFFF10]`}
+                    className={` ${style.nav_btn} min-w-[180px] ${borderClass} ${backgroundClass} border flex bg-[#FFFFFF10]`}
                     style={{ backgroundColor: '#FFFFFF10' }}
                 >
                     {mode === 'dark' ? (
@@ -85,7 +85,7 @@ export default function Navbar({ navData, utm }) {
                                     href={option.link || '#'}
                                 >
                                     <div
-                                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[150px] border border-r-0 bg-[#FFFFFF10]`}
+                                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[130px] border border-r-0 bg-[#FFFFFF10]`}
                                     >
                                         {option.name}
                                     </div>
@@ -93,20 +93,20 @@ export default function Navbar({ navData, utm }) {
                             );
                         })}
                     <Link
-                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[150px] border border-r-0 bg-[#FFFFFF10]`}
+                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[130px] border border-r-0 bg-[#FFFFFF10]`}
                         href={`/login?utm_source=${utm}`}
                     >
                         Login
                     </Link>
                     <Link
-                        className={` ${style.nav_btn} ${borderClass} text-white flex w-[150px] border bg-accent`}
+                        className={` ${style.nav_btn} ${borderClass} text-white flex w-[130px] border bg-accent`}
                         href={`/signup?utm_source=${utm}`}
                     >
                         Sign Up
                     </Link>
                 </div>
             </div>
-            <div className="container justify-between   mt-8  flex xl:hidden">
+            <div className=" justify-between   pt-8  flex lg:hidden">
                 <Link
                     href="/"
                     aria-label="logo"
