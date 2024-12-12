@@ -25,7 +25,7 @@ const Terms = ({ navData, footerData, metaData }) => {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/terms'} />
-            <div className="pt-12">
+            <div className="pt-8 container">
                 <Navbar navData={navData} utm={'/terms'} />
             </div>
             <div className="container mt-28">

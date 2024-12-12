@@ -1,7 +1,7 @@
 import { MdMenu, MdLogin, MdPersonAdd } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './navbar.module.scss';
+import style from './navbar.module.scss';
 
 export default function Navbar({ navData, utm }) {
     let shorterData;
@@ -10,30 +10,69 @@ export default function Navbar({ navData, utm }) {
             return parseInt(a.priority) - parseInt(b.priority);
         });
     }
+    const darkPageArray = [
+        '/index',
+        '/pricing',
+        '/integrations',
+        '/support',
+        '/experts',
+        '/free-access-programs',
+        '/privacy',
+        '/terms',
+    ];
+    let mode = utm && darkPageArray.includes(utm) ? 'light' : 'dark';
+
     let borderClass;
     let backgroundClass;
+    let textClass;
     if (utm && utm === '/pricing') {
         borderClass = 'border-b-0';
     }
+    if (
+        (utm && utm === '/pricing') ||
+        utm === '/integrations' ||
+        utm === '/support' ||
+        utm === '/experts' ||
+        utm === '/free-access-programs' ||
+        utm === '/privacy' ||
+        utm === '/terms'
+    ) {
+        textClass = 'text-dark ';
+    } else {
+        textClass = 'text-white ';
+    }
     if (utm && utm === '/index') {
-        backgroundClass = 'bg-[#FFFFFF80] hover:bg-black hover:text-white ';
+        backgroundClass = 'text-black hover:bg-black hover:text-white ';
+    } else {
+        backgroundClass = textClass + ' hover:bg-black hover:text-white ';
     }
 
     return (
         <>
-            <div className="container justify-between lg:flex hidden">
+            <div className="pt-8 justify-between lg:flex hidden">
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] flex  justify-center items-center border border-black hover:bg-[#FFFFFF80] ${borderClass} bg-[#FFFFFF80] hover:text-white `}
+                    className={` ${style.nav_btn} min-w-[180px] ${borderClass} ${backgroundClass} border flex bg-[#FFFFFF10]`}
+                    style={{ backgroundColor: '#FFFFFF10' }}
                 >
-                    <Image
-                        src="/assets/brand/logo.svg"
-                        className="h-[32px] w-auto "
-                        width={60}
-                        height={60}
-                        alt="viasocket"
-                    />
+                    {mode === 'dark' ? (
+                        <Image
+                            src="/assets/brand/socketWhitesvg.png"
+                            className="h-[40px] w-auto "
+                            width={60}
+                            height={60}
+                            alt="viasocket"
+                        />
+                    ) : (
+                        <Image
+                            src="/assets/brand/logo.svg"
+                            className="h-[40px] w-auto "
+                            width={60}
+                            height={60}
+                            alt="viasocket"
+                        />
+                    )}
                 </Link>
 
                 <div className="flex">
@@ -46,7 +85,7 @@ export default function Navbar({ navData, utm }) {
                                     href={option.link || '#'}
                                 >
                                     <div
-                                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
+                                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[130px] border border-r-0 bg-[#FFFFFF10]`}
                                     >
                                         {option.name}
                                     </div>
@@ -54,56 +93,76 @@ export default function Navbar({ navData, utm }) {
                             );
                         })}
                     <Link
-                        className={`w-[142px] h-[56px] text-sm flex  justify-center items-center font-semibold border border-r-0  border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
+                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[130px] border border-r-0 bg-[#FFFFFF10]`}
                         href={`/login?utm_source=${utm}`}
                     >
                         Login
                     </Link>
                     <Link
-                        className={`w-[142px] h-[56px] text-sm flex  justify-center bg-accent  hover:bg-black text-white items-center font-semibold border  border-black ${borderClass} `}
+                        className={` ${style.nav_btn} ${borderClass} text-white flex w-[130px] border bg-accent`}
                         href={`/signup?utm_source=${utm}`}
                     >
                         Sign Up
                     </Link>
                 </div>
             </div>
-            <div className="container justify-between  flex lg:hidden">
+            <div className=" justify-between   pt-8  flex lg:hidden">
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[192px] hidden sm:flex justify-center items-center border border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
+                    className={` ${style.nav_btn} ${borderClass} sm:flex hidden  w-[192px]  border`}
                 >
-                    <Image
-                        src="/assets/brand/logo.svg"
-                        className="h-[32px] w-auto "
-                        width={48}
-                        height={48}
-                        alt="viasocket"
-                    />
+                    {mode === 'dark' ? (
+                        <Image
+                            src="/assets/brand/socketWhitesvg.png"
+                            className="h-[40px] w-auto "
+                            width={60}
+                            height={60}
+                            alt="viasocket"
+                        />
+                    ) : (
+                        <Image
+                            src="/assets/brand/logo.svg"
+                            className="h-[40px] w-auto "
+                            width={60}
+                            height={60}
+                            alt="viasocket"
+                        />
+                    )}
                 </Link>
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={`h-[56px] w-[56px] flex sm:hidden  justify-center items-center border border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
+                    className={` ${style.nav_btn} ${borderClass} ${backgroundClass} bg-[#FFFFFF10] flex sm:hidden w-[56px] border`}
                 >
-                    <Image
-                        src="/assets/brand/favicon_dark.svg"
-                        className="h-[32px] w-auto "
-                        width={48}
-                        height={48}
-                        alt="viasocket"
-                    />
+                    {mode === 'dark' ? (
+                        <Image
+                            src="/assets/brand/favicon_light.svg"
+                            className="h-[32px] w-auto "
+                            width={48}
+                            height={48}
+                            alt="viasocket"
+                        />
+                    ) : (
+                        <Image
+                            src="/assets/brand/favicon_dark.svg"
+                            className="h-[32px] w-auto "
+                            width={48}
+                            height={48}
+                            alt="viasocket"
+                        />
+                    )}
                 </Link>
                 <div className=" flex">
                     <Link
-                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black border-r-0 ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
+                        className={` ${style.nav_btn} ${borderClass} ${backgroundClass} flex w-[56px] border border-r-0 bg-[#FFFFFF10] `}
                         href={`/login?utm_source=${utm}`}
                         aria-label="Login"
                     >
                         <MdLogin size={24} />
                     </Link>
                     <Link
-                        className={`h-[56px] w-[56px] flex justify-center items-center border border-black bg-accent  hover:bg-black text-white border-r-0 ${borderClass} `}
+                        className={` ${style.nav_btn} ${borderClass} flex w-[56px]  text-white  border border-r-0 bg-accent`}
                         href={`/signup?utm_source=${utm}`}
                         aria-label="Sign Up"
                     >
@@ -113,7 +172,7 @@ export default function Navbar({ navData, utm }) {
                     <div className="dropdown dropdown-end  ">
                         <button
                             tabIndex={0}
-                            className={`h-[56px] w-[56px] flex justify-center items-center border border-black ${borderClass} bg-[#FFFFFF80] hover:bg-black hover:text-white`}
+                            className={` ${style.nav_btn} ${borderClass}  ${backgroundClass} bg-[#FFFFFF10] flex w-[56px] border`}
                             aria-label="Menu"
                         >
                             <MdMenu size={24} />

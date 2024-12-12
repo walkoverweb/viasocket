@@ -48,7 +48,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/experts'} pathArray={pathArray} />
-            <div className="pt-12">
+            <div className="pt-8 container">
                 <Navbar navData={navData} utm={'/experts'} />
             </div>
             <div className="">
