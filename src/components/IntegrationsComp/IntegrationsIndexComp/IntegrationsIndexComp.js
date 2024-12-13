@@ -73,7 +73,7 @@ export default function IntegrationsIndexComp({
     return (
         <>
             <div className="container my-6">
-                <Navbar navData={navData} />
+                <Navbar navData={navData} utm={'/integrations'} />
             </div>
             <div className="container cont">
                 <label className="input border max-w-[400px] border-black flex items-center gap-2 focus-within:outline-none">
