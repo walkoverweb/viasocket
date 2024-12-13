@@ -1,3 +1,4 @@
+import { APPERPAGE } from '@/const/integrations';
 import axios from 'axios';
 
 export default async function getApps(query) {
@@ -6,8 +7,8 @@ export default async function getApps(query) {
         const response = await axios.get(fetchUrl, {
             params: {
                 category: (query?.category !== 'All' && query?.category) || '',
-                limit: 45,
-                offset: query?.offset ? query?.offset : 0,
+                limit: APPERPAGE,
+                offset: query?.page ? query?.page * APPERPAGE : 0,
             },
         });
         const rawData = await response?.data?.data;

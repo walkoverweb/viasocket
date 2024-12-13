@@ -19,6 +19,7 @@ export default function Navbar({ navData, utm }) {
         '/free-access-programs',
         '/privacy',
         '/terms',
+        '/integrations',
     ];
     let mode = utm && darkPageArray.includes(utm) ? 'light' : 'dark';
 
