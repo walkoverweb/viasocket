@@ -3,7 +3,7 @@ import styles from './integrationsHero.module.scss';
 import EventGrid from './eventGrid/eventGrid';
 import ComboGrid from './comboGrid/comboGrid';
 import NoDataGrid from './noDataGrid/noDataGrid';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetColorMode } from '@/utils/getColorMode';
 import Link from 'next/link';
 import { MdOpenInNew } from 'react-icons/md';
@@ -42,9 +42,52 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
             <>
                 <div style={{ backgroundColor: `${newBrandColor}` }} className="py-12">
                     <div className={`container flex flex-col md:gap-12 gap-6`}>
-                        <div className="flex flex-col gap-3 justify-between items-center md:flex-row">
+                        <div className="flex flex-col gap-12">
+                            <div className="flex flex-col md:flex-row gap-5 md:justify-end justify-center">
+                                {pluginData[0]?.name && (
+                                    <Link
+                                        href={
+                                            pluginData[0]?.domain?.startsWith('http')
+                                                ? pluginData[0]?.domain
+                                                : 'http://' + pluginData[0]?.domain
+                                        }
+                                        target="_blank"
+                                    >
+                                        <span
+                                            className={`btn w-fit ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                        >
+                                            {pluginData[0]?.iconurl && (
+                                                <Image
+                                                    src={pluginData[0]?.iconurl}
+                                                    width={24}
+                                                    height={24}
+                                                    className="h-auto hidden sm:block bg-gray-100"
+                                                    alt={pluginData[0]?.name}
+                                                />
+                                            )}
+                                            Login to {pluginData[0]?.name}
+                                            <MdOpenInNew className="hidden sm:block" />
+                                        </span>
+                                    </Link>
+                                )}
+                                <Link href={`/login?utm_source=${utm}`} target="_blank">
+                                    <button
+                                        className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
+                                    >
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/brand/favicon_${mode === 'dark' ? 'light' : 'dark'}.svg`}
+                                            width={24}
+                                            height={24}
+                                            className="h-auto hidden sm:block bg-gray-100"
+                                            alt="viaSocket"
+                                        />
+                                        Login to viaSocket
+                                        <MdOpenInNew className="hidden sm:block" />
+                                    </button>
+                                </Link>
+                            </div>
                             <div
-                                className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 -md  flex items-center gap-8 w-fit shadow-sm shadow-black`}
+                                className={`${styles.plugin_name} border md:px-8 md:p-3 py-1 px-4 -md flex-col md:flex-row flex items-center gap-8 w-fit shadow-sm shadow-black`}
                             >
                                 {pluginData?.length &&
                                     pluginData
@@ -72,58 +115,13 @@ export default function IntegrationsHero({ combinationData, pluginData, utm }) {
                                                         {plug?.category && (
                                                             <div className="text-[14px] uppercase text-gray-400 flex flex-row gap-2">
                                                                 {plug?.category &&
-                                                                    plug?.category.map((item, catIndex) => (
-                                                                        <div key={item + catIndex}> {item} </div>
-                                                                    ))}
+                                                                    plug?.category.slice(0, 1).join(', ')}
                                                             </div>
                                                         )}
                                                     </div>
                                                 </div>
                                             );
                                         })}
-                            </div>
-                            <div className="flex gap-5 md:justify-end justify-center">
-                                {pluginData[0]?.name && (
-                                    <Link
-                                        href={
-                                            pluginData[0]?.domain?.startsWith('http')
-                                                ? pluginData[0]?.domain
-                                                : 'http://' + pluginData[0]?.domain
-                                        }
-                                        target="_blank"
-                                    >
-                                        <button
-                                            className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                        >
-                                            {pluginData[0]?.iconurl && (
-                                                <Image
-                                                    src={pluginData[0]?.iconurl}
-                                                    width={24}
-                                                    height={24}
-                                                    className="h-auto hidden sm:block bg-gray-100"
-                                                    alt={pluginData[0]?.name}
-                                                />
-                                            )}
-                                            Login to {pluginData[0]?.name}
-                                            <MdOpenInNew className="hidden sm:block" />
-                                        </button>
-                                    </Link>
-                                )}
-                                <Link href={`/login?utm_source=${utm}`} target="_blank">
-                                    <button
-                                        className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                    >
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/brand/favicon_${mode === 'dark' ? 'light' : 'dark'}.svg`}
-                                            width={24}
-                                            height={24}
-                                            className="h-auto hidden sm:block bg-gray-100"
-                                            alt="viaSocket"
-                                        />
-                                        Login to viaSocket
-                                        <MdOpenInNew className="hidden sm:block" />
-                                    </button>
-                                </Link>
                             </div>
                         </div>
                         {isDisconnected ? (
