@@ -3,11 +3,9 @@ import Link from 'next/link';
 import { MdAdd, MdChevronRight, MdOpenInNew } from 'react-icons/md';
 import IntegrationsAppComp from '../integrationsAppComp/integrationsAppComp';
 import FAQSection from '@/components/faqSection/faqSection';
-import { LinkButton, LinkText } from '@/components/uiComponents/buttons';
 import Footer from '@/components/footer/footer';
 import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 
 export default function IntegrationsAppOneComp({
@@ -23,9 +21,6 @@ export default function IntegrationsAppOneComp({
 }) {
     const utm = pageInfo?.url;
     const integrations = 'undefined';
-    // const integrations = Object.values(plugs)
-    // .filter((value) => value !== 'undefined_action_rowid' && value !== 'undefined_trigger_rowid')
-    // .join(',');
     return (
         <>
             <IntegrationsHeadComp
