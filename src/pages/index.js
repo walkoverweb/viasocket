@@ -8,7 +8,6 @@ import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import ComboGrid from '@/components/integrationsComp/integrationsHero/comboGrid/comboGrid';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
 import Navbar from '@/components/navbar/navbar';
@@ -16,6 +15,7 @@ import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import searchApps from '@/utils/searchApps';
+import Link from 'next/link';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -149,8 +149,8 @@ const Index = ({
     };
 
     const handleGenerate = async () => {
-        const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         setCombinationLoading(true);
+        const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         try {
             const combos = await fetchCombos(selectedAppSlugs, selectedIndus, selectedDept);
             setRenderCombos(combos?.data);
@@ -195,6 +195,8 @@ const Index = ({
             }
         }
     };
+
+    const utm = '/index';
 
     return (
         <>
@@ -457,7 +459,51 @@ const Index = ({
                                 </button>
                             </div>
                         </div>
-                        <ComboGrid combos={renderCombos} loading={combinationLoading} utm={'index'} showNoData />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
+                            {!combinationLoading
+                                ? renderCombos?.combinations?.map((combo) => {
+                                      return (
+                                          <Link
+                                              href={`https://flow.viasocket.com/makeflow/trigger/${combo?.trigger?.id}/action?utm_source=${utm}&events=${combo?.actions.map((action) => action.id).join(',')}`}
+                                              className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
+                                          >
+                                              <div className="cont gap-2">
+                                                  <div className="flex gap-1">
+                                                      <Image
+                                                          src={
+                                                              renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
+                                                              'https://placehold.co/40x40'
+                                                          }
+                                                          width={36}
+                                                          height={36}
+                                                          className="w-fit h-8"
+                                                          alt={combo?.trigger?.name}
+                                                      />
+                                                      <Image
+                                                          src={
+                                                              renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                                              'https://placehold.co/40x40'
+                                                          }
+                                                          width={36}
+                                                          height={36}
+                                                          className="w-fit h-8"
+                                                          alt={combo?.trigger?.name}
+                                                      />
+                                                  </div>
+                                                  <p className="text-sm">{combo?.description}</p>
+                                              </div>
+                                              <button className="btn btn-primary w-full mt-full">TRY IT</button>
+                                          </Link>
+                                      );
+                                  })
+                                : combinationLoading &&
+                                  Array.from({ length: 12 }).map((_, index) => (
+                                      <div
+                                          key={index}
+                                          className="border h-[200px] border-black border-t-0 border-l-0 skeleton bg-gray-100 rounded-none"
+                                      ></div>
+                                  ))}
+                        </div>
                     </div>
                 </div>
                 {features && <FeaturesGrid features={features} page={'overall'} />}
