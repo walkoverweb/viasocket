@@ -12,14 +12,19 @@ const BlogGrid = ({ posts }) => {
                     Know More About <br />
                     Viasocket Integrations
                 </h2>
-                <div className="grid md:grid-cols-3 grid-cols-1 index_blog_grid">
-                    {posts.map((post, index) => (
-                        <CardComponent key={index} card={post} />
-                    ))}
+                <div className="w-full cont">
+                    <div className="grid md:grid-cols-3 grid-cols-1 index_blog_grid">
+                        {posts.map((post, index) => (
+                            <CardComponent key={index} card={post} />
+                        ))}
+                    </div>
+                    <Link href="/blog" target="_blank" className=" w-fit">
+                        <LinkText
+                            children="Read more blogs"
+                            customClasses="btn btn-primary btn-outline btn-md w-fit border-t-0"
+                        />
+                    </Link>
                 </div>
-                <Link href="/blog" target="_blank" className=" w-fit">
-                    <LinkText children="Read more blogs" customClasses="btn btn-primary btn-outline btn-md w-fit" />
-                </Link>
             </div>
         </>
     );

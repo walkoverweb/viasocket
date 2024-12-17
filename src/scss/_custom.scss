@@ -1,6 +1,11 @@
 .btn {
     @apply w-fit px-10 uppercase tracking-wider;
-
+    &.w-full {
+        width: 100% !important;
+    }
+    &.btn-outline {
+        @apply hover:bg-black hover:text-white;
+    }
     &.btn-white {
         @apply bg-white border-0 hover:bg-gray-300 transition-all duration-200;
         &.btn-outline {
@@ -13,9 +18,15 @@
     }
 
     &.btn-accent {
-        @apply text-white;
+        @apply text-white border-black;
+        &:hover {
+            @apply bg-black;
+        }
     }
 
+    &.btn-lg {
+        @apply min-h-[56px] h-[56px] text-[14px];
+    }
     &:disabled {
         @apply bg-gray-200 text-black;
     }
@@ -62,7 +73,7 @@
         @apply gap-6;
     }
     &__w {
-        @apply lg:w-[700px] w-full;
+        @apply lg:w-[800px] w-full;
     }
 }
 
@@ -187,4 +198,13 @@ $button-transition-timing: 100ms;
             opacity: 1;
         }
     }
+}
+
+.feature_block .icon__dark,
+.feature_block:hover .icon__light {
+    display: block;
+}
+.feature_block:hover .icon__dark,
+.feature_block .icon__light {
+    display: none;
 }
