@@ -177,7 +177,7 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                                     return (
                                         <Link
                                             key={index}
-                                            href={`/integrations/${app?.appslugname}`}
+                                            href={`/integrations/${integrationsInfo?.appone}/${app?.appslugname}`}
                                             className={style.app}
                                         >
                                             <div className="flex items-center gap-2">

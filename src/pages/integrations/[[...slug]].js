@@ -6,6 +6,7 @@ import IntegrationsIndexComp from '@/components/IntegrationsComp/IntegrationsInd
 import IntegrationsAppOneComp from '@/components/IntegrationsComp/integrationsAppOneComp/integrationsAppOneComp';
 import getAppDetails from '@/utils/getAppDetail';
 import getCombos from '@/utils/getCombos';
+import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
 
 export default function Integrations({
     pageInfo,
@@ -21,16 +22,18 @@ export default function Integrations({
     const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
     const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
     if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
-        console.log('🚀 ~ integrationsInfo:', integrationsInfo);
         return (
-            <IntegrationsIndexComp
+            <IntegrationsAppTwoComp
                 pageInfo={pageInfo}
                 integrationsInfo={integrationsInfo}
-                navData={navData}
-                footerData={footerData}
                 metadata={metadata}
                 apps={apps}
                 blogsData={blogsData}
+                appOneDetails={appOneDetails}
+                appTwoDetails={appTwoDetails}
+                combosData={combosData}
+                faqData={faqData}
+                footerData={footerData}
             />
         );
     } else if (integrationsInfo?.appone) {

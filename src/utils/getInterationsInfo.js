@@ -1,5 +1,4 @@
 export default function getIntegrationsInfo(params) {
-    console.log('🚀 ~ getIntegrationsInfo ~ params:', params);
     const result = {
         appone: null,
         apptwo: null,
