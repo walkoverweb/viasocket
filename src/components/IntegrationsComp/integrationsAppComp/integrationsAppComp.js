@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MdSearch } from 'react-icons/md';
 import categories from '@/data/categories.json';
-import style from './integrationsAppComp.module.scss';
+import style from './IntegrationsAppComp.module.scss';
 import { APPERPAGE } from '@/const/integrations';
 import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
