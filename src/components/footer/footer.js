@@ -26,7 +26,7 @@ export default function Footer({ footerData, borderClass }) {
                         <div className="flex flex-col gap-2">
                             {items.map(
                                 (item, index) =>
-                                    !item.hidden && (
+                                    !item?.hidden && (
                                         <Link
                                             target="_blank"
                                             href={
@@ -81,7 +81,7 @@ export default function Footer({ footerData, borderClass }) {
                     </div>
 
                     <div className="flex flex-col lg:border-b-0 border-b border-black gap-28 md:p-10 p-4 ">
-                        {renderedGroups?.slice(4, 5)}
+                        {renderedGroups?.slice(4, 7)}
                         <div className="flex gap-2 md:gap-4 mt-auto">
                             <Link
                                 href={`https://www.instagram.com/walkover.inc/?igsh=MWEyZnptZmw3Z3phOQ%3D%3D`}

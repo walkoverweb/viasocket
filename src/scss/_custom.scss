@@ -1,5 +1,8 @@
 .btn {
     @apply w-fit px-10 uppercase tracking-wider;
+    &.w-full {
+        width: 100% !important;
+    }
     &.btn-outline {
         @apply hover:bg-black hover:text-white;
     }

@@ -1,4 +1,4 @@
-import { ALLFEATURES } from '@/const/tables';
+import { ALLFEATURES, FAQS } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
 import axios from 'axios';
@@ -46,6 +46,10 @@ export async function getAllFeatures(query) {
 
 export async function getFeatureData(query) {
     const data = await getDataFromTable(ALLFEATURES, `?filter=slug='${query}'`);
+    return handleData(data);
+}
+export async function getFaqData(query) {
+    const data = await getDataFromTable(FAQS, `?filter=page='${query}'`);
     return handleData(data);
 }
 

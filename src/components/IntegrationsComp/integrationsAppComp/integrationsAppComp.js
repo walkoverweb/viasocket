@@ -1,23 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MdSearch } from 'react-icons/md';
-import Footer from '@/components/footer/footer';
-import Navbar from '@/components/navbar/navbar';
 import categories from '@/data/categories.json';
-import style from './integrationsIndexComp.module.scss';
+import style from './integrationsAppComp.module.scss';
 import { APPERPAGE } from '@/const/integrations';
 import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
-import BlogGrid from '@/components/blogGrid/blogGrid';
-export default function IntegrationsIndexComp({
-    pageInfo,
-    integrationsInfo,
-    navData,
-    footerData,
-    metadata,
-    apps,
-    blogsData,
-}) {
+export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
     const [searchedApps, setSearchedApps] = useState([]);
@@ -52,8 +41,18 @@ export default function IntegrationsIndexComp({
     const showNext = !integrationsInfo?.page || Number(integrationsInfo?.page) * APPERPAGE >= apps?.length;
 
     const goToNext = () => {
-        const url = `/integrations/${integrationsInfo?.category ? '/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
-        return url;
+        if (integrationsInfo?.appone) {
+            const url = `/integrations/${integrationsInfo?.appone}/page/${Number(integrationsInfo?.page) + 1}`;
+            return url;
+        } else {
+            if (integrationsInfo?.category && !integrationsInfo?.page) {
+                const url = `${pageInfo?.pathArray.join('/')}/page/${Number(integrationsInfo?.page) + 1}`;
+                return url;
+            } else {
+                const url = `${pageInfo?.pathArray.slice(0, -2).join('/')}/page/${Number(integrationsInfo?.page) + 1}`;
+                return url;
+            }
+        }
     };
 
     const goToPrev = () => {
@@ -67,11 +66,8 @@ export default function IntegrationsIndexComp({
     };
     return (
         <>
-            <div className="container my-6">
-                <Navbar navData={navData} utm={'/integrations'} />
-            </div>
             <div className="container cont">
-                <label className="input border max-w-[400px] border-black flex items-center gap-2 focus-within:outline-none">
+                <label className="input border max-w-[400px] border-black border-b-0 flex items-center gap-2 focus-within:outline-none">
                     <MdSearch fontSize={20} />
                     <input
                         value={searchTerm}
@@ -84,11 +80,29 @@ export default function IntegrationsIndexComp({
                     />
                 </label>
                 <div className="flex">
-                    <div className=" border border-black border-t-0 lg:block hidden">
-                        <div className="cont max-w-[252px] min-w-[252px] ">
-                            {debounceValue ? (
-                                searchedCategoies ? (
-                                    searchedCategoies.map((category, index) => {
+                    {!integrationsInfo?.appone && (
+                        <div className=" border border-black border-t-0 lg:block hidden">
+                            <div className="cont max-w-[252px] min-w-[252px] ">
+                                {debounceValue ? (
+                                    searchedCategoies ? (
+                                        searchedCategoies.map((category, index) => {
+                                            return (
+                                                <Link
+                                                    key={index}
+                                                    className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
+                                                    href={`/integrations/category/${category}`}
+                                                >
+                                                    {category}
+                                                </Link>
+                                            );
+                                        })
+                                    ) : (
+                                        <span className="p-8 text-3xl w-full col-span-3 border border-black border-l-0 border-t-0 ">
+                                            No Apps found for Searched name{' '}
+                                        </span>
+                                    )
+                                ) : (
+                                    categories?.categories.map((category, index) => {
                                         return (
                                             <Link
                                                 key={index}
@@ -99,47 +113,33 @@ export default function IntegrationsIndexComp({
                                             </Link>
                                         );
                                     })
-                                ) : (
-                                    <span className="p-8 text-3xl w-full col-span-3 border border-black border-l-0 border-t-0 ">
-                                        No Apps found for Searched name{' '}
-                                    </span>
-                                )
-                            ) : (
-                                categories?.categories.map((category, index) => {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                            href={`/integrations/category/${category}`}
-                                        >
-                                            {category}
-                                        </Link>
-                                    );
-                                })
-                            )}
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
                     <div>
-                        <div className="p-9 cont gap-2">
-                            {integrationsInfo?.category && integrationsInfo?.category != 'All' ? (
-                                <h1 className="h1 text-accent">
-                                    <span className="text-black italic">300+</span>{' '}
-                                    {decodeURIComponent(integrationsInfo?.category)}
-                                </h1>
-                            ) : (
-                                <h1 className="h1  text-accent italic">
-                                    {' '}
-                                    5000+
-                                    <span className="text-black not-italic"> viaSocket Integrations</span>
-                                </h1>
-                            )}
+                        {!integrationsInfo?.appone && (
+                            <div className="p-9 cont gap-2">
+                                {integrationsInfo?.category && integrationsInfo?.category != 'All' ? (
+                                    <h1 className="h1 text-accent">
+                                        <span className="text-black italic">300+</span>{' '}
+                                        {decodeURIComponent(integrationsInfo?.category)}
+                                    </h1>
+                                ) : (
+                                    <h1 className="h1  text-accent italic">
+                                        {' '}
+                                        5000+
+                                        <span className="text-black not-italic"> viaSocket Integrations</span>
+                                    </h1>
+                                )}
 
-                            <p>
-                                Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing,
-                                E-Commerce, Helpdesk, Payments, Web forms, Collaboration, and more for streamlined
-                                business success.
-                            </p>
-                        </div>
+                                <p>
+                                    Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing,
+                                    E-Commerce, Helpdesk, Payments, Web forms, Collaboration, and more for streamlined
+                                    business success.
+                                </p>
+                            </div>
+                        )}
 
                         <div className={style.appsgrid}>
                             {debounceValue ? (
@@ -214,12 +214,6 @@ export default function IntegrationsIndexComp({
                         )}
                     </div>
                 )}
-            </div>
-            <div className="container my-6">
-                <BlogGrid posts={blogsData} />
-            </div>
-            <div className="container my-6">
-                <Footer footerData={footerData} />
             </div>
         </>
     );
