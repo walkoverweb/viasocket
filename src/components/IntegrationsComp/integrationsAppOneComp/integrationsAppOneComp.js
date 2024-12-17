@@ -7,6 +7,8 @@ import { LinkButton, LinkText } from '@/components/uiComponents/buttons';
 import Footer from '@/components/footer/footer';
 import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 
 export default function IntegrationsAppOneComp({
     appDetails,
@@ -17,6 +19,7 @@ export default function IntegrationsAppOneComp({
     faqData,
     footerData,
     blogsData,
+    metaData,
 }) {
     const utm = pageInfo?.url;
     const integrations = 'undefined';
@@ -25,6 +28,12 @@ export default function IntegrationsAppOneComp({
     // .join(',');
     return (
         <>
+            <IntegrationsHeadComp
+                metaData={metaData}
+                page={'/integrations/AppOne'}
+                plugins={[appDetails]}
+                type={'appOne'}
+            />
             <div style={{ background: appDetails?.brandcolor }}>
                 <div className="container cont py-8 gap-2 flex items-center justify-between">
                     <div className="flex items-center w-full justify-end gap-5">

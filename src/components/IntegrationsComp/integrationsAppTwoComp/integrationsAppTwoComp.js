@@ -8,6 +8,7 @@ import Footer from '@/components/footer/footer';
 import { useState } from 'react';
 import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 
 export default function IntegrationsAppTwoComp({
     combosData,
@@ -19,12 +20,19 @@ export default function IntegrationsAppTwoComp({
     appOneDetails,
     appTwoDetails,
     blogsData,
+    metaData,
 }) {
     const utm = pageInfo?.url;
     const integrations = 'undefined';
 
     return (
         <>
+            <IntegrationsHeadComp
+                metaData={metaData}
+                page={'/integrations/AppOne/AppTwo'}
+                plugins={[appOneDetails, appTwoDetails]}
+                type={'appTwo'}
+            />
             <div style={{ background: appOneDetails?.brandcolor }} className="border-b border-black">
                 <div className="container cont py-8 gap-2 flex items-center justify-between">
                     <div className="flex items-center w-full justify-end gap-5">

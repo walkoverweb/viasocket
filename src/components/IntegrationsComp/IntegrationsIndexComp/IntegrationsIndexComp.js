@@ -9,14 +9,15 @@ import { APPERPAGE } from '@/const/integrations';
 import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 export default function IntegrationsIndexComp({
     pageInfo,
     integrationsInfo,
     navData,
     footerData,
-    metadata,
     apps,
     blogsData,
+    categoryData,
 }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
@@ -52,7 +53,7 @@ export default function IntegrationsIndexComp({
     const showNext = !integrationsInfo?.page || Number(integrationsInfo?.page) * APPERPAGE >= apps?.length;
 
     const goToNext = () => {
-        const url = `/integrations/${integrationsInfo?.category ? '/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
+        const url = `/integrations/${integrationsInfo?.category ? '/category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
         return url;
     };
 
@@ -67,6 +68,7 @@ export default function IntegrationsIndexComp({
     };
     return (
         <>
+            <IntegrationsHeadComp metaData={categoryData} integrationsInfo={integrationsInfo} />
             <div className="container my-6">
                 <Navbar navData={navData} utm={'/integrations'} />
             </div>
@@ -122,23 +124,27 @@ export default function IntegrationsIndexComp({
                     <div>
                         <div className="p-9 cont gap-2">
                             {integrationsInfo?.category && integrationsInfo?.category != 'All' ? (
-                                <h1 className="h1 text-accent">
-                                    <span className="text-black italic">300+</span>{' '}
-                                    {decodeURIComponent(integrationsInfo?.category)}
-                                </h1>
+                                <>
+                                    <h1 className="h1 text-accent">
+                                        <span className="text-black italic">{categoryData?.appcount}+</span>{' '}
+                                        {decodeURIComponent(integrationsInfo?.category)}
+                                    </h1>
+                                    <p>{categoryData?.subheading}</p>
+                                </>
                             ) : (
-                                <h1 className="h1  text-accent italic">
-                                    {' '}
-                                    5000+
-                                    <span className="text-black not-italic"> viaSocket Integrations</span>
-                                </h1>
+                                <>
+                                    <h1 className="h1  text-accent italic">
+                                        {' '}
+                                        5000+
+                                        <span className="text-black not-italic"> viaSocket Integrations</span>
+                                    </h1>
+                                    <p>
+                                        Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing,
+                                        E-Commerce, Helpdesk, Payments, Web forms, Collaboration, and more for
+                                        streamlined business success.
+                                    </p>
+                                </>
                             )}
-
-                            <p>
-                                Viasocket is your all-in-one solution, seamlessly integrating CRM, Marketing,
-                                E-Commerce, Helpdesk, Payments, Web forms, Collaboration, and more for streamlined
-                                business success.
-                            </p>
                         </div>
 
                         <div className={style.appsgrid}>

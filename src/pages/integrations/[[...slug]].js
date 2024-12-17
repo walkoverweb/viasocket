@@ -1,5 +1,5 @@
 import getApps from '@/utils/getApps';
-import { getBlogData, getFaqData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import { getBlogData, getCategoryData, getFaqData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
 import getPageInfo from '@/utils/getPageInfo';
 import getIntegrationsInfo from '@/utils/getInterationsInfo';
 import IntegrationsIndexComp from '@/components/IntegrationsComp/IntegrationsIndexComp/IntegrationsIndexComp';
@@ -18,6 +18,7 @@ export default function Integrations({
     faqData,
     footerData,
     navData,
+    categoryData,
 }) {
     const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
     const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
@@ -59,9 +60,9 @@ export default function Integrations({
                 integrationsInfo={integrationsInfo}
                 navData={navData}
                 footerData={footerData}
-                metadata={metadata}
                 apps={apps}
                 blogsData={blogsData}
+                categoryData={categoryData}
             />
         );
 }
@@ -75,6 +76,7 @@ export async function getServerSideProps(context) {
     const faqData = await getFaqData('[singleApp]');
     const apps = await getApps({ page: integrationsInfo.page, category: integrationsInfo.category });
     const combosData = await getCombos(integrationsInfo);
+    const categoryData = await getCategoryData(integrationsInfo?.category);
 
     return {
         props: {
@@ -87,6 +89,7 @@ export async function getServerSideProps(context) {
             integrationsInfo: integrationsInfo || {},
             apps: apps || [],
             combosData: combosData || {},
+            categoryData: categoryData[0] || {},
         },
     };
 }

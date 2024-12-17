@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
-    console.log('🚀 ~ IntegrationsBetaComp ~ appOneDetails:', appOneDetails);
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
     console.log('Current URL:', currentUrl);
     const [isLoading, setIsLoading] = useState(false);
