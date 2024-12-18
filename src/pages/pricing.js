@@ -6,14 +6,15 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { getFaqData } from '@/utils/getData';
 export async function getServerSideProps() {
     const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev', 'tbl2bk656'];
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
-
+    const faqData = await getFaqData('/pricing');
     return {
         props: {
-            faqData: results[0].data.rows,
+            faqData: faqData,
             footerData: results[1]?.data?.rows,
             betterChoice: results[2]?.data?.rows,
             navData: results[3]?.data?.rows,

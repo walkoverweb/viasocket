@@ -38,7 +38,9 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
         }
     }, [debounceValue]);
 
-    const showNext = !integrationsInfo?.page || Number(integrationsInfo?.page) * APPERPAGE >= apps?.length;
+    const showNext =
+        apps?.length > 0 &&
+        (Number(integrationsInfo?.page) == 0 ? 1 : Number(integrationsInfo?.page)) * APPERPAGE <= apps?.length;
 
     const goToNext = () => {
         if (integrationsInfo?.appone) {
@@ -202,7 +204,7 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                 </div>
                 {!debounceValue && (
                     <div className="flex justify-end items-end w-full">
-                        {integrationsInfo?.page > 1 && (
+                        {integrationsInfo?.page > 0 && (
                             <Link className="btn btn-ghost" href={goToPrev()}>
                                 Prev
                             </Link>

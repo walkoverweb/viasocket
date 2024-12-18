@@ -16,6 +16,7 @@ import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
+import { getFaqData } from '@/utils/getData';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -635,6 +636,7 @@ export async function getServerSideProps() {
 
     const randomIndex = Math.floor(Math.random() * Industries.industries.length);
     const initialIndus = Industries.industries[randomIndex];
+    const faqData = await getFaqData('/index');
 
     return {
         props: {
@@ -643,7 +645,7 @@ export async function getServerSideProps() {
             getStartedData: results[2]?.data?.rows,
             features: results[3]?.data?.rows,
             metaData: results[4]?.data?.rows,
-            faqData: results[5]?.data?.rows,
+            faqData: faqData,
             navData: results[6]?.data?.rows,
             footerData: results[7]?.data?.rows,
             posts: posts,

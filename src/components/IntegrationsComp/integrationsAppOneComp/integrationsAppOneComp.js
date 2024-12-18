@@ -7,6 +7,7 @@ import Footer from '@/components/footer/footer';
 import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
+import { LinkText } from '@/components/uiComponents/buttons';
 
 export default function IntegrationsAppOneComp({
     appDetails,
@@ -19,6 +20,7 @@ export default function IntegrationsAppOneComp({
     blogsData,
     metaData,
 }) {
+    console.log('🚀 ~ appDetails:', appDetails);
     const utm = pageInfo?.url;
     const integrations = 'undefined';
     return (
@@ -124,11 +126,46 @@ export default function IntegrationsAppOneComp({
                     </>
                 )}
 
-                {!combosData?.combinations?.length && <IntegrationsBetaComp appOneDetails={appDetails} />}
+                {!combosData?.combinations?.length && !appDetails?.events && (
+                    <IntegrationsBetaComp appOneDetails={appDetails} />
+                )}
+                <div className="cont gap-4">
+                    <div className="cont cont__w gap-2">
+                        <h1 className="h1">
+                            {`Create integrations between ${appDetails?.name} and your favorite App`}
+                        </h1>
+                        <p className="sub__h1">
+                            {`Enable Integrations or automations with these events of ${appDetails?.name}`}
+                        </p>
+                    </div>
+
+                    <div className="cont gap-4">
+                        <h2 className="h2">Actions and Triggers</h2>
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
+                            {appDetails?.events.map((event, index) => {
+                                return (
+                                    <div className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start">
+                                        <Image
+                                            src={appDetails?.iconurl}
+                                            width={36}
+                                            height={36}
+                                            alt={appDetails?.name}
+                                            className="h-8 w-fit"
+                                        />
+                                        <div className="cont gap-1">
+                                            <h3 className="font-semibold">{appDetails?.events[0]?.name}</h3>
+                                            <p className="text-sm">{appDetails?.events[0]?.description}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="cont cont__gap cont__py">
                 <div className="container cont gap-6">
-                    <h2 className="h1">Connect Any App with Slack</h2>
+                    <h2 className="h1">{`Connect Any App with ${appDetails?.name}`}</h2>
                     <div className="flex items-center gap-4 ">
                         <Image className="h-10 w-fit" src={appDetails?.iconurl} width={36} height={36} alt="Slack" />
                         <h2 className="text-2xl font-bold">{appDetails?.name}</h2>
