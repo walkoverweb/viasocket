@@ -50,7 +50,9 @@ export default function IntegrationsIndexComp({
         }
     }, [debounceValue]);
 
-    const showNext = !integrationsInfo?.page || Number(integrationsInfo?.page) * APPERPAGE >= apps?.length;
+    const showNext =
+        apps?.length > 0 &&
+        (Number(integrationsInfo?.page) == 0 ? 1 : Number(integrationsInfo?.page)) * APPERPAGE <= apps?.length;
 
     const goToNext = () => {
         const url = `/integrations/${integrationsInfo?.category ? '/category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
@@ -126,7 +128,7 @@ export default function IntegrationsIndexComp({
                             {integrationsInfo?.category && integrationsInfo?.category != 'All' ? (
                                 <>
                                     <h1 className="h1 text-accent">
-                                        <span className="text-black italic">{categoryData?.appcount}+</span>{' '}
+                                        <span className="text-black italic">{categoryData?.appcount || 300}+</span>{' '}
                                         {decodeURIComponent(integrationsInfo?.category)}
                                     </h1>
                                     <p>{categoryData?.subheading}</p>
@@ -208,7 +210,7 @@ export default function IntegrationsIndexComp({
                 </div>
                 {!debounceValue && (
                     <div className="flex justify-end items-end w-full">
-                        {integrationsInfo?.page > 1 && (
+                        {integrationsInfo?.page > 0 && (
                             <Link className="btn btn-ghost" href={goToPrev()}>
                                 Prev
                             </Link>
