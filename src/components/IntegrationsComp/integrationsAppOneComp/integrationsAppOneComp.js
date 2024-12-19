@@ -8,6 +8,7 @@ import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 import { LinkText } from '@/components/uiComponents/buttons';
+import { useState } from 'react';
 
 export default function IntegrationsAppOneComp({
     appDetails,
@@ -20,7 +21,8 @@ export default function IntegrationsAppOneComp({
     blogsData,
     metaData,
 }) {
-    console.log('🚀 ~ appDetails:', appDetails);
+    const [visibleCombos, setVisibleCombos] = useState(12);
+    const [showMore, setShowMore] = useState(combosData?.combinations?.length >= visibleCombos);
     const utm = pageInfo?.url;
     const integrations = 'undefined';
     return (
@@ -42,13 +44,13 @@ export default function IntegrationsAppOneComp({
                                     : 'http://' + appDetails?.domain
                             }
                         >
-                            <button className="bg-white flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                            <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
                                 Login to {appDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
                     </div>
                     <div className="flex  gap-2 items-center w-full justify-start">
-                        <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px]">
+                        <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
                             <Image
                                 className="h-10 w-fit"
                                 src={appDetails?.iconurl}
@@ -80,16 +82,16 @@ export default function IntegrationsAppOneComp({
                 {combosData?.combinations?.length > 0 && (
                     <>
                         <div className="cont cont__w ">
-                            <h1 className="h1">Create integrations between Slack and your favorite App</h1>
+                            <h1 className="h1">{`Create integrations between ${appDetails?.name} and your favorite App`}</h1>
                             <p className="sub__h1">
-                                Create effective Slack automations in minutes by using pre-made templates that are
-                                customized for your needs
+                                {`  Create effective ${appDetails?.name} automations in minutes by using pre-made templates that are customized for your needs`}
                             </p>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
-                            {combosData?.combinations?.map((combo) => {
+                            {combosData?.combinations?.slice(0, visibleCombos).map((combo, index) => {
                                 return (
                                     <Link
+                                        key={index}
                                         href={`https://flow.viasocket.com/makeflow/trigger/${combo?.trigger?.id}/action?utm_source=${utm}&events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
                                         className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
                                     >
@@ -123,45 +125,63 @@ export default function IntegrationsAppOneComp({
                                 );
                             })}
                         </div>
+                        {showMore && (
+                            <button
+                                onClick={() => {
+                                    setVisibleCombos(visibleCombos + 8);
+                                    if (combosData?.combinations?.length <= visibleCombos) {
+                                        setShowMore(false);
+                                    }
+                                }}
+                                className="btn btn-outline "
+                            >
+                                Load More
+                            </button>
+                        )}
                     </>
                 )}
 
-                {!combosData?.combinations?.length && !appDetails?.events && (
+                {!combosData?.combinations?.length > 0 && !appDetails?.events.length > 0 && (
                     <IntegrationsBetaComp appOneDetails={appDetails} />
                 )}
-                <div className="cont gap-4">
-                    <div className="cont cont__w gap-2">
-                        <h1 className="h1">
-                            {`Create integrations between ${appDetails?.name} and your favorite App`}
-                        </h1>
-                        <p className="sub__h1">
-                            {`Enable Integrations or automations with these events of ${appDetails?.name}`}
-                        </p>
-                    </div>
-
+                {!combosData?.combinations?.length > 0 && appDetails?.events.length > 0 && (
                     <div className="cont gap-4">
-                        <h2 className="h2">Actions and Triggers</h2>
-                        <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-                            {appDetails?.events.map((event, index) => {
-                                return (
-                                    <div className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start">
-                                        <Image
-                                            src={appDetails?.iconurl}
-                                            width={36}
-                                            height={36}
-                                            alt={appDetails?.name}
-                                            className="h-8 w-fit"
-                                        />
-                                        <div className="cont gap-1">
-                                            <h3 className="font-semibold">{appDetails?.events[0]?.name}</h3>
-                                            <p className="text-sm">{appDetails?.events[0]?.description}</p>
+                        <div className="cont cont__w gap-2">
+                            <h1 className="h1">
+                                {`Create integrations between ${appDetails?.name} and your favorite App`}
+                            </h1>
+                            <p className="sub__h1">
+                                {`Enable Integrations or automations with these events of ${appDetails?.name}`}
+                            </p>
+                        </div>
+
+                        <div className="cont gap-4">
+                            <h2 className="h2">Actions and Triggers</h2>
+                            <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
+                                {appDetails?.events.map((event, index) => {
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
+                                        >
+                                            <Image
+                                                src={appDetails?.iconurl}
+                                                width={36}
+                                                height={36}
+                                                alt={appDetails?.name}
+                                                className="h-8 w-fit"
+                                            />
+                                            <div className="cont gap-1">
+                                                <h3 className="font-semibold">{event?.name}</h3>
+                                                <p className="text-sm">{event?.description}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
             </div>
             <div className="cont cont__gap cont__py">
                 <div className="container cont gap-6">

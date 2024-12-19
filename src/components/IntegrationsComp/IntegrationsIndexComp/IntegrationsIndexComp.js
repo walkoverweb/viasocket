@@ -50,9 +50,7 @@ export default function IntegrationsIndexComp({
         }
     }, [debounceValue]);
 
-    const showNext =
-        apps?.length > 0 &&
-        (Number(integrationsInfo?.page) == 0 ? 1 : Number(integrationsInfo?.page)) * APPERPAGE <= apps?.length;
+    const showNext = apps?.length > 0 && APPERPAGE <= apps?.length;
 
     const goToNext = () => {
         const url = `/integrations/${integrationsInfo?.category ? '/category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;

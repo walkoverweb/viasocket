@@ -30,40 +30,41 @@ export default function IntegrationsHeadComp({ metaData, integrationsInfo, plugi
             </>
         );
     } else {
-        if (integrationsInfo?.catefory) {
+        if (integrationsInfo?.category) {
             return (
                 <Head>
-                    <title>{`${metaData?.title && metaData?.title} ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}</title>
+                    <title>{`${metaData?.title && metaData?.title} ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}</title>
                     <meta
                         name="description"
-                        content={`${metaData?.description && metaData?.description} ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}
+                        content={`${metaData?.description && metaData?.description} ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta
                         property="og:title"
-                        content={`${metaData?.title && metaData?.title} ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}
+                        content={`${metaData?.title && metaData?.title} ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta
                         property="og:description"
-                        content={`${metaData?.description && metaData?.description} ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}
+                        content={`${metaData?.description && metaData?.description} ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
                 </Head>
             );
         } else {
+            console.log(metaData);
             return (
                 <Head>
-                    <title>{`Explore thousands of apps for Integrations | viaSocket ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}</title>
+                    <title>{`Explore thousands of apps for Integrations | viaSocket ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}</title>
                     <meta
                         name="description"
-                        content={`Browse through thousands of apps to simplify your workflow. Find the right solution for your business with viaSocket's wide range of integrations. ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}
+                        content={`Browse through thousands of apps to simplify your workflow. Find the right solution for your business with viaSocket's wide range of integrations. ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta
                         property="og:title"
-                        content={`Explore thousands of apps for Integrations | viaSocket ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}
+                        content={`Explore thousands of apps for Integrations | viaSocket ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta
                         property="og:description"
-                        content={`Browse through thousands of apps to simplify your workflow. Find the right solution for your business with viaSocket's wide range of integrations. ${integrationsInfo?.page && '| Page ' + integrationsInfo?.page}`}
+                        content={`Browse through thousands of apps to simplify your workflow. Find the right solution for your business with viaSocket's wide range of integrations. ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
                 </Head>
