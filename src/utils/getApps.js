@@ -1,14 +1,14 @@
+import { APPERPAGE } from '@/const/integrations';
 import axios from 'axios';
 
-export default async function fetchApps(query) {
+export default async function getApps(query) {
     try {
         const fetchUrl = `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all`;
         const response = await axios.get(fetchUrl, {
-            headers: { 'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY },
             params: {
                 category: (query?.category !== 'All' && query?.category) || '',
-                limit: 100,
-                offset: query?.offset ? query?.offset : 0,
+                limit: APPERPAGE,
+                offset: query?.page ? query?.page * APPERPAGE : 0,
             },
         });
         const rawData = await response?.data?.data;

@@ -1,6 +1,11 @@
 .btn {
     @apply w-fit px-10 uppercase tracking-wider;
-
+    &.w-full {
+        width: 100% !important;
+    }
+    &.btn-outline {
+        @apply hover:bg-black hover:text-white;
+    }
     &.btn-white {
         @apply bg-white border-0 hover:bg-gray-300 transition-all duration-200;
         &.btn-outline {

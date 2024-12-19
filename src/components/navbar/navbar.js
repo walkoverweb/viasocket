@@ -19,6 +19,8 @@ export default function Navbar({ navData, utm }) {
         '/free-access-programs',
         '/privacy',
         '/terms',
+        '/integrations',
+        '/404',
     ];
     let mode = utm && darkPageArray.includes(utm) ? 'light' : 'dark';
 
@@ -28,15 +30,7 @@ export default function Navbar({ navData, utm }) {
     if (utm && utm === '/pricing') {
         borderClass = 'border-b-0';
     }
-    if (
-        (utm && utm === '/pricing') ||
-        utm === '/integrations' ||
-        utm === '/support' ||
-        utm === '/experts' ||
-        utm === '/free-access-programs' ||
-        utm === '/privacy' ||
-        utm === '/terms'
-    ) {
+    if (utm !== '/index') {
         textClass = 'text-dark ';
     } else {
         textClass = 'text-white ';

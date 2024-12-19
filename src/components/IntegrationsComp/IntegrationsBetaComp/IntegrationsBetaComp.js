@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import styles from './noDataGrid.module.scss';
 import { useState } from 'react';
-export default function noDataGrid({ plugin, mode }) {
+
+export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
     console.log('Current URL:', currentUrl);
     const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +10,7 @@ export default function noDataGrid({ plugin, mode }) {
         email: '',
         useCase: '',
         app_name: currentUrl || ' ',
-        plugin: plugin,
+        plugin: appOneDetails?.name,
     });
 
     const handleInputChange = (event) => {
@@ -48,43 +48,43 @@ export default function noDataGrid({ plugin, mode }) {
     };
     return (
         <>
-            <div style={{ backgroundColor: `${plugin[1]?.brandcolor}` }} className="py-12 ">
-                <div className={`container flex flex-col md:gap-12 gap-6 `}>
-                    <div className="flex flex-col gap-8 flex-grow justify-center  ">
-                        <h2
-                            className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
-                        >
+            <div className="cont cont__w gap-4 ">
+                <h1 className="h1">{`Create integrations between ${appOneDetails?.name} and ${appTwoDetails?.name || 'your favorite App'}`}</h1>
+                {appTwoDetails ? (
+                    <>
+                        <h2 className="h2">
                             The app you are looking for is in beta, and we are awaiting verification from the app
                             builders before making it accessible to end users. This process may take 15 to 30 days.
                         </h2>
-                        <h2
-                            className={`lg:text-3xl md:text-2xl text-xl  font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}
-                        >
+                        <p className="sub__h1">
                             If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
+                        </p>
+                        <button
+                            className="btn btn-outline"
+                            onClick={() => document.getElementById('beta_request').showModal()}
+                        >
+                            Request Combination
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <h2 className="h2">
+                            The app you are looking for is in beta, and we are awaiting verification from the app
+                            builders before making it accessible to end users. This process may take 15 to 30 days.
                         </h2>
-                        {plugin?.length <= 1 ? (
-                            <div className="flex gap-3">
-                                <button
-                                    className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                    onClick={() => document.getElementById('beta_request').showModal()}
-                                >
-                                    Request Beta Access
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="flex gap-3">
-                                <button
-                                    className={`btn  ${mode === 'dark' ? 'btn-white' : 'btn-outline btn-primary'} `}
-                                    onClick={() => document.getElementById('beta_request').showModal()}
-                                >
-                                    Request Combination
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </div>
+                        <p className="sub__h1">
+                            If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
+                        </p>
+                        <button
+                            className="btn btn-outline"
+                            onClick={() => document.getElementById('beta_request').showModal()}
+                        >
+                            Request Beta Access
+                        </button>
+                    </>
+                )}
             </div>
-            <dialog id="beta_request" className="modal">
+            <dialog id="beta_request" className="modal rounded-none">
                 <div className="modal-box">
                     <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
