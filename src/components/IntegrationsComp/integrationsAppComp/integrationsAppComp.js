@@ -38,9 +38,7 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
         }
     }, [debounceValue]);
 
-    const showNext =
-        apps?.length > 0 &&
-        (Number(integrationsInfo?.page) == 0 ? 1 : Number(integrationsInfo?.page)) * APPERPAGE <= apps?.length;
+    const showNext = apps?.length > 0 && APPERPAGE <= apps?.length;
 
     const goToNext = () => {
         if (integrationsInfo?.appone) {
