@@ -174,27 +174,29 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                                 )
                             ) : (
                                 apps?.map((app, index) => {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={`/integrations/${integrationsInfo?.appone}/${app?.appslugname}`}
-                                            className={style.app}
-                                        >
-                                            <div className="flex items-center gap-2">
-                                                <div className="border flex items-center justify-center w-9 h-9 bg-white">
-                                                    <Image
-                                                        src={app?.iconurl}
-                                                        width={36}
-                                                        height={36}
-                                                        alt={app?.name}
-                                                        className="h-5 w-fit"
-                                                    />
+                                    if (app?.appslugname != integrationsInfo?.appone) {
+                                        return (
+                                            <Link
+                                                key={index}
+                                                href={`/integrations/${integrationsInfo?.appone}/${app?.appslugname}`}
+                                                className={style.app}
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <div className="border flex items-center justify-center w-9 h-9 bg-white">
+                                                        <Image
+                                                            src={app?.iconurl}
+                                                            width={36}
+                                                            height={36}
+                                                            alt={app?.name}
+                                                            className="h-5 w-fit"
+                                                        />
+                                                    </div>
+                                                    <h2 className="font-bold">{app?.name}</h2>
                                                 </div>
-                                                <h2 className="font-bold">{app?.name}</h2>
-                                            </div>
-                                            <p className={style?.app__des}>{app?.description}</p>
-                                        </Link>
-                                    );
+                                                <p className={style?.app__des}>{app?.description}</p>
+                                            </Link>
+                                        );
+                                    }
                                 })
                             )}
                         </div>
