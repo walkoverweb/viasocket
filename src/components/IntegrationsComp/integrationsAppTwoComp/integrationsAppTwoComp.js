@@ -22,7 +22,6 @@ export default function IntegrationsAppTwoComp({
     blogsData,
     metaData,
 }) {
-    console.log('🚀 ~ combosData:', combosData);
     const utm = pageInfo?.url;
     const integrations = 'undefined';
     const [visibleCombos, setVisibleCombos] = useState(12);
