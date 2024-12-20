@@ -53,7 +53,7 @@ export default function IntegrationsAppOneComp({
                         <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
                             <Image
                                 className="h-10 w-fit"
-                                src={appDetails?.iconurl}
+                                src={appDetails?.iconurl || 'https://placehold.co/36x36'}
                                 width={36}
                                 height={36}
                                 alt="Slack"
@@ -165,7 +165,7 @@ export default function IntegrationsAppOneComp({
                                             className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
                                         >
                                             <Image
-                                                src={appDetails?.iconurl}
+                                                src={appDetails?.iconurl || 'https://placehold.co/36x36'}
                                                 width={36}
                                                 height={36}
                                                 alt={appDetails?.name}
@@ -187,7 +187,13 @@ export default function IntegrationsAppOneComp({
                 <div className="container cont gap-6">
                     <h2 className="h1">{`Connect Any App with ${appDetails?.name}`}</h2>
                     <div className="flex items-center gap-4 ">
-                        <Image className="h-10 w-fit" src={appDetails?.iconurl} width={36} height={36} alt="Slack" />
+                        <Image
+                            className="h-10 w-fit"
+                            src={appDetails?.iconurl || 'https://placehold.co/36x36'}
+                            width={36}
+                            height={36}
+                            alt="Slack"
+                        />
                         <h2 className="text-2xl font-bold">{appDetails?.name}</h2>
                     </div>
                     <MdAdd fontSize={36} />
@@ -208,7 +214,7 @@ export default function IntegrationsAppOneComp({
                             <div>
                                 <Image
                                     className="h-10 w-fit"
-                                    src={appDetails?.iconurl}
+                                    src={appDetails?.iconurl || 'https://placehold.co/36x36'}
                                     width={36}
                                     height={36}
                                     alt="Slack"

@@ -53,7 +53,7 @@ export default function IntegrationsIndexComp({
     const showNext = apps?.length > 0 && APPERPAGE <= apps?.length;
 
     const goToNext = () => {
-        const url = `/integrations/${integrationsInfo?.category ? '/category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
+        const url = `/integrations/${integrationsInfo?.category ? 'category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
         return url;
     };
 
@@ -160,7 +160,7 @@ export default function IntegrationsIndexComp({
                                                 <div className="flex items-center gap-2">
                                                     <div className="border flex items-center justify-center w-9 h-9 bg-white">
                                                         <Image
-                                                            src={app?.iconurl}
+                                                            src={app?.iconurl || 'https://placehold.co/36x36'}
                                                             width={36}
                                                             height={36}
                                                             alt={app?.name}
@@ -189,7 +189,7 @@ export default function IntegrationsIndexComp({
                                             <div className="flex items-center gap-2">
                                                 <div className="border flex items-center justify-center w-9 h-9 bg-white">
                                                     <Image
-                                                        src={app?.iconurl}
+                                                        src={app?.iconurl || 'https://placehold.co/36x36'}
                                                         width={36}
                                                         height={36}
                                                         alt={app?.name}
