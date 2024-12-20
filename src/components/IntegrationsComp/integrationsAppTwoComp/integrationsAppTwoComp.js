@@ -66,7 +66,7 @@ export default function IntegrationsAppTwoComp({
                         <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px]">
                             <Image
                                 className="h-10 w-fit"
-                                src={appOneDetails?.iconurl}
+                                src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                 width={36}
                                 height={36}
                                 alt="Slack"
@@ -205,7 +205,7 @@ export default function IntegrationsAppTwoComp({
                                             className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
                                         >
                                             <Image
-                                                src={appOneDetails?.iconurl}
+                                                src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                                 width={36}
                                                 height={36}
                                                 alt={appOneDetails?.name}
@@ -226,7 +226,7 @@ export default function IntegrationsAppTwoComp({
                                             className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
                                         >
                                             <Image
-                                                src={appTwoDetails?.iconurl}
+                                                src={appTwoDetails?.iconurl || 'https://placehold.co/36x36'}
                                                 width={36}
                                                 height={36}
                                                 alt={appTwoDetails?.name}
@@ -265,7 +265,7 @@ export default function IntegrationsAppTwoComp({
                             <div className="cont gap-2">
                                 <Image
                                     className="h-10 w-fit"
-                                    src={appOneDetails?.iconurl}
+                                    src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                     width={36}
                                     height={36}
                                     alt="Slack"
@@ -287,7 +287,7 @@ export default function IntegrationsAppTwoComp({
                             <div className="cont gap-2">
                                 <Image
                                     className="h-10 w-fit"
-                                    src={appTwoDetails?.iconurl}
+                                    src={appTwoDetails?.iconurl || 'https://placehold.co/36x36'}
                                     width={36}
                                     height={36}
                                     alt="Slack"
