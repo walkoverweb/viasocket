@@ -9,6 +9,7 @@ import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 import { LinkText } from '@/components/uiComponents/buttons';
 import { useState } from 'react';
+import createURL from '@/utils/createURL';
 
 export default function IntegrationsAppOneComp({
     appDetails,
@@ -68,12 +69,12 @@ export default function IntegrationsAppOneComp({
             </div>
             <div className="container cont cont__gap cont__py ">
                 <div className="flex items-center gap-2 text-lg">
-                    <Link href="/integrations" className="flex items-center gap-0 underline">
+                    <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
                     </Link>
                     <MdChevronRight fontSize={22} />
                     <Link
-                        href={`/integrations/${appDetails?.appslugname}`}
+                        href={createURL(`/integrations/${appDetails?.appslugname}`)}
                         className="flex items-center gap-0 underline"
                     >
                         {appDetails?.name}
@@ -200,6 +201,33 @@ export default function IntegrationsAppOneComp({
                 </div>
                 <IntegrationsAppComp pageInfo={pageInfo} integrationsInfo={integrationsInfo} apps={apps} />
             </div>
+            {combosData?.combinations?.length > 0 && (
+                <div className="container cont gap-4">
+                    <h2 className="h1">Actions and Triggers</h2>
+                    <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
+                        {appDetails?.events.map((event, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
+                                >
+                                    <Image
+                                        src={appDetails?.iconurl || 'https://placehold.co/36x36'}
+                                        width={36}
+                                        height={36}
+                                        alt={appDetails?.name}
+                                        className="h-8 w-fit"
+                                    />
+                                    <div className="cont gap-1">
+                                        <h3 className="font-semibold">{event?.name}</h3>
+                                        <p className="text-sm">{event?.description}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
             {blogsData?.length > 0 && (
                 <div className="container cont__py">
                     {' '}

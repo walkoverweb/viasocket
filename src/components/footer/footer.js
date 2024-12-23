@@ -1,3 +1,4 @@
+import createURL from '@/utils/createURL';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaInstagramSquare, FaYoutube } from 'react-icons/fa';
@@ -29,11 +30,7 @@ export default function Footer({ footerData, borderClass }) {
                                     !item?.hidden && (
                                         <Link
                                             target="_blank"
-                                            href={
-                                                item?.link
-                                                    ? item.link
-                                                    : `/${item?.name.toLowerCase().replace(/\s+/g, '-')}`
-                                            }
+                                            href={createURL(item?.link)}
                                             key={index}
                                             aria-label={item?.name}
                                         >

@@ -6,6 +6,7 @@ import style from './IntegrationsAppComp.module.scss';
 import { APPERPAGE } from '@/const/integrations';
 import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
+import createURL from '@/utils/createURL';
 export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
@@ -148,7 +149,9 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                                         return (
                                             <Link
                                                 key={index}
-                                                href={`/integrations/${app?.appslugname}`}
+                                                href={createURL(
+                                                    `/integrations/${integrationsInfo?.appone}/${app?.appslugname}`
+                                                )}
                                                 className={style.app}
                                             >
                                                 <div className="flex items-center gap-2">
@@ -178,7 +181,9 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                                         return (
                                             <Link
                                                 key={index}
-                                                href={`/integrations/${integrationsInfo?.appone}/${app?.appslugname}`}
+                                                href={createURL(
+                                                    `/integrations/${integrationsInfo?.appone}/${app?.appslugname}`
+                                                )}
                                                 className={style.app}
                                             >
                                                 <div className="flex items-center gap-2">
@@ -205,12 +210,12 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                 {!debounceValue && (
                     <div className="flex justify-end items-end w-full">
                         {integrationsInfo?.page > 0 && (
-                            <Link className="btn btn-ghost" href={goToPrev()}>
+                            <Link className="btn btn-ghost" href={createURL(goToPrev())}>
                                 Prev
                             </Link>
                         )}
                         {showNext && (
-                            <Link className="btn btn-ghost" href={goToNext()}>
+                            <Link className="btn btn-ghost" href={createURL(goToNext())}>
                                 Next
                             </Link>
                         )}
