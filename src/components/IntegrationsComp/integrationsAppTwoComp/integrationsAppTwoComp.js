@@ -41,7 +41,7 @@ export default function IntegrationsAppTwoComp({
                         <Link
                             target="_blank"
                             href={
-                                appOneDetails?.domain.startsWith('http')
+                                appOneDetails?.domain?.startsWith('http')
                                     ? appOneDetails?.domain
                                     : 'http://' + appOneDetails?.domain
                             }
@@ -53,7 +53,7 @@ export default function IntegrationsAppTwoComp({
                         <Link
                             target="_blank"
                             href={
-                                appTwoDetails?.domain.startsWith('http')
+                                appTwoDetails?.domain?.startsWith('http')
                                     ? appTwoDetails?.domain
                                     : 'http://' + appTwoDetails?.domain
                             }
@@ -179,13 +179,13 @@ export default function IntegrationsAppTwoComp({
                     </>
                 )}
                 {!combosData?.combinations?.length > 0 &&
-                    !appOneDetails?.events.length > 0 &&
-                    !appTwoDetails?.events.length > 0 && (
+                    !appOneDetails?.events?.length > 0 &&
+                    !appTwoDetails?.events?.length > 0 && (
                         <IntegrationsBetaComp appOneDetails={appOneDetails} appTwoDetails={appTwoDetails} />
                     )}
 
-                {((!combosData?.combinations?.length > 0 && appOneDetails?.events.length > 0) ||
-                    (!combosData?.combinations?.length > 0 && appTwoDetails?.events.length > 0)) && (
+                {((!combosData?.combinations?.length > 0 && appOneDetails?.events?.length > 0) ||
+                    (!combosData?.combinations?.length > 0 && appTwoDetails?.events?.length > 0)) && (
                     <div className="cont gap-4">
                         <div className="cont cont__w gap-2">
                             <h1 className="h1">
@@ -199,7 +199,7 @@ export default function IntegrationsAppTwoComp({
                         <div className="cont gap-4">
                             <h2 className="h2">Actions and Triggers</h2>
                             <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-                                {appOneDetails?.events.map((event, index) => {
+                                {appOneDetails?.events?.map((event, index) => {
                                     return (
                                         <div
                                             key={index}
@@ -220,7 +220,7 @@ export default function IntegrationsAppTwoComp({
                                     );
                                 })}
 
-                                {appTwoDetails?.events.map((event, index) => {
+                                {appTwoDetails?.events?.map((event, index) => {
                                     return (
                                         <div
                                             key={index + 'two'}
@@ -252,12 +252,12 @@ export default function IntegrationsAppTwoComp({
             )} */}
 
             {combosData?.combinations?.length > 0 &&
-                appOneDetails?.events.length > 0 &&
-                appTwoDetails?.events.length > 0 && (
+                appOneDetails?.events?.length > 0 &&
+                appTwoDetails?.events?.length > 0 && (
                     <div className="container cont gap-4">
                         <h2 className="h1">Actions and Triggers</h2>
                         <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-                            {appOneDetails?.events.map((event, index) => {
+                            {appOneDetails?.events?.map((event, index) => {
                                 return (
                                     <div
                                         key={index}
@@ -326,7 +326,7 @@ export default function IntegrationsAppTwoComp({
                             <p>{appOneDetails?.description}</p>
                             <Link
                                 href={
-                                    appOneDetails?.domain.startsWith('http')
+                                    appOneDetails?.domain?.startsWith('http')
                                         ? appOneDetails?.domain
                                         : 'http://' + appOneDetails?.domain
                                 }
@@ -348,7 +348,7 @@ export default function IntegrationsAppTwoComp({
                             <p>{appTwoDetails?.description}</p>
                             <Link
                                 href={
-                                    appTwoDetails?.domain.startsWith('http')
+                                    appTwoDetails?.domain?.startsWith('http')
                                         ? appTwoDetails?.domain
                                         : 'http://' + appTwoDetails?.domain
                                 }
