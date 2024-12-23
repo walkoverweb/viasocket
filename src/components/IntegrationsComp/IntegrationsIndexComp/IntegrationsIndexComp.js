@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
+import createURL from '@/utils/createURL';
 export default function IntegrationsIndexComp({
     pageInfo,
     integrationsInfo,
@@ -95,7 +96,7 @@ export default function IntegrationsIndexComp({
                                             <Link
                                                 key={index}
                                                 className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                                href={`/integrations/category/${category}`}
+                                                href={createURL(`/integrations/category/${category}`)}
                                             >
                                                 {category}
                                             </Link>
@@ -112,7 +113,7 @@ export default function IntegrationsIndexComp({
                                         <Link
                                             key={index}
                                             className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                            href={`/integrations/category/${category}`}
+                                            href={createURL(`/integrations/category/${category}`)}
                                         >
                                             {category}
                                         </Link>
@@ -154,7 +155,7 @@ export default function IntegrationsIndexComp({
                                         return (
                                             <Link
                                                 key={index}
-                                                href={`/integrations/${app?.appslugname}`}
+                                                href={createURL(`/integrations/${app?.appslugname}`)}
                                                 className={style.app}
                                             >
                                                 <div className="flex items-center gap-2">
@@ -183,7 +184,7 @@ export default function IntegrationsIndexComp({
                                     return (
                                         <Link
                                             key={index}
-                                            href={`/integrations/${app?.appslugname}`}
+                                            href={createURL(`/integrations/${app?.appslugname}`)}
                                             className={style.app}
                                         >
                                             <div className="flex items-center gap-2">
@@ -209,12 +210,12 @@ export default function IntegrationsIndexComp({
                 {!debounceValue && (
                     <div className="flex justify-end items-end w-full">
                         {integrationsInfo?.page > 0 && (
-                            <Link className="btn btn-ghost" href={goToPrev()}>
+                            <Link className="btn btn-ghost" href={createURL(goToPrev())}>
                                 Prev
                             </Link>
                         )}
                         {showNext && (
-                            <Link className="btn btn-ghost" href={goToNext()}>
+                            <Link className="btn btn-ghost" href={createURL(goToNext())}>
                                 Next
                             </Link>
                         )}

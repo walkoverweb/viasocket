@@ -9,6 +9,7 @@ import { useState } from 'react';
 import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
+import createURL from '@/utils/createURL';
 
 export default function IntegrationsAppTwoComp({
     combosData,
@@ -98,22 +99,22 @@ export default function IntegrationsAppTwoComp({
             </div>
             <div className="container cont cont__gap cont__py ">
                 <div className="flex items-center gap-2 text-lg">
-                    <Link href="/integrations" className="flex items-center gap-0 underline">
+                    <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
                     </Link>
                     <MdChevronRight fontSize={22} />
                     <Link
-                        href={`/integrations/${appOneDetails?.appslugname}`}
+                        href={createURL(`/integrations/${appOneDetails?.appslugname}`)}
                         className="flex items-center gap-0 underline"
                     >
                         {appOneDetails?.name}
                     </Link>
                     <MdChevronRight fontSize={22} />
                     <Link
-                        href={`/integrations/${appTwoDetails?.appslugname}`}
+                        href={createURL(`/integrations/${appTwoDetails?.appslugname}`)}
                         className="flex items-center gap-0 underline"
                     >
-                        {appTwoDetails?.name} <MdChevronRight fontSize={22} />
+                        {appTwoDetails?.name}
                     </Link>
                 </div>
                 {combosData?.combinations?.length > 0 && (
@@ -250,6 +251,56 @@ export default function IntegrationsAppTwoComp({
                 </div>
             )} */}
 
+            {combosData?.combinations?.length > 0 &&
+                appOneDetails?.events.length > 0 &&
+                appTwoDetails?.events.length > 0 && (
+                    <div className="container cont gap-4">
+                        <h2 className="h1">Actions and Triggers</h2>
+                        <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
+                            {appOneDetails?.events.map((event, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
+                                    >
+                                        <Image
+                                            src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
+                                            width={36}
+                                            height={36}
+                                            alt={appOneDetails?.name}
+                                            className="h-8 w-fit"
+                                        />
+                                        <div className="cont gap-1">
+                                            <h3 className="font-semibold">{event?.name}</h3>
+                                            <p className="text-sm">{event?.description}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+
+                            {appTwoDetails?.events.map((event, index) => {
+                                return (
+                                    <div
+                                        key={index + 'two'}
+                                        className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
+                                    >
+                                        <Image
+                                            src={appTwoDetails?.iconurl || 'https://placehold.co/36x36'}
+                                            width={36}
+                                            height={36}
+                                            alt={appTwoDetails?.name}
+                                            className="h-8 w-fit"
+                                        />
+                                        <div className="cont gap-1">
+                                            <h3 className="font-semibold">{event?.name}</h3>
+                                            <p className="text-sm">{event?.description}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
             {blogsData?.length > 0 && (
                 <div className="container cont__py">
                     {' '}
