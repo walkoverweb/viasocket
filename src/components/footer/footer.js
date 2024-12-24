@@ -50,12 +50,12 @@ export default function Footer({ footerData, borderClass }) {
             >
                 <div className="row-span-1 col-span-4 lg:col-span-1 order-last lg:order-first md:p-10 p-4 h-full lg:border-r border-r-0 border-black flex flex-col ">
                     <div className="flex flex-col gap-2 mb-12 sm:mb-6 py-4">
-                        <Link href="/" aria-label="socket fav icon">
+                        <Link href="/" aria-label="viaSocket - The Integration Platform to Connect Multiple Apps">
                             <Image
                                 src="/assets/brand/socket_fav_dark.svg"
                                 width={46}
                                 height={46}
-                                alt="socket fav icon"
+                                alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                             />
                         </Link>
                         <p>© 2024 viaSocket</p>

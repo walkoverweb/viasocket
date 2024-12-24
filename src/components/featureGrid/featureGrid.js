@@ -44,7 +44,7 @@ export function FeaturesGrid({ features, page }) {
                                                 {feature?.image ? (
                                                     <Image
                                                         src={feature.image[0]}
-                                                        alt="feature 1"
+                                                        alt={feature?.alt_text || feature?.name}
                                                         className={`${styles.r2c2_img} p-2 md:p-6 lg:p-12`}
                                                         height={1080}
                                                         width={1080}

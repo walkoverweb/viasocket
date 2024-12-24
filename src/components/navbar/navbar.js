@@ -56,7 +56,7 @@ export default function Navbar({ navData, utm }) {
                             className="h-[40px] w-auto "
                             width={60}
                             height={60}
-                            alt="viasocket"
+                            alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                         />
                     ) : (
                         <Image
@@ -64,7 +64,7 @@ export default function Navbar({ navData, utm }) {
                             className="h-[40px] w-auto "
                             width={60}
                             height={60}
-                            alt="viasocket"
+                            alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                         />
                     )}
                 </Link>
@@ -112,7 +112,7 @@ export default function Navbar({ navData, utm }) {
                             className="h-[40px] w-auto "
                             width={60}
                             height={60}
-                            alt="viasocket"
+                            alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                         />
                     ) : (
                         <Image
@@ -120,7 +120,7 @@ export default function Navbar({ navData, utm }) {
                             className="h-[40px] w-auto "
                             width={60}
                             height={60}
-                            alt="viasocket"
+                            alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                         />
                     )}
                 </Link>
@@ -135,7 +135,7 @@ export default function Navbar({ navData, utm }) {
                             className="h-[32px] w-auto "
                             width={48}
                             height={48}
-                            alt="viasocket"
+                            alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                         />
                     ) : (
                         <Image
@@ -143,7 +143,7 @@ export default function Navbar({ navData, utm }) {
                             className="h-[32px] w-auto "
                             width={48}
                             height={48}
-                            alt="viasocket"
+                            alt="viaSocket - The Integration Platform to Connect Multiple Apps"
                         />
                     )}
                 </Link>
