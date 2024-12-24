@@ -7,8 +7,6 @@ import IntegrationsAppOneComp from '@/components/IntegrationsComp/integrationsAp
 import getAppDetails from '@/utils/getAppDetail';
 import getCombos from '@/utils/getCombos';
 import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
-import NoDataPluginComp from '@/components/noDataPluginComp/noDataPluginComp';
-import NoPage from '../404';
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
 
