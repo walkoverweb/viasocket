@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default function IntegrationsHeadComp({ metaData, integrationsInfo, plugins, type }) {
+export default function IntegrationsHeadComp({ pageInfo, metaData, integrationsInfo, plugins, type }) {
     if (type === 'appTwo') {
         const title = `Integrate ${plugins[0]?.name} with ${plugins[1]?.name} for automation | viaSocket`;
         const description = `viaSocket enables seamless integration between ${plugins[0]?.name} and ${plugins[1]?.name}, empowering you to automate tasks, and achieve more in less time. Get started now!`;
@@ -12,6 +12,7 @@ export default function IntegrationsHeadComp({ metaData, integrationsInfo, plugi
                     <meta property="og:title" content={title} />
                     <meta property="og:description" content={description} />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
+                    <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
                 </Head>
             </>
         );
@@ -26,6 +27,29 @@ export default function IntegrationsHeadComp({ metaData, integrationsInfo, plugi
                     <meta property="og:title" content={title} />
                     <meta property="og:description" content={description} />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
+                    <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
+
+                    {integrationsInfo?.page && integrationsInfo?.page > 1 && (
+                        <>
+                            <link
+                                rel="prev"
+                                href={`https://viasocket.com/${integrationsInfo?.appone}/page/${integrationsInfo?.page - 1}`}
+                            />
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/${integrationsInfo?.appone}/page/${Number(integrationsInfo?.page) + 1}`}
+                            />
+                        </>
+                    )}
+                    {integrationsInfo?.page && integrationsInfo?.page == 1 && (
+                        <>
+                            <link rel="prev" href={`https://viasocket.com/${integrationsInfo?.appone}`} />
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/${integrationsInfo?.appone}/page/${Number(integrationsInfo?.page) + 1}`}
+                            />
+                        </>
+                    )}
                 </Head>
             </>
         );
@@ -47,10 +71,42 @@ export default function IntegrationsHeadComp({ metaData, integrationsInfo, plugi
                         content={`${metaData?.description && metaData?.description} ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
+                    <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
+                    {integrationsInfo?.page && integrationsInfo?.page > 1 && (
+                        <>
+                            <link
+                                rel="prev"
+                                href={`https://viasocket.com/integrations/category/${integrationsInfo?.category}/page/${integrationsInfo?.page - 1}`}
+                            />
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/integrations/category/${integrationsInfo?.category}/page/${Number(integrationsInfo?.page) + 1}`}
+                            />
+                        </>
+                    )}
+                    {integrationsInfo?.page && integrationsInfo?.page == 1 && (
+                        <>
+                            <link
+                                rel="prev"
+                                href={`https://viasocket.com/integrations/category/${integrationsInfo?.category}`}
+                            />
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/integrations/category/${integrationsInfo?.category}/page/${Number(integrationsInfo?.page) + 1}`}
+                            />
+                        </>
+                    )}
+                    {!integrationsInfo?.page && (
+                        <>
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/integrations/category/${integrationsInfo?.category}/page/1`}
+                            />
+                        </>
+                    )}
                 </Head>
             );
         } else {
-            console.log(metaData);
             return (
                 <Head>
                     <title>{`Explore thousands of apps for Integrations | viaSocket ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}</title>
@@ -67,6 +123,33 @@ export default function IntegrationsHeadComp({ metaData, integrationsInfo, plugi
                         content={`Browse through thousands of apps to simplify your workflow. Find the right solution for your business with viaSocket's wide range of integrations. ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
+                    <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
+                    {integrationsInfo?.page && integrationsInfo?.page > 1 && (
+                        <>
+                            <link
+                                rel="prev"
+                                href={`https://viasocket.com/integrations/page/${integrationsInfo?.page - 1}`}
+                            />
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/integrations/page/${Number(integrationsInfo?.page) + 1}`}
+                            />
+                        </>
+                    )}
+                    {integrationsInfo?.page && integrationsInfo?.page == 1 && (
+                        <>
+                            <link rel="prev" href={`https://viasocket.com/integrations`} />
+                            <link
+                                rel="next"
+                                href={`https://viasocket.com/integrations/page/${Number(integrationsInfo?.page) + 1}`}
+                            />
+                        </>
+                    )}
+                    {!integrationsInfo?.page && (
+                        <>
+                            <link rel="next" href={`https://viasocket.com/integrations/page/1`} />
+                        </>
+                    )}
                 </Head>
             );
         }

@@ -34,6 +34,7 @@ export default function IntegrationsAppTwoComp({
                 page={'/integrations/AppOne/AppTwo'}
                 plugins={[appOneDetails, appTwoDetails]}
                 type={'appTwo'}
+                pageInfo={pageInfo}
             />
             <div style={{ background: appOneDetails?.brandcolor }} className="border-b border-black">
                 <div className="container cont py-8 gap-2 flex items-center justify-between">
