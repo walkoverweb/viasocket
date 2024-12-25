@@ -33,6 +33,8 @@ export default function IntegrationsAppOneComp({
                 page={'/integrations/AppOne'}
                 plugins={[appDetails]}
                 type={'appOne'}
+                pageInfo={pageInfo}
+                integrationsInfo={integrationsInfo}
             />
             <div style={{ background: appDetails?.brandcolor }}>
                 <div className="container cont py-8 gap-2 flex items-center justify-between">

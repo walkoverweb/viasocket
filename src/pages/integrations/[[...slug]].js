@@ -36,18 +36,23 @@ export default function Integrations({
         );
     } else if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
         return (
-            <IntegrationsAppTwoComp
-                pageInfo={pageInfo}
-                integrationsInfo={integrationsInfo}
-                metadata={metadata}
-                apps={apps}
-                blogsData={blogsData}
-                appOneDetails={appOneDetails}
-                appTwoDetails={appTwoDetails}
-                combosData={combosData}
-                faqData={faqData}
-                footerData={footerData}
-            />
+            <>
+                <Head>
+                    <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
+                </Head>
+                <IntegrationsAppTwoComp
+                    pageInfo={pageInfo}
+                    integrationsInfo={integrationsInfo}
+                    metadata={metadata}
+                    apps={apps}
+                    blogsData={blogsData}
+                    appOneDetails={appOneDetails}
+                    appTwoDetails={appTwoDetails}
+                    combosData={combosData}
+                    faqData={faqData}
+                    footerData={footerData}
+                />
+            </>
         );
     } else if (integrationsInfo?.appone) {
         return (
