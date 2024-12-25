@@ -63,7 +63,7 @@ export default function Integrations({
                     metadata={metadata}
                     apps={apps}
                     blogsData={blogsData}
-                    appDetails={appOneDetails}
+                    appOneDetails={appOneDetails}
                     combosData={combosData}
                     faqData={faqData}
                     footerData={footerData}
