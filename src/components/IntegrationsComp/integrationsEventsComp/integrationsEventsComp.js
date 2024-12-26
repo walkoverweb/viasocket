@@ -22,12 +22,24 @@ export default function IntegrationsEventsComp({ appOneDetails, appTwoDetails })
     if (appTwoDetails) {
         categorizeEvents(appTwoDetails?.events);
     }
+    function getIcons(appslugname) {
+        const appOneSlug = appOneDetails?.appslugname;
+        const appTwoSlug = appTwoDetails?.appslugname;
+
+        if (appslugname === appOneSlug) {
+            return appOneDetails?.iconurl || 'https://placehold.co/36x36';
+        } else if (appslugname === appTwoSlug) {
+            return appTwoDetails?.iconurl || 'https://placehold.co/36x36';
+        } else {
+            return 'https://placehold.co/36x36';
+        }
+    }
     return (
         <>
             <div className="cont items-start w-full gap-2">
                 <div className="flex w-full gap-2">
                     {actions?.length > 0 && (
-                        <div className="cont gap-2 w-full  max-w-[600px]">
+                        <div className="cont gap-2 w-full  ">
                             <h3 className="h2">Actions</h3>
                             {actions.slice(0, visibleEvents).map((event, index) => {
                                 return (
@@ -36,7 +48,7 @@ export default function IntegrationsEventsComp({ appOneDetails, appTwoDetails })
                                         className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
                                     >
                                         <Image
-                                            src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
+                                            src={getIcons(event?.pluginslugname)}
                                             width={36}
                                             height={36}
                                             alt={appOneDetails?.name}
@@ -52,7 +64,7 @@ export default function IntegrationsEventsComp({ appOneDetails, appTwoDetails })
                         </div>
                     )}
                     {trigger?.length > 0 && (
-                        <div className="cont gap-2 w-full max-w-[600px]">
+                        <div className="cont gap-2 w-full">
                             <h3 className="h2">Triggers</h3>
                             {trigger.slice(0, visibleEvents).map((event, index) => {
                                 return (
@@ -61,7 +73,7 @@ export default function IntegrationsEventsComp({ appOneDetails, appTwoDetails })
                                         className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
                                     >
                                         <Image
-                                            src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
+                                            src={getIcons(event?.pluginslugname)}
                                             width={36}
                                             height={36}
                                             alt={appOneDetails?.name}
@@ -77,17 +89,16 @@ export default function IntegrationsEventsComp({ appOneDetails, appTwoDetails })
                         </div>
                     )}
                 </div>
-                {actions?.length < visibleEvents ||
-                    (trigger < visibleEvents && (
-                        <button
-                            onClick={() => {
-                                setVisibleEvents(visibleEvents + 6);
-                            }}
-                            className="btn btn-outline "
-                        >
-                            Load More <MdKeyboardArrowDown fontSize={20} />
-                        </button>
-                    ))}
+                {(actions?.length >= visibleEvents || trigger >= visibleEvents) && (
+                    <button
+                        onClick={() => {
+                            setVisibleEvents(visibleEvents + 6);
+                        }}
+                        className="btn btn-outline "
+                    >
+                        Load More <MdKeyboardArrowDown fontSize={20} />
+                    </button>
+                )}
             </div>
         </>
     );
