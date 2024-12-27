@@ -131,7 +131,7 @@ export async function getServerSideProps(context) {
         const metadata = await getMetaData();
         const blogsData = await getBlogData();
         const faqData = await getFaqData('[singleApp]');
-        const apps = await getApps({ page: integrationsInfo.page, category: integrationsInfo.category });
+        const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
         const combosData = await getCombos(integrationsInfo);
         // const categoryData = await getCategoryData(integrationsInfo?.category);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
@@ -168,7 +168,7 @@ export async function getServerSideProps(context) {
         const metadata = await getMetaData();
         const blogsData = await getBlogData();
         const faqData = await getFaqData('[singleApp]');
-        const apps = await getApps({ page: integrationsInfo.page, category: integrationsInfo.category });
+        const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
         const categoryData = await getCategoryData(integrationsInfo?.category);
         return {
             props: {
@@ -183,7 +183,7 @@ export async function getServerSideProps(context) {
                 combosData: {},
                 appOneDetails: {},
                 appTwoDetails: {},
-                categoryData: (categoryData.length > 0 && categoryData[0]) || {},
+                categoryData: (categoryData?.length > 0 && categoryData[0]) || {},
             },
         };
     }
