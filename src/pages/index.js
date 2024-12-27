@@ -60,6 +60,7 @@ const Index = ({
     const debounceValue = useDebounce(searchTerm, 300);
 
     const [renderCombos, setRenderCombos] = useState();
+    console.log('🚀 ~ renderCombos:', renderCombos);
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
@@ -68,7 +69,7 @@ const Index = ({
     const filterSelectedApps = useCallback(
         (apps) => {
             return apps.filter(
-                (app) => !selectedApps.some((selectedApp) => selectedApp.appslugname === app.appslugname)
+                (app) => !selectedApps.some((selectedApp) => selectedApp?.appslugname === app?.appslugname)
             );
         },
         [selectedApps]
@@ -371,20 +372,31 @@ const Index = ({
                                         ))
                                     ) : (
                                         <>
-                                            {searchData && searchData.length > 0 ? (
-                                                searchData.map((app, index) => (
-                                                    <div
-                                                        key={app.appslugname}
-                                                        className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
-                                                            index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
-                                                        } hover:bg-gray-100`}
-                                                        onClick={() => handleSelectApp(app?.appslugname)}
-                                                        onMouseEnter={() => setHighlightedIndex(index)}
-                                                    >
-                                                        <Image src={app?.iconurl} width={16} height={16} alt="ico" />
-                                                        <span>{app?.name}</span>
-                                                    </div>
-                                                ))
+                                            {searchData && searchData?.length > 0 ? (
+                                                searchData.map((app, index) => {
+                                                    return (
+                                                        <>
+                                                            <div
+                                                                key={index}
+                                                                className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-full ${
+                                                                    index === highlightedIndex
+                                                                        ? 'bg-gray-200'
+                                                                        : 'bg-white'
+                                                                } hover:bg-gray-100`}
+                                                                onClick={() => handleSelectApp(app?.appslugname)}
+                                                                onMouseEnter={() => setHighlightedIndex(index)}
+                                                            >
+                                                                <Image
+                                                                    src={app?.iconurl || 'https://placehold.co/36x36'}
+                                                                    width={16}
+                                                                    height={16}
+                                                                    alt="ico"
+                                                                />
+                                                                <span>{app?.name}</span>
+                                                            </div>
+                                                        </>
+                                                    );
+                                                })
                                             ) : (
                                                 <p className="flex items-center gap-2 bg-white px-3 py-2 w-full">
                                                     No app found.
