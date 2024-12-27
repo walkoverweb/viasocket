@@ -196,7 +196,11 @@ export default function IntegrationsAppTwoComp({
                             </p>
                         </div>
 
-                        <IntegrationsEventsComp appOneDetails={appOneDetails} appTwoDetails={appTwoDetails} />
+                        <IntegrationsEventsComp
+                            combosData={combosData}
+                            appOneDetails={appOneDetails}
+                            appTwoDetails={appTwoDetails}
+                        />
                     </div>
                 )}
             </div>
