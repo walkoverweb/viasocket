@@ -25,6 +25,7 @@ export default function Integrations({
     appTwoDetails,
     noData,
 }) {
+    console.log('🚀 ~ appOneDetails:', appOneDetails);
     if (noData) {
         return (
             <>
