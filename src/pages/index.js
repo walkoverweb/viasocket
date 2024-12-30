@@ -215,7 +215,7 @@ const Index = ({
                                 <div className="flex flex-col gap-1">
                                     <h1 className="h1 text-black">
                                         <strong className="text-accent">Integrate</strong> your favorite apps and
-                                        automate your repetitive tasks
+                                        automate everyday tasks effortlessly
                                     </h1>
                                     <h2 className="sub__h1 text-black">
                                         An AI powered no-code platform for workflow automation, app integrations, and
