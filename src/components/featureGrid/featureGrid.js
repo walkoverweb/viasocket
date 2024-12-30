@@ -8,7 +8,13 @@ export function FeaturesGrid({ features, page }) {
     return (
         <>
             <div className="grid gap-12 container">
-                <h2 className="h1">Features</h2>
+                <div className="cont max-w-[1100px]">
+                    <h2 className="h1">Advanced Features for Effortless Automation</h2>
+                    <h3 className="sub__h1">
+                        Empower your team—big or small—with intuitive automation tools. Build workflows that save time
+                        and eliminate repetitive tasks, all without needing any coding expertise.
+                    </h3>
+                </div>
                 <div
                     className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-black  overflow-hidden index_feature_grid`}
                 >

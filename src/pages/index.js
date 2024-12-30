@@ -214,11 +214,12 @@ const Index = ({
                             <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
                                 <div className="flex flex-col gap-1">
                                     <h1 className="h1 text-black">
-                                        <span className="text-accent">Connect</span> your favorite apps and automate
-                                        your repetitive tasks
+                                        <strong className="text-accent">Integrate</strong> your favorite apps and
+                                        automate your repetitive tasks
                                     </h1>
                                     <h2 className="sub__h1 text-black">
-                                        Discover Top Solutions for Effortless Connectivity.
+                                        An AI powered no-code platform for workflow automation, app integrations, and
+                                        data-driven efficiency.
                                     </h2>
                                 </div>
                                 <LinkButton
@@ -252,10 +253,16 @@ const Index = ({
             </div>
             <div className=" cont cont__py gap-36">
                 <div className="container flex flex-col gap-4 ">
-                    <h2 className="h1">For Example</h2>
+                    <div className="cont  max-w-[1100px]">
+                        <h2 className="h1">Ready-Made Workflows for Every Need</h2>
+                        <h3 className="sub__h1">
+                            Discover templates built to simplify workflows for every industry and task. Get started
+                            quickly and save valuable time.
+                        </h3>
+                    </div>
 
                     <div className="gap-6 flex flex-col">
-                        <div className="flex flex-wrap gap-2 items-center ">
+                        <div className="flex flex-wrap gap-2 items-center text-lg  ">
                             <h3 className="">How</h3>
                             <div className="dropdown">
                                 <h3
@@ -325,7 +332,7 @@ const Index = ({
                                                 className="h-[24px] w-fit"
                                                 alt="ico"
                                             />
-                                            <span>{app?.name}</span>
+                                            <span className="text-[16px]">{app?.name}</span>
                                             <MdClose
                                                 className="text-gray-300 hover:text-gray-950 cursor-pointer"
                                                 onClick={() => removeAppFromArray(index)}
@@ -410,7 +417,7 @@ const Index = ({
                             <h2 className="">in</h2>
 
                             <div className="dropdown">
-                                <h2
+                                <h3
                                     onClick={() => {
                                         setShowDeptDropdown(true);
                                         setTimeout(() => {
@@ -422,7 +429,7 @@ const Index = ({
                                     className=" dropdown underline text-accent"
                                 >
                                     {selectedDept || 'all their'}
-                                </h2>
+                                </h3>
                                 {showDeptDropdown && (
                                     <div
                                         tabIndex={0}
@@ -454,9 +461,9 @@ const Index = ({
                                     </div>
                                 )}
                             </div>
-                            <h2 className="" id="dept">
+                            <h3 className="" id="dept">
                                 department
-                            </h2>
+                            </h3>
                             <div
                                 className={
                                     selectedApps.length < 2 ? 'tooltip tooltip-error tooltip-top text-white' : ''
@@ -581,7 +588,7 @@ const TestimonialsSection = ({ testimonials }) => (
 
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="h1">Client Stories</h2>
+        <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
         <div className="grid grid-rows-6 grid-cols-6 border-black border lg:max-h-[550px] md:max-h-[700px] max-h-[1200px] ">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
