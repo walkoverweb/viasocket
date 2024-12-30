@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
+import createURL from '@/utils/createURL';
 export default function IntegrationsIndexComp({
     pageInfo,
     integrationsInfo,
@@ -53,7 +54,7 @@ export default function IntegrationsIndexComp({
     const showNext = apps?.length > 0 && APPERPAGE <= apps?.length;
 
     const goToNext = () => {
-        const url = `/integrations/${integrationsInfo?.category ? '/category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
+        const url = `/integrations/${integrationsInfo?.category ? 'category/' + integrationsInfo?.category : ''}/page/${Number(integrationsInfo?.page) + 1}`;
         return url;
     };
 
@@ -68,7 +69,7 @@ export default function IntegrationsIndexComp({
     };
     return (
         <>
-            <IntegrationsHeadComp metaData={categoryData} integrationsInfo={integrationsInfo} />
+            <IntegrationsHeadComp metaData={categoryData} integrationsInfo={integrationsInfo} pageInfo={pageInfo} />
             <div className="container my-6">
                 <Navbar navData={navData} utm={'/integrations'} />
             </div>
@@ -95,7 +96,7 @@ export default function IntegrationsIndexComp({
                                             <Link
                                                 key={index}
                                                 className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                                href={`/integrations/category/${category}`}
+                                                href={createURL(`/integrations/category/${category}`)}
                                             >
                                                 {category}
                                             </Link>
@@ -112,7 +113,7 @@ export default function IntegrationsIndexComp({
                                         <Link
                                             key={index}
                                             className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                            href={`/integrations/category/${category}`}
+                                            href={createURL(`/integrations/category/${category}`)}
                                         >
                                             {category}
                                         </Link>
@@ -154,13 +155,13 @@ export default function IntegrationsIndexComp({
                                         return (
                                             <Link
                                                 key={index}
-                                                href={`/integrations/${app?.appslugname}`}
+                                                href={createURL(`/integrations/${app?.appslugname}`)}
                                                 className={style.app}
                                             >
                                                 <div className="flex items-center gap-2">
                                                     <div className="border flex items-center justify-center w-9 h-9 bg-white">
                                                         <Image
-                                                            src={app?.iconurl}
+                                                            src={app?.iconurl || 'https://placehold.co/36x36'}
                                                             width={36}
                                                             height={36}
                                                             alt={app?.name}
@@ -183,13 +184,13 @@ export default function IntegrationsIndexComp({
                                     return (
                                         <Link
                                             key={index}
-                                            href={`/integrations/${app?.appslugname}`}
+                                            href={createURL(`/integrations/${app?.appslugname}`)}
                                             className={style.app}
                                         >
                                             <div className="flex items-center gap-2">
                                                 <div className="border flex items-center justify-center w-9 h-9 bg-white">
                                                     <Image
-                                                        src={app?.iconurl}
+                                                        src={app?.iconurl || 'https://placehold.co/36x36'}
                                                         width={36}
                                                         height={36}
                                                         alt={app?.name}
@@ -209,12 +210,12 @@ export default function IntegrationsIndexComp({
                 {!debounceValue && (
                     <div className="flex justify-end items-end w-full">
                         {integrationsInfo?.page > 0 && (
-                            <Link className="btn btn-ghost" href={goToPrev()}>
+                            <Link className="btn btn-ghost" href={createURL(goToPrev())}>
                                 Prev
                             </Link>
                         )}
                         {showNext && (
-                            <Link className="btn btn-ghost" href={goToNext()}>
+                            <Link className="btn btn-ghost" href={createURL(goToNext())}>
                                 Next
                             </Link>
                         )}

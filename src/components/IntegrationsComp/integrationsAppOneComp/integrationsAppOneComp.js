@@ -9,9 +9,11 @@ import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 import { LinkText } from '@/components/uiComponents/buttons';
 import { useState } from 'react';
+import createURL from '@/utils/createURL';
+import IntegrationsEventsComp from '../integrationsEventsComp/integrationsEventsComp';
 
 export default function IntegrationsAppOneComp({
-    appDetails,
+    appOneDetails,
     combosData,
     pageInfo,
     integrationsInfo,
@@ -30,22 +32,24 @@ export default function IntegrationsAppOneComp({
             <IntegrationsHeadComp
                 metaData={metaData}
                 page={'/integrations/AppOne'}
-                plugins={[appDetails]}
+                plugins={[appOneDetails]}
                 type={'appOne'}
+                pageInfo={pageInfo}
+                integrationsInfo={integrationsInfo}
             />
-            <div style={{ background: appDetails?.brandcolor }}>
+            <div style={{ background: appOneDetails?.brandcolor }}>
                 <div className="container cont py-8 gap-2 flex items-center justify-between">
                     <div className="flex items-center w-full justify-end gap-5">
                         <Link
                             target="_blank"
                             href={
-                                appDetails?.domain.startsWith('http')
-                                    ? appDetails?.domain
-                                    : 'http://' + appDetails?.domain
+                                appOneDetails?.domain.startsWith('http')
+                                    ? appOneDetails?.domain
+                                    : 'http://' + appOneDetails?.domain
                             }
                         >
                             <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
-                                Login to {appDetails?.name} <MdOpenInNew />{' '}
+                                Login to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
                     </div>
@@ -53,14 +57,16 @@ export default function IntegrationsAppOneComp({
                         <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
                             <Image
                                 className="h-10 w-fit"
-                                src={appDetails?.iconurl}
+                                src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                 width={36}
                                 height={36}
                                 alt="Slack"
                             />
                             <div>
-                                <h2 className="text-2xl font-bold">{appDetails?.name}</h2>
-                                <p className="text-sm text-gray-500">{appDetails?.category?.slice(0, 2).join(', ')}</p>
+                                <h2 className="text-2xl font-bold">{appOneDetails?.name}</h2>
+                                <p className="text-sm text-gray-500">
+                                    {appOneDetails?.category?.slice(0, 2).join(', ')}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -68,23 +74,23 @@ export default function IntegrationsAppOneComp({
             </div>
             <div className="container cont cont__gap cont__py ">
                 <div className="flex items-center gap-2 text-lg">
-                    <Link href="/integrations" className="flex items-center gap-0 underline">
+                    <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
                     </Link>
                     <MdChevronRight fontSize={22} />
                     <Link
-                        href={`/integrations/${appDetails?.appslugname}`}
+                        href={createURL(`/integrations/${appOneDetails?.appslugname}`)}
                         className="flex items-center gap-0 underline"
                     >
-                        {appDetails?.name}
+                        {appOneDetails?.name}
                     </Link>
                 </div>
                 {combosData?.combinations?.length > 0 && (
                     <>
                         <div className="cont cont__w ">
-                            <h1 className="h1">{`Create integrations between ${appDetails?.name} and your favorite App`}</h1>
+                            <h1 className="h1">{`Create integrations between ${appOneDetails?.name} and your favorite App`}</h1>
                             <p className="sub__h1">
-                                {`  Create effective ${appDetails?.name} automations in minutes by using pre-made templates that are customized for your needs`}
+                                {`  Create effective ${appOneDetails?.name} automations in minutes by using pre-made templates that are customized for your needs`}
                             </p>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
@@ -141,59 +147,47 @@ export default function IntegrationsAppOneComp({
                     </>
                 )}
 
-                {!combosData?.combinations?.length > 0 && !appDetails?.events.length > 0 && (
-                    <IntegrationsBetaComp appOneDetails={appDetails} />
+                {!combosData?.combinations?.length > 0 && !appOneDetails?.events.length > 0 && (
+                    <IntegrationsBetaComp appOneDetails={appOneDetails} />
                 )}
-                {!combosData?.combinations?.length > 0 && appDetails?.events.length > 0 && (
+                {!combosData?.combinations?.length > 0 && appOneDetails?.events.length > 0 && (
                     <div className="cont gap-4">
                         <div className="cont cont__w gap-2">
                             <h1 className="h1">
-                                {`Create integrations between ${appDetails?.name} and your favorite App`}
+                                {`Create integrations between ${appOneDetails?.name} and your favorite App`}
                             </h1>
                             <p className="sub__h1">
-                                {`Enable Integrations or automations with these events of ${appDetails?.name}`}
+                                {`Enable Integrations or automations with these events of ${appOneDetails?.name}`}
                             </p>
                         </div>
 
-                        <div className="cont gap-4">
-                            <h2 className="h2">Actions and Triggers</h2>
-                            <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
-                                {appDetails?.events.map((event, index) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
-                                        >
-                                            <Image
-                                                src={appDetails?.iconurl}
-                                                width={36}
-                                                height={36}
-                                                alt={appDetails?.name}
-                                                className="h-8 w-fit"
-                                            />
-                                            <div className="cont gap-1">
-                                                <h3 className="font-semibold">{event?.name}</h3>
-                                                <p className="text-sm">{event?.description}</p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                        <IntegrationsEventsComp appOneDetails={appOneDetails} />
                     </div>
                 )}
             </div>
             <div className="cont cont__gap cont__py">
                 <div className="container cont gap-6">
-                    <h2 className="h1">{`Connect Any App with ${appDetails?.name}`}</h2>
+                    <h2 className="h1">{`Connect Any App with ${appOneDetails?.name}`}</h2>
                     <div className="flex items-center gap-4 ">
-                        <Image className="h-10 w-fit" src={appDetails?.iconurl} width={36} height={36} alt="Slack" />
-                        <h2 className="text-2xl font-bold">{appDetails?.name}</h2>
+                        <Image
+                            className="h-10 w-fit"
+                            src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
+                            width={36}
+                            height={36}
+                            alt="Slack"
+                        />
+                        <h2 className="text-2xl font-bold">{appOneDetails?.name}</h2>
                     </div>
                     <MdAdd fontSize={36} />
                 </div>
                 <IntegrationsAppComp pageInfo={pageInfo} integrationsInfo={integrationsInfo} apps={apps} />
             </div>
+            {combosData?.combinations?.length > 0 && (
+                <div className="container cont gap-4">
+                    <h2 className="h1">Actions and Triggers</h2>
+                    <IntegrationsEventsComp appOneDetails={appOneDetails} />
+                </div>
+            )}
             {blogsData?.length > 0 && (
                 <div className="container cont__py">
                     {' '}
@@ -208,20 +202,20 @@ export default function IntegrationsAppOneComp({
                             <div>
                                 <Image
                                     className="h-10 w-fit"
-                                    src={appDetails?.iconurl}
+                                    src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                     width={36}
                                     height={36}
                                     alt="Slack"
                                 />
-                                <h3>About {appDetails?.name}</h3>
+                                <h3>About {appOneDetails?.name}</h3>
                             </div>
-                            <p>{appDetails?.description}</p>
+                            <p>{appOneDetails?.description}</p>
                             <Link
                                 target="_blank"
                                 href={
-                                    appDetails?.domain.startsWith('http')
-                                        ? appDetails?.domain
-                                        : 'http://' + appDetails?.domain
+                                    appOneDetails?.domain.startsWith('http')
+                                        ? appOneDetails?.domain
+                                        : 'http://' + appOneDetails?.domain
                                 }
                             >
                                 <LinkText children={'Learn More'} />
