@@ -40,6 +40,11 @@ export default function IntegrationsAppOneComp({
             <div style={{ background: appOneDetails?.brandcolor }}>
                 <div className="container cont py-8 gap-2 flex items-center justify-between">
                     <div className="flex items-center w-full justify-end gap-5">
+                        <Link target="_blank" href={`https://flow.viasocket.com/connect/${appOneDetails?.rowid}`}>
+                            <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                                Connect {appOneDetails?.name} <MdOpenInNew />{' '}
+                            </button>
+                        </Link>
                         <Link
                             target="_blank"
                             href={

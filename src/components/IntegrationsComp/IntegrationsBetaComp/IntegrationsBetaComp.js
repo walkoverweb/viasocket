@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import RequestPluginFormComp from './requestPluginFormComp';
+import ReCaptchaProvider from './reCaptchaProvider';
 
 export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
@@ -84,76 +86,11 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
                     </>
                 )}
             </div>
+
             <dialog id="beta_request" className="modal rounded-none">
-                <div className="modal-box">
-                    <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <div className="flex flex-col gap-4">
-                        <Image
-                            src="/assets/brand/logo.svg"
-                            width={1080}
-                            height={1080}
-                            alt="viasocket"
-                            className="h-[36px] w-fit"
-                        />
-                        <h3 className="font-bold text-lg">Please fill the following details</h3>
-                        <div className="flex gap-3 flex-col">
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Name:</span>
-                                </div>
-                                <input
-                                    required
-                                    type="text"
-                                    name="name"
-                                    placeholder="Enter your name"
-                                    className="input input-bordered w-full max-w-xs"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Email:</span>
-                                </div>
-                                <input
-                                    required
-                                    type="text"
-                                    name="email"
-                                    placeholder="Enter your Email"
-                                    className="input input-bordered w-full max-w-xs"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Use Case:</span>
-                                </div>
-                                <textarea
-                                    required
-                                    name="useCase"
-                                    className="textarea textarea-bordered"
-                                    placeholder="Please describe your usecase"
-                                    value={formData.useCase}
-                                    onChange={handleInputChange}
-                                ></textarea>
-                            </label>
-                            <div className="flex gap-3">
-                                <button disabled={isLoading} className="btn btn-md btn-primary" onClick={handleSubmit}>
-                                    {isLoading ? 'Submiting...' : 'Submit'}
-                                </button>
-                                <button
-                                    className="btn btn-md btn-link"
-                                    onClick={() => document.getElementById('beta_request').close()}
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ReCaptchaProvider>
+                    <RequestPluginFormComp appOneDetails={appOneDetails} />
+                </ReCaptchaProvider>
             </dialog>
         </>
     );
