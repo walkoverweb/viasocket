@@ -35,7 +35,7 @@ export default function IntegrationsAppTwoComp({
                 type={'appTwo'}
                 pageInfo={pageInfo}
             />
-            <div style={{ background: appOneDetails?.brandcolor }} className="border-b border-black">
+            <div style={{ background: appOneDetails?.brandcolor }} className="">
                 <div className="container cont py-8 gap-2 flex items-center justify-between">
                     <div className="flex items-center w-full justify-end gap-5">
                         <Link
@@ -46,7 +46,7 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appOneDetails?.domain
                             }
                         >
-                            <button className="bg-white flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
                                 Login to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
@@ -58,13 +58,13 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appTwoDetails?.domain
                             }
                         >
-                            <button className="bg-white flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all ">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all ">
                                 Login to {appTwoDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
                     </div>
                     <div className="flex  gap-2 items-center w-full justify-start">
-                        <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px]">
+                        <div className="flex h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
                             <Image
                                 className="h-10 w-fit"
                                 src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
@@ -79,7 +79,7 @@ export default function IntegrationsAppTwoComp({
                                 </p>
                             </div>
                         </div>
-                        <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px]">
+                        <div className="flex h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
                             <Image
                                 className="h-10 w-fit"
                                 src={appTwoDetails?.iconurl || 'https://placehold.co/40x40'}
