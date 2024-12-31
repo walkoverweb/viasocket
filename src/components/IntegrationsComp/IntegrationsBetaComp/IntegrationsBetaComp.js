@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import RequestPluginFormComp from './requestPluginFormComp';
+import ReCaptchaProvider from './reCaptchaProvider';
 
 export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
@@ -10,7 +11,8 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
         name: '',
         email: '',
         useCase: '',
-        ip: '',
+        app_name: currentUrl || ' ',
+        plugin: appOneDetails?.name,
     });
 
     const handleInputChange = (event) => {
@@ -20,42 +22,30 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
             [name]: value,
         }));
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!captchaVerified) {
-            alert('Please complete CAPTCHA verification.');
+    const handleSubmit = async () => {
+        if (!formData.name || !formData.email) {
+            alert('Name and Email are required.');
             return;
-        } else {
-            // setIsLoading(true);
-            // try {
-            //     const response = await fetch('https://flow.sokt.io/func/scrioitLgnvb', {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //         },
-            //         body: JSON.stringify(formData),
-            //     });
-            //     const data = await response.json();
-            //     if (data?.success) {
-            //         alert('Form submitted successfully!');
-            //         // Proceed with the rest of the form submission logic
-            //     }
-            // } catch (error) {
-            //     console.error('Failed to submit:', error);
-            // } finally {
-            //     setIsLoading(false);
-            // }
         }
-    };
-    const [captchaVerified, setCaptchaVerified] = useState(false);
+        setIsLoading(true);
+        try {
+            const response = await fetch('https://flow.sokt.io/func/scrioitLgnvb', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-    const handleCaptcha = async (token) => {
-        if (token) {
-            console.log('CAPTCHA token:', token);
-            setCaptchaVerified(true);
-        } else {
-            setCaptchaVerified(false);
+            const data = await response.json();
+
+            if (data?.data?.success) {
+                document.getElementById('beta_request').close();
+            }
+        } catch (error) {
+            console.error('Failed to submit:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
     return (
@@ -96,81 +86,11 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
                     </>
                 )}
             </div>
+
             <dialog id="beta_request" className="modal rounded-none">
-                <div className="modal-box">
-                    <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <div className="flex flex-col gap-4">
-                        <Image
-                            src="/assets/brand/logo.svg"
-                            width={1080}
-                            height={1080}
-                            alt="viasocket"
-                            className="h-[36px] w-fit"
-                        />
-                        <h3 className="font-bold text-lg">Please fill the following details</h3>
-                        <div className="flex gap-3 flex-col">
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Name:</span>
-                                </div>
-                                <input
-                                    required
-                                    type="text"
-                                    name="name"
-                                    placeholder="Enter your name"
-                                    className="input input-bordered w-full max-w-xs"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Email:</span>
-                                </div>
-                                <input
-                                    required
-                                    type="email"
-                                    name="email"
-                                    placeholder="Enter your Email"
-                                    className="input input-bordered w-full max-w-xs"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label className="form-control w-full max-w-xs">
-                                <div className="label">
-                                    <span className="label-text">Use Case:</span>
-                                </div>
-                                <textarea
-                                    required
-                                    name="useCase"
-                                    className="textarea textarea-bordered min-h-fit"
-                                    placeholder="Please describe your usecase"
-                                    value={formData.useCase}
-                                    onChange={handleInputChange}
-                                ></textarea>
-                            </label>
-                            <ReCAPTCHA
-                                sitekey="" // Replace with your actual site key
-                                onChange={handleCaptcha}
-                                badge="inline" // Optional: shows badge inline with the form
-                            />
-                            <div className="flex gap-3">
-                                <button disabled={isLoading} className="btn btn-md btn-primary" onClick={handleSubmit}>
-                                    {isLoading ? 'Submiting...' : 'Submit'}
-                                </button>
-                                <button
-                                    className="btn btn-md btn-link"
-                                    onClick={() => document.getElementById('beta_request').close()}
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ReCaptchaProvider>
+                    <RequestPluginFormComp appOneDetails={appOneDetails} />
+                </ReCaptchaProvider>
             </dialog>
         </>
     );
