@@ -75,15 +75,15 @@ export default function RequestPluginFormComp({ appOneDetails }) {
     return (
         <>
             <div className="modal-box">
-                <form>
+                {/* <form>
                     <button
                         onClick={() => document.getElementById('beta_request').close()}
                         className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     >
                         ✕
                     </button>
-                </form>
-                <div className="flex flex-col gap-4">
+                </form> */}
+                <div className="flex flex-col gap-6">
                     <Image
                         src="/assets/brand/logo.svg"
                         width={1080}
@@ -91,9 +91,14 @@ export default function RequestPluginFormComp({ appOneDetails }) {
                         alt="viasocket"
                         className="h-[36px] w-fit"
                     />
-                    <h3 className="font-bold text-lg">Please fill the following details</h3>
+                    <div>
+                        <h3 className="h2 font-bold">Request a New Plugin</h3>
+                        <p className="">
+                            Submit your plugin request to integrate new tools or services seamlessly into your workflow.
+                        </p>
+                    </div>
                     <div className="flex gap-3 flex-col">
-                        <label className="form-control w-full max-w-xs">
+                        <label className="form-control w-full">
                             <div className="label">
                                 <span className="label-text">Name:</span>
                             </div>
@@ -102,12 +107,12 @@ export default function RequestPluginFormComp({ appOneDetails }) {
                                 type="text"
                                 name="name"
                                 placeholder="Enter your name"
-                                className="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full focus:outline-none "
                                 value={formData.name}
                                 onChange={handleInputChange}
                             />
                         </label>
-                        <label className="form-control w-full max-w-xs">
+                        <label className="form-control w-full">
                             <div className="label">
                                 <span className="label-text">Email:</span>
                             </div>
@@ -116,35 +121,41 @@ export default function RequestPluginFormComp({ appOneDetails }) {
                                 type="text"
                                 name="email"
                                 placeholder="Enter your Email"
-                                className="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full s focus:outline-none "
                                 value={formData.email}
                                 onChange={handleInputChange}
                             />
                         </label>
-                        <label className="form-control w-full max-w-xs">
+                        <label className="form-control w-full ">
                             <div className="label">
                                 <span className="label-text">Use Case:</span>
                             </div>
                             <textarea
                                 required
                                 name="useCase"
-                                className="textarea textarea-bordered"
+                                className="textarea textarea-bordered focus:outline-none min-h-[100px]"
                                 placeholder="Please describe your usecase"
                                 value={formData.useCase}
-                                onChange={handleInputChange}
+                                onChange={(event) => {
+                                    handleInputChange(event);
+                                    event.target.style.height = 'auto';
+                                    event.target.style.height = `${event.target.scrollHeight}px`;
+                                }}
+                                rows="1"
+                                style={{ overflow: 'hidden' }}
                             ></textarea>
                         </label>
-                        <div className="flex gap-3">
-                            <button disabled={isLoading} className="btn btn-md btn-primary" onClick={handleSubmit}>
-                                {isLoading ? 'Submiting...' : 'Submit'}
-                            </button>
-                            <button
-                                className="btn btn-md btn-link"
-                                onClick={() => document.getElementById('beta_request').close()}
-                            >
-                                Cancel
-                            </button>
-                        </div>
+                    </div>
+                    <div className="flex gap-3">
+                        <button disabled={isLoading} className="btn btn-md btn-accent" onClick={handleSubmit}>
+                            {isLoading ? 'Submiting...' : 'Submit'}
+                        </button>
+                        <button
+                            className="btn btn-primary btn-outline"
+                            onClick={() => document.getElementById('beta_request').close()}
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>
