@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
@@ -9,8 +10,7 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
         name: '',
         email: '',
         useCase: '',
-        app_name: currentUrl || ' ',
-        plugin: appOneDetails?.name,
+        ip: '',
     });
 
     const handleInputChange = (event) => {
@@ -20,30 +20,42 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
             [name]: value,
         }));
     };
-    const handleSubmit = async () => {
-        if (!formData.name || !formData.email) {
-            alert('Name and Email are required.');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!captchaVerified) {
+            alert('Please complete CAPTCHA verification.');
             return;
+        } else {
+            // setIsLoading(true);
+            // try {
+            //     const response = await fetch('https://flow.sokt.io/func/scrioitLgnvb', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //         },
+            //         body: JSON.stringify(formData),
+            //     });
+            //     const data = await response.json();
+            //     if (data?.success) {
+            //         alert('Form submitted successfully!');
+            //         // Proceed with the rest of the form submission logic
+            //     }
+            // } catch (error) {
+            //     console.error('Failed to submit:', error);
+            // } finally {
+            //     setIsLoading(false);
+            // }
         }
-        setIsLoading(true);
-        try {
-            const response = await fetch('https://flow.sokt.io/func/scrioitLgnvb', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+    };
+    const [captchaVerified, setCaptchaVerified] = useState(false);
 
-            const data = await response.json();
-
-            if (data?.data?.success) {
-                document.getElementById('beta_request').close();
-            }
-        } catch (error) {
-            console.error('Failed to submit:', error);
-        } finally {
-            setIsLoading(false);
+    const handleCaptcha = async (token) => {
+        if (token) {
+            console.log('CAPTCHA token:', token);
+            setCaptchaVerified(true);
+        } else {
+            setCaptchaVerified(false);
         }
     };
     return (
@@ -119,7 +131,7 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
                                 </div>
                                 <input
                                     required
-                                    type="text"
+                                    type="email"
                                     name="email"
                                     placeholder="Enter your Email"
                                     className="input input-bordered w-full max-w-xs"
@@ -134,12 +146,17 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
                                 <textarea
                                     required
                                     name="useCase"
-                                    className="textarea textarea-bordered"
+                                    className="textarea textarea-bordered min-h-fit"
                                     placeholder="Please describe your usecase"
                                     value={formData.useCase}
                                     onChange={handleInputChange}
                                 ></textarea>
                             </label>
+                            <ReCAPTCHA
+                                sitekey="" // Replace with your actual site key
+                                onChange={handleCaptcha}
+                                badge="inline" // Optional: shows badge inline with the form
+                            />
                             <div className="flex gap-3">
                                 <button disabled={isLoading} className="btn btn-md btn-primary" onClick={handleSubmit}>
                                     {isLoading ? 'Submiting...' : 'Submit'}
