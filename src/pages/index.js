@@ -16,7 +16,8 @@ import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
-import { getFaqData } from '@/utils/getData';
+import { getFaqData, getTestimonialData } from '@/utils/getData';
+import { TESTIMONIALS_FIELDS } from '@/const/fields';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -648,11 +649,13 @@ export async function getServerSideProps() {
 
     const randomIndex = Math.floor(Math.random() * Industries.industries.length);
     const initialIndus = Industries.industries[randomIndex];
+
     const faqData = await getFaqData('/index');
+    const testimonials = await getTestimonialData(TESTIMONIALS_FIELDS);
 
     return {
         props: {
-            testimonials: results[0]?.data?.rows,
+            testimonials: testimonials || [],
             caseStudies: results[1]?.data?.rows,
             getStartedData: results[2]?.data?.rows,
             features: results[3]?.data?.rows,

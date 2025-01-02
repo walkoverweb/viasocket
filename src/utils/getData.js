@@ -1,7 +1,6 @@
-import { ALLFEATURES, CATEGORY, FAQS } from '@/const/tables';
+import { ALLFEATURES, CATEGORY, FAQS, TESTIMONIALS } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
-import axios from 'axios';
 
 const handleData = (data) => {
     return data?.data?.rows;
@@ -15,13 +14,16 @@ const handleQuery = (query) => {
         return null;
     }
 };
-const handleFilter = (query) => {
-    if (query?.length > 0) {
-        const queryString = query.join('&fields=');
-        return '?fields=' + queryString;
-    } else {
-        return null;
+const handleFieldsFilter = (fields, filter) => {
+    let queryString = '';
+
+    if (fields?.length > 0) {
+        queryString += '?fields=' + fields.join('&fields=');
     }
+    if (filter) {
+        queryString += (queryString ? '&' : '?') + `filter=${filter}`;
+    }
+    return queryString || null;
 };
 
 export async function getNavData() {
@@ -74,6 +76,15 @@ export async function getBlogData() {
         return [];
     }
 }
+export async function getTestimonialData(fields, filter) {
+    const data = await getDataFromTable(TESTIMONIALS, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+export async function getCaseStudyData(fields, filter) {
+    const data = await getDataFromTable(TESTIMONIALS, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
 // export async function getBlogData(){
 //      async function getBlogsFromTable(table, query) {
 //         const apiUrl = `${process.env.NEXT_PUBLIC_DB_BASE_URL}/66029bf861a15927654de175/tblngzrs5${query ? query : ''}`;

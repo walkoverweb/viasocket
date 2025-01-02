@@ -10,3 +10,5 @@ export const ALLFEATURES_FIELDS = [
     'hidden',
     'cta_content',
 ];
+export const TESTIMONIALS_FIELDS = ['testimonial', 'client_img', 'given_by', 'giver_title', 'priority'];
+export const CASESTUDY_FIELDS = [];

@@ -23,6 +23,7 @@ export default function IntegrationsAppOneComp({
     blogsData,
     metaData,
 }) {
+    console.log('🚀 ~ appOneDetails:', appOneDetails);
     const [visibleCombos, setVisibleCombos] = useState(12);
     const [showMore, setShowMore] = useState(combosData?.combinations?.length >= visibleCombos);
     const utm = pageInfo?.url;
