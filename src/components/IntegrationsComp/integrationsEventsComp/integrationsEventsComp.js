@@ -188,7 +188,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                     <Link
                                         target="_blank"
                                         className={`btn btn-primary ${selectedAction && selectedTrigger ? '' : 'btn-disabled'}`}
-                                        href={`https://flow.viasocket.com/makeflow/trigger/${selectedTrigger?.rowid}/action?events=${selectedAction?.rowid}`}
+                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${selectedTrigger?.rowid}/action?events=${selectedAction?.rowid}`}
                                     >
                                         Try It
                                     </Link>
