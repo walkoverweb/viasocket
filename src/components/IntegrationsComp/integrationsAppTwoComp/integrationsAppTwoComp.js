@@ -128,9 +128,14 @@ export default function IntegrationsAppTwoComp({
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
                             {combosData?.combinations?.slice(0, visibleCombos).map((combo, index) => {
+                                const integrations =
+                                    combosData?.plugins[combo?.trigger?.name]?.rowid +
+                                    ',' +
+                                    combosData?.plugins[combo?.actions[0]?.name]?.rowid;
                                 return (
                                     <Link
-                                        href={`https://flow.viasocket.com/makeflow/trigger/${combo?.trigger?.id}/action?utm_source=${utm}&events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}`}
+                                        key={index}
+                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
                                         className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
                                     >
                                         <div className="cont gap-2">
