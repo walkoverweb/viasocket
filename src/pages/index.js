@@ -61,7 +61,6 @@ const Index = ({
     const debounceValue = useDebounce(searchTerm, 300);
 
     const [renderCombos, setRenderCombos] = useState();
-    console.log('🚀 ~ renderCombos:', renderCombos);
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
@@ -482,9 +481,13 @@ const Index = ({
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
                             {!combinationLoading
                                 ? renderCombos?.combinations?.map((combo) => {
+                                      const integrations =
+                                          renderCombos?.plugins[combo?.trigger?.name]?.rowid +
+                                          ',' +
+                                          renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
                                       return (
                                           <Link
-                                              href={`https://flow.viasocket.com/makeflow/trigger/${combo?.trigger?.id}/action?utm_source=${utm}&events=${combo?.actions.map((action) => action.id).join(',')}`}
+                                              href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
                                               className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
                                           >
                                               <div className="cont gap-2">
