@@ -582,7 +582,7 @@ const TestimonialsSection = ({ testimonials }) => (
                             <p className="text-sm  text-grey">{testimonial?.giver_title}</p>
                         </div>
                     </div>
-                    <p className="text-[#373737]">" {testimonial?.testimonial}"</p>
+                    <p className="text-[#373737]">{testimonial?.testimonial}</p>
                 </div>
             ))}
         </div>
