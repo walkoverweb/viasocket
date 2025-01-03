@@ -123,7 +123,7 @@ export default function IntegrationsIndexComp({
                         </div>
                     </div>
                     <div>
-                        <div className="p-9 cont gap-2">
+                        <div className="p-4 md:p-8 cont gap-2">
                             {integrationsInfo?.category && integrationsInfo?.category != 'All' ? (
                                 <>
                                     <h1 className="h1 text-accent">
