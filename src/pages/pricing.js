@@ -1,17 +1,20 @@
 import FAQSection from '@/components/faqSection/faqSection';
 import { getDbdashData } from './api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { getFaqData } from '@/utils/getData';
+import getCountries from '@/utils/getCountries';
+import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 export async function getServerSideProps() {
     const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev', 'tbl2bk656'];
     const dataPromises = IDs.map((id) => getDbdashData(id));
     const results = await Promise.all(dataPromises);
     const faqData = await getFaqData('/pricing');
+    const countries = await getCountries();
     return {
         props: {
             faqData: faqData,
@@ -19,13 +22,58 @@ export async function getServerSideProps() {
             betterChoice: results[2]?.data?.rows,
             navData: results[3]?.data?.rows,
             metaData: results[4].data.rows,
+            countries: countries || [],
         },
     };
 }
 
-const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
+const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countries }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState();
+    const [isDeveloping, setIsDeveloping] = useState(false);
+    useEffect(() => {
+        const fetchCountryData = async () => {
+            if (selectedCountry) {
+                const country = await checkDevelopingCountry(selectedCountry);
+                if (country) {
+                    setIsDeveloping(true);
+                }
+            } else {
+                setIsDeveloping(false);
+            }
+        };
+        fetchCountryData();
+    }, [selectedCountry]);
+
+    const plans = [
+        {
+            name: 'starter',
+            slug: 'starter',
+            pricing: {
+                developed: 30,
+                developing: 3,
+            },
+            invocations: 10000,
+            execution_time: 30,
+            min_polling_time: 1,
+            active_workflows: 'Unlimited',
+            description: 'For Individuals who need higher limits.',
+        },
+        {
+            name: 'team',
+            slug: 'team',
+            pricing: {
+                developed: 60,
+                developing: 6,
+            },
+            invocations: 10000,
+            execution_time: 60,
+            min_polling_time: 1,
+            active_workflows: 'Unlimited',
+            description: 'For Teams who want to collaborate on work.',
+        },
+    ];
 
     return (
         <>
@@ -41,87 +89,94 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                                     <div className=" flex flex-col gap-8 md:p-12 p-6 justify-center ">
                                         <h1 className="h1">Simple Pricing for Powerful Automation</h1>
 
-                                        <h2 className="sub__h1">
-                                            Enjoy a 30-Day Free Trial.
-                                            <br />
-                                            No credit card required.
-                                        </h2>
-
-                                        <label className="cursor-pointer flex flex-row gap-3 items-center p-4 border border-black w-fit hover:bg-slate-50 transition-all duration-300">
-                                            <span className="font-semibold text-md  ">BILLED YEARLY </span>
-                                            <input
-                                                type="checkbox"
-                                                className="toggle"
-                                                checked={isToggled}
-                                                onChange={() => setIsToggled(!isToggled)}
-                                            />
-                                        </label>
+                                        <ul className="text-lg cont gap-1">
+                                            <li>Enjoy a 30-Day Free Trial.</li>
+                                            <li>No credit card required.</li>
+                                            <li>
+                                                <strong>Special Offer:</strong> 90% off for developing countries
+                                            </li>
+                                        </ul>
+                                        <div className="flex gap-2 xl:flex-row lg:flex-col md:flex-row flex-col">
+                                            <select
+                                                className="select select-bordered w-full max-w-[280px] bg-transparent focus:outline-none"
+                                                onChange={(e) => {
+                                                    setSelectedCountry(e.target?.value);
+                                                }}
+                                            >
+                                                <option>Select Country</option>
+                                                {countries?.map((country, index) => {
+                                                    return (
+                                                        <option key={index} value={country?.cca2}>
+                                                            {country?.name?.common}
+                                                        </option>
+                                                    );
+                                                })}
+                                            </select>
+                                            <label className=" border border-black flex items-center justify-between px-4 py-3 gap-2 w-full max-w-[280px]">
+                                                <span className="text-sm uppercase tracking-wider">Billed Yearly</span>
+                                                <input
+                                                    type="checkbox"
+                                                    className="toggle"
+                                                    checked={isToggled}
+                                                    onChange={() => setIsToggled(!isToggled)}
+                                                />
+                                            </label>
+                                        </div>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 bg-white ">
-                                        <div className="flex flex-col gap-y-2 border border-l-0 min-[1003px]:border-l border-r-0 min-[768px]:border-r border-b-0 border-black font-normal ">
-                                            <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
-                                                {'Starter'.toUpperCase()}
-                                            </div>
-                                            <div className="flex flex-col gap-8 my-12 px-6">
-                                                <div class="flex flex-col gap-2">
-                                                    <p class="text-4xl md:text-6xl font-family-times-now">
-                                                        ${isToggled ? 30 * 10 : 30}
-                                                    </p>
-                                                    <p class="font-normal tracking-wide overflow-hidden">
-                                                        {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
-                                                    </p>
-                                                </div>
-                                                <div className="flex flex-col font-normal text-normal">
-                                                    <div>Invocations: 10,000/Month</div>
-                                                    <div>Execution Time Limit: 30 Seconds</div>
-                                                    <div>Min. Polling time: 1 Min</div>
-                                                    <div>Unlimited Active Workflows</div>
-                                                </div>
-                                                <div>For individuals who need higher limits.</div>
-                                            </div>
-                                            <a
-                                                href={`/signup?utm_source=pricing&plan=starter&duration=${isToggled ? 'yearly' : 'monthly'}`}
-                                                className="flex flex-col items-center mt-auto border-t border-black"
-                                            >
-                                                <div className="flex justify-center">
-                                                    <button className="inline-block text-center p-4 font-semibold text-md ">
-                                                        {'Start Free Trial'.toUpperCase()}
-                                                    </button>
-                                                </div>
-                                            </a>
-                                        </div>
+                                        {plans.map((plan, i) => {
+                                            return (
+                                                <div key={i} className="flex flex-col border">
+                                                    <div className="flex flex-col gap-12 p-8">
+                                                        <h2 className="h2 capitalize ">{plan?.name}</h2>
 
-                                        <div className="flex flex-col gap-y-2 border-t border-black font-normal">
-                                            <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
-                                                {'Team'.toUpperCase()}
-                                            </div>
-                                            <div className="flex flex-col gap-8 my-12 px-6">
-                                                <div className="flex flex-col gap-2">
-                                                    <div className="text-4xl md:text-6xl font-family-times-now">
-                                                        ${isToggled ? 60 * 10 : 60}
+                                                        <div className="flex flex-col gap-2">
+                                                            {!isDeveloping ? (
+                                                                <h3 className="h1">
+                                                                    $
+                                                                    {isToggled
+                                                                        ? plan.pricing.developed * 10
+                                                                        : plan.pricing.developed}
+                                                                </h3>
+                                                            ) : (
+                                                                <h3 className="h1">
+                                                                    $
+                                                                    {isToggled
+                                                                        ? plan.pricing.developing * 10
+                                                                        : plan.pricing.developing}
+                                                                    <span className="font-base text-2xl text-grey line-through">
+                                                                        $
+                                                                        {isToggled
+                                                                            ? plan.pricing.developed * 10
+                                                                            : plan.pricing.developed}
+                                                                    </span>
+                                                                </h3>
+                                                            )}
+
+                                                            <span className="text-sm tracking-wider">
+                                                                {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                                            </span>
+                                                        </div>
+                                                        <ul className="flex flex-col gap-2">
+                                                            <li>Invocations: {plan.invocations}/Month</li>
+                                                            <li>Execution Time Limit: {plan.execution_time} Seconds</li>
+                                                            <li>Min. Polling time: {plan?.min_polling_time} Min</li>
+                                                            <li>{plan?.active_workflows} Active Workflows</li>
+                                                        </ul>
+                                                        <h2 className="">{plan?.description}</h2>
                                                     </div>
-                                                    <div class="font-normal tracking-wide overflow-hidden">
-                                                        {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
-                                                    </div>
+                                                    <a
+                                                        href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
+                                                        className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
+                                                    >
+                                                        <button className="inline-block text-center p-4 font-semibold text-md ">
+                                                            {' '}
+                                                            {'Start Free Trial'.toUpperCase()}
+                                                        </button>
+                                                    </a>
                                                 </div>
-                                                <div className="flex flex-col font-normal text-normal">
-                                                    <div>Invocations: 10,000/Month</div>
-                                                    <div>Execution Time Limit: 60 Seconds</div>
-                                                    <div>Min. Polling time: 1 Min</div>
-                                                    <div>Unlimited Active Workflows</div>
-                                                </div>
-                                                <div>For teams who want to collaborate on work.</div>
-                                            </div>
-                                            <a
-                                                href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
-                                                className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
-                                            >
-                                                <button className="inline-block text-center p-4 font-semibold text-md ">
-                                                    {' '}
-                                                    {'Start Free Trial'.toUpperCase()}
-                                                </button>
-                                            </a>
-                                        </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
