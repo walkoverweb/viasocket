@@ -9,6 +9,8 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { getFaqData } from '@/utils/getData';
 import getCountries from '@/utils/getCountries';
 import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
+import Image from 'next/image';
+import Autocomplete from 'react-autocomplete';
 export async function getServerSideProps() {
     const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev', 'tbl2bk656'];
     const dataPromises = IDs.map((id) => getDbdashData(id));
@@ -31,13 +33,16 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countri
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState();
+    const [inputValue, setInputValue] = useState('');
     const [isDeveloping, setIsDeveloping] = useState(false);
     useEffect(() => {
         const fetchCountryData = async () => {
             if (selectedCountry) {
-                const country = await checkDevelopingCountry(selectedCountry);
-                if (country) {
+                const country = await checkDevelopingCountry(selectedCountry?.cca2);
+                if (country && country?.length > 0) {
                     setIsDeveloping(true);
+                } else {
+                    setIsDeveloping(false);
                 }
             } else {
                 setIsDeveloping(false);
@@ -45,6 +50,10 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countri
         };
         fetchCountryData();
     }, [selectedCountry]);
+
+    const filterCountries = (searchTerm) => {
+        return countries.filter((country) => country.name.common.toLowerCase().includes(searchTerm.toLowerCase()));
+    };
 
     const plans = [
         {
@@ -97,21 +106,48 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countri
                                             </li>
                                         </ul>
                                         <div className="flex gap-2 xl:flex-row lg:flex-col md:flex-row flex-col">
-                                            <select
-                                                className="select select-bordered w-full max-w-[280px] bg-transparent focus:outline-none"
-                                                onChange={(e) => {
-                                                    setSelectedCountry(e.target?.value);
-                                                }}
+                                            <div
+                                                tabIndex={0}
+                                                className="dropdown-content flex items-center border border-black menu relative z-[1] w-52 p-2  country-autocomplete"
                                             >
-                                                <option>Select Country</option>
-                                                {countries?.map((country, index) => {
-                                                    return (
-                                                        <option key={index} value={country?.cca2}>
-                                                            {country?.name?.common}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </select>
+                                                <Autocomplete
+                                                    getItemValue={(item) => item?.name?.common}
+                                                    items={filterCountries(inputValue)}
+                                                    renderItem={(item, isHighlighted) => (
+                                                        <div
+                                                            className={`px-2 py-1 cursor-pointer flex items-center gap-2 ${
+                                                                isHighlighted ? 'bg-secondary' : ''
+                                                            }`}
+                                                        >
+                                                            <Image
+                                                                src={item?.flags?.svg}
+                                                                width={16}
+                                                                height={16}
+                                                                alt={item?.flags?.alt}
+                                                            />
+                                                            {item?.name?.common}
+                                                        </div>
+                                                    )}
+                                                    value={inputValue} // Use the new state variable
+                                                    onChange={(e) => setInputValue(e.target.value)} // Update the state on input change
+                                                    onSelect={(val, item) => {
+                                                        setSelectedCountry(item);
+                                                        setInputValue(item?.name?.common); // Update the input value when an item is selected
+                                                    }}
+                                                    inputProps={{
+                                                        placeholder: 'Select Country',
+                                                    }}
+                                                    menuStyle={{
+                                                        position: 'flex',
+                                                        overflow: 'auto',
+                                                        maxHeight: '400px',
+                                                        position: 'absolute',
+                                                        background: 'white',
+                                                        top: '50px',
+                                                        left: '0px',
+                                                    }}
+                                                />
+                                            </div>
                                             <label className=" border border-black flex items-center justify-between px-4 py-3 gap-2 w-full max-w-[280px]">
                                                 <span className="text-sm uppercase tracking-wider">Billed Yearly</span>
                                                 <input
@@ -126,7 +162,10 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countri
                                     <div className="grid grid-cols-1 md:grid-cols-2 bg-white ">
                                         {plans.map((plan, i) => {
                                             return (
-                                                <div key={i} className="flex flex-col border">
+                                                <div
+                                                    key={i}
+                                                    className={`flex flex-col justify-between border border-black border-e-0  border-b-0 border-x-0 ${i == 0 && 'md:border-x'}`}
+                                                >
                                                     <div className="flex flex-col gap-12 p-8">
                                                         <h2 className="h2 capitalize ">{plan?.name}</h2>
 
@@ -167,9 +206,10 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countri
                                                     </div>
                                                     <a
                                                         href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
-                                                        className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
                                                     >
-                                                        <button className="inline-block text-center p-4 font-semibold text-md ">
+                                                        <button
+                                                            className={`btn btn-primary w-full mt-auto ${i == 0 && 'btn-outline border-0 border-t'}`}
+                                                        >
                                                             {' '}
                                                             {'Start Free Trial'.toUpperCase()}
                                                         </button>

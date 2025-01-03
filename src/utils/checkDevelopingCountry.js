@@ -11,7 +11,7 @@ export default async function checkDevelopingCountry(code) {
             }
         );
         const responseData = await response.json();
-        return responseData?.data;
+        return responseData?.data.rows;
     } catch (error) {
         console.error('Error fetching combos:', error);
         return null;
