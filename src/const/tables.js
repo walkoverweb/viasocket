@@ -8,3 +8,7 @@ export const TESTIMONIALS = 'tblwql8n1';
 export const CASESTUDY = 'tblwoqytc';
 export const GETSTARTED = 'tblvgm05y';
 export const INDEXFEATURES = 'tblvo36my';
+export const PAGE = 'tblmsw3ci';
+export const AGENCIES = 'tblajmg8e';
+export const EXPERTBLOGS = 'tblirrj24';
+export const PRICINGBETTERCHOICE = 'tblfj3wrr';

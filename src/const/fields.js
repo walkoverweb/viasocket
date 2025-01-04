@@ -15,3 +15,7 @@ export const CASESTUDY_FIELDS = ['title', 'link', 'priority', 'image'];
 export const GETSTARTED_FIELDS = ['name', 'link', 'priority'];
 export const INDEXFEATURES_FIELDS = ['name', 'priority', 'description', 'link', 'iconname', 'block_type', 'image'];
 export const METADATA_FIELDS = ['title', 'description', 'dynamic'];
+export const PAGEDATA_FIELDS = ['h1', 'h2', 'h3'];
+export const AGENCIES_FIELDS = ['name', 'website', 'location', 'logo', 'verified'];
+export const EXPERTBLOGS_FIELDS = ['link', 'description'];
+export const PRICINGBETTERCHOICE_FIELDS = [];

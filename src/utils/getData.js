@@ -1,4 +1,16 @@
-import { ALLFEATURES, CASESTUDY, CATEGORY, FAQS, GETSTARTED, INDEXFEATURES, TESTIMONIALS } from '@/const/tables';
+import {
+    AGENCIES,
+    ALLFEATURES,
+    CASESTUDY,
+    CATEGORY,
+    EXPERTBLOGS,
+    FAQS,
+    GETSTARTED,
+    INDEXFEATURES,
+    PAGE,
+    PRICINGBETTERCHOICE,
+    TESTIMONIALS,
+} from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
 
@@ -80,6 +92,7 @@ export async function getTestimonialData(fields, filter) {
     const data = await getDataFromTable(TESTIMONIALS, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
+
 export async function getCaseStudyData(fields, filter) {
     const data = await getDataFromTable(CASESTUDY, handleFieldsFilter(fields, filter));
     return handleData(data);
@@ -92,5 +105,25 @@ export async function getGetStartedData(fields, filter) {
 
 export async function getIndexFeatures(fields, filter) {
     const data = await getDataFromTable(INDEXFEATURES, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getPageData(fields, filter) {
+    const data = await getDataFromTable(PAGE, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getAgencies(fields, filter) {
+    const data = await getDataFromTable(AGENCIES, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getExpertBlogs(fields, filter) {
+    const data = await getDataFromTable(EXPERTBLOGS, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getPricingBetterChoice(fields, filter) {
+    const data = await getDataFromTable(PRICINGBETTERCHOICE, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
