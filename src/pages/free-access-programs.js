@@ -3,8 +3,10 @@ import Navbar from '@/components/navbar/navbar';
 import Link from 'next/link';
 import { getDbdashData } from './api';
 import Footer from '@/components/footer/footer';
+import { getFooterData, getMetaData, getNavData, getProgramsData } from '@/utils/getData';
+import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS, PROGRAMS_FIELDS } from '@/const/fields';
 
-export default function Programs({ footerData, navData, metaData, progransData }) {
+export default function Programs({ footerData, navData, metaData, programs }) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/free-access-programs'} />
@@ -24,8 +26,8 @@ export default function Programs({ footerData, navData, metaData, progransData }
                 <div
                     className={`feature_grid grid grid-cols-2 md:grid-rows-4 grid-rows-5   xl:h-[1100px] md:h-[820px] h-[800px] bg-gray-500 `}
                 >
-                    {progransData?.length > 0 &&
-                        progransData?.map((item, index) => {
+                    {programs?.length > 0 &&
+                        programs?.map((item, index) => {
                             return (
                                 <Link
                                     key={index}
@@ -46,22 +48,17 @@ export default function Programs({ footerData, navData, metaData, progransData }
     );
 }
 
-export async function getServerSideProps(context) {
-    const IDs = [
-        'tbl7lj8ev', // navData: results[o]
-        'tbl6u2cba', // footerData: results[1] ,
-        'tbl2bk656', // metaData: results[2]
-        'tbl44ztmk', // progransData: results[3]
-    ];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
+export async function getServerSideProps() {
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/free-access-programs'`);
+    const programs = await getProgramsData(PROGRAMS_FIELDS);
     return {
         props: {
-            navData: results[0].data.rows,
-            footerData: results[1].data.rows,
-            metaData: results[2].data.rows,
-            progransData: results[3].data.rows,
+            navData: navData || [],
+            footerData: footerData || [],
+            metaData: metaData[0] || {},
+            programs: programs || [],
         },
     };
 }

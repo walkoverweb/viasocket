@@ -6,24 +6,16 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import { getFaqData } from '@/utils/getData';
-export async function getServerSideProps() {
-    const IDs = ['tblnoi7ng', 'tbl6u2cba', 'tblfj3wrr', 'tbl7lj8ev', 'tbl2bk656'];
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-    const faqData = await getFaqData('/pricing');
-    return {
-        props: {
-            faqData: faqData,
-            footerData: results[1]?.data?.rows,
-            betterChoice: results[2]?.data?.rows,
-            navData: results[3]?.data?.rows,
-            metaData: results[4].data.rows,
-        },
-    };
-}
+import { getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
+import {
+    FAQS_FIELDS,
+    FOOTER_FIELDS,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+    PRICINGBETTERCHOICE_FIELDS,
+} from '@/const/fields';
 
-const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
 
@@ -63,11 +55,11 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                                                 {'Starter'.toUpperCase()}
                                             </div>
                                             <div className="flex flex-col gap-8 my-12 px-6">
-                                                <div class="flex flex-col gap-2">
-                                                    <p class="text-4xl md:text-6xl font-family-times-now">
+                                                <div classNames="flex flex-col gap-2">
+                                                    <p className="text-4xl md:text-6xl font-family-times-now">
                                                         ${isToggled ? 30 * 10 : 30}
                                                     </p>
-                                                    <p class="font-normal tracking-wide overflow-hidden">
+                                                    <p className="font-normal tracking-wide overflow-hidden">
                                                         {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                                     </p>
                                                 </div>
@@ -100,7 +92,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                                                     <div className="text-4xl md:text-6xl font-family-times-now">
                                                         ${isToggled ? 60 * 10 : 60}
                                                     </div>
-                                                    <div class="font-normal tracking-wide overflow-hidden">
+                                                    <div className="font-normal tracking-wide overflow-hidden">
                                                         {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
                                                     </div>
                                                 </div>
@@ -140,16 +132,16 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                             </Link>
                         </div>
                     </div>
+                    {betterChoice?.length > 0 && (
+                        <div className=" flex flex-col justify-center">
+                            <h2 className="h1 p-6 md:p-12 ">
+                                What makes <br /> <span className="text-red-700 italic">viaSocket</span> a better choice
+                                ?
+                            </h2>
 
-                    <div className=" flex flex-col justify-center">
-                        <h2 className="h1 p-6 md:p-12 ">
-                            What makes <br /> <span className="text-red-700 italic">viaSocket</span> a better choice ?
-                        </h2>
-
-                        <div className="flex flex-col lg:flex-row border border-black">
-                            <div className="flex flex-col w-full lg:w-1/2 py-12 md:py-24 px-6 md:px-12 text-base md:text-xl gap-4">
-                                {betterChoice.length > 0 &&
-                                    betterChoice.map((choice, index) => (
+                            <div className="flex flex-col lg:flex-row border border-black">
+                                <div className="flex flex-col w-full lg:w-1/2 py-12 md:py-24 px-6 md:px-12 text-base md:text-xl gap-4">
+                                    {betterChoice.map((choice, index) => (
                                         <div
                                             key={index}
                                             className={`border-b md:border-b py-3 cursor-pointer ${index === selectedIndex ? 'border-red-300' : ''}`}
@@ -175,24 +167,25 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
                                             )}
                                         </div>
                                     ))}
-                            </div>
+                                </div>
 
-                            <div
-                                className="lg:flex hidden w-full lg:w-1/2 md:py-12 px-6 md:px-12 bg-opacity-200 "
-                                style={{
-                                    backgroundImage: `url('/assets/img/pricing.png')`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                }}
-                            >
-                                <div className="p-12 h-full flex items-center justify-center">
-                                    <p className="text-base md:text-lg text-white">
-                                        {betterChoice[selectedIndex]?.description}
-                                    </p>
+                                <div
+                                    className="lg:flex hidden w-full lg:w-1/2 md:py-12 px-6 md:px-12 bg-opacity-200 "
+                                    style={{
+                                        backgroundImage: `url('/assets/img/pricing.png')`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                    }}
+                                >
+                                    <div className="p-12 h-full flex items-center justify-center">
+                                        <p className="text-base md:text-lg text-white">
+                                            {betterChoice[selectedIndex]?.description}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     <div className=" flex flex-col justify-center py-48">
                         <div className=" border border-t-0 border-black">
@@ -224,5 +217,21 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
             </div>
         </>
     );
-};
-export default pricing;
+}
+
+export async function getServerSideProps() {
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/pricing'`);
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/pricing'`);
+    const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
+    return {
+        props: {
+            betterChoice: betterChoice || [],
+            metaData: metaData[0] || {},
+            navData: navData || [],
+            footerData: footerData || [],
+            faqData: faqData || [],
+        },
+    };
+}

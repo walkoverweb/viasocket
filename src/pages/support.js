@@ -1,27 +1,22 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { MdCall, MdMail } from 'react-icons/md';
-import { getDbdashData } from './api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import Image from 'next/image';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
+import { getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 
 export async function getStaticProps() {
-    const IDs = [
-        'tbl7lj8ev', //  navData: results[0]
-        'tbl6u2cba', //footerData: results[1]
-        'tbl2bk656', // metaData: results[2]
-    ];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/support'`);
     return {
         props: {
-            navData: results[0]?.data?.rows,
-            footerData: results[1]?.data?.rows,
-            metaData: results[2]?.data?.rows,
+            navData: navData || [],
+            footerData: footerData || [],
+            metaData: metaData[0] || {},
         },
     };
 }
