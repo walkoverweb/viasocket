@@ -18,6 +18,7 @@ import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
 import { getFaqData, getTestimonialData } from '@/utils/getData';
 import { TESTIMONIALS_FIELDS } from '@/const/fields';
+import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -61,12 +62,10 @@ const Index = ({
     const debounceValue = useDebounce(searchTerm, 300);
 
     const [renderCombos, setRenderCombos] = useState();
-    console.log('🚀 ~ renderCombos:', renderCombos);
     const [showInput, setShowInput] = useState(false);
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
     const fetchAppsData = useCallback(async () => await fetchApps(), []);
-
     const filterSelectedApps = useCallback(
         (apps) => {
             return apps.filter(
@@ -215,11 +214,12 @@ const Index = ({
                             <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
                                 <div className="flex flex-col gap-1">
                                     <h1 className="h1 text-black">
-                                        <span className="text-accent">Connect</span> your favorite apps and automate
-                                        your repetitive tasks
+                                        <strong className="text-accent">Integrate</strong> your favorite apps and
+                                        automate everyday tasks effortlessly
                                     </h1>
                                     <h2 className="sub__h1 text-black">
-                                        Discover Top Solutions for Effortless Connectivity.
+                                        An AI powered no-code platform for workflow automation, app integrations, and
+                                        data-driven efficiency.
                                     </h2>
                                 </div>
                                 <LinkButton
@@ -253,10 +253,16 @@ const Index = ({
             </div>
             <div className=" cont cont__py gap-36">
                 <div className="container flex flex-col gap-4 ">
-                    <h2 className="h1">For Example</h2>
+                    <div className="cont  max-w-[1100px]">
+                        <h2 className="h1">Ready-Made Workflows for Every Need</h2>
+                        <h3 className="sub__h1">
+                            Discover templates built to simplify workflows for every industry and task. Get started
+                            quickly and save valuable time.
+                        </h3>
+                    </div>
 
                     <div className="gap-6 flex flex-col">
-                        <div className="flex flex-wrap gap-2 items-center ">
+                        <div className="flex flex-wrap gap-2 items-center text-lg  ">
                             <h3 className="">How</h3>
                             <div className="dropdown">
                                 <h3
@@ -326,7 +332,7 @@ const Index = ({
                                                 className="h-[24px] w-fit"
                                                 alt="ico"
                                             />
-                                            <span>{app?.name}</span>
+                                            <span className="text-[16px]">{app?.name}</span>
                                             <MdClose
                                                 className="text-gray-300 hover:text-gray-950 cursor-pointer"
                                                 onClick={() => removeAppFromArray(index)}
@@ -411,7 +417,7 @@ const Index = ({
                             <h2 className="">in</h2>
 
                             <div className="dropdown">
-                                <h2
+                                <h3
                                     onClick={() => {
                                         setShowDeptDropdown(true);
                                         setTimeout(() => {
@@ -423,7 +429,7 @@ const Index = ({
                                     className=" dropdown underline text-accent"
                                 >
                                     {selectedDept || 'all their'}
-                                </h2>
+                                </h3>
                                 {showDeptDropdown && (
                                     <div
                                         tabIndex={0}
@@ -455,9 +461,9 @@ const Index = ({
                                     </div>
                                 )}
                             </div>
-                            <h2 className="" id="dept">
+                            <h3 className="" id="dept">
                                 department
-                            </h2>
+                            </h3>
                             <div
                                 className={
                                     selectedApps.length < 2 ? 'tooltip tooltip-error tooltip-top text-white' : ''
@@ -476,9 +482,13 @@ const Index = ({
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
                             {!combinationLoading
                                 ? renderCombos?.combinations?.map((combo) => {
+                                      const integrations =
+                                          renderCombos?.plugins[combo?.trigger?.name]?.rowid +
+                                          ',' +
+                                          renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
                                       return (
                                           <Link
-                                              href={`https://flow.viasocket.com/makeflow/trigger/${combo?.trigger?.id}/action?utm_source=${utm}&events=${combo?.actions.map((action) => action.id).join(',')}`}
+                                              href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
                                               className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
                                           >
                                               <div className="cont gap-2">
@@ -523,6 +533,9 @@ const Index = ({
                 {features && <FeaturesGrid features={features} page={'overall'} />}
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
+                </div>
+                <div className="container">
+                    <IntegrateAppsComp />
                 </div>
                 <div className="container">
                     <CaseStudiesSection caseStudies={caseStudies} />
@@ -573,7 +586,7 @@ const TestimonialsSection = ({ testimonials }) => (
                             <p className="text-sm  text-grey">{testimonial?.giver_title}</p>
                         </div>
                     </div>
-                    <p className="text-[#373737]">" {testimonial?.testimonial}"</p>
+                    <p className="text-[#373737]">{testimonial?.testimonial}</p>
                 </div>
             ))}
         </div>
@@ -582,7 +595,7 @@ const TestimonialsSection = ({ testimonials }) => (
 
 const CaseStudiesSection = ({ caseStudies }) => (
     <div className="flex flex-col gap-9">
-        <h2 className="h1">Client Stories</h2>
+        <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
         <div className="grid grid-rows-6 grid-cols-6 border-black border lg:max-h-[550px] md:max-h-[700px] max-h-[1200px] ">
             {caseStudies.map((caseStudy, index) => (
                 <CaseStudyLink key={index} caseStudy={caseStudy} />
