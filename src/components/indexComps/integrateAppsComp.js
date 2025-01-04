@@ -6,7 +6,6 @@ import { LinkButton } from '../uiComponents/buttons';
 
 export default function IntegrateAppsComp() {
     const [apps, setApps] = useState([]);
-    console.log('🚀 ~ IntegrateAppsComp ~ apps:', apps);
 
     useEffect(() => {
         const fetchApps = async () => {

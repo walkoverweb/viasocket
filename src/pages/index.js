@@ -16,8 +16,25 @@ import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
-import { getFaqData, getTestimonialData } from '@/utils/getData';
-import { TESTIMONIALS_FIELDS } from '@/const/fields';
+import {
+    getCaseStudyData,
+    getFaqData,
+    getFooterData,
+    getGetStartedData,
+    getIndexFeatures,
+    getMetaData,
+    getNavData,
+    getTestimonialData,
+} from '@/utils/getData';
+import {
+    CASESTUDY_FIELDS,
+    FOOTER_FIELDS,
+    GETSTARTED_FIELDS,
+    INDEXFEATURES_FIELDS,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+    TESTIMONIALS_FIELDS,
+} from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
 
 const useDebounce = (value, delay) => {
@@ -530,7 +547,7 @@ const Index = ({
                         </div>
                     </div>
                 </div>
-                {features && <FeaturesGrid features={features} page={'overall'} />}
+                {features && <FeaturesGrid features={features} />}
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
                 </div>
@@ -639,20 +656,6 @@ const CaseStudyLink = ({ caseStudy }) => {
 export default Index;
 
 export async function getServerSideProps() {
-    const IDs = [
-        'tblwql8n1', // testimonials: results[0]
-        'tblwoqytc', // caseStudies: results[1]
-        'tblvgm05y', // getStartedData: results[2]
-        'tblvo36my', // features: results[3]
-        'tbl2bk656', // metaData: results[4]
-        'tblnoi7ng', // faqData: results[5]
-        'tbl7lj8ev', // navData: results[6]
-        'tbl6u2cba', // footerData: results[7]
-    ];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
     const tag = 'via-socket';
     const defaultTag = 'integrations';
     const res = await axios.get(
@@ -665,17 +668,22 @@ export async function getServerSideProps() {
 
     const faqData = await getFaqData('/index');
     const testimonials = await getTestimonialData(TESTIMONIALS_FIELDS);
-
+    const caseStudies = await getCaseStudyData(CASESTUDY_FIELDS);
+    const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
+    const features = await getIndexFeatures(INDEXFEATURES_FIELDS, `filter=product='Overall'`);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/'`);
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
     return {
         props: {
             testimonials: testimonials || [],
-            caseStudies: results[1]?.data?.rows,
-            getStartedData: results[2]?.data?.rows,
-            features: results[3]?.data?.rows,
-            metaData: results[4]?.data?.rows,
+            caseStudies: caseStudies || [],
+            getStartedData: getStarted || [],
+            features: features || [],
+            metaData: metaData[0] || {},
             faqData: faqData,
-            navData: results[6]?.data?.rows,
-            footerData: results[7]?.data?.rows,
+            navData: navData || [],
+            footerData: footerData || [],
             posts: posts,
             initialIndus,
         },

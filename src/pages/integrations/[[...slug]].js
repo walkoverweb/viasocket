@@ -9,6 +9,7 @@ import getCombos from '@/utils/getCombos';
 import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
+import { METADATA_FIELDS } from '@/const/fields';
 
 export default function Integrations({
     pageInfo,
@@ -91,7 +92,7 @@ export async function getServerSideProps(context) {
 
     if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
         // const navData = await getNavData();
-        const metadata = await getMetaData();
+        const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations/AppOne/AppTwo`');
         const blogsData = await getBlogData();
         const faqData = await getFaqData('[singleApp]');
         // const apps = await getApps({ page: integrationsInfo.page, category: integrationsInfo.category });
@@ -128,7 +129,7 @@ export async function getServerSideProps(context) {
         }
     } else if (integrationsInfo?.appone) {
         // const navData = await getNavData();
-        const metadata = await getMetaData();
+        const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations/AppOne`');
         const blogsData = await getBlogData();
         const faqData = await getFaqData('[singleApp]');
         const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
@@ -165,7 +166,7 @@ export async function getServerSideProps(context) {
         }
     } else {
         const navData = await getNavData();
-        const metadata = await getMetaData();
+        const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations`');
         const blogsData = await getBlogData();
         const faqData = await getFaqData('[singleApp]');
         const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });

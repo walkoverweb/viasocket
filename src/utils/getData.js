@@ -1,4 +1,4 @@
-import { ALLFEATURES, CATEGORY, FAQS, TESTIMONIALS } from '@/const/tables';
+import { ALLFEATURES, CASESTUDY, CATEGORY, FAQS, GETSTARTED, INDEXFEATURES, TESTIMONIALS } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
 
@@ -21,7 +21,7 @@ const handleFieldsFilter = (fields, filter) => {
         queryString += '?fields=' + fields.join('&fields=');
     }
     if (filter) {
-        queryString += (queryString ? '&' : '?') + `filter=${filter}`;
+        queryString += (queryString ? '&' : '?') + filter;
     }
     return queryString || null;
 };
@@ -36,8 +36,8 @@ export async function getFooterData() {
     return handleData(data);
 }
 
-export async function getMetaData(query) {
-    const data = await getDataFromTable(METADATA, `?filter=name='${query}'`);
+export async function getMetaData(fields, filter) {
+    const data = await getDataFromTable(METADATA, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
@@ -81,27 +81,16 @@ export async function getTestimonialData(fields, filter) {
     return handleData(data);
 }
 export async function getCaseStudyData(fields, filter) {
-    const data = await getDataFromTable(TESTIMONIALS, handleFieldsFilter(fields, filter));
+    const data = await getDataFromTable(CASESTUDY, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
-// export async function getBlogData(){
-//      async function getBlogsFromTable(table, query) {
-//         const apiUrl = `${process.env.NEXT_PUBLIC_DB_BASE_URL}/66029bf861a15927654de175/tblngzrs5${query ? query : ''}`;
+export async function getGetStartedData(fields, filter) {
+    const data = await getDataFromTable(GETSTARTED, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
 
-//         try {
-//             const response = await fetch(apiUrl, {
-//                 headers: {
-//                     'auth-key': `${process.env.NEXT_PUBLIC_BLOG_DB_KEY}`,
-//                 },
-//             });
-//             const responseData = await response.json();
-//             return responseData;
-//         } catch (error) {
-//             console.error('Error:', error);
-//         }
-//     }
-
-//     const data = await getBlogsFromTable(ALLFEATURES);
-//     return handleData(data);
-// }
+export async function getIndexFeatures(fields, filter) {
+    const data = await getDataFromTable(INDEXFEATURES, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
