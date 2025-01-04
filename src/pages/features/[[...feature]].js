@@ -40,7 +40,7 @@ export async function getServerSideProps(context) {
     if (!feature) {
         features = await getAllFeatures(ALLFEATURES_FIELDS);
     } else {
-        featureData = await getFeatureData(feature);
+        featureData = await getFeatureData([], `filter=slug='${feature}'`);
     }
 
     return {

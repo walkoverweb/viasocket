@@ -7,25 +7,15 @@ import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
-import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS, PRICINGBETTERCHOICE_FIELDS } from '@/const/fields';
-export async function getServerSideProps() {
-    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/pricing'`);
-    const navData = await getNavData(NAVIGATION_FIELDS);
-    const footerData = await getFooterData(FOOTER_FIELDS);
-    const faqData = await getFaqData('/pricing');
-    const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
-    return {
-        props: {
-            betterChoice: betterChoice || [],
-            metaData: metaData[0] || {},
-            navData: navData || [],
-            footerData: footerData || [],
-            faqData: faqData || [],
-        },
-    };
-}
+import {
+    FAQS_FIELDS,
+    FOOTER_FIELDS,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+    PRICINGBETTERCHOICE_FIELDS,
+} from '@/const/fields';
 
-const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
 
@@ -227,5 +217,21 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData }) => {
             </div>
         </>
     );
-};
-export default pricing;
+}
+
+export async function getServerSideProps() {
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/pricing'`);
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/pricing'`);
+    const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
+    return {
+        props: {
+            betterChoice: betterChoice || [],
+            metaData: metaData[0] || {},
+            navData: navData || [],
+            footerData: footerData || [],
+            faqData: faqData || [],
+        },
+    };
+}

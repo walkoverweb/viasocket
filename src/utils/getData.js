@@ -19,14 +19,6 @@ const handleData = (data) => {
     return data?.data?.rows;
 };
 
-const handleQuery = (query) => {
-    if (query?.length > 0) {
-        const queryString = query.join('&fields=');
-        return '?fields=' + queryString;
-    } else {
-        return null;
-    }
-};
 const handleFieldsFilter = (fields, filter) => {
     let queryString = '';
 
@@ -54,41 +46,24 @@ export async function getMetaData(fields, filter) {
     return handleData(data);
 }
 
-export async function getAllFeatures(query) {
-    const data = await getDataFromTable(ALLFEATURES, handleQuery(query));
+export async function getAllFeatures(fields, filter) {
+    const data = await getDataFromTable(ALLFEATURES, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
-export async function getFeatureData(query) {
-    const data = await getDataFromTable(ALLFEATURES, `?filter=slug='${query}'`);
+export async function getFeatureData(fields, filter) {
+    const data = await getDataFromTable(ALLFEATURES, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
-export async function getFaqData(query) {
-    const data = await getDataFromTable(FAQS, `?filter=page='${query}'`);
+export async function getFaqData(fields, filter) {
+    const data = await getDataFromTable(FAQS, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
-export async function getCategoryData(query) {
-    const data = await getDataFromTable(CATEGORY, `?filter=name='${query}'`);
+export async function getCategoryData(fields, filter) {
+    const data = await getDataFromTable(CATEGORY, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
-export async function getBlogData() {
-    const tag = 'via-socket';
-    const defaultTag = 'integrations';
-    try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-        );
-        if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const posts = await res.json();
-        return posts;
-    } catch (error) {
-        console.error('Error fetching blog data:', error);
-        return [];
-    }
-}
 export async function getTestimonialData(fields, filter) {
     const data = await getDataFromTable(TESTIMONIALS, handleFieldsFilter(fields, filter));
     return handleData(data);
@@ -132,4 +107,22 @@ export async function getPricingBetterChoice(fields, filter) {
 export async function getProgramsData(fields, filter) {
     const data = await getDataFromTable(PROGRAMS, handleFieldsFilter(fields, filter));
     return handleData(data);
+}
+
+export async function getBlogData() {
+    const tag = 'via-socket';
+    const defaultTag = 'integrations';
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
+        );
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const posts = await res.json();
+        return posts;
+    } catch (error) {
+        console.error('Error fetching blog data:', error);
+        return [];
+    }
 }

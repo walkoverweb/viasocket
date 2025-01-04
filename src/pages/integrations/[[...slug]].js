@@ -9,7 +9,7 @@ import getCombos from '@/utils/getCombos';
 import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
-import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
+import { FAQS_FIELDS, FOOTER_FIELDS, INTECATEGORY_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 
 export default function Integrations({
     pageInfo,
@@ -91,13 +91,10 @@ export async function getServerSideProps(context) {
     const footerData = await getFooterData(FOOTER_FIELDS);
 
     if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
-        // const navData = await getNavData();
         const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations/AppOne/AppTwo`');
         const blogsData = await getBlogData();
-        const faqData = await getFaqData('[singleApp]');
-        // const apps = await getApps({ page: integrationsInfo.page, category: integrationsInfo.category });
+        const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[singleApp]'`);
         const combosData = await getCombos(integrationsInfo);
-        // const categoryData = await getCategoryData(integrationsInfo?.category);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
         const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
         if ((appOneDetails, appTwoDetails)) {
@@ -131,12 +128,10 @@ export async function getServerSideProps(context) {
         // const navData = await getNavData();
         const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations/AppOne`');
         const blogsData = await getBlogData();
-        const faqData = await getFaqData('[singleApp]');
+        const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[doubleApp]'`);
         const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
         const combosData = await getCombos(integrationsInfo);
-        // const categoryData = await getCategoryData(integrationsInfo?.category);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
-        // const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
         if (appOneDetails) {
             return {
                 props: {
@@ -168,9 +163,9 @@ export async function getServerSideProps(context) {
         const navData = await getNavData(NAVIGATION_FIELDS);
         const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations`');
         const blogsData = await getBlogData();
-        const faqData = await getFaqData('[singleApp]');
+        const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/integrations'`);
         const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
-        const categoryData = await getCategoryData(integrationsInfo?.category);
+        const categoryData = await getCategoryData(INTECATEGORY_FIELDS, `filter=name='${integrationsInfo?.category}'`);
         return {
             props: {
                 pageInfo: pageInfo || {},

@@ -28,6 +28,7 @@ import {
 } from '@/utils/getData';
 import {
     CASESTUDY_FIELDS,
+    FAQS_FIELDS,
     FOOTER_FIELDS,
     GETSTARTED_FIELDS,
     INDEXFEATURES_FIELDS,
@@ -666,7 +667,7 @@ export async function getServerSideProps() {
     const randomIndex = Math.floor(Math.random() * Industries.industries.length);
     const initialIndus = Industries.industries[randomIndex];
 
-    const faqData = await getFaqData('/index');
+    const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/index'`);
     const testimonials = await getTestimonialData(TESTIMONIALS_FIELDS);
     const caseStudies = await getCaseStudyData(CASESTUDY_FIELDS);
     const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
