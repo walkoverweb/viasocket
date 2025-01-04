@@ -9,6 +9,7 @@ import {
     INDEXFEATURES,
     PAGE,
     PRICINGBETTERCHOICE,
+    PROGRAMS,
     TESTIMONIALS,
 } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
@@ -125,5 +126,10 @@ export async function getExpertBlogs(fields, filter) {
 
 export async function getPricingBetterChoice(fields, filter) {
     const data = await getDataFromTable(PRICINGBETTERCHOICE, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getProgramsData(fields, filter) {
+    const data = await getDataFromTable(PROGRAMS, handleFieldsFilter(fields, filter));
     return handleData(data);
 }

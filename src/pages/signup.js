@@ -4,21 +4,20 @@ import TrustedBy from '@/components/trustedBy/trustedBy';
 import { getDbdashData } from './api';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
     const { utm_source } = context?.query;
-
-    const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656'];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/signup'`);
     return {
         props: {
-            trustedBy: results[0].data.rows,
-            testimonials: results[1].data.rows,
-            metaData: results[2].data.rows,
+            navData: navData || [],
+            footerData: footerData || [],
+            metaData: metaData[0] || {},
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
         },

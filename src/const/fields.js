@@ -19,3 +19,4 @@ export const PAGEDATA_FIELDS = ['h1', 'h2', 'h3'];
 export const AGENCIES_FIELDS = ['name', 'website', 'location', 'logo', 'verified'];
 export const EXPERTBLOGS_FIELDS = ['link', 'description'];
 export const PRICINGBETTERCHOICE_FIELDS = [];
+export const PROGRAMS_FIELDS = ['name', 'tagine'];

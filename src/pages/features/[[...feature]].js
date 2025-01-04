@@ -3,7 +3,7 @@ import FeatureContentComp from '@/components/FeaturesComp/FeatureContentComp/Fea
 import FeatureGridComp from '@/components/FeaturesComp/FeatureGridComp/FeatureGridComp';
 import FeaturesFooterComp from '@/components/FeaturesComp/FeaturesFooterComp/FeaturesFooterComp';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import { ALLFEATURES_FIELDS, METADATA_FIELDS } from '@/const/fields';
+import { ALLFEATURES_FIELDS, FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 import { getAllFeatures, getFeatureData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
 import GetPageInfo from '@/utils/getPageInfo';
 
@@ -27,8 +27,8 @@ export default function Features({ features, featureData, navData, footerData, m
 
 export async function getServerSideProps(context) {
     const pageInfo = GetPageInfo(context);
-    const navData = await getNavData();
-    const footerData = await getFooterData();
+    const navData = await getNavData(FOOTER_FIELDS);
+    const footerData = await getFooterData(NAVIGATION_FIELDS);
     const metaData = await getMetaData(METADATA_FIELDS, `filter=name='${pageInfo?.url}'`);
     let feature = null;
     let features = [];
