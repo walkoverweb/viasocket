@@ -1,27 +1,34 @@
-import { ALLFEATURES, CATEGORY, FAQS } from '@/const/tables';
+import {
+    AGENCIES,
+    ALLFEATURES,
+    CASESTUDY,
+    CATEGORY,
+    EXPERTBLOGS,
+    FAQS,
+    GETSTARTED,
+    INDEXFEATURES,
+    PAGE,
+    PRICINGBETTERCHOICE,
+    PROGRAMS,
+    TESTIMONIALS,
+} from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
-import axios from 'axios';
 
 const handleData = (data) => {
     return data?.data?.rows;
 };
 
-const handleQuery = (query) => {
-    if (query?.length > 0) {
-        const queryString = query.join('&fields=');
-        return '?fields=' + queryString;
-    } else {
-        return null;
+const handleFieldsFilter = (fields, filter) => {
+    let queryString = '';
+
+    if (fields?.length > 0) {
+        queryString += '?fields=' + fields.join('&fields=');
     }
-};
-const handleFilter = (query) => {
-    if (query?.length > 0) {
-        const queryString = query.join('&fields=');
-        return '?fields=' + queryString;
-    } else {
-        return null;
+    if (filter) {
+        queryString += (queryString ? '&' : '?') + filter;
     }
+    return queryString || null;
 };
 
 export async function getNavData() {
@@ -34,26 +41,71 @@ export async function getFooterData() {
     return handleData(data);
 }
 
-export async function getMetaData(query) {
-    const data = await getDataFromTable(METADATA, `?filter=name='${query}'`);
+export async function getMetaData(fields, filter) {
+    const data = await getDataFromTable(METADATA, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
-export async function getAllFeatures(query) {
-    const data = await getDataFromTable(ALLFEATURES, handleQuery(query));
+export async function getAllFeatures(fields, filter) {
+    const data = await getDataFromTable(ALLFEATURES, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
-export async function getFeatureData(query) {
-    const data = await getDataFromTable(ALLFEATURES, `?filter=slug='${query}'`);
+export async function getFeatureData(fields, filter) {
+    const data = await getDataFromTable(ALLFEATURES, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
-export async function getFaqData(query) {
-    const data = await getDataFromTable(FAQS, `?filter=page='${query}'`);
+export async function getFaqData(fields, filter) {
+    const data = await getDataFromTable(FAQS, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
-export async function getCategoryData(query) {
-    const data = await getDataFromTable(CATEGORY, `?filter=name='${query}'`);
+export async function getCategoryData(fields, filter) {
+    const data = await getDataFromTable(CATEGORY, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getTestimonialData(fields, filter) {
+    const data = await getDataFromTable(TESTIMONIALS, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getCaseStudyData(fields, filter) {
+    const data = await getDataFromTable(CASESTUDY, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getGetStartedData(fields, filter) {
+    const data = await getDataFromTable(GETSTARTED, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getIndexFeatures(fields, filter) {
+    const data = await getDataFromTable(INDEXFEATURES, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getPageData(fields, filter) {
+    const data = await getDataFromTable(PAGE, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getAgencies(fields, filter) {
+    const data = await getDataFromTable(AGENCIES, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getExpertBlogs(fields, filter) {
+    const data = await getDataFromTable(EXPERTBLOGS, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getPricingBetterChoice(fields, filter) {
+    const data = await getDataFromTable(PRICINGBETTERCHOICE, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getProgramsData(fields, filter) {
+    const data = await getDataFromTable(PROGRAMS, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
@@ -74,23 +126,3 @@ export async function getBlogData() {
         return [];
     }
 }
-// export async function getBlogData(){
-//      async function getBlogsFromTable(table, query) {
-//         const apiUrl = `${process.env.NEXT_PUBLIC_DB_BASE_URL}/66029bf861a15927654de175/tblngzrs5${query ? query : ''}`;
-
-//         try {
-//             const response = await fetch(apiUrl, {
-//                 headers: {
-//                     'auth-key': `${process.env.NEXT_PUBLIC_BLOG_DB_KEY}`,
-//                 },
-//             });
-//             const responseData = await response.json();
-//             return responseData;
-//         } catch (error) {
-//             console.error('Error:', error);
-//         }
-//     }
-
-//     const data = await getBlogsFromTable(ALLFEATURES);
-//     return handleData(data);
-// }

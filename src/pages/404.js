@@ -1,6 +1,8 @@
 import ErrorComp from '@/components/404/404Comp';
 import { getDbdashData } from './api';
 import Head from 'next/head';
+import { getFooterData, getNavData } from '@/utils/getData';
+import { FOOTER_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 
 const NoPage = ({ pathArray, navData, footerData }) => {
     return (
@@ -14,15 +16,13 @@ const NoPage = ({ pathArray, navData, footerData }) => {
 };
 export default NoPage;
 export async function getStaticProps() {
-    const IDs = ['tbl7lj8ev', 'tbl6u2cba'];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
 
     return {
         props: {
-            navData: results[0]?.data?.rows,
-            footerData: results[1]?.data?.rows,
+            navData: navData || [],
+            footerData: footerData || [],
         },
     };
 }
