@@ -205,7 +205,7 @@ const pricing = ({ navData, footerData, faqData, betterChoice, metaData, countri
                                                         <h2 className="">{plan?.description}</h2>
                                                     </div>
                                                     <a
-                                                        href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
+                                                        href={`/signup?plan=${plan?.slug}&duration=${isToggled ? 'yearly' : 'monthly'}${selectedCountry?.cca2 ? '&country=' + selectedCountry?.cca2 : ''}&utm_source=/pricing`}
                                                     >
                                                         <button
                                                             className={`btn btn-primary w-full mt-auto ${i == 0 && 'btn-outline border-0 border-t'}`}

@@ -120,7 +120,7 @@ export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }
                     )}
                     <div>
                         {!integrationsInfo?.appone && (
-                            <div className="p-9 cont gap-2">
+                            <div className="p-4 md:p-8 cont gap-2">
                                 {integrationsInfo?.category && integrationsInfo?.category != 'All' ? (
                                     <h1 className="h1 text-accent">
                                         <span className="text-black italic">300+</span>{' '}

@@ -17,6 +17,7 @@ import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
 import { getFaqData } from '@/utils/getData';
+import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -64,7 +65,6 @@ const Index = ({
     const hasRunFirstEffect = useRef(false);
     const inputRef = useRef(null);
     const fetchAppsData = useCallback(async () => await fetchApps(), []);
-
     const filterSelectedApps = useCallback(
         (apps) => {
             return apps.filter(
@@ -532,6 +532,9 @@ const Index = ({
                 {features && <FeaturesGrid features={features} page={'overall'} />}
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
+                </div>
+                <div className="container">
+                    <IntegrateAppsComp />
                 </div>
                 <div className="container">
                     <CaseStudiesSection caseStudies={caseStudies} />
