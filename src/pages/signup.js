@@ -88,7 +88,7 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to, utm_
                         />
                     </a>
 
-                    <h2 className=" text-2xl">Upgrade yout team with powerful automation tool</h2>
+                    <h2 className=" text-2xl">Upgrade your team with powerful automation tool</h2>
                     <div>
                         <p className="text-xl font-bold">We’ll help you get started, with our</p>
                         <p className="text-xl ">24x7 Chat Support</p>
