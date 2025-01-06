@@ -7,7 +7,7 @@ export default function TrustedBy(products) {
                 <span className=" font-medium text-gray-400">Trusted by</span>
                 <div className="flex gap-5 flex-wrap">
                     {products &&
-                        products?.data.map((img, index) => {
+                        products?.data?.map((img, index) => {
                             return (
                                 <div className="flex gap-5 flex-wrap" key={index}>
                                     {img?.icon[0] && (
