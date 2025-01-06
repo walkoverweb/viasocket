@@ -11,6 +11,7 @@ import {
     PRICINGBETTERCHOICE,
     PROGRAMS,
     TESTIMONIALS,
+    TRUSTEDBY,
 } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
@@ -106,6 +107,10 @@ export async function getPricingBetterChoice(fields, filter) {
 
 export async function getProgramsData(fields, filter) {
     const data = await getDataFromTable(PROGRAMS, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+export async function getTrustedByData(fields, filter) {
+    const data = await getDataFromTable(TRUSTEDBY, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
 
