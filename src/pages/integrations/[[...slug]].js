@@ -9,7 +9,14 @@ import getCombos from '@/utils/getCombos';
 import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
-import { FAQS_FIELDS, FOOTER_FIELDS, INTECATEGORY_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
+import {
+    FAQS_FIELDS,
+    FOOTER_FIELDS,
+    INTECATEGORY_FIELDS,
+    INTECATEGORYlIST_FILED,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+} from '@/const/fields';
 
 export default function Integrations({
     pageInfo,
@@ -25,6 +32,7 @@ export default function Integrations({
     appOneDetails,
     appTwoDetails,
     noData,
+    categories,
 }) {
     if (noData) {
         return (
@@ -81,6 +89,7 @@ export default function Integrations({
                 apps={apps}
                 blogsData={blogsData}
                 categoryData={categoryData}
+                categories={categories}
             />
         );
     }
@@ -164,8 +173,9 @@ export async function getServerSideProps(context) {
         const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations'`);
         const blogsData = await getBlogData();
         const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/integrations'`);
-        const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
-        const categoryData = await getCategoryData(INTECATEGORY_FIELDS, `filter=name='${integrationsInfo?.category}'`);
+        const categoryData = await getCategoryData(INTECATEGORY_FIELDS, `filter=slug='${integrationsInfo?.category}'`);
+        const apps = await getApps({ page: integrationsInfo?.page, categoryData });
+        const categories = await getCategoryData(INTECATEGORYlIST_FILED);
         return {
             props: {
                 pageInfo: pageInfo || {},
@@ -180,6 +190,7 @@ export async function getServerSideProps(context) {
                 appOneDetails: {},
                 appTwoDetails: {},
                 categoryData: (categoryData?.length > 0 && categoryData[0]) || {},
+                categories: categories || [],
             },
         };
     }
