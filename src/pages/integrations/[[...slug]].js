@@ -91,7 +91,7 @@ export async function getServerSideProps(context) {
     const footerData = await getFooterData(FOOTER_FIELDS);
 
     if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
-        const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations/AppOne/AppTwo`');
+        const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations/AppOne/AppTwo'`);
         const blogsData = await getBlogData();
         const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[singleApp]'`);
         const combosData = await getCombos(integrationsInfo);
@@ -126,7 +126,7 @@ export async function getServerSideProps(context) {
         }
     } else if (integrationsInfo?.appone) {
         // const navData = await getNavData();
-        const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations/AppOne`');
+        const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations/AppOne'`);
         const blogsData = await getBlogData();
         const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[doubleApp]'`);
         const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
@@ -161,7 +161,7 @@ export async function getServerSideProps(context) {
         }
     } else {
         const navData = await getNavData(NAVIGATION_FIELDS);
-        const metadata = await getMetaData(METADATA_FIELDS, 'filter=name=`/integrations`');
+        const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations'`);
         const blogsData = await getBlogData();
         const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/integrations'`);
         const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
