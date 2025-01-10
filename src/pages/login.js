@@ -2,26 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { MdArrowForward } from 'react-icons/md';
 import Link from 'next/link';
-import { getDbdashData } from './api';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import { redirect } from 'next/dist/server/api-utils';
+import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
+import { getFooterData, getIndexFeatures, getMetaData, getNavData } from '@/utils/getData';
 
 export async function getServerSideProps(context) {
     const { redirect_to } = context?.query;
     const { utm_source } = context?.query;
-    const IDs = ['tblvo36my', 'tbl2bk656'];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/login'`);
+    const features = await getIndexFeatures();
     return {
         props: {
-            features: results[0].data.rows,
-            metaData: results[1].data.rows,
+            navData: navData || [],
+            footerData: footerData || [],
+            metaData: metaData[0] || {},
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
+            features: features || [],
         },
     };
 }

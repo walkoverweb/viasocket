@@ -1,26 +1,34 @@
 import { useLayoutEffect } from 'react';
 import Image from 'next/image';
 import TrustedBy from '@/components/trustedBy/trustedBy';
-import { getDbdashData } from './api';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
+import { getFooterData, getMetaData, getNavData, getTestimonialData, getTrustedByData } from '@/utils/getData';
+import {
+    FOOTER_FIELDS,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+    TESTIMONIALS_FIELDS,
+    TRUSTEDBY_FIELDS,
+} from '@/const/fields';
 
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
     const { utm_source } = context?.query;
-
-    const IDs = ['tblsaw4zp', 'tblwql8n1', 'tbl2bk656'];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/signup'`);
+    const trustedBy = await getTrustedByData(TRUSTEDBY_FIELDS);
+    const testimonials = await getTestimonialData(TESTIMONIALS_FIELDS);
     return {
         props: {
-            trustedBy: results[0].data.rows,
-            testimonials: results[1].data.rows,
-            metaData: results[2].data.rows,
+            navData: navData || [],
+            footerData: footerData || [],
+            metaData: metaData[0] || {},
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
+            trustedBy: trustedBy || [],
+            testimonials: testimonials || [],
         },
     };
 }
@@ -94,10 +102,10 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to, utm_
                         <p className="text-xl ">24x7 Chat Support</p>
                     </div>
 
-                    <TrustedBy data={trustedBy} />
+                    <TrustedBy trustedBy={trustedBy} />
 
                     <div className="flex md:flex-row flex-col gap-4 w-full mt-8">
-                        {testimonials &&
+                        {testimonials?.length > 0 &&
                             testimonials.map((testimonial, index) => {
                                 return (
                                     <div
