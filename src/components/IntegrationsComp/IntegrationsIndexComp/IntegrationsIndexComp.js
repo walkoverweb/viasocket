@@ -25,6 +25,14 @@ export default function IntegrationsIndexComp({
     const [searchedApps, setSearchedApps] = useState([]);
     const [searchedCategoies, setSearchedCategoies] = useState();
 
+    const filterPriorityCategories = (cats) => {
+        if (!Array.isArray(cats)) return [];
+        return cats.sort((a, b) => {
+            const priorityA = Number(a.priority) || Infinity;
+            const priorityB = Number(b.priority) || Infinity;
+            return priorityA - priorityB || a.name.localeCompare(b.name);
+        });
+    };
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebounceValue(searchTerm);
@@ -39,7 +47,7 @@ export default function IntegrationsIndexComp({
             const filteredCategories = categories?.filter((category) =>
                 category?.name?.toLowerCase()?.includes(debounceValue.toLowerCase())
             );
-            setSearchedCategoies(filteredCategories);
+            setSearchedCategoies(filterPriorityCategories(filteredCategories));
             const loadApps = async () => {
                 const fetchedApps = await searchApps(debounceValue);
                 setSearchedApps(fetchedApps || []);
@@ -110,7 +118,7 @@ export default function IntegrationsIndexComp({
                                     </span>
                                 )
                             ) : (
-                                categories?.map((category, index) => {
+                                filterPriorityCategories(categories)?.map((category, index) => {
                                     if (!category?.hidden && category?.slug) {
                                         return (
                                             <a
