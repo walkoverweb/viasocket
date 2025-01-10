@@ -23,4 +23,4 @@ export const PROGRAMS_FIELDS = ['name', 'tagine'];
 export const INTECATEGORY_FIELDS = ['name', 'slug', 'subheading', 'title', 'description', 'appcount'];
 export const FAQS_FIELDS = ['que', 'ans'];
 export const TRUSTEDBY_FIELDS = ['name', 'icon'];
-export const INTECATEGORYlIST_FILED = ['name', 'slug', 'hidden'];
+export const INTECATEGORYlIST_FILED = ['name', 'slug', 'hidden', 'priority'];
