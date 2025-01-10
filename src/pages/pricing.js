@@ -6,10 +6,6 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import getCountries from '@/utils/getCountries';
-import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
-import Image from 'next/image';
-import Autocomplete from 'react-autocomplete';
 import { getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
 import {
     FAQS_FIELDS,
@@ -18,8 +14,12 @@ import {
     NAVIGATION_FIELDS,
     PRICINGBETTERCHOICE_FIELDS,
 } from '@/const/fields';
+import Autocomplete from 'react-autocomplete';
+import getCountries from '@/utils/getCountries';
+import Image from 'next/image';
+import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 
-export default function pricing({ countries, navData, footerData, faqData, betterChoice, metaData }) {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState();
@@ -28,8 +28,8 @@ export default function pricing({ countries, navData, footerData, faqData, bette
     useEffect(() => {
         const fetchCountryData = async () => {
             if (selectedCountry) {
-                const country = await checkDevelopingCountry(selectedCountry?.cca2);
-                if (country && country?.length > 0) {
+                const country = await checkDevelopingCountry(selectedCountry?.name?.common);
+                if (country) {
                     setIsDeveloping(true);
                 } else {
                     setIsDeveloping(false);
@@ -42,7 +42,7 @@ export default function pricing({ countries, navData, footerData, faqData, bette
     }, [selectedCountry]);
 
     const filterCountries = (searchTerm) => {
-        return countries.filter((country) => country.name.common.toLowerCase().includes(searchTerm.toLowerCase()));
+        return countries.filter((country) => country?.name?.common?.toLowerCase()?.includes(searchTerm?.toLowerCase()));
     };
 
     const plans = [
@@ -110,7 +110,7 @@ export default function pricing({ countries, navData, footerData, faqData, bette
                                                             }`}
                                                         >
                                                             <Image
-                                                                src={item?.flags?.svg}
+                                                                src={item?.flags?.svg || 'http:placehold.co/20x20'}
                                                                 width={16}
                                                                 height={16}
                                                                 alt={item?.flags?.alt}
