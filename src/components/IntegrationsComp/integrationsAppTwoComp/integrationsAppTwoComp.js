@@ -135,7 +135,7 @@ export default function IntegrationsAppTwoComp({
                                 return (
                                     <Link
                                         key={index}
-                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
+                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
                                         className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
                                     >
                                         <div className="cont gap-2">
