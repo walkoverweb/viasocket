@@ -2,11 +2,12 @@ import { APPERPAGE } from '@/const/integrations';
 import axios from 'axios';
 
 export default async function getApps(query) {
+    const category = query?.categoryData[0]?.name;
     try {
         const fetchUrl = `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all`;
         const response = await axios.get(fetchUrl, {
             params: {
-                category: (query?.category !== 'All' && query?.category) || '',
+                category: (category !== 'All' && category) || '',
                 limit: APPERPAGE,
                 offset: query?.page ? query?.page * APPERPAGE : 0,
             },
