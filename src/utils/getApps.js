@@ -2,7 +2,7 @@ import { APPERPAGE } from '@/const/integrations';
 import axios from 'axios';
 
 export default async function getApps(query) {
-    const category = query?.categoryData[0]?.name;
+    const category = query?.categoryData?.length > 0 ? query?.categoryData[0]?.name : 'All';
     try {
         const fetchUrl = `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all`;
         const response = await axios.get(fetchUrl, {

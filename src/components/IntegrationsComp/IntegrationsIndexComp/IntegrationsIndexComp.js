@@ -75,6 +75,7 @@ export default function IntegrationsIndexComp({
             return url;
         }
     };
+
     return (
         <>
             <IntegrationsHeadComp metaData={categoryData} integrationsInfo={integrationsInfo} pageInfo={pageInfo} />
