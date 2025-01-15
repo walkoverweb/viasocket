@@ -2,7 +2,7 @@ export default function getIntegrationsInfo(params) {
     const result = {
         appone: null,
         apptwo: null,
-        category: 'All',
+        category: 'all',
         page: null,
     };
 
