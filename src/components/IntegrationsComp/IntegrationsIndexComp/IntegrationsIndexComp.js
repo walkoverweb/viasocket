@@ -10,6 +10,7 @@ import searchApps from '@/utils/searchApps';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 import createURL from '@/utils/createURL';
+import IntegrationsRequestComp from '../IntegrationsBetaComp/integrationsRequestComp';
 export default function IntegrationsIndexComp({
     pageInfo,
     integrationsInfo,
@@ -236,11 +237,29 @@ export default function IntegrationsIndexComp({
                 )}
             </div>
             <div className="container my-6">
+                <div className="border border-black p-20 cont cont__gap">
+                    <div className="cont gap-1">
+                        <h2 className="h1 max-w-[700px]">Don't Wait for Tools - Request, And We'll Build It</h2>
+                        <p className="text-xl">
+                            Request a custom plug for the apps you love, and our team will create it just for you,
+                            ensuring seamless integration and effortless automation for your workflows.
+                        </p>
+                    </div>
+                    <button
+                        onClick={() => document.getElementById('plugin_request_form').showModal()}
+                        className="btn btn-accent "
+                    >
+                        Request your plugin now
+                    </button>
+                </div>
+            </div>
+            <div className="container my-6">
                 <BlogGrid posts={blogsData} />
             </div>
             <div className="container my-6">
                 <Footer footerData={footerData} />
             </div>
+            <IntegrationsRequestComp />
         </>
     );
 }
