@@ -21,6 +21,7 @@ export default function IntegrationsIndexComp({
     categoryData,
     categories,
 }) {
+    console.log('🚀 ~ categoryData:', categoryData);
     const [searchTerm, setSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
     const [searchedApps, setSearchedApps] = useState([]);

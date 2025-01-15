@@ -176,7 +176,10 @@ export async function getServerSideProps(context) {
         const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations'`);
         const blogsData = await getBlogData();
         const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/integrations'`);
-        const categoryData = await getCategoryData(INTECATEGORY_FIELDS, `filter=slug='${integrationsInfo?.category}'`);
+        const categoryData = await getCategoryData(
+            INTECATEGORY_FIELDS,
+            `filter=slug='${integrationsInfo?.category || 'all'}'`
+        );
         const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const categories = await getCategoryData(INTECATEGORYlIST_FILED);
         return {
