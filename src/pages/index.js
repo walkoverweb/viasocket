@@ -558,6 +558,7 @@ const Index = ({
                         </div>
                     </div>
                 </div>
+
                 {features && <FeaturesGrid features={features} />}
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
@@ -625,46 +626,73 @@ const TestimonialsSection = ({ testimonials }) => (
     </div>
 );
 
-const CaseStudiesSection = ({ caseStudies }) => (
-    <div className="flex flex-col gap-9">
-        <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
-        <div className="grid grid-rows-6 grid-cols-6 border-black border lg:max-h-[550px] md:max-h-[700px] max-h-[1200px] ">
-            {caseStudies.map((caseStudy, index) => (
-                <CaseStudyLink key={index} caseStudy={caseStudy} />
-            ))}
+const CaseStudiesSection = ({ caseStudies }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % caseStudies.length);
+    };
+
+    const handlePrev = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + caseStudies.length) % caseStudies.length);
+    };
+
+    return (
+        <div className="flex flex-col gap-9">
+            <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
+            <div className="carousel w-full max-w-4xl mx-auto py-8 relative">
+                <button onClick={handlePrev} className="absolute left-0 top-1/2 transform -translate-y-1/2">
+                    Prev
+                </button>
+                <div className="flex overflow-hidden">
+                    <div
+                        className="flex transition-transform duration-300"
+                        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                    >
+                        {caseStudies.map((caseStudy, index) => (
+                            <CaseStudyLink key={index} caseStudy={caseStudy} />
+                        ))}
+                    </div>
+                </div>
+                <button onClick={handleNext} className="absolute right-0 top-1/2 transform -translate-y-1/2">
+                    Next
+                </button>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
     return (
-        <div
-            aria-label="casestudy"
-            className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
-                isPriority
-                    ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
-                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
-            }`}
-        >
-            <>
-                <div className=" casestudy_img overflow-hidden w-full h-full ">
-                    <Image
-                        className="h-full w-full"
-                        src={caseStudy?.image[0]}
-                        width={1080}
-                        height={1080}
-                        alt={caseStudy?.title}
-                    />
-                </div>
-                <div className="w-full p-3 bg-neutral flex flex-col gap-3 justify-center">
-                    <p>{caseStudy?.title}</p>
-                    {/* <LinkButton href={caseStudy?.link} title={'Read More'} />
-                     */}
-                    <LinkButton href={caseStudy?.link} content={'Know More'} />
-                </div>
-            </>
-        </div>
+        <>
+            <div
+                aria-label="casestudy"
+                className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
+                    isPriority
+                        ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
+                        : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+                }`}
+            >
+                <>
+                    <div className=" casestudy_img overflow-hidden w-full h-full ">
+                        <Image
+                            className="h-full w-full"
+                            src={caseStudy?.image[0]}
+                            width={1080}
+                            height={1080}
+                            alt={caseStudy?.title}
+                        />
+                    </div>
+                    <div className="w-full p-3 bg-neutral flex flex-col gap-3 justify-center">
+                        <p>{caseStudy?.title}</p>
+                        {/* <LinkButton href={caseStudy?.link} title={'Read More'} />
+                         */}
+                        <LinkButton href={caseStudy?.link} content={'Know More'} />
+                    </div>
+                </>
+            </div>
+        </>
     );
 };
 
