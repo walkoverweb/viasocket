@@ -22,11 +22,11 @@ export default function IntegrateAppsComp() {
     if (apps.length > 0) {
         return (
             <>
-                <div className="cont cont__gap">
-                    <h2 className="h1">
+                <div className="cont cont__gap border border-black p-12 ">
+                    <h2 className="h1 text-center">
                         Integrate <span className="text-accent italic">5000+</span> Apps
                     </h2>
-                    <div className="grid 2xl:grid-cols-8 xl:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-3 border border-black">
+                    <div className="grid 2xl:grid-cols-8 xl:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-3 ">
                         {apps?.slice(0, 40).map((app, index) => {
                             return (
                                 <>
@@ -49,10 +49,11 @@ export default function IntegrateAppsComp() {
                             );
                         })}
                     </div>
-                    <div className="flex justify-end w-full">
+                    <div className="flex justify-center w-full">
                         <LinkButton
+                            customClasses={'btn btn-accent'}
                             href={`${process.env.NEXT_PUBLIC_BASE_URL}/integrations`}
-                            content={'See All Integrations'}
+                            content={'See All'}
                         />
                     </div>
                 </div>

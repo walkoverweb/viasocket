@@ -169,6 +169,7 @@ const Index = ({
     };
 
     const handleGenerate = async () => {
+        console.log('object');
         setCombinationLoading(true);
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         try {
@@ -221,32 +222,33 @@ const Index = ({
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
-            <div
-                className="w-full  h-dvh min-h-fit py-10  hero_gradint"
-                style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
-            >
-                <div className="container h-full flex flex-col">
-                    <Navbar navData={navData} utm={'/index'} />
-                    <div className=" flex flex-col mt-auto  cont__gap">
-                        <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
-                            <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="h1 text-black">
-                                        <strong className="text-accent">Integrate</strong> your favorite apps and
-                                        automate everyday tasks effortlessly
-                                    </h1>
-                                    <h2 className="sub__h1 text-black">
-                                        An AI powered no-code platform for workflow automation, app integrations, and
-                                        data-driven efficiency.
-                                    </h2>
+            <div className=" cont gap-24">
+                <div
+                    className="w-full  h-dvh min-h-fit py-0  hero_gradint"
+                    style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
+                >
+                    <div className="container h-full flex flex-col">
+                        <Navbar navData={navData} utm={'/index'} />
+                        <div className=" flex flex-col mt-auto  cont__gap">
+                            <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
+                                <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
+                                    <div className="flex flex-col gap-1">
+                                        <h1 className="h1 text-black">
+                                            <strong className="text-accent">Integrate</strong> your favorite apps and
+                                            automate everyday tasks effortlessly
+                                        </h1>
+                                        <h2 className="sub__h1 text-black">
+                                            An AI powered no-code platform for workflow automation, app integrations,
+                                            and data-driven efficiency.
+                                        </h2>
+                                    </div>
+                                    <LinkButton
+                                        content={'Get Started'}
+                                        customClasses={'btn btn-accent btn-lg'}
+                                        href={'/signup?utm_source=/index'}
+                                    />
                                 </div>
-                                <LinkButton
-                                    content={'Get Started'}
-                                    customClasses={'btn btn-accent btn-lg'}
-                                    href={'/signup?utm_source=/index'}
-                                />
-                            </div>
-                            {/* <div className="flex items-center gap-2 w-fit">
+                                {/* <div className="flex items-center gap-2 w-fit">
                             <Image
                                 src={'/assets/img/chat_expert.jpeg'}
                                 width={100}
@@ -262,14 +264,13 @@ const Index = ({
                                 </span>
                             </div>
                         </div> */}
-                        </div>
-                        {/* <div className="flex items-center justify-center w-full">
+                            </div>
+                            {/* <div className="flex items-center justify-center w-full">
                         <a className="version-link">Latest Version out !</a>
                     </div> */}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className=" cont cont__py gap-36">
                 <div className="container flex flex-col gap-4 ">
                     <div className="cont  max-w-[1100px]">
                         <h2 className="h1">Ready-Made Workflows for Every Need</h2>
@@ -490,7 +491,9 @@ const Index = ({
                             >
                                 <button
                                     disabled={selectedApps.length < 2}
-                                    onClick={handleGenerate}
+                                    onClick={() => {
+                                        handleGenerate();
+                                    }}
                                     className="h-[32px] w-[32px] flex items-center justify-center bg-accent text-white"
                                 >
                                     <MdArrowForward />
@@ -571,19 +574,23 @@ const Index = ({
                     </div>
                 )}
 
-                {faqData?.length > 0 && (
-                    <div className="container">
-                        <FAQSection faqData={faqData} faqName={'/index'} />
+                <div className="pb-6">
+                    {faqData?.length > 0 && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <FAQSection faqData={faqData} faqName={'/index'} />
+                        </div>
+                    )}
+                    {getStartedData && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <GetStarted data={getStartedData} isHero={'false'} />
+                        </div>
+                    )}
+                    <div className="container border border-black p-20 border-b-0">
+                        <AlphabeticalComponent step={0} />
                     </div>
-                )}
-                {getStartedData && (
                     <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
+                        <Footer footerData={footerData} />
                     </div>
-                )}
-                <div className="container">
-                    <AlphabeticalComponent step={0} />
-                    <Footer footerData={footerData} />
                 </div>
             </div>
         </>
@@ -699,28 +706,16 @@ export async function getServerSideProps() {
 }
 
 async function fetchApps(category) {
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
-        apiHeaders
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`
     );
     const rawData = await response.json();
     return rawData?.data;
 }
 
 async function fetchCombos(pathArray, industry, department) {
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
-        apiHeaders
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`
     );
     const responseData = await response.json();
     return responseData;
