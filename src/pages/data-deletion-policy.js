@@ -7,7 +7,7 @@ import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/field
 export async function getStaticProps() {
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
-    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/privacy'`);
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/data-deletion-policy'`);
     return {
         props: {
             navData: navData || [],
@@ -20,10 +20,10 @@ export async function getStaticProps() {
 export default function DataDeletionPolicy({ navData, footerData, metaData }) {
     return (
         <>
-            <MetaHeadComp metaData={metaData} page={'/privacy'} />
+            <MetaHeadComp metaData={metaData} page={'/data-deletion-policy'} />
 
             <div className="container pt-8">
-                <Navbar navData={navData} utm={'/privacy'} />
+                <Navbar navData={navData} utm={'/data-deletion-policy'} />
             </div>
             <div className="container mb-4 mt-28">
                 <div data-custom-class="body" className="cont gap-6">
