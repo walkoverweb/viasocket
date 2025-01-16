@@ -239,10 +239,12 @@ export default function IntegrationsIndexComp({
             <div className="container my-6">
                 <div className="border border-black p-20 cont cont__gap">
                     <div className="cont gap-1">
-                        <h2 className="h1 max-w-[700px]">Don't Wait for Tools - Request, And We'll Build It</h2>
+                        <h2 className="h1 max-w-[700px]">
+                            Couldn't Find Your App? Don’t Worry, We’ll Build It For You
+                        </h2>
                         <p className="text-xl">
-                            Request a custom plug for the apps you love, and our team will create it just for you,
-                            ensuring seamless integration and effortless automation for your workflows.
+                            If your app isn’t available on viaSocket, simply request an integration, and our team will
+                            build it for you, ensuring seamless connection and effortless automation of your workflows.
                         </p>
                     </div>
                     <button
