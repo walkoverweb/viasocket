@@ -21,6 +21,7 @@ export default function Navbar({ navData, utm }) {
         '/terms',
         '/integrations',
         '/404',
+        '/data-deletion-policy',
     ];
     let mode = utm && darkPageArray.includes(utm) ? 'light' : 'dark';
 
