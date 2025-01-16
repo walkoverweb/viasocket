@@ -138,10 +138,11 @@ export async function getServerSideProps(context) {
         const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations/AppOne'`);
         const blogsData = await getBlogData();
         const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[doubleApp]'`);
-        const apps = await getApps({
-            page: integrationsInfo?.page,
-            categoryData: [{ 'name': integrationsInfo?.category }],
-        });
+        const categoryData = await getCategoryData(
+            INTECATEGORY_FIELDS,
+            `filter=slug='${integrationsInfo?.category || 'all'}'`
+        );
+        const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const combosData = await getCombos(integrationsInfo);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
         if (appOneDetails) {

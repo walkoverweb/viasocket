@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
-import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward } from 'react-icons/md';
+import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward, MdArrowUpward } from 'react-icons/md';
 import axios from 'axios';
 import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
@@ -507,34 +507,41 @@ const Index = ({
                                       return (
                                           <Link
                                               href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
-                                              className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
+                                              className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between hover:bg-black hover:text-white "
                                           >
                                               <div className="cont gap-2">
-                                                  <div className="flex gap-1">
-                                                      <Image
-                                                          src={
-                                                              renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
-                                                              'https://placehold.co/40x40'
-                                                          }
-                                                          width={36}
-                                                          height={36}
-                                                          className="w-fit h-8"
-                                                          alt={combo?.trigger?.name}
-                                                      />
-                                                      <Image
-                                                          src={
-                                                              renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
-                                                              'https://placehold.co/40x40'
-                                                          }
-                                                          width={36}
-                                                          height={36}
-                                                          className="w-fit h-8"
-                                                          alt={combo?.trigger?.name}
-                                                      />
+                                                  <div className="flex items-center gap-3">
+                                                      <div className="flex gap-1">
+                                                          <Image
+                                                              src={
+                                                                  renderCombos?.plugins[combo?.trigger?.name]
+                                                                      ?.iconurl || 'https://placehold.co/40x40'
+                                                              }
+                                                              width={36}
+                                                              height={36}
+                                                              className="w-fit h-8"
+                                                              alt={combo?.trigger?.name}
+                                                          />
+                                                          <Image
+                                                              src={
+                                                                  renderCombos?.plugins[combo?.actions[0]?.name]
+                                                                      ?.iconurl || 'https://placehold.co/40x40'
+                                                              }
+                                                              width={36}
+                                                              height={36}
+                                                              className="w-fit h-8"
+                                                              alt={combo?.trigger?.name}
+                                                          />
+                                                      </div>
+                                                      <div className="flex items-center text-white">
+                                                          <span className="text-sm tracking-wider font-semibold">
+                                                              TRY IT
+                                                          </span>{' '}
+                                                          <MdArrowOutward />
+                                                      </div>
                                                   </div>
                                                   <p className="text-sm">{combo?.description}</p>
                                               </div>
-                                              <button className="btn btn-primary w-full mt-full">TRY IT</button>
                                           </Link>
                                       );
                                   })
