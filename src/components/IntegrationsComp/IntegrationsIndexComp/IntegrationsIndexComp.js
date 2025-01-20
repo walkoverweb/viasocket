@@ -10,6 +10,7 @@ import searchApps from '@/utils/searchApps';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 import createURL from '@/utils/createURL';
+import IntegrationsRequestComp from '../IntegrationsBetaComp/integrationsRequestComp';
 export default function IntegrationsIndexComp({
     pageInfo,
     integrationsInfo,
@@ -236,11 +237,31 @@ export default function IntegrationsIndexComp({
                 )}
             </div>
             <div className="container my-6">
+                <div className="border border-black p-20 cont cont__gap">
+                    <div className="cont gap-1">
+                        <h2 className="h1 max-w-[700px]">
+                            Couldn't Find Your App? Don’t Worry, We’ll Build It For You
+                        </h2>
+                        <p className="text-xl">
+                            If your app isn’t available on viaSocket, simply request an integration, and our team will
+                            build it for you, ensuring seamless connection and effortless automation of your workflows.
+                        </p>
+                    </div>
+                    <button
+                        onClick={() => document.getElementById('plugin_request_form').showModal()}
+                        className="btn btn-accent "
+                    >
+                        Request your plugin now
+                    </button>
+                </div>
+            </div>
+            <div className="container my-6">
                 <BlogGrid posts={blogsData} />
             </div>
             <div className="container my-6">
                 <Footer footerData={footerData} />
             </div>
+            <IntegrationsRequestComp />
         </>
     );
 }

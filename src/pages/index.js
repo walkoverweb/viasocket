@@ -86,9 +86,13 @@ const Index = ({
     const fetchAppsData = useCallback(async () => await fetchApps(), []);
     const filterSelectedApps = useCallback(
         (apps) => {
-            return apps.filter(
-                (app) => !selectedApps.some((selectedApp) => selectedApp?.appslugname === app?.appslugname)
-            );
+            if (apps?.length > 0) {
+                return apps?.filter(
+                    (app) => !selectedApps.some((selectedApp) => selectedApp?.appslugname === app?.appslugname)
+                );
+            } else {
+                return [];
+            }
         },
         [selectedApps]
     );
@@ -206,11 +210,11 @@ const Index = ({
 
     const handleKeyDown = (e) => {
         if (e.key === 'ArrowDown') {
-            setHighlightedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : prevIndex));
+            setHighlightedIndex((prevIndex) => (prevIndex < searchData?.length - 1 ? prevIndex + 1 : prevIndex));
         } else if (e.key === 'ArrowUp') {
             setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
         } else if (e.key === 'Enter') {
-            if (highlightedIndex >= 0 && highlightedIndex < searchData.length) {
+            if (highlightedIndex >= 0 && highlightedIndex < searchData?.length) {
                 handleSelectApp(searchData[highlightedIndex].appslugname);
             }
         }
@@ -705,7 +709,7 @@ async function fetchApps(category) {
         },
     };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`,
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=30${category && category !== 'All' ? `&category=${category}` : ''}`,
         apiHeaders
     );
     const rawData = await response.json();
