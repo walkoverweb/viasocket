@@ -21,6 +21,7 @@ export default function IntegrationsDisconnectedComp({
     blogsData,
     metaData,
 }) {
+    console.log('🚀 ~ appOneDetails:', appOneDetails);
     return (
         <>
             <IntegrationsHeadComp
@@ -102,7 +103,7 @@ export default function IntegrationsDisconnectedComp({
                     </Link>
                 </div>
             </div>
-            {appOneDetails && (
+            {appOneDetails?.events && appOneDetails?.events?.length > 0 && (
                 <div className="container cont gap-4">
                     <h2 className="h1">Actions and Triggers</h2>
                     <IntegrationsEventsComp appOneDetails={appOneDetails} />
