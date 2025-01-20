@@ -7,6 +7,7 @@ import IntegrationsAppOneComp from '@/components/IntegrationsComp/integrationsAp
 import getAppDetails from '@/utils/getAppDetail';
 import getCombos from '@/utils/getCombos';
 import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
+import IntegrationsDisconnectedComp from '@/components/IntegrationsComp/integrationsAppOneComp/integrationsDisconnectedComp/integrationsDisconnectedComp';
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
 import {
@@ -64,21 +65,36 @@ export default function Integrations({
             </>
         );
     } else if (integrationsInfo?.appone) {
-        return (
-            <>
-                <IntegrationsAppOneComp
+        const isDisconnected = pageInfo?.qurey?.status === 'disconnected';
+        if (isDisconnected) {
+            return (
+                <IntegrationsDisconnectedComp
                     pageInfo={pageInfo}
                     integrationsInfo={integrationsInfo}
                     metadata={metadata}
-                    apps={apps}
                     blogsData={blogsData}
                     appOneDetails={appOneDetails}
-                    combosData={combosData}
                     faqData={faqData}
                     footerData={footerData}
                 />
-            </>
-        );
+            );
+        } else {
+            return (
+                <>
+                    <IntegrationsAppOneComp
+                        pageInfo={pageInfo}
+                        integrationsInfo={integrationsInfo}
+                        metadata={metadata}
+                        apps={apps}
+                        blogsData={blogsData}
+                        appOneDetails={appOneDetails}
+                        combosData={combosData}
+                        faqData={faqData}
+                        footerData={footerData}
+                    />
+                </>
+            );
+        }
     } else {
         return (
             <IntegrationsIndexComp
