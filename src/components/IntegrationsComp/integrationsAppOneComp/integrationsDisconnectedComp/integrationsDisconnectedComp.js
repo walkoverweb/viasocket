@@ -98,7 +98,7 @@ export default function IntegrationsDisconnectedComp({
                     </div>
                     <Link target="_blank" href={`${process.env.NEXT_PUBLIC_FLOW_URL}/connect/${appOneDetails?.rowid}`}>
                         <button className="btn btn-primary">
-                            Connect {appOneDetails?.name} <MdOpenInNew />{' '}
+                            Reconnect {appOneDetails?.name} <MdOpenInNew />{' '}
                         </button>
                     </Link>
                 </div>
