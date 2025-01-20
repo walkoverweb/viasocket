@@ -11,6 +11,7 @@ import {
     TESTIMONIALS_FIELDS,
     TRUSTEDBY_FIELDS,
 } from '@/const/fields';
+import { MdStar } from 'react-icons/md';
 
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
@@ -83,81 +84,59 @@ const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to, utm_
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/signup'} pathArray={pathArray} />
-
-            <div className="flex w-screen md:h-screen flex-col-reverse md:flex-row">
-                <div className="md:py-10 md:pl-10 py-4 pl-3 md:pr-0 pr-3 flex flex-col md:w-3/5 w-full overflow-x-hidden overflow-y-scroll gap-6 bg-[#EDE8DE] ">
-                    <a href="/" aria-label="brand logo">
-                        <Image
-                            className="hidden md:block"
-                            src="/assets/brand/logo.svg"
-                            width={158.6}
-                            height={40}
-                            alt="viasocket"
-                        />
-                    </a>
-
-                    <h2 className=" text-2xl">Upgrade yout team with powerful automation tool</h2>
-                    <div>
-                        <p className="text-xl font-bold">We’ll help you get started, with our</p>
-                        <p className="text-xl ">24x7 Chat Support</p>
-                    </div>
-
-                    <TrustedBy trustedBy={trustedBy} />
-
-                    <div className="flex md:flex-row flex-col gap-4 w-full mt-8">
-                        {testimonials?.length > 0 &&
-                            testimonials.map((testimonial, index) => {
-                                return (
-                                    <div
-                                        className="flex flex-col  md:min-w-[380px] min-w-full p-4 md:p-8 gap-8 bg-[#F6F4EE] "
-                                        key={index}
-                                    >
-                                        <p className="font-inter text-lg font-normal leading-[32px] tracking-normal text-left ">
-                                            " {testimonial?.testimonial}"
-                                        </p>
-                                        <div className="flex items-center gap-2 mt-auto">
-                                            <Image
-                                                className="rounded-full"
-                                                src={testimonial?.client_img[0]}
-                                                width={36}
-                                                height={36}
-                                                alt={testimonial?.given_by}
-                                            />
-                                            <div>
-                                                <p className="font-inter font-semibold leading-4 tracking-normal text-left">
-                                                    {testimonial?.given_by}
-                                                </p>
-                                                <p className="font-inter text-sm font-normal leading-4 tracking-normal text-left pt-1 text-gray-400">
-                                                    {testimonial?.giver_title}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+            <div className="flex flex-col md:flex-row min-h-dvh">
+                <div className="w-full md:min-h-dvh flex">
+                    <div className=" w-full h-full flex items-center justify-center">
+                        <div className="bg-gray-100 h-fit cont w-full items-center lg:gap-16 gap-10 lg:m-14 m-8 lg:p-12 p-6">
+                            <div className="cont gap-2">
+                                <h2 className="h1 text-center">Sign Up</h2>
+                                <p className="text-center">Start your FREE 30-day trial. No credit card needed.</p>
+                            </div>
+                            <div className="cont gap-8">
+                                <div className="min-h-[222px]">
+                                    <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} className="loginBtn_google" />
+                                </div>
+                                <p>
+                                    Already have an account?{' '}
+                                    <Link className="active-link text-link" href={'/login'}>
+                                        Login
+                                    </Link>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div className="md:w-2/5 w-full bg-white  py-6 px-3 md:p-10 flex flex-col gap-6 ">
-                    <a href="/" className="md:hidden block" aria-label="brand logo">
-                        <Image
-                            className="md:hidden block"
-                            src="/assets/brand/logo.svg"
-                            width={158.6}
-                            height={40}
-                            alt="viasocket"
-                        />
-                    </a>
-                    <h2 className="text-2xl font-bold">Create an account</h2>
-                    <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} className="loginBtn_google" />
-                    <div className="flex ">
-                        <span className="text-sm">If you already have an account,</span>
-                        <Link href="/login" className="ms-1 text-sm text-sky-700">
-                            Login
-                        </Link>
+                <div className="bg-gray-100 w-full px-12 py-40 cont justify-between">
+                    <div className="max-w-[520px] w-full">
+                        <h1 className="h1 ">Welcome to viaSocket</h1>
+                        <p className="sub__h1">Connect your favorite apps and start automating your work in no time.</p>
+                    </div>
+                    <div className="cont gap-8">
+                        <div className="cont gap-5">
+                            <div className="flex gap-1">
+                                {[...Array(5)].map((_, index) => (
+                                    <MdStar key={index} fontSize={24} color="#FDE047" />
+                                ))}
+                            </div>
+                            <p className="text-lg">{testimonials[0]?.testimonial}</p>
+                        </div>
+                        <div className="flex gap-3">
+                            <Image
+                                className="rounded-full h-11 w-fit"
+                                src={testimonials[0]?.client_img[0]}
+                                width={36}
+                                height={36}
+                                alt=""
+                            />
+                            <div className="cont">
+                                <p className="font-semibold">{testimonials[0]?.given_by}</p>
+                                <p className="text-sm">{testimonials[0]?.giver_title}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            {/* <div id={process.env.NEXT_PUBLIC_REFERENCE_ID} className="loginBtn_google" /> */}
         </>
     );
 };
