@@ -7,47 +7,157 @@
   </url>
   <url>
     <loc>https://viasocket.com/pricing</loc>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/integrations</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/support</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/experts</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/free-access-programs</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/login</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/privacy</loc>
-    <priority>0.8</priority>
-    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/signup</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://viasocket.com/terms</loc>
-    <priority>0.8</priority>
-    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/discovery</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/blog</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/variables</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/functions</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/http-api-request</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/human-intervention</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/multiple-paths</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/memory</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/comment</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/shared-workspace</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/webhook</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/email-to-flow</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/folders</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/cron</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/drafts</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/delay</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/multi-step-flows</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/ask-ai</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/execution-log</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/metrics</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/notifications</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
+  </url>
+    <url>
+    <loc>https://viasocket.com/features/no-code-workflow-builder</loc>
+    <priority>1.0</priority>
+    <changefreq>daily</changefreq>
   </url>
 </urlset>
