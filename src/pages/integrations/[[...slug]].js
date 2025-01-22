@@ -1,5 +1,13 @@
 import getApps from '@/utils/getApps';
-import { getBlogData, getCategoryData, getFaqData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import {
+    getBlogData,
+    getCategoryData,
+    getDisconnectedData,
+    getFaqData,
+    getFooterData,
+    getMetaData,
+    getNavData,
+} from '@/utils/getData';
 import getPageInfo from '@/utils/getPageInfo';
 import getIntegrationsInfo from '@/utils/getInterationsInfo';
 import IntegrationsIndexComp from '@/components/IntegrationsComp/IntegrationsIndexComp/IntegrationsIndexComp';
@@ -11,6 +19,7 @@ import IntegrationsDisconnectedComp from '@/components/IntegrationsComp/integrat
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
 import {
+    DISCONNECTEDBY_FIELDS,
     FAQS_FIELDS,
     FOOTER_FIELDS,
     INTECATEGORY_FIELDS,
@@ -34,6 +43,7 @@ export default function Integrations({
     appTwoDetails,
     noData,
     categories,
+    disconnecteData,
 }) {
     if (noData) {
         return (
@@ -76,6 +86,7 @@ export default function Integrations({
                     appOneDetails={appOneDetails}
                     faqData={faqData}
                     footerData={footerData}
+                    disconnecteData={disconnecteData}
                 />
             );
         } else {
@@ -126,8 +137,8 @@ export async function getServerSideProps(context) {
             return {
                 props: {
                     pageInfo: pageInfo || {},
-                    navData: {},
-                    footerData: footerData || {},
+                    navData: [],
+                    footerData: footerData || [],
                     apps: [],
                     metadata: metadata || {},
                     blogsData: blogsData || [],
@@ -161,6 +172,10 @@ export async function getServerSideProps(context) {
         const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const combosData = await getCombos(integrationsInfo);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
+        const disconnecteData = await getDisconnectedData(
+            DISCONNECTEDBY_FIELDS,
+            `filter=slugname='${integrationsInfo?.appone}' `
+        );
         if (appOneDetails) {
             return {
                 props: {
@@ -176,6 +191,7 @@ export async function getServerSideProps(context) {
                     appOneDetails: appOneDetails || {},
                     appTwoDetails: {},
                     categoryData: {},
+                    disconnecteData: disconnecteData || [],
                 },
             };
         } else {
