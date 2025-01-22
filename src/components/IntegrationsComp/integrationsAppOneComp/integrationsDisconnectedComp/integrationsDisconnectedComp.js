@@ -20,8 +20,8 @@ export default function IntegrationsDisconnectedComp({
     footerData,
     blogsData,
     metaData,
+    disconnecteData,
 }) {
-    console.log('🚀 ~ appOneDetails:', appOneDetails);
     return (
         <>
             <IntegrationsHeadComp
@@ -91,10 +91,16 @@ export default function IntegrationsDisconnectedComp({
                 <div className="cont cont__w gap-4">
                     <div className="cont">
                         <h1 className="h1">{`Your ${appOneDetails?.name} Access is Disconnected`}</h1>
-                        <p className="sub__h1">
-                            {`Your ${appOneDetails?.name}  access has been disconnected, which may disrupt your workflows. Reconnect now to restore seamless access.
- `}
-                        </p>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html:
+                                    disconnecteData?.length > 0
+                                        ? disconnecteData[0]?.description
+                                        : `<p class="sub__h1">Your ${appOneDetails?.name}  access has been disconnected, which may disrupt your workflows. Reconnect now to restore seamless access.</p>
+ `,
+                            }}
+                        ></div>
+                        {}
                     </div>
                     <Link target="_blank" href={`${process.env.NEXT_PUBLIC_FLOW_URL}/connect/${appOneDetails?.rowid}`}>
                         <button className="btn btn-primary">
