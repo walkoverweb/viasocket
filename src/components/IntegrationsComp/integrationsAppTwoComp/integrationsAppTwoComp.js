@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { MdAdd, MdChevronRight, MdOpenInNew } from 'react-icons/md';
+import { MdAdd, MdArrowOutward, MdChevronRight, MdOpenInNew } from 'react-icons/md';
 import IntegrationsAppComp from '../integrationsAppComp/integrationsAppComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import { LinkButton, LinkText } from '@/components/uiComponents/buttons';
@@ -36,8 +36,8 @@ export default function IntegrationsAppTwoComp({
                 pageInfo={pageInfo}
             />
             <div style={{ background: appOneDetails?.brandcolor }} className="">
-                <div className="container cont py-8 gap-2 flex items-center justify-between">
-                    <div className="flex items-center w-full justify-end gap-5">
+                <div className="container cont py-8 gap-4 flex items-center justify-between">
+                    <div className="flex md:items-center w-full justify-end gap-2 md:gap-4 flex-col md:flex-row ">
                         <Link
                             target="_blank"
                             href={
@@ -46,7 +46,7 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appOneDetails?.domain
                             }
                         >
-                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[300px]">
                                 Login to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
@@ -58,39 +58,39 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appTwoDetails?.domain
                             }
                         >
-                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all ">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[300px] ">
                                 Login to {appTwoDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
                     </div>
-                    <div className="flex  gap-2 items-center w-full justify-start">
-                        <div className="flex h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
+                    <div className="flex w-full  gap-2 md:gap-4 flex-col md:flex-row ">
+                        <div className="flex md:h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
                             <Image
-                                className="h-10 w-fit"
+                                className="h-8 md:h-10 w-fit"
                                 src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                 width={36}
                                 height={36}
                                 alt="Slack"
                             />
                             <div>
-                                <h2 className="text-2xl font-bold">{appOneDetails?.name}</h2>
+                                <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
                                 <p className="text-sm text-gray-500">
-                                    {appOneDetails?.category?.slice(0, 2).join(', ')}
+                                    {appOneDetails?.category?.slice(0, 1).join(', ')}
                                 </p>
                             </div>
                         </div>
-                        <div className="flex h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
+                        <div className="flex md:h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
                             <Image
-                                className="h-10 w-fit"
+                                className="h-8 md:h-10 w-fit"
                                 src={appTwoDetails?.iconurl || 'https://placehold.co/40x40'}
                                 width={36}
                                 height={36}
                                 alt="Slack"
                             />
                             <div>
-                                <h2 className="text-2xl font-bold">{appTwoDetails?.name}</h2>
+                                <h2 className="text-xl md:text-2xl font-bold">{appTwoDetails?.name}</h2>
                                 <p className="text-sm text-gray-500">
-                                    {appTwoDetails?.category?.slice(0, 2).join(', ')}
+                                    {appTwoDetails?.category?.slice(0, 1).join(', ')}
                                 </p>
                             </div>
                         </div>
@@ -135,35 +135,40 @@ export default function IntegrationsAppTwoComp({
                                 return (
                                     <Link
                                         key={index}
-                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
+                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
                                         className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between "
                                     >
                                         <div className="cont gap-2">
-                                            <div className="flex gap-1">
-                                                <Image
-                                                    src={
-                                                        combosData?.plugins[combo?.trigger?.name]?.iconurl ||
-                                                        'https://placehold.co/40x40'
-                                                    }
-                                                    width={36}
-                                                    height={36}
-                                                    className="w-fit h-8"
-                                                    alt={combo?.trigger?.name}
-                                                />
-                                                <Image
-                                                    src={
-                                                        combosData?.plugins[combo?.actions[0]?.name]?.iconurl ||
-                                                        'https://placehold.co/40x40'
-                                                    }
-                                                    width={36}
-                                                    height={36}
-                                                    className="w-fit h-8"
-                                                    alt={combo?.trigger?.name}
-                                                />
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex gap-1">
+                                                    <Image
+                                                        src={
+                                                            combosData?.plugins[combo?.trigger?.name]?.iconurl ||
+                                                            'https://placehold.co/40x40'
+                                                        }
+                                                        width={36}
+                                                        height={36}
+                                                        className="w-fit h-8"
+                                                        alt={combo?.trigger?.name}
+                                                    />
+                                                    <Image
+                                                        src={
+                                                            combosData?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                                            'https://placehold.co/40x40'
+                                                        }
+                                                        width={36}
+                                                        height={36}
+                                                        className="w-fit h-8"
+                                                        alt={combo?.trigger?.name}
+                                                    />
+                                                </div>
+                                                <div className="flex items-center text-white">
+                                                    <span className="text-sm tracking-wider font-semibold">TRY IT</span>{' '}
+                                                    <MdArrowOutward />
+                                                </div>
                                             </div>
                                             <p className="text-sm">{combo?.description}</p>
                                         </div>
-                                        <button className="btn btn-primary w-full mt-full">TRY IT</button>
                                     </Link>
                                 );
                             })}

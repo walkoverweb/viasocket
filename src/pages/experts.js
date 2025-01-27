@@ -6,28 +6,36 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
+import { getAgencies, getExpertBlogs, getFooterData, getMetaData, getNavData, getPageData } from '@/utils/getData';
+import {
+    AGENCIES_FIELDS,
+    EXPERTBLOGS_FIELDS,
+    FOOTER_FIELDS,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+    PAGEDATA_FIELDS,
+} from '@/const/fields';
 
 export async function getServerSideProps() {
-    const IDs = ['tblajmg8e', 'tblmsw3ci', 'tbl2bk656', 'tblirrj24', 'tbl7lj8ev', 'tbl6u2cba'];
-
-    const dataPromises = IDs.map((id) => getDbdashData(id));
-    const results = await Promise.all(dataPromises);
-
+    const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/experts'`);
+    const navData = await getNavData(NAVIGATION_FIELDS);
+    const footerData = await getFooterData(FOOTER_FIELDS);
+    const pageData = await getPageData(PAGEDATA_FIELDS);
+    const agencies = await getAgencies(AGENCIES_FIELDS);
+    const expertsBlog = await getExpertBlogs(EXPERTBLOGS_FIELDS);
     return {
         props: {
-            agencies: results[0].data.rows,
-            rawPageData: results[1].data.rows,
-            metaData: results[2].data.rows,
-            expertsHelp: results[3].data.rows,
-            navData: results[4]?.data?.rows,
-            footerData: results[5]?.data?.rows,
+            agencies: agencies || [],
+            pageData: pageData[0] || {},
+            metaData: metaData[0] || {},
+            expertsHelp: expertsBlog || [],
+            navData: navData || [],
+            footerData: footerData || [],
         },
     };
 }
 
-const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navData, footerData }) => {
-    let pageData = rawPageData.find((page) => page?.name?.toLowerCase() === pathArray[1]);
-
+const Experts = ({ agencies, pageData, pathArray, metaData, expertsHelp, navData, footerData }) => {
     let verifiedArr = [];
     let nonVerifiedArr = [];
 
@@ -91,7 +99,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
                                     <li>
                                         Leverage our extensive network and client base to receive valuable referrals
                                     </li>
-                                    <li>Offer your clients free credits worth your service charges.</li>
+                                    <li>Enjoy a full year of free onboarding with our exclusive coupon code.</li>
                                 </ul>
                                 <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
                                     <button className="btn btn-md btn-accent w-fit">Be an Expert</button>
@@ -118,6 +126,7 @@ const Experts = ({ agencies, rawPageData, pathArray, metaData, expertsHelp, navD
                                         <p className="text-xl ">{expertsHelpBlog?.description}</p>
                                         {expertsHelpBlog?.link && (
                                             <Link
+                                                target="_blank"
                                                 href={expertsHelpBlog?.link}
                                                 className="flex items-center mt-auto text-[#4485F2]"
                                             >

@@ -1,5 +1,13 @@
 import getApps from '@/utils/getApps';
-import { getBlogData, getCategoryData, getFaqData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import {
+    getBlogData,
+    getCategoryData,
+    getDisconnectedData,
+    getFaqData,
+    getFooterData,
+    getMetaData,
+    getNavData,
+} from '@/utils/getData';
 import getPageInfo from '@/utils/getPageInfo';
 import getIntegrationsInfo from '@/utils/getInterationsInfo';
 import IntegrationsIndexComp from '@/components/IntegrationsComp/IntegrationsIndexComp/IntegrationsIndexComp';
@@ -7,8 +15,18 @@ import IntegrationsAppOneComp from '@/components/IntegrationsComp/integrationsAp
 import getAppDetails from '@/utils/getAppDetail';
 import getCombos from '@/utils/getCombos';
 import IntegrationsAppTwoComp from '@/components/IntegrationsComp/integrationsAppTwoComp/integrationsAppTwoComp';
+import IntegrationsDisconnectedComp from '@/components/IntegrationsComp/integrationsAppOneComp/integrationsDisconnectedComp/integrationsDisconnectedComp';
 import ErrorComp from '@/components/404/404Comp';
 import Head from 'next/head';
+import {
+    DISCONNECTEDBY_FIELDS,
+    FAQS_FIELDS,
+    FOOTER_FIELDS,
+    INTECATEGORY_FIELDS,
+    INTECATEGORYlIST_FILED,
+    METADATA_FIELDS,
+    NAVIGATION_FIELDS,
+} from '@/const/fields';
 
 export default function Integrations({
     pageInfo,
@@ -24,6 +42,8 @@ export default function Integrations({
     appOneDetails,
     appTwoDetails,
     noData,
+    categories,
+    disconnecteData,
 }) {
     if (noData) {
         return (
@@ -55,21 +75,37 @@ export default function Integrations({
             </>
         );
     } else if (integrationsInfo?.appone) {
-        return (
-            <>
-                <IntegrationsAppOneComp
+        const isDisconnected = pageInfo?.qurey?.status === 'disconnected';
+        if (isDisconnected) {
+            return (
+                <IntegrationsDisconnectedComp
                     pageInfo={pageInfo}
                     integrationsInfo={integrationsInfo}
                     metadata={metadata}
-                    apps={apps}
                     blogsData={blogsData}
                     appOneDetails={appOneDetails}
-                    combosData={combosData}
                     faqData={faqData}
                     footerData={footerData}
+                    disconnecteData={disconnecteData}
                 />
-            </>
-        );
+            );
+        } else {
+            return (
+                <>
+                    <IntegrationsAppOneComp
+                        pageInfo={pageInfo}
+                        integrationsInfo={integrationsInfo}
+                        metadata={metadata}
+                        apps={apps}
+                        blogsData={blogsData}
+                        appOneDetails={appOneDetails}
+                        combosData={combosData}
+                        faqData={faqData}
+                        footerData={footerData}
+                    />
+                </>
+            );
+        }
     } else {
         return (
             <IntegrationsIndexComp
@@ -80,6 +116,7 @@ export default function Integrations({
                 apps={apps}
                 blogsData={blogsData}
                 categoryData={categoryData}
+                categories={categories}
             />
         );
     }
@@ -87,24 +124,21 @@ export default function Integrations({
 export async function getServerSideProps(context) {
     const pageInfo = getPageInfo(context);
     const integrationsInfo = getIntegrationsInfo(pageInfo?.pathArray);
-    const footerData = await getFooterData();
+    const footerData = await getFooterData(FOOTER_FIELDS);
 
     if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
-        // const navData = await getNavData();
-        const metadata = await getMetaData();
+        const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations/AppOne/AppTwo'`);
         const blogsData = await getBlogData();
-        const faqData = await getFaqData('[singleApp]');
-        // const apps = await getApps({ page: integrationsInfo.page, category: integrationsInfo.category });
+        const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[singleApp]'`);
         const combosData = await getCombos(integrationsInfo);
-        // const categoryData = await getCategoryData(integrationsInfo?.category);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
         const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
         if ((appOneDetails, appTwoDetails)) {
             return {
                 props: {
                     pageInfo: pageInfo || {},
-                    navData: {},
-                    footerData: footerData || {},
+                    navData: [],
+                    footerData: footerData || [],
                     apps: [],
                     metadata: metadata || {},
                     blogsData: blogsData || [],
@@ -128,14 +162,20 @@ export async function getServerSideProps(context) {
         }
     } else if (integrationsInfo?.appone) {
         // const navData = await getNavData();
-        const metadata = await getMetaData();
+        const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations/AppOne'`);
         const blogsData = await getBlogData();
-        const faqData = await getFaqData('[singleApp]');
-        const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
+        const faqData = await getFaqData(FAQS_FIELDS, `filter=page='[doubleApp]'`);
+        const categoryData = await getCategoryData(
+            INTECATEGORY_FIELDS,
+            `filter=slug='${integrationsInfo?.category || 'all'}'`
+        );
+        const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const combosData = await getCombos(integrationsInfo);
-        // const categoryData = await getCategoryData(integrationsInfo?.category);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
-        // const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
+        const disconnecteData = await getDisconnectedData(
+            DISCONNECTEDBY_FIELDS,
+            `filter=slugname='${integrationsInfo?.appone}' `
+        );
         if (appOneDetails) {
             return {
                 props: {
@@ -151,10 +191,11 @@ export async function getServerSideProps(context) {
                     appOneDetails: appOneDetails || {},
                     appTwoDetails: {},
                     categoryData: {},
+                    disconnecteData: disconnecteData || [],
                 },
             };
         } else {
-            const navData = await getNavData();
+            const navData = await getNavData(NAVIGATION_FIELDS);
             return {
                 props: {
                     noData: true,
@@ -164,12 +205,16 @@ export async function getServerSideProps(context) {
             };
         }
     } else {
-        const navData = await getNavData();
-        const metadata = await getMetaData();
+        const navData = await getNavData(NAVIGATION_FIELDS);
+        const metadata = await getMetaData(METADATA_FIELDS, `filter=name='/integrations'`);
         const blogsData = await getBlogData();
-        const faqData = await getFaqData('[singleApp]');
-        const apps = await getApps({ page: integrationsInfo?.page, category: integrationsInfo?.category });
-        const categoryData = await getCategoryData(integrationsInfo?.category);
+        const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/integrations'`);
+        const categoryData = await getCategoryData(
+            INTECATEGORY_FIELDS,
+            `filter=slug='${integrationsInfo?.category || 'all'}'`
+        );
+        const apps = await getApps({ page: integrationsInfo?.page, categoryData });
+        const categories = await getCategoryData(INTECATEGORYlIST_FILED);
         return {
             props: {
                 pageInfo: pageInfo || {},
@@ -184,6 +229,7 @@ export async function getServerSideProps(context) {
                 appOneDetails: {},
                 appTwoDetails: {},
                 categoryData: (categoryData?.length > 0 && categoryData[0]) || {},
+                categories: categories || [],
             },
         };
     }

@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { MdSearch } from 'react-icons/md';
 import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
-import categories from '@/data/categories.json';
 import style from './IntegrationsIndexComp.module.scss';
 import { APPERPAGE } from '@/const/integrations';
 import { useEffect, useState } from 'react';
@@ -11,6 +10,7 @@ import searchApps from '@/utils/searchApps';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
 import createURL from '@/utils/createURL';
+import IntegrationsRequestComp from '../IntegrationsBetaComp/integrationsRequestComp';
 export default function IntegrationsIndexComp({
     pageInfo,
     integrationsInfo,
@@ -19,12 +19,21 @@ export default function IntegrationsIndexComp({
     apps,
     blogsData,
     categoryData,
+    categories,
 }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
     const [searchedApps, setSearchedApps] = useState([]);
     const [searchedCategoies, setSearchedCategoies] = useState();
 
+    const filterPriorityCategories = (cats) => {
+        if (!Array.isArray(cats)) return [];
+        return cats.sort((a, b) => {
+            const priorityA = Number(a.priority) || Infinity;
+            const priorityB = Number(b.priority) || Infinity;
+            return priorityA - priorityB || a.name.localeCompare(b.name);
+        });
+    };
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebounceValue(searchTerm);
@@ -36,10 +45,10 @@ export default function IntegrationsIndexComp({
     }, [searchTerm]);
     useEffect(() => {
         if (debounceValue) {
-            const filteredCategories = categories?.categories?.filter((category) =>
-                category.toLowerCase().includes(debounceValue.toLowerCase())
+            const filteredCategories = categories?.filter((category) =>
+                category?.name?.toLowerCase()?.includes(debounceValue.toLowerCase())
             );
-            setSearchedCategoies(filteredCategories);
+            setSearchedCategoies(filterPriorityCategories(filteredCategories));
             const loadApps = async () => {
                 const fetchedApps = await searchApps(debounceValue);
                 setSearchedApps(fetchedApps || []);
@@ -67,6 +76,7 @@ export default function IntegrationsIndexComp({
             return url;
         }
     };
+
     return (
         <>
             <IntegrationsHeadComp metaData={categoryData} integrationsInfo={integrationsInfo} pageInfo={pageInfo} />
@@ -92,32 +102,36 @@ export default function IntegrationsIndexComp({
                             {debounceValue ? (
                                 searchedCategoies ? (
                                     searchedCategoies.map((category, index) => {
-                                        return (
-                                            <Link
-                                                key={index}
-                                                className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                                href={createURL(`/integrations/category/${category}`)}
-                                            >
-                                                {category}
-                                            </Link>
-                                        );
+                                        if (!category?.hidden && category?.slug) {
+                                            return (
+                                                <a
+                                                    key={index}
+                                                    className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category?.slug === integrationsInfo?.category ? 'border-accent' : 'border-white hover:border-black'}`}
+                                                    href={createURL(`/integrations/category/${category?.slug}`)}
+                                                >
+                                                    {category?.name}
+                                                </a>
+                                            );
+                                        }
                                     })
                                 ) : (
                                     <span className="p-8 text-3xl w-full col-span-3 border border-black border-l-0 border-t-0 ">
-                                        No Apps found for Searched name{' '}
+                                        No category found for Searched name{' '}
                                     </span>
                                 )
                             ) : (
-                                categories?.categories.map((category, index) => {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category === decodeURIComponent(integrationsInfo?.category) ? 'border-accent' : 'border-white hover:border-black'}`}
-                                            href={createURL(`/integrations/category/${category}`)}
-                                        >
-                                            {category}
-                                        </Link>
-                                    );
+                                filterPriorityCategories(categories)?.map((category, index) => {
+                                    if (!category?.hidden && category?.slug) {
+                                        return (
+                                            <a
+                                                key={index}
+                                                className={`border-r-0 border-y-0 border-8 uppercase text-sm font-medium tracking-wider px-3 py-2 hover:bg-black hover:text-white ${category?.slug === integrationsInfo?.category ? 'border-accent' : 'border-white hover:border-black'}`}
+                                                href={createURL(`/integrations/category/${category?.slug}`)}
+                                            >
+                                                {category?.name}
+                                            </a>
+                                        );
+                                    }
                                 })
                             )}
                         </div>
@@ -128,7 +142,7 @@ export default function IntegrationsIndexComp({
                                 <>
                                     <h1 className="h1 text-accent">
                                         <span className="text-black italic">{categoryData?.appcount || 300}+</span>{' '}
-                                        {decodeURIComponent(integrationsInfo?.category)}
+                                        {decodeURIComponent(categoryData?.name)}
                                     </h1>
                                     <p>{categoryData?.subheading}</p>
                                 </>
@@ -223,11 +237,31 @@ export default function IntegrationsIndexComp({
                 )}
             </div>
             <div className="container my-6">
+                <div className="border border-black p-20 cont cont__gap">
+                    <div className="cont gap-1">
+                        <h2 className="h1 max-w-[700px]">
+                            Couldn't Find Your App? Don’t Worry, We’ll Build It For You
+                        </h2>
+                        <p className="text-xl">
+                            If your app isn’t available on viaSocket, simply request an integration, and our team will
+                            build it for you, ensuring seamless connection and effortless automation of your workflows.
+                        </p>
+                    </div>
+                    <button
+                        onClick={() => document.getElementById('plugin_request_form').showModal()}
+                        className="btn btn-accent "
+                    >
+                        Request your plugin now
+                    </button>
+                </div>
+            </div>
+            <div className="container my-6">
                 <BlogGrid posts={blogsData} />
             </div>
             <div className="container my-6">
                 <Footer footerData={footerData} />
             </div>
+            <IntegrationsRequestComp />
         </>
     );
 }
