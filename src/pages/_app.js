@@ -1,7 +1,7 @@
 import '@/scss/global.scss';
 
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import HeadComp from '@/components/headComp/headComp';
 import ChatWidget from '@/components/chat-widget/chat-wdget';
 
@@ -31,6 +31,29 @@ export default function MyApp({ Component, pageProps, pagesData }) {
         showNavbar = true;
     }
 
+    const [showSkeleton, setShowSkeleton] = useState(false);
+    useEffect(() => {
+        const handleLinkClick = (event) => {
+            let target = event.target;
+
+            while (target && target.tagName !== 'A') {
+                target = target.parentElement;
+            }
+
+            if (target && target.tagName === 'A') {
+                event.preventDefault();
+                setShowSkeleton(true);
+                window.location.href = target.href;
+            }
+        };
+
+        document.addEventListener('click', handleLinkClick);
+
+        return () => {
+            document.removeEventListener('click', handleLinkClick);
+        };
+    }, []);
+
     useEffect(() => {
         const helloConfig = {
             widgetToken: 'a13cc',
@@ -48,38 +71,24 @@ export default function MyApp({ Component, pageProps, pagesData }) {
             document.head.removeChild(script);
         };
     }, []);
-    // useEffect(() => {
-    //     let threadId = localStorage.getItem('threadId');
-    //     if (!threadId) {
-    //         const generateRandomId = (length) =>
-    //             Array.from({ length }, () =>
-    //                 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.charAt(
-    //                     Math.floor(Math.random() * 62)
-    //                 )
-    //             ).join('');
-    //         // generate a random threadid which includes numbers and strings
-    //         threadId = generateRandomId(8);
-    //         localStorage.setItem('threadId', threadId);
-    //     }
-    //     const timer = setInterval(() => {
-    //         if (typeof SendDataToChatbot !== 'undefined') {
-    //             SendDataToChatbot({
-    //                 'bridgeName': 'viasocket.com',
-    //                 'threadId': threadId,
-    //                 'hideIcon': true,
-    //             });
-    //         }
-    //         clearInterval(timer);
-    //     }, 300);
-    //     return () => {
-    //         clearInterval(timer);
-    //     };
-    // }, []);
     return (
         <>
             <HeadComp />
             <ChatWidget />
-            <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
+            <Skeleton />
+            {showSkeleton ? (
+                <Skeleton />
+            ) : (
+                <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
+            )}
         </>
+    );
+}
+
+export function Skeleton() {
+    return (
+        <div className="h-dvh w-dvw container cont cont__py ">
+            <div className="h-30 w-100 skeleton bg-gray-100 rounded-none">ffd</div>
+        </div>
     );
 }
