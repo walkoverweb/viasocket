@@ -212,3 +212,13 @@ $button-transition-timing: 100ms;
 .modal-box {
     border-radius: 0px !important;
 }
+.country-autocomplete {
+    @apply flex items-center justify-center;
+    div {
+        input {
+            background-color: transparent !important;
+            @apply focus:outline-none;
+            @apply placeholder-gray-500;
+        }
+    }
+}

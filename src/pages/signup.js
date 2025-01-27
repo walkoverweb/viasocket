@@ -1,16 +1,9 @@
 import { useLayoutEffect } from 'react';
 import Image from 'next/image';
-import TrustedBy from '@/components/trustedBy/trustedBy';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import { getFooterData, getMetaData, getNavData, getTestimonialData, getTrustedByData } from '@/utils/getData';
-import {
-    FOOTER_FIELDS,
-    METADATA_FIELDS,
-    NAVIGATION_FIELDS,
-    TESTIMONIALS_FIELDS,
-    TRUSTEDBY_FIELDS,
-} from '@/const/fields';
+import { getFooterData, getMetaData, getNavData, getTestimonialData } from '@/utils/getData';
+import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS, TESTIMONIALS_FIELDS } from '@/const/fields';
 import { MdStar } from 'react-icons/md';
 
 export async function getServerSideProps(context) {
@@ -19,7 +12,6 @@ export async function getServerSideProps(context) {
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
     const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/signup'`);
-    const trustedBy = await getTrustedByData(TRUSTEDBY_FIELDS);
     const testimonials = await getTestimonialData(TESTIMONIALS_FIELDS);
     return {
         props: {
@@ -28,13 +20,12 @@ export async function getServerSideProps(context) {
             metaData: metaData[0] || {},
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
-            trustedBy: trustedBy || [],
             testimonials: testimonials || [],
         },
     };
 }
 
-const Login = ({ metaData, testimonials, trustedBy, pathArray, redirect_to, utm_source }) => {
+const Login = ({ metaData, testimonials, pathArray, redirect_to, utm_source }) => {
     useLayoutEffect(() => {
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
