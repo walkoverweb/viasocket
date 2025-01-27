@@ -240,8 +240,7 @@ const Index = ({
                                         automate everyday tasks effortlessly
                                     </h1>
                                     <h2 className="sub__h1 text-black">
-                                        An AI powered no-code platform for workflow automation, app integrations, and
-                                        data-driven efficiency.
+                                        Automate everything, but keep human intervention where it matters.
                                     </h2>
                                 </div>
                                 <LinkButton

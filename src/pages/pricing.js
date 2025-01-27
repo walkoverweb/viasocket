@@ -1,5 +1,4 @@
 import FAQSection from '@/components/faqSection/faqSection';
-import { getDbdashData } from './api';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import Navbar from '@/components/navbar/navbar';

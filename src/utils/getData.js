@@ -3,6 +3,7 @@ import {
     ALLFEATURES,
     CASESTUDY,
     CATEGORY,
+    DISCONNECTED,
     EXPERTBLOGS,
     FAQS,
     GETSTARTED,
@@ -130,4 +131,9 @@ export async function getBlogData() {
         console.error('Error fetching blog data:', error);
         return [];
     }
+}
+
+export async function getDisconnectedData(fields, filter) {
+    const data = await getDataFromTable(DISCONNECTED, handleFieldsFilter(fields, filter));
+    return handleData(data);
 }

@@ -24,3 +24,4 @@ export const INTECATEGORY_FIELDS = ['name', 'slug', 'subheading', 'title', 'desc
 export const FAQS_FIELDS = ['que', 'ans'];
 export const TRUSTEDBY_FIELDS = ['name', 'icon'];
 export const INTECATEGORYlIST_FILED = ['name', 'slug', 'hidden', 'priority'];
+export const DISCONNECTEDBY_FIELDS = ['slugname', 'description'];

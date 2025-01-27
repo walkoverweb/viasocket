@@ -45,7 +45,7 @@ export default function IntegrationsAppOneComp({
                             href={`${process.env.NEXT_PUBLIC_FLOW_URL}/connect/${appOneDetails?.rowid}`}
                         >
                             <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
-                                Connect {appOneDetails?.name} <MdOpenInNew />{' '}
+                                Connect to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
                         <Link
