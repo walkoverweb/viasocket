@@ -37,6 +37,7 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
+import { FaArrowCircleLeft, FaArrowCircleRight, FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -626,75 +627,189 @@ const TestimonialsSection = ({ testimonials }) => (
     </div>
 );
 
+
+
+// const CaseStudiesSection = ({ caseStudies }) => {
+//     const [currentIndex, setCurrentIndex] = useState(0);
+  
+//     const handleNext = () => {
+//       setCurrentIndex((prevIndex) => (prevIndex + 1) % caseStudies.length);
+//     };
+  
+//     const handlePrev = () => {
+//       setCurrentIndex((prevIndex) => (prevIndex - 1 + caseStudies.length) % caseStudies.length);
+//     };
+  
+//     return (
+//       <div className="flex flex-col gap-9">
+//         <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
+//         <div className="carousel w-full max-w-4xl mx-auto py-8 relative">
+//           <button
+//             onClick={handlePrev}
+//             className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10"
+//           >
+//             Prev
+//           </button>
+//           <div className="flex overflow-hidden relative transition-transform duration-500">
+//             <div
+//               className="flex"
+//               style={{
+//                 transform: `translateX(-${currentIndex * 100}%)`, 
+//               }}
+//             >
+//               {caseStudies.map((caseStudy, index) => (
+//                 <CaseStudyLink
+//                   key={index}
+//                   caseStudy={caseStudy}
+//                   isCenter={index === currentIndex}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//           <button
+//             onClick={handleNext}
+//             className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10"
+//           >
+//             Next
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   };
+  
+  
+//   const CaseStudyLink = ({ caseStudy, isCenter }) => {
+//     return (
+//       <div
+//         aria-label="casestudy"
+//         className={`transition-all duration-500 bg-neutral flex flex-col overflow-hidden ${
+//           isCenter ? "scale-110 z-10" : "scale-100 opacity-70"
+//         }`}
+//         style={{ transition: `transform 0.5s ease` }}
+//       >
+//         {/* Fixed Size Card */}
+//         <div className="w-96 h-60 overflow-hidden relative">
+//           {/* Image */}
+//           <Image
+//             src={caseStudy?.image[0]}
+//             alt={caseStudy?.title}
+//             width={288}
+//             height={384}
+//             className="w-full h-full object-cover"
+//           />
+//         </div>
+  
+//         {/* Title and Link */}
+//         <div
+//           className={`w-72 p-3 text-black flex flex-col gap-2 justify-center items-center text-center 
+//           ${isCenter ? "opacity-100" : "opacity-80"}`}
+//         >
+//           <p className="text-sm font-semibold">{caseStudy?.title}</p>
+//           <LinkButton href={caseStudy?.link} content="Know More" />
+//         </div>
+//       </div>
+//     );
+//   };
+  
+
+
 const CaseStudiesSection = ({ caseStudies }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
 
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % caseStudies.length);
-    };
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? caseStudies.length - 1 : prev - 1));
+  };
 
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + caseStudies.length) % caseStudies.length);
-    };
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev === caseStudies.length - 1 ? 0 : prev + 1));
+  };
 
-    return (
-        <div className="flex flex-col gap-9">
-            <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
-            <div className="carousel w-full max-w-4xl mx-auto py-8 relative">
-                <button onClick={handlePrev} className="absolute left-0 top-1/2 transform -translate-y-1/2">
-                    Prev
-                </button>
-                <div className="flex overflow-hidden">
-                    <div
-                        className="flex transition-transform duration-300"
-                        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                    >
-                        {caseStudies.map((caseStudy, index) => (
-                            <CaseStudyLink key={index} caseStudy={caseStudy} />
-                        ))}
-                    </div>
-                </div>
-                <button onClick={handleNext} className="absolute right-0 top-1/2 transform -translate-y-1/2">
-                    Next
-                </button>
-            </div>
+  return (
+    <div className="flex flex-col gap-9">
+      <h2 className="h1 text-center">Trusted by hundreds of businesses like yours</h2>
+
+ 
+      <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
+
+        <div className="flex flex-col md:hidden justify-center gap-4">
+          <button className="border-2 border-black p-2" onClick={prevSlide}>
+            <FaArrowUp size={40} />
+          </button>
         </div>
-    );
+        <div className='hidden md:flex flex-row gap-4'>
+            <button className="border-2 border-black p-2" onClick={prevSlide}>
+              <FaArrowLeft size={50} />
+          </button>
+        </div>
+
+        <div className="w-full md:w-3/5 overflow-hidden">
+          <div className="w-full md:w-[600px] mx-auto relative h-[400px]">
+            <div className="flex w-full transition-transform duration-500 justify-center h-5/6 pt-14 md:pt-0">
+              {caseStudies.map((caseStudy, index) => {
+                const isCenter = index === currentIndex;
+
+                return (
+                  <div
+                    key={index}
+                    className="custom-translate"
+                    style={{
+                      '--translate-value': `${(index - currentIndex) * 100}%`,
+                      opacity: isCenter ? 1 : 0.7,
+                      zIndex: isCenter ? 10 : 1,
+                    }}
+                  >
+                    <div
+                      className={`transition-all duration-500 flex flex-col items-center bg-white overflow-hidden border-2 border-black ${
+                        isCenter
+                          ? 'h-[300px] w-[400px] md:h-96 md:w-[600px]'
+                          : 'h-[300px] w-[300px] md:h-80 md:w-[600px]'
+                      }`}
+                    >
+                      <div className="w-full h-3/4 overflow-hidden">
+                        <Image
+                          src={caseStudy?.image[0]}
+                          alt={caseStudy?.title}
+                          width={288}
+                          height={384}
+                          className={`w-full h-full object-cover transition-all duration-500 ${
+                            isCenter ? 'scale-110' : 'scale-100'
+                          }`}
+                        />
+                      </div>
+                      <div
+                        className={`w-full p-3 text-black flex flex-col gap-2 justify-center items-center text-center ${
+                          isCenter ? 'opacity-100' : 'opacity-80'
+                        }`}
+                      >
+                        <p className="text-xs">{caseStudy?.title}</p>
+                        <LinkButton href={caseStudy?.link} content={"Know More"} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden md:flex flex-row gap-4">
+          <button className="border-2 border-black p-2" onClick={nextSlide}>
+            <FaArrowRight size={50} />
+          </button>
+        </div>
+        <div className="flex flex-col md:hidden justify-center gap-4">
+            <button className="border-2 border-black p-2" onClick={nextSlide}>
+                <FaArrowDown size={40} />
+            </button>
+        </div> 
+      </div>
+    </div>
+  );
 };
 
-const CaseStudyLink = ({ caseStudy }) => {
-    const isPriority = caseStudy?.priority === '1';
-    return (
-        <>
-            <div
-                aria-label="casestudy"
-                className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
-                    isPriority
-                        ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
-                        : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
-                }`}
-            >
-                <>
-                    <div className=" casestudy_img overflow-hidden w-full h-full ">
-                        <Image
-                            className="h-full w-full"
-                            src={caseStudy?.image[0]}
-                            width={1080}
-                            height={1080}
-                            alt={caseStudy?.title}
-                        />
-                    </div>
-                    <div className="w-full p-3 bg-neutral flex flex-col gap-3 justify-center">
-                        <p>{caseStudy?.title}</p>
-                        {/* <LinkButton href={caseStudy?.link} title={'Read More'} />
-                         */}
-                        <LinkButton href={caseStudy?.link} content={'Know More'} />
-                    </div>
-                </>
-            </div>
-        </>
-    );
-};
+
+
+  
 
 export default Index;
 
