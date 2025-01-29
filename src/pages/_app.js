@@ -75,12 +75,13 @@ export default function MyApp({ Component, pageProps, pagesData }) {
         <>
             <HeadComp />
             <ChatWidget />
-            <Skeleton />
-            {showSkeleton ? (
+            <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
+            {/* <Skeleton /> */}
+            {/* {showSkeleton ? (
                 <Skeleton />
             ) : (
-                <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
-            )}
+            
+            )} */}
         </>
     );
 }
@@ -91,14 +92,17 @@ export function Skeleton() {
             {/* Responsive Navbar */}
             <div className="flex items-center justify-between mb-8">
                 <div className="h-10 w-40 bg-gray-200 rounded-md skeleton"></div> {/* Logo */}
-                <div className="hidden md:flex gap-4"> {/* Hide links on smaller screens */}
+                <div className="hidden md:flex gap-4">
+                    {' '}
+                    {/* Hide links on smaller screens */}
                     <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
                     <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
                     <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
                     <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
                 </div>
                 <div className="md:hidden">
-                    <div className="h-8 w-8 bg-gray-200 rounded-md skeleton"></div> {/* Hamburger menu for small screens */}
+                    <div className="h-8 w-8 bg-gray-200 rounded-md skeleton"></div>{' '}
+                    {/* Hamburger menu for small screens */}
                 </div>
             </div>
 
@@ -126,7 +130,9 @@ export function Skeleton() {
                         <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
                     </div>
 
-                    <div className="h-full w-full rounded-md hidden lg:block"> {/* Hidden on small screens */}
+                    <div className="h-full w-full rounded-md hidden lg:block">
+                        {' '}
+                        {/* Hidden on small screens */}
                         <div className="h-10 w-2/5 bg-gray-200 rounded-md skeleton mb-4"></div>
                         <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
                         <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
