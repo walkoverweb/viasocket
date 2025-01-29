@@ -75,12 +75,13 @@ export default function MyApp({ Component, pageProps, pagesData }) {
         <>
             <HeadComp />
             <ChatWidget />
+            <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
             {/* <Skeleton /> */}
-            {showSkeleton ? (
+            {/* {showSkeleton ? (
                 <Skeleton />
             ) : (
-                <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
-            )}
+            
+            )} */}
         </>
     );
 }
