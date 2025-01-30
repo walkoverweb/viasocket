@@ -98,7 +98,7 @@ export default function IntegrationsAppTwoComp({
                 </div>
             </div>
             <div className="container cont cont__gap cont__py ">
-                <div className="flex items-center gap-2 text-lg">
+                <div className="flex flex-wrap items-center md:gap-2 gap-0 md:text-lg text-sm">
                     <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
                     </Link>

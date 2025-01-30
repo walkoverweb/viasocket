@@ -55,7 +55,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
             {combosData ? (
                 <>
                     <div className="cont items-start w-full gap-2">
-                        <div className="flex w-full gap-2">
+                        <div className="flex lg:flex-row flex-col w-full gap-2">
                             {trigger?.length > 0 && (
                                 <div className="cont gap-2 w-full">
                                     <h3 className="h2">Triggers</h3>
@@ -99,7 +99,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                                     setSelectedAction(event);
                                                 }}
                                                 key={index}
-                                                className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start hover:bg-black hover:text-white cursor-pointer"
+                                                className="p-4 border max-w-[800px] border-black flex gap-3 flex-col sm:flex-row items-start hover:bg-black hover:text-white cursor-pointer"
                                             >
                                                 <Image
                                                     src={getIcons(event?.pluginslugname)}
@@ -138,7 +138,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                         <div className="fixed bottom-0 left-0 w-full z-[99999] bg-white border border-black p-4 ">
                             <div className="container flex flex-col lg:flex-row items-center gap-3 justify-between">
                                 <div className="flex items-center gap-4 w-full flex-col md:flex-row ">
-                                    <div className="flex items-center gap-2 border border-black p-2 w-full min-h-12 min-w-[220px]">
+                                    <div className="flex items-center gap-2 max-w-[800px] border border-black p-2 w-full min-h-12 min-w-[220px]">
                                         {selectedTrigger && (
                                             <>
                                                 <Image
@@ -161,7 +161,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                         )}
                                     </div>
                                     <MdAdd fontSize={30} />
-                                    <div className="flex items-center gap-2 border border-black p-2 w-full min-h-12 min-w-[220px]">
+                                    <div className="flex items-center max-w-[800px] gap-2 border border-black p-2 w-full min-h-12 min-w-[220px]">
                                         {selectedAction && (
                                             <>
                                                 <Image
@@ -208,7 +208,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                 </>
             ) : (
                 <div className="cont items-start w-full gap-2">
-                    <div className="flex w-full gap-2">
+                    <div className="flex lg:flex-row flex-col w-full gap-2">
                         {trigger?.length > 0 && (
                             <div className="cont gap-2 w-full">
                                 <h3 className="h2">Triggers</h3>
@@ -216,7 +216,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                     return (
                                         <div
                                             key={index}
-                                            className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
+                                            className="p-4 border max-w-[800px] border-black flex gap-3 flex-col sm:flex-row items-start"
                                         >
                                             <Image
                                                 src={getIcons(event?.pluginslugname)}
@@ -241,7 +241,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                     return (
                                         <div
                                             key={index}
-                                            className="p-4 border border-black flex gap-3 flex-col sm:flex-row items-start"
+                                            className="p-4 border max-w-[800px] border-black flex gap-3 flex-col sm:flex-row items-start"
                                         >
                                             <Image
                                                 src={getIcons(event?.pluginslugname)}
