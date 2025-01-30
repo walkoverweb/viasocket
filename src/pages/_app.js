@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import HeadComp from '@/components/headComp/headComp';
 import ChatWidget from '@/components/chat-widget/chat-wdget';
+import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter();
@@ -75,72 +76,96 @@ export default function MyApp({ Component, pageProps, pagesData }) {
         <>
             <HeadComp />
             <ChatWidget />
-            <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
-            {/* <Skeleton /> */}
-            {/* {showSkeleton ? (
+            {/* <Skeleton />  */}
+            {showSkeleton ? (
                 <Skeleton />
             ) : (
-            
-            )} */}
+                <Component {...pageProps} pathArray={pathArray} rawpathArray={rawpathArray} />
+            )}
         </>
     );
 }
 
 export function Skeleton() {
     return (
-        <div className="h-dvh w-dvw container p-6 overflow-hidden">
-            {/* Responsive Navbar */}
-            <div className="flex items-center justify-between mb-8">
-                <div className="h-10 w-40 bg-gray-200 rounded-md skeleton"></div> {/* Logo */}
-                <div className="hidden md:flex gap-4">
-                    {' '}
-                    {/* Hide links on smaller screens */}
-                    <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
-                    <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
-                    <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
-                    <div className="h-8 w-20 bg-gray-200 rounded-md skeleton"></div>
-                </div>
-                <div className="md:hidden">
-                    <div className="h-8 w-8 bg-gray-200 rounded-md skeleton"></div>{' '}
-                    {/* Hamburger menu for small screens */}
-                </div>
-            </div>
+        <>
+            <Head>
+                <title>Loading . . . </title>
+                <meta content="Loading the viaSocket application, please wait..."></meta>
+            </Head>
 
-            <div className="flex flex-wrap lg:flex-nowrap gap-8 w-full">
-                {/* Left Section */}
-                <div className="hidden lg:flex flex-col w-1/5 gap-4">
-                    <div className="h-1/3 bg-gray-200 rounded-md skeleton"></div>
-                    <div className="h-2/3 bg-gray-200 rounded-md skeleton"></div>
-                </div>
-
-                {/* Middle Section */}
-                <div className="flex flex-col gap-8 w-full lg:w-3/5">
-                    <div className="h-full w-full rounded-md">
-                        <div className="h-10 w-3/4 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 w-2/3 bg-gray-200 rounded-md skeleton mb-4"></div>
-                    </div>
-
-                    <div className="h-full w-full rounded-md">
-                        <div className="h-10 w-1/2 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                    </div>
-
-                    <div className="h-full w-full rounded-md hidden lg:block">
+            <div className="h-dvh w-dvw container p-6 overflow-hidden">
+                {/* Responsive Navbar */}
+                <div className="flex items-center justify-between mb-8">
+                    <div className="h-10 w-40 bg-gray-100 rounded-md skeleton"></div> {/* Logo */}
+                    <div className="hidden md:flex gap-4">
                         {' '}
-                        {/* Hidden on small screens */}
-                        <div className="h-10 w-2/5 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 bg-gray-200 rounded-md skeleton mb-4"></div>
-                        <div className="h-6 w-4/5 bg-gray-200 rounded-md skeleton mb-4"></div>
+                        {/* Hide links on smaller screens */}
+                        <div className="h-8 w-20 bg-gray-100 rounded-md skeleton"></div>
+                        <div className="h-8 w-20 bg-gray-100 rounded-md skeleton"></div>
+                        <div className="h-8 w-20 bg-gray-100 rounded-md skeleton"></div>
+                        <div className="h-8 w-20 bg-gray-100 rounded-md skeleton"></div>
+                    </div>
+                    <div className="md:hidden">
+                        <div className="h-8 w-8 bg-gray-100 rounded-md skeleton"></div>{' '}
+                        {/* Hamburger menu for small screens */}
+                    </div>
+                </div>
+
+                <div className="flex flex-wrap lg:flex-nowrap gap-8 w-full">
+                    {/* Left Section */}
+                    <div className="hidden lg:flex flex-col w-1/5 gap-4">
+                        <div className="h-1/3 bg-gray-100 rounded-md skeleton"></div>
+                        <div className="h-2/3 bg-gray-100 rounded-md skeleton"></div>
+                    </div>
+
+                    {/* Middle Section */}
+                    <div className="flex flex-col gap-8 w-full lg:w-3/5">
+                        <div className="h-full w-full rounded-md">
+                            <div className="h-10 w-3/4 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 w-2/3 bg-gray-100 rounded-md skeleton mb-4"></div>
+                        </div>
+
+                        <div className="h-full w-full rounded-md">
+                            <div className="h-10 w-1/2 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                        </div>
+
+                        <div className="h-full w-full rounded-md hidden lg:block">
+                            {' '}
+                            {/* Hidden on small screens */}
+                            <div className="h-10 w-2/5 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 w-4/5 bg-gray-100 rounded-md skeleton mb-4"></div>
+                        </div>
+                        <div className="h-full w-full rounded-md hidden lg:block">
+                            {' '}
+                            {/* Hidden on small screens */}
+                            <div className="h-10 w-2/5 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 w-4/5 bg-gray-100 rounded-md skeleton mb-4"></div>
+                        </div>
+                        <div className="h-full w-full rounded-md hidden lg:block">
+                            {' '}
+                            {/* Hidden on small screens */}
+                            <div className="h-10 w-2/5 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 bg-gray-100 rounded-md skeleton mb-4"></div>
+                            <div className="h-6 w-4/5 bg-gray-100 rounded-md skeleton mb-4"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
