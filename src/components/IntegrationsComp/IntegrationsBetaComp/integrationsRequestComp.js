@@ -21,6 +21,11 @@ export function RequestPlugin() {
         }));
     };
     const handleSubmit = async (event) => {
+        window.signals.identify({
+            email: formData.email,
+            name: formData.name,
+        });
+
         event.preventDefault();
 
         debugger;

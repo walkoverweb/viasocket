@@ -24,6 +24,11 @@ export default function RequestPluginFormComp({ appOneDetails }) {
         }));
     };
     const handleSubmit = async (event) => {
+        window.signals.identify({
+            email: formData.email,
+            name: formData.name,
+        });
+
         event.preventDefault();
 
         if (!formData.name || !formData.email) {
