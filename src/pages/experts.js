@@ -99,7 +99,7 @@ const Experts = ({ agencies, pageData, pathArray, metaData, expertsHelp, navData
                                     <li>
                                         Leverage our extensive network and client base to receive valuable referrals
                                     </li>
-                                    <li>Offer your clients free credits worth your service charges.</li>
+                                    <li>Enjoy a full year of free onboarding with our exclusive coupon code.</li>
                                 </ul>
                                 <Link target="_blank" href="https://calendly.com/rpaliwal71/15-mins?month=2024-03">
                                     <button className="btn btn-md btn-accent w-fit">Be an Expert</button>

@@ -38,14 +38,14 @@ export default function IntegrationsAppOneComp({
                 integrationsInfo={integrationsInfo}
             />
             <div style={{ background: appOneDetails?.brandcolor }}>
-                <div className="container cont py-8 gap-2 flex items-center justify-between">
-                    <div className="flex items-center w-full justify-end gap-5">
+                <div className="container cont py-8 gap-4 flex items-center justify-between">
+                    <div className="flex md:items-center w-full justify-end gap-2 md:gap-4 flex-col md:flex-row ">
                         <Link
                             target="_blank"
                             href={`${process.env.NEXT_PUBLIC_FLOW_URL}/connect/${appOneDetails?.rowid}`}
                         >
                             <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
-                                Connect {appOneDetails?.name} <MdOpenInNew />{' '}
+                                Connect to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
                         <Link
@@ -62,18 +62,18 @@ export default function IntegrationsAppOneComp({
                         </Link>
                     </div>
                     <div className="flex  gap-2 items-center w-full justify-start">
-                        <div className="flex h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
+                        <div className="flex md:h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
                             <Image
-                                className="h-10 w-fit"
+                                className="h-8 md:h-10 w-fit"
                                 src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
                                 width={36}
                                 height={36}
                                 alt="Slack"
                             />
                             <div>
-                                <h2 className="text-2xl font-bold">{appOneDetails?.name}</h2>
+                                <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
                                 <p className="text-sm text-gray-500">
-                                    {appOneDetails?.category?.slice(0, 2).join(', ')}
+                                    {appOneDetails?.category?.slice(0, 1).join(', ')}
                                 </p>
                             </div>
                         </div>

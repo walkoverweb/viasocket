@@ -37,7 +37,14 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
-import { FaArrowCircleLeft, FaArrowCircleRight, FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
+import {
+    FaArrowCircleLeft,
+    FaArrowCircleRight,
+    FaArrowDown,
+    FaArrowLeft,
+    FaArrowRight,
+    FaArrowUp,
+} from 'react-icons/fa';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -87,9 +94,13 @@ const Index = ({
     const fetchAppsData = useCallback(async () => await fetchApps(), []);
     const filterSelectedApps = useCallback(
         (apps) => {
-            return apps.filter(
-                (app) => !selectedApps.some((selectedApp) => selectedApp?.appslugname === app?.appslugname)
-            );
+            if (apps?.length > 0) {
+                return apps?.filter(
+                    (app) => !selectedApps.some((selectedApp) => selectedApp?.appslugname === app?.appslugname)
+                );
+            } else {
+                return [];
+            }
         },
         [selectedApps]
     );
@@ -208,11 +219,11 @@ const Index = ({
 
     const handleKeyDown = (e) => {
         if (e.key === 'ArrowDown') {
-            setHighlightedIndex((prevIndex) => (prevIndex < searchData.length - 1 ? prevIndex + 1 : prevIndex));
+            setHighlightedIndex((prevIndex) => (prevIndex < searchData?.length - 1 ? prevIndex + 1 : prevIndex));
         } else if (e.key === 'ArrowUp') {
             setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
         } else if (e.key === 'Enter') {
-            if (highlightedIndex >= 0 && highlightedIndex < searchData.length) {
+            if (highlightedIndex >= 0 && highlightedIndex < searchData?.length) {
                 handleSelectApp(searchData[highlightedIndex].appslugname);
             }
         }
@@ -627,19 +638,17 @@ const TestimonialsSection = ({ testimonials }) => (
     </div>
 );
 
-
-
 // const CaseStudiesSection = ({ caseStudies }) => {
 //     const [currentIndex, setCurrentIndex] = useState(0);
-  
+
 //     const handleNext = () => {
 //       setCurrentIndex((prevIndex) => (prevIndex + 1) % caseStudies.length);
 //     };
-  
+
 //     const handlePrev = () => {
 //       setCurrentIndex((prevIndex) => (prevIndex - 1 + caseStudies.length) % caseStudies.length);
 //     };
-  
+
 //     return (
 //       <div className="flex flex-col gap-9">
 //         <h2 className="h1">Trusted by hundreds of businesses like yours</h2>
@@ -654,7 +663,7 @@ const TestimonialsSection = ({ testimonials }) => (
 //             <div
 //               className="flex"
 //               style={{
-//                 transform: `translateX(-${currentIndex * 100}%)`, 
+//                 transform: `translateX(-${currentIndex * 100}%)`,
 //               }}
 //             >
 //               {caseStudies.map((caseStudy, index) => (
@@ -676,8 +685,7 @@ const TestimonialsSection = ({ testimonials }) => (
 //       </div>
 //     );
 //   };
-  
-  
+
 //   const CaseStudyLink = ({ caseStudy, isCenter }) => {
 //     return (
 //       <div
@@ -698,10 +706,10 @@ const TestimonialsSection = ({ testimonials }) => (
 //             className="w-full h-full object-cover"
 //           />
 //         </div>
-  
+
 //         {/* Title and Link */}
 //         <div
-//           className={`w-72 p-3 text-black flex flex-col gap-2 justify-center items-center text-center 
+//           className={`w-72 p-3 text-black flex flex-col gap-2 justify-center items-center text-center
 //           ${isCenter ? "opacity-100" : "opacity-80"}`}
 //         >
 //           <p className="text-sm font-semibold">{caseStudy?.title}</p>
@@ -710,106 +718,98 @@ const TestimonialsSection = ({ testimonials }) => (
 //       </div>
 //     );
 //   };
-  
-
 
 const CaseStudiesSection = ({ caseStudies }) => {
-  const [currentIndex, setCurrentIndex] = useState(1);
+    const [currentIndex, setCurrentIndex] = useState(1);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? caseStudies.length - 1 : prev - 1));
-  };
+    const prevSlide = () => {
+        setCurrentIndex((prev) => (prev === 0 ? caseStudies.length - 1 : prev - 1));
+    };
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === caseStudies.length - 1 ? 0 : prev + 1));
-  };
+    const nextSlide = () => {
+        setCurrentIndex((prev) => (prev === caseStudies.length - 1 ? 0 : prev + 1));
+    };
 
-  return (
-    <div className="flex flex-col gap-9">
-      <h2 className="h1 text-center">Trusted by hundreds of businesses like yours</h2>
+    return (
+        <div className="flex flex-col gap-9">
+            <h2 className="h1 text-center">Trusted by hundreds of businesses like yours</h2>
 
- 
-      <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
+            <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
+                <div className="flex flex-col md:hidden justify-center gap-4">
+                    <button className="border-2 border-black p-2" onClick={prevSlide}>
+                        <FaArrowUp size={40} />
+                    </button>
+                </div>
+                <div className="hidden md:flex flex-row gap-4">
+                    <button className="border-2 border-black p-2" onClick={prevSlide}>
+                        <FaArrowLeft size={50} />
+                    </button>
+                </div>
 
-        <div className="flex flex-col md:hidden justify-center gap-4">
-          <button className="border-2 border-black p-2" onClick={prevSlide}>
-            <FaArrowUp size={40} />
-          </button>
-        </div>
-        <div className='hidden md:flex flex-row gap-4'>
-            <button className="border-2 border-black p-2" onClick={prevSlide}>
-              <FaArrowLeft size={50} />
-          </button>
-        </div>
+                <div className="w-full md:w-3/5 overflow-hidden">
+                    <div className="w-full md:w-[600px] mx-auto relative h-[400px]">
+                        <div className="flex w-full transition-transform duration-500 justify-center h-5/6 pt-14 md:pt-0">
+                            {caseStudies.map((caseStudy, index) => {
+                                const isCenter = index === currentIndex;
 
-        <div className="w-full md:w-3/5 overflow-hidden">
-          <div className="w-full md:w-[600px] mx-auto relative h-[400px]">
-            <div className="flex w-full transition-transform duration-500 justify-center h-5/6 pt-14 md:pt-0">
-              {caseStudies.map((caseStudy, index) => {
-                const isCenter = index === currentIndex;
-
-                return (
-                  <div
-                    key={index}
-                    className="custom-translate"
-                    style={{
-                      '--translate-value': `${(index - currentIndex) * 100}%`,
-                      opacity: isCenter ? 1 : 0.7,
-                      zIndex: isCenter ? 10 : 1,
-                    }}
-                  >
-                    <div
-                      className={`transition-all duration-500 flex flex-col items-center bg-white overflow-hidden border-2 border-black ${
-                        isCenter
-                          ? 'h-[300px] w-[400px] md:h-96 md:w-[600px]'
-                          : 'h-[300px] w-[300px] md:h-80 md:w-[600px]'
-                      }`}
-                    >
-                      <div className="w-full h-3/4 overflow-hidden">
-                        <Image
-                          src={caseStudy?.image[0]}
-                          alt={caseStudy?.title}
-                          width={288}
-                          height={384}
-                          className={`w-full h-full object-cover transition-all duration-500 ${
-                            isCenter ? 'scale-110' : 'scale-100'
-                          }`}
-                        />
-                      </div>
-                      <div
-                        className={`w-full p-3 text-black flex flex-col gap-2 justify-center items-center text-center ${
-                          isCenter ? 'opacity-100' : 'opacity-80'
-                        }`}
-                      >
-                        <p className="text-xs">{caseStudy?.title}</p>
-                        <LinkButton href={caseStudy?.link} content={"Know More"} />
-                      </div>
+                                return (
+                                    <div
+                                        key={index}
+                                        className="custom-translate"
+                                        style={{
+                                            '--translate-value': `${(index - currentIndex) * 100}%`,
+                                            opacity: isCenter ? 1 : 0.7,
+                                            zIndex: isCenter ? 10 : 1,
+                                        }}
+                                    >
+                                        <div
+                                            className={`transition-all duration-500 flex flex-col items-center bg-white overflow-hidden border-2 border-black ${
+                                                isCenter
+                                                    ? 'h-[300px] w-[400px] md:h-96 md:w-[600px]'
+                                                    : 'h-[300px] w-[300px] md:h-80 md:w-[600px]'
+                                            }`}
+                                        >
+                                            <div className="w-full h-3/4 overflow-hidden">
+                                                <Image
+                                                    src={caseStudy?.image[0]}
+                                                    alt={caseStudy?.title}
+                                                    width={288}
+                                                    height={384}
+                                                    className={`w-full h-full object-cover transition-all duration-500 ${
+                                                        isCenter ? 'scale-110' : 'scale-100'
+                                                    }`}
+                                                />
+                                            </div>
+                                            <div
+                                                className={`w-full p-3 text-black flex flex-col gap-2 justify-center items-center text-center ${
+                                                    isCenter ? 'opacity-100' : 'opacity-80'
+                                                }`}
+                                            >
+                                                <p className="text-xs">{caseStudy?.title}</p>
+                                                <LinkButton href={caseStudy?.link} content={'Know More'} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
-                  </div>
-                );
-              })}
+                </div>
+
+                <div className="hidden md:flex flex-row gap-4">
+                    <button className="border-2 border-black p-2" onClick={nextSlide}>
+                        <FaArrowRight size={50} />
+                    </button>
+                </div>
+                <div className="flex flex-col md:hidden justify-center gap-4">
+                    <button className="border-2 border-black p-2" onClick={nextSlide}>
+                        <FaArrowDown size={40} />
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
-
-        <div className="hidden md:flex flex-row gap-4">
-          <button className="border-2 border-black p-2" onClick={nextSlide}>
-            <FaArrowRight size={50} />
-          </button>
-        </div>
-        <div className="flex flex-col md:hidden justify-center gap-4">
-            <button className="border-2 border-black p-2" onClick={nextSlide}>
-                <FaArrowDown size={40} />
-            </button>
-        </div> 
-      </div>
-    </div>
-  );
+    );
 };
-
-
-
-  
 
 export default Index;
 

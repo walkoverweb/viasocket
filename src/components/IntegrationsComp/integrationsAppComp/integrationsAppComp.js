@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import searchApps from '@/utils/searchApps';
 import createURL from '@/utils/createURL';
 export default function IntegrationsAppComp({ pageInfo, integrationsInfo, apps }) {
-    console.log('🚀 ~ IntegrationsAppComp ~ apps:', apps);
     const [searchTerm, setSearchTerm] = useState('');
     const [debounceValue, setDebounceValue] = useState('');
     const [searchedApps, setSearchedApps] = useState([]);

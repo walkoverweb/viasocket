@@ -1,6 +1,5 @@
 import FAQSection from '@/components/faqSection/faqSection';
-import { getDbdashData } from './api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
@@ -14,10 +13,65 @@ import {
     NAVIGATION_FIELDS,
     PRICINGBETTERCHOICE_FIELDS,
 } from '@/const/fields';
+import Autocomplete from 'react-autocomplete';
+import getCountries from '@/utils/getCountries';
+import Image from 'next/image';
+import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 
-export default function pricing({ navData, footerData, faqData, betterChoice, metaData }) {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState();
+    const [inputValue, setInputValue] = useState('');
+    const [isDeveloping, setIsDeveloping] = useState(false);
+    useEffect(() => {
+        const fetchCountryData = async () => {
+            if (selectedCountry) {
+                const country = await checkDevelopingCountry(selectedCountry?.name?.common);
+                if (country) {
+                    setIsDeveloping(true);
+                } else {
+                    setIsDeveloping(false);
+                }
+            } else {
+                setIsDeveloping(false);
+            }
+        };
+        fetchCountryData();
+    }, [selectedCountry]);
+
+    const filterCountries = (searchTerm) => {
+        return countries.filter((country) => country?.name?.common?.toLowerCase()?.includes(searchTerm?.toLowerCase()));
+    };
+
+    const plans = [
+        {
+            name: 'starter',
+            slug: 'starter',
+            pricing: {
+                developed: 30,
+                developing: 3,
+            },
+            invocations: 10000,
+            execution_time: 30,
+            min_polling_time: 1,
+            active_workflows: 'Unlimited',
+            description: 'For Individuals who need higher limits.',
+        },
+        {
+            name: 'team',
+            slug: 'team',
+            pricing: {
+                developed: 60,
+                developing: 6,
+            },
+            invocations: 10000,
+            execution_time: 60,
+            min_polling_time: 1,
+            active_workflows: 'Unlimited',
+            description: 'For Teams who want to collaborate on work.',
+        },
+    ];
 
     return (
         <>
@@ -33,87 +87,125 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
                                     <div className=" flex flex-col gap-8 md:p-12 p-6 justify-center ">
                                         <h1 className="h1">Simple Pricing for Powerful Automation</h1>
 
-                                        <h2 className="sub__h1">
-                                            Enjoy a 30-Day Free Trial.
-                                            <br />
-                                            No credit card required.
-                                        </h2>
-
-                                        <label className="cursor-pointer flex flex-row gap-3 items-center p-4 border border-black w-fit hover:bg-slate-50 transition-all duration-300">
-                                            <span className="font-semibold text-md  ">BILLED YEARLY </span>
-                                            <input
-                                                type="checkbox"
-                                                className="toggle"
-                                                checked={isToggled}
-                                                onChange={() => setIsToggled(!isToggled)}
-                                            />
-                                        </label>
+                                        <ul className="text-lg cont gap-1">
+                                            <li>Enjoy a 30-Day Free Trial.</li>
+                                            <li>No credit card required.</li>
+                                            <li>
+                                                <strong>Special Offer:</strong> 90% off for developing countries
+                                            </li>
+                                        </ul>
+                                        <div className="flex gap-2 xl:flex-row lg:flex-col md:flex-row flex-col">
+                                            <div
+                                                tabIndex={0}
+                                                className="dropdown-content flex items-center border border-black menu relative z-[1] w-52 p-2  country-autocomplete"
+                                            >
+                                                <Autocomplete
+                                                    getItemValue={(item) => item?.name?.common}
+                                                    items={filterCountries(inputValue)}
+                                                    renderItem={(item, isHighlighted) => (
+                                                        <div
+                                                            className={`px-2 py-1 cursor-pointer flex items-center gap-2 ${
+                                                                isHighlighted ? 'bg-secondary' : ''
+                                                            }`}
+                                                        >
+                                                            <Image
+                                                                src={item?.flags?.svg || 'http:placehold.co/20x20'}
+                                                                width={16}
+                                                                height={16}
+                                                                alt={item?.flags?.alt}
+                                                            />
+                                                            {item?.name?.common}
+                                                        </div>
+                                                    )}
+                                                    value={inputValue} // Use the new state variable
+                                                    onChange={(e) => setInputValue(e.target.value)} // Update the state on input change
+                                                    onSelect={(val, item) => {
+                                                        setSelectedCountry(item);
+                                                        setInputValue(item?.name?.common); // Update the input value when an item is selected
+                                                    }}
+                                                    inputProps={{
+                                                        placeholder: 'Select Country',
+                                                    }}
+                                                    menuStyle={{
+                                                        position: 'flex',
+                                                        overflow: 'auto',
+                                                        maxHeight: '400px',
+                                                        position: 'absolute',
+                                                        background: 'white',
+                                                        top: '50px',
+                                                        left: '0px',
+                                                    }}
+                                                />
+                                            </div>
+                                            <label className=" border border-black flex items-center justify-between px-4 py-3 gap-2 w-full max-w-[280px]">
+                                                <span className="text-sm uppercase tracking-wider">Billed Yearly</span>
+                                                <input
+                                                    type="checkbox"
+                                                    className="toggle"
+                                                    checked={isToggled}
+                                                    onChange={() => setIsToggled(!isToggled)}
+                                                />
+                                            </label>
+                                        </div>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 bg-white ">
-                                        <div className="flex flex-col gap-y-2 border border-l-0 min-[1003px]:border-l border-r-0 min-[768px]:border-r border-b-0 border-black font-normal ">
-                                            <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
-                                                {'Starter'.toUpperCase()}
-                                            </div>
-                                            <div className="flex flex-col gap-8 my-12 px-6">
-                                                <div classNames="flex flex-col gap-2">
-                                                    <p className="text-4xl md:text-6xl font-family-times-now">
-                                                        ${isToggled ? 30 * 10 : 30}
-                                                    </p>
-                                                    <p className="font-normal tracking-wide overflow-hidden">
-                                                        {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
-                                                    </p>
-                                                </div>
-                                                <div className="flex flex-col font-normal text-normal">
-                                                    <div>Invocations: 10,000/Month</div>
-                                                    <div>Execution Time Limit: 30 Seconds</div>
-                                                    <div>Min. Polling time: 1 Min</div>
-                                                    <div>Unlimited Active Workflows</div>
-                                                </div>
-                                                <div>For individuals who need higher limits.</div>
-                                            </div>
-                                            <a
-                                                href={`/signup?utm_source=pricing&plan=starter&duration=${isToggled ? 'yearly' : 'monthly'}`}
-                                                className="flex flex-col items-center mt-auto border-t border-black"
-                                            >
-                                                <div className="flex justify-center">
-                                                    <button className="inline-block text-center p-4 font-semibold text-md ">
-                                                        {'Start Free Trial'.toUpperCase()}
-                                                    </button>
-                                                </div>
-                                            </a>
-                                        </div>
+                                        {plans.map((plan, i) => {
+                                            return (
+                                                <div
+                                                    key={i}
+                                                    className={`flex flex-col justify-between border border-black border-e-0  border-b-0 border-x-0 ${i == 0 && 'md:border-x'}`}
+                                                >
+                                                    <div className="flex flex-col gap-12 p-8">
+                                                        <h2 className="h2 capitalize ">{plan?.name}</h2>
 
-                                        <div className="flex flex-col gap-y-2 border-t border-black font-normal">
-                                            <div className="subheading font-semibold text-md  justify-around mt-12 mx-6">
-                                                {'Team'.toUpperCase()}
-                                            </div>
-                                            <div className="flex flex-col gap-8 my-12 px-6">
-                                                <div className="flex flex-col gap-2">
-                                                    <div className="text-4xl md:text-6xl font-family-times-now">
-                                                        ${isToggled ? 60 * 10 : 60}
+                                                        <div className="flex flex-col gap-2">
+                                                            {!isDeveloping ? (
+                                                                <h3 className="h1">
+                                                                    $
+                                                                    {isToggled
+                                                                        ? plan.pricing.developed * 10
+                                                                        : plan.pricing.developed}
+                                                                </h3>
+                                                            ) : (
+                                                                <h3 className="h1">
+                                                                    $
+                                                                    {isToggled
+                                                                        ? plan.pricing.developing * 10
+                                                                        : plan.pricing.developing}
+                                                                    <span className="font-base text-2xl text-grey line-through">
+                                                                        $
+                                                                        {isToggled
+                                                                            ? plan.pricing.developed * 10
+                                                                            : plan.pricing.developed}
+                                                                    </span>
+                                                                </h3>
+                                                            )}
+
+                                                            <span className="text-sm tracking-wider">
+                                                                {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
+                                                            </span>
+                                                        </div>
+                                                        <ul className="flex flex-col gap-2">
+                                                            <li>Invocations: {plan.invocations}/Month</li>
+                                                            <li>Execution Time Limit: {plan.execution_time} Seconds</li>
+                                                            <li>Min. Polling time: {plan?.min_polling_time} Min</li>
+                                                            <li>{plan?.active_workflows} Active Workflows</li>
+                                                        </ul>
+                                                        <h2 className="">{plan?.description}</h2>
                                                     </div>
-                                                    <div className="font-normal tracking-wide overflow-hidden">
-                                                        {isToggled ? 'YEAR' : 'MONTH'}/WORKSPACE
-                                                    </div>
+                                                    <a
+                                                        href={`/signup?plan=${plan?.slug}&duration=${isToggled ? 'yearly' : 'monthly'}${selectedCountry?.cca2 ? '&country=' + selectedCountry?.cca2 : ''}&utm_source=/pricing`}
+                                                    >
+                                                        <button
+                                                            className={`btn btn-primary w-full mt-auto ${i == 0 && 'btn-outline border-0 border-t'}`}
+                                                        >
+                                                            {' '}
+                                                            {'Start Free Trial'.toUpperCase()}
+                                                        </button>
+                                                    </a>
                                                 </div>
-                                                <div className="flex flex-col font-normal text-normal">
-                                                    <div>Invocations: 10,000/Month</div>
-                                                    <div>Execution Time Limit: 60 Seconds</div>
-                                                    <div>Min. Polling time: 1 Min</div>
-                                                    <div>Unlimited Active Workflows</div>
-                                                </div>
-                                                <div>For teams who want to collaborate on work.</div>
-                                            </div>
-                                            <a
-                                                href={`/signup?utm_source=pricing&plan=team&duration=${isToggled ? 'yearly' : 'monthly'}`}
-                                                className="flex justify-center items-center border-t  mt-auto border-black bg-black text-white"
-                                            >
-                                                <button className="inline-block text-center p-4 font-semibold text-md ">
-                                                    {' '}
-                                                    {'Start Free Trial'.toUpperCase()}
-                                                </button>
-                                            </a>
-                                        </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +317,7 @@ export async function getServerSideProps() {
     const footerData = await getFooterData(FOOTER_FIELDS);
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/pricing'`);
     const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
+    const countries = await getCountries();
     return {
         props: {
             betterChoice: betterChoice || [],
@@ -232,6 +325,7 @@ export async function getServerSideProps() {
             navData: navData || [],
             footerData: footerData || [],
             faqData: faqData || [],
+            countries: countries || [],
         },
     };
 }
