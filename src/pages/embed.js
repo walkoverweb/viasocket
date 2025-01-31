@@ -72,12 +72,12 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                 <div className="flex flex-col justify-center items-center w-full xl:w-2/4 mx-auto">
                     <p className="h1 font-normal">How it works</p>
                     <h2 className="sub__h1 text-center">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Follow these steps, and your product will be seamlessly integrated with the viaSocket embed
                     </h2>
                 </div>
                 <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20 h-fit xl:h-fit pt-20">
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2">Configure the Display</h3>
+                        <h3 className="h1 font-semibold mb-2 h-1/2">Configure the Display</h3>
                         <p className="sub__h1">
                             You have full control over how the integration looks and feels in your app. You can choose
                             the display style, select the button type, and even filter the available services to match
@@ -85,14 +85,14 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                         </p>
                     </div>
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2">Generate JWT Token</h3>
+                        <h3 className="h1 font-semibold mb-2 h-1/2 ">Generate JWT Token</h3>
                         <p className="sub__h1">
                             To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure
                             each user only sees their relevant flows.
                         </p>
                     </div>
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2">Embed SDK</h3>
+                        <h3 className="h1 font-semibold mb-2 h-1/2">Embed SDK</h3>
                         <p className="sub__h1">
                             Once you've got your token, grab the SDK code snippet and paste it into your app's code
                         </p>
