@@ -58,7 +58,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "ls"
+            "pre-commit": "ls -al"
         }
     },
     "lint-staged": {
