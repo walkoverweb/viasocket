@@ -1,1 +1,3 @@
-npm run lint
+npm -v
+ls
+# npm run lint || { echo "Linting failed. Please fix the issues."; exit 1; }

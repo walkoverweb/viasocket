@@ -6,7 +6,7 @@
         "dev": "next dev -p 1111",
         "build": "next build ",
         "start": "next start -p 1111",
-        "lint": "npx lint-staged",
+        "lint": "lint-staged",
         "lint:fix": "eslint . --fix",
         "prepare": "husky",
         "eslint": "eslint ."
