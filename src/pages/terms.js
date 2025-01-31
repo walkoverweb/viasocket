@@ -145,8 +145,10 @@ const Terms = ({ navData, footerData, metaData }) => {
                                 }}
                             >
                                 You can contact us at
-                                <bdt className="block-component" /> email{' '}
-                                <bdt className="question">support@viasocket.com</bdt>
+                                <bdt className="block-component" /> our email{' '}
+                                <a href="mailto:support@viasocket.com" target="_blank" data-custom-class="link">
+                                support@viasocket.com
+                                    </a>
                             </span>
                         </div>
                         <div className="MsoNormal" style={{ lineHeight: 1 }}>
