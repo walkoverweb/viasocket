@@ -3,15 +3,15 @@ import FAQSection from '@/components/faqSection/faqSection';
 import Footer from '@/components/footer/footer';
 import GetStarted from '@/components/getStarted/getStarted';
 import Navbar from '@/components/navbar/navbar';
-import { FAQS_FIELDS, FOOTER_FIELDS, GETSTARTED_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
-import { getFaqData, getFooterData, getGetStartedData, getNavData } from '@/utils/getData';
+import { EMBED_FIELDS, FAQS_FIELDS, FOOTER_FIELDS, GETSTARTED_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
+import { getEmbedData, getFaqData, getFooterData, getGetStartedData, getNavData } from '@/utils/getData';
 import axios from 'axios';
 import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
 
-const Embed = ({ navData, posts, footerData, faqData, getStartedData, connectorData }) => {
-    const [selectedImage, setSelectedImage] = useState(connectorData[0].image);
+const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData }) => {
+    const [selectedImage, setSelectedImage] = useState(embedData[0]?.image?.[0]);
 
     return (
         <>
@@ -22,13 +22,14 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, connectorD
                         <div className="h-full w-full lg:w-3/5 flex flex-col justify-center gap-4 px-4 lg:px-0 ">
                             <div>
                                 <h6 className="h1 font-normal">
-                                    Bring <span className="text-red-700">100+</span> app integration into your SaaS
+                                    <span className="text-red-700">Embed </span>
+                                    viaSocket into Your Product for Powerful Automation
                                 </h6>
                             </div>
                             <div>
                                 <h2 className="sub__h1 w-full lg:w-2/5">
-                                    An AI-powered no-code platform for workflow automation, app integrations, and
-                                    data-driven efficiency.
+                                    Let your customers easily discover, create, edit, and manage workflows right within
+                                    your product.
                                 </h2>
                             </div>
                             <button className="btn btn-primary bg-black text-white mt-5 w-fit">Get Started</button>
@@ -43,18 +44,21 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, connectorD
             <div className="h-fit lg:h-screen w-full flex justify-center items-center py-10 md:py-20 gap-6">
                 <div className="w-full lg:w-4/6 h-full px-4 md:px-0 flex flex-col md:flex-row justify-center items-center gap-4">
                     <div className="flex justify-center items-center relative w-full md:w-1/2 h-full min-h-[400px] mx-auto">
-                        <Image src={selectedImage} layout="fill" alt="Connector Image" />
+                        <Image
+                            src={selectedImage || 'https://placehold.co/40x40'}
+                            layout="fill"
+                            alt="Connector Image"
+                        />
                     </div>
-                    <div className="w-fit h-fit py-10 px-0 flex flex-col justify-center items-center p-10">
-                        {connectorData.map((item, index) => (
-                            <div className="hover:bg-black hover:text-white py-10 px-2 group">
+                    <div className="w-full sm:w-1/2 h-fit flex flex-col justify-start items-center p-4 lg:max-h-[650px]">
+                        {embedData.map((item, index) => (
+                            <div key={index} className="hover:bg-black hover:text-white py-6 px-2 group w-full">
                                 <div
-                                    key={index}
                                     className="relative pt-4 border-t-2 sub__h2 pr-6 lg:pr-0 pb-6 md:pb-0 text-gray-400 cursor-pointer"
-                                    onClick={() => setSelectedImage(item.image)}
+                                    onClick={() => setSelectedImage(item?.image[0])}
                                 >
                                     <span className="absolute -top-4 left-0 bg-white pr-0 md:pr-2 text-black group-hover:text-white group-hover:bg-black">
-                                        {item.title}
+                                        {item.name}
                                     </span>
                                     {item.description}
                                 </div>
@@ -71,35 +75,36 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, connectorD
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     </h2>
                 </div>
-                <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20 h-fit xl:h-96 pt-20">
+                <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20 h-fit xl:h-fit pt-20">
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2">Step 1</h3>
+                        <h3 className="h1 font-semibold mb-2">Configure the Display</h3>
                         <p className="sub__h1">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                            You have full control over how the integration looks and feels in your app. You can choose
+                            the display style, select the button type, and even filter the available services to match
+                            your specific needs.
                         </p>
                     </div>
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2">Step 2</h3>
+                        <h3 className="h1 font-semibold mb-2">Generate JWT Token</h3>
                         <p className="sub__h1">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo.
+                            To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure
+                            each user only sees their relevant flows.
                         </p>
                     </div>
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2">Step 3</h3>
+                        <h3 className="h1 font-semibold mb-2">Embed SDK</h3>
                         <p className="sub__h1">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo.
+                            Once you've got your token, grab the SDK code snippet and paste it into your app's code
                         </p>
                     </div>
                 </div>
             </div>
 
             <div className="w-full md:w-11/12 p-2 md:p-20 mx-auto border-b-2 border-black flex flex-col justify-center items-center text-center gap-10">
-                <h1 className="h1 font-normal">Upgrade your SaaS today, 100% free</h1>
+                <h1 className="h1 font-normal">Upgrade your Product Today with viaSocket</h1>
                 <h2 className="sub__h1 w-full md:w-3/4">
-                    Start using viaSocket Embed lifetime free for any 5 apps of your choice. We will begin charging once
-                    you've found the tool beneficial and wish to extend its use to additional apps.
+                    Start using viaSocket embed and bring seamless automation within your product, so your customers can
+                    stick to your product while automating their day-to-day repetitive tasks.
                 </h2>
                 <button className="btn btn-primary text-white">Get Started</button>
             </div>
@@ -131,34 +136,6 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, connectorD
 export default Embed;
 
 export async function getServerSideProps() {
-    const connectorData = [
-        {
-            title: '5000+ connector library',
-            description: 'tackling healthcare inaccessibility amidst a pandemic',
-            image: '/assets/img/dummyimg.svg',
-        },
-        {
-            title: 'Easy to implement',
-            description: 'tackling healthcare inaccessibility amidst a pandemic',
-            image: '/assets/img/dummyimg.svg',
-        },
-        {
-            title: 'Cost-Effective',
-            description: 'tackling healthcare inaccessibility amidst a pandemic',
-            image: '/assets/img/dummyimg.svg',
-        },
-        {
-            title: 'Always updated',
-            description: 'tackling healthcare inaccessibility amidst a pandemic',
-            image: '/assets/img/dummyimg.svg',
-        },
-        {
-            title: 'Integration templates',
-            description: 'tackling healthcare inaccessibility amidst a pandemic',
-            image: '/assets/img/dummyimg.svg',
-        },
-    ];
-
     const tag = 'via-socket';
     const defaultTag = 'integrations';
     const res = await axios.get(
@@ -170,14 +147,18 @@ export async function getServerSideProps() {
     const footerData = await getFooterData(FOOTER_FIELDS);
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/index'`);
     const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
+    const embedData = await getEmbedData();
+
+    console.log(embedData);
+
     return {
         props: {
             navData: navData || [],
             footerData: footerData || [],
-            posts: posts,
-            faqData: faqData,
-            getStartedData: getStarted,
-            connectorData: connectorData,
+            posts: posts || [],
+            faqData: faqData || [],
+            getStartedData: getStarted || [],
+            embedData: embedData || [],
         },
     };
 }
