@@ -48,7 +48,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={` ${style.nav_btn} min-w-[180px] ${borderClass} ${backgroundClass} border flex bg-[#FFFFFF10]`}
+                    className={` ${style.nav_btn} min-w-[180px] ${borderClass} ${backgroundClass}  flex bg-[#FFFFFF10]`}
                     style={{ backgroundColor: '#FFFFFF10' }}
                 >
                     {mode === 'dark' ? (
@@ -105,7 +105,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={` ${style.nav_btn} ${borderClass} sm:flex hidden  w-[192px]  border`}
+                    className={` ${style.nav_btn} ${borderClass} sm:flex hidden  w-[192px]`}
                 >
                     {mode === 'dark' ? (
                         <Image
@@ -128,7 +128,7 @@ export default function Navbar({ navData, utm }) {
                 <Link
                     href="/"
                     aria-label="logo"
-                    className={` ${style.nav_btn} ${borderClass} ${backgroundClass} bg-[#FFFFFF10] flex sm:hidden w-[56px] border`}
+                    className={` ${style.nav_btn} ${borderClass} ${backgroundClass} bg-[#FFFFFF10] flex sm:hidden w-[56px]`}
                 >
                     {mode === 'dark' ? (
                         <Image
