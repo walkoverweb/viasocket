@@ -548,6 +548,7 @@ const Index = ({
                     </div>
                 </div>
                 {features && <FeaturesGrid features={features} />}
+
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
                 </div>
