@@ -10,7 +10,7 @@ const { fetchPostContent } = require('./posts');
 const postsDirectory = path.join(process.cwd(), '_posts/blog');
 
 export function getPosts() {
-    const postData = fetchPostContent();
+  const postData = fetchPostContent();
 
-    return postData;
+  return postData;
 }
