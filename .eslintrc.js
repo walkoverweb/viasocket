@@ -1,6 +1,5 @@
 module.exports = {
     root: true,
-    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
@@ -20,13 +19,11 @@ module.exports = {
         node: true,
         es2021: true,
     },
-    plugins: ['@typescript-eslint', 'react'],
+    plugins: ['react'],
     extends: [
         'airbnb',
         'airbnb/hooks',
         'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:prettier/recommended',
     ],
@@ -37,25 +34,22 @@ module.exports = {
         'dot-notation': 0,
         'no-console': ['error', { allow: ['error', 'log'] }],
         'no-use-before-define': 0,
-        'no-plusplus': 0, // needed
-        'func-names': 0, // needed
+        'no-plusplus': 0,
+        'func-names': 0,
         'no-param-reassign': 0,
         'object-shorthand': 0,
         camelcase: 0,
         'react/require-default-props': 'off',
         'import/prefer-default-export': 0,
-        '@typescript-eslint/no-explicit-any': 0,
         'prettier/prettier': 0,
         'no-shadow': 0,
         'react/jsx-no-bind': 0,
         'no-nested-ternary': 0,
-        // later
         'react/jsx-filename-extension': 0,
         'react/prop-types': 0,
         'react-hooks/exhaustive-deps': 0,
         'react/jsx-props-no-spreading': 0,
         'prefer-destructuring': 0,
-        '@typescript-eslint/no-var-requires': 0,
         'no-bitwise': 0,
         'no-return-assign': 0,
         'one-var': 0,
@@ -63,6 +57,5 @@ module.exports = {
         'no-unsafe-optional-chaining': 0,
         'import/no-cycle': 0,
         'jsx-a11y/anchor-is-valid': 0,
-        '@typescript-eslint/no-unused-vars': 'error',
     },
 };
