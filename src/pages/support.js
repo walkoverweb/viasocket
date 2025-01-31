@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import { MdCall, MdMail } from 'react-icons/md';
+import { MdCall, MdMail, MdOutlineWhatsapp } from 'react-icons/md';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import Image from 'next/image';
 import Navbar from '@/components/navbar/navbar';
@@ -87,7 +87,7 @@ export default function Support({ navData, footerData, metaData }) {
 
             <div className="container flex flex-col justify-center items-center md:gap-16 gap-4 my-12 md:my-24">
                 <div className="flex flex-col gap-3 md:text-center text-start md:items-center md:w-full sm:w-1/2 w-full min-w-[300px}">
-                    <h1 className="md:text-5xl text-4xl font-semibold">ViaSocket Support</h1>
+                    <h1 className="md:text-5xl text-4xl font-semibold">viaSocket Support</h1>
                     <p className="md:text-xl text-lg font-medium md:w-2/3">
                         We are here to assist you with any questions, concerns, or feedback you may have. Whether you're
                         seeking support, have a business inquiry, or simply want to connect with us, we are eager to
@@ -112,6 +112,20 @@ export default function Support({ navData, footerData, metaData }) {
                                     <h3 className="font-bold text-lg">Phone Number</h3>
                                     <Link
                                         href={'tel:+13154442439'}
+                                        className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
+                                    >
+                                        +13154442439
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="flex align-center gap-3">
+                                <div className="h-14 w-14 flex items-center justify-center rounded-full bg-[#EDE8DE]">
+                                    <MdOutlineWhatsapp color="primary" fontSize={22} />
+                                </div>
+                                <div className="flex flex-col justify-center">
+                                    <h3 className="font-bold text-lg">WhatsApp Number</h3>
+                                    <Link
+                                        href={'https://wa.me/+13154442439'}
                                         className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
                                     >
                                         +13154442439
