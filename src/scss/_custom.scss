@@ -213,7 +213,7 @@ $button-transition-timing: 100ms;
     border-radius: 0px !important;
 }
 .country-autocomplete {
-    @apply flex items-center justify-center;
+    @apply flex flex-row items-center justify-center;
     div {
         input {
             background-color: transparent !important;
