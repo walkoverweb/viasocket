@@ -111,10 +111,10 @@ export default function Support({ navData, footerData, metaData }) {
                                 <div className="flex flex-col justify-center">
                                     <h3 className="font-bold text-lg">Phone Number</h3>
                                     <Link
-                                        href={'tel:+918889578616'}
+                                        href={'tel:+13154442439'}
                                         className="hover:underline cursor-pointer hover:text-gray-900 transition-all w-fit"
                                     >
-                                        +918889578616
+                                        +13154442439
                                     </Link>
                                 </div>
                             </div>
