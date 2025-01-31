@@ -61,12 +61,12 @@ export default function Footer({ footerData, borderClass }) {
                         <p>© 2024 viaSocket</p>
                         <p>All rights reserved.</p>
                     </div>
-                    <div className="flex items-end gap-2 w-full flex-wrap mt-auto">
+                    {/* <div className="flex items-end gap-2 w-full flex-wrap mt-auto">
                         <span>A product of</span>
                         <Link href="https://walkover.in/" target="_blank" aria-label="walkover">
                             <Image src="/assets/brand/walkover.svg" alt="walkover" width={100} height={20} />
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
                 <div className=" row-span-1 col-span-4 lg:col-span-3 grid sm:grid-cols-3 grid-cols-1">
                     <div className="flex flex-col gap-28 md:p-10 p-4 lg:border-b-0  border-b sm:border-r border-black">
