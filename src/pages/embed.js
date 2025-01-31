@@ -125,7 +125,6 @@ const embed = ({ navData, posts, footerData, faqData, getStartedData, connectorD
 export default embed;
 
 export async function getServerSideProps() {
-    const temp = 'sdfsd';
     const connectorData = [
         {
             title: '5000+ connector library',
