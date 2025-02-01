@@ -41,25 +41,31 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                 </div>
             </div>
 
-            <div className="h-fit lg:h-screen w-full flex justify-center items-center py-10 md:py-20 gap-6">
-                <div className="w-full lg:w-4/6 h-full px-4 md:px-0 flex flex-col md:flex-row justify-center items-center gap-4">
-                    <div className="flex justify-center items-center relative w-full md:w-1/2 h-full min-h-[400px] mx-auto">
+            <div className="h-fit lg:h-screen w-full flex justify-center items-center p-10 md:py-20 gap-6">
+                <div className="w-full lg:w-5/6 h-full px-4 md:px-0 flex flex-col md:flex-row justify-center items-center gap-4">
+                    <div className=" flex relative justify-center items-center  hidden md:block w-full md:w-1/2 h-full min-h-[400px] mx-auto">
                         <Image
                             src={selectedImage || 'https://placehold.co/40x40'}
                             layout="fill"
+                            // width={400}
+                            // height={400}
                             alt="Connector Image"
+                            className="object-contain"
                         />
                     </div>
-                    <div className="w-full sm:w-1/2 h-fit flex flex-col justify-start items-center p-4 lg:max-h-[650px]">
+                    <div className="w-full md:w-1/2 h-fit flex flex-col justify-center gap-6 items-center p-0 md:p-4 lg:max-h-[650px]">
                         {embedData.map((item, index) => (
-                            <div key={index} className="hover:bg-black hover:text-white py-6 px-2 group w-full">
+                            <div key={index} className="hover:bg-black hover:text-white py-6 px-4 md:px-2 group w-full">
                                 <div
-                                    className="relative pt-4 border-t-2 sub__h2 pr-6 lg:pr-0 pb-6 md:pb-0 text-gray-400 cursor-pointer"
+                                    className="text-sm pr-2 lg:pr-0 pb-6 md:pb-0 text-gray-400 cursor-pointer"
                                     onClick={() => setSelectedImage(item?.image[0])}
                                 >
-                                    <span className="absolute -top-4 left-0 bg-white pr-0 md:pr-2 text-black group-hover:text-white group-hover:bg-black">
-                                        {item.name}
-                                    </span>
+                                    <div className="flex items-center gap-4">
+                                        <div className="sm:whitespace-nowrap group-hover:text-white text-black">
+                                            {item.name}
+                                        </div>
+                                        <div className="h-[1px] bg-gray-400 w-full"></div>
+                                    </div>
                                     {item.description}
                                 </div>
                             </div>
@@ -68,32 +74,31 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                 </div>
             </div>
 
-            <div className="w-full md:w-11/12 border-t-2 border-b-2 border-black mx-auto bg-gray-100 py-10">
+            <div className="w-full md:w-11/12 border-t-2 border-b-2 border-black mx-auto bg-gray-100 py-20 md:py-10">
                 <div className="flex flex-col justify-center items-center w-full xl:w-2/4 mx-auto">
                     <p className="h1 font-normal">How it works</p>
                     <h2 className="sub__h1 text-center">
                         Follow these steps, and your product will be seamlessly integrated with the viaSocket embed
                     </h2>
                 </div>
-                <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20 h-fit xl:h-fit pt-20">
+                <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20 h-fit xl:h-fit min-h-[400px] pt-20">
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2 h-1/2">Configure the Display</h3>
-                        <p className="sub__h1">
-                            You have full control over how the integration looks and feels in your app. You can choose
-                            the display style, select the button type, and even filter the available services to match
-                            your specific needs.
+                        <h3 className="h2 font-semibold mb-2 h-1/2">Configure the Display</h3>
+                        <p className="sub__h2">
+                            You have full control over the integration's appearance and functionality. Customize the
+                            display style, button type, and filter available services to suit your needs.
                         </p>
                     </div>
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2 h-1/2 ">Generate JWT Token</h3>
-                        <p className="sub__h1">
+                        <h3 className="h2 font-semibold mb-2 h-1/2 ">Generate JWT Token</h3>
+                        <p className="sub__h2">
                             To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure
                             each user only sees their relevant flows.
                         </p>
                     </div>
                     <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-black bg-white">
-                        <h3 className="h1 font-semibold mb-2 h-1/2">Embed SDK</h3>
-                        <p className="sub__h1">
+                        <h3 className="h2 font-semibold mb-2 h-1/2">Embed SDK</h3>
+                        <p className="sub__h2">
                             Once you've got your token, grab the SDK code snippet and paste it into your app's code
                         </p>
                     </div>
@@ -148,8 +153,6 @@ export async function getServerSideProps() {
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/index'`);
     const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
     const embedData = await getEmbedData();
-
-    console.log(embedData);
 
     return {
         props: {
