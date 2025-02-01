@@ -33,18 +33,24 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     }
 
     const [showSkeleton, setShowSkeleton] = useState(false);
+
     useEffect(() => {
         const handleLinkClick = (event) => {
             let target = event.target;
 
+            // Find closest <a> element
             while (target && target.tagName !== 'A') {
                 target = target.parentElement;
             }
 
             if (target && target.tagName === 'A') {
-                event.preventDefault();
-                setShowSkeleton(true);
-                window.location.href = target.href;
+                const href = target.getAttribute('href');
+
+                if (href && href.startsWith('/')) {
+                    event.preventDefault();
+                    setShowSkeleton(true);
+                    window.location.href = target.href;
+                }
             }
         };
 
