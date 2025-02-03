@@ -41,8 +41,8 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                 </div>
             </div>
 
-            <div className="h-fit lg:h-screen w-full flex justify-center items-center p-10 md:py-20 gap-6">
-                <div className="w-full lg:w-5/6 h-full px-4 md:px-0 flex flex-col md:flex-row justify-center items-center gap-4">
+            <div className="h-fit lg:h-screen w-full flex justify-center items-center p-0 md:p-10 md:py-20 gap-6">
+                <div className="w-full lg:w-5/6 h-full px-0 flex flex-col md:flex-row justify-center items-center gap-4">
                     <div className=" flex relative justify-center items-center  hidden md:block w-full md:w-1/2 h-full min-h-[400px] mx-auto">
                         <Image
                             src={selectedImage || 'https://placehold.co/40x40'}
@@ -53,11 +53,11 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                             className="object-contain"
                         />
                     </div>
-                    <div className="w-full md:w-1/2 h-fit flex flex-col justify-center gap-6 items-center p-0 md:p-4 lg:max-h-[650px]">
+                    <div className="w-full sm:w-1/2 h-fit flex flex-col justify-center gap-6 items-center p-4 md:p-8 lg:max-h-[650px]">
                         {embedData.map((item, index) => (
-                            <div key={index} className="hover:bg-black hover:text-white py-6 px-4 md:px-2 group w-full">
+                            <div key={index} className="hover:bg-black hover:text-white py-6 px-0 md:px-2 group w-full">
                                 <div
-                                    className="text-sm pr-2 lg:pr-0 pb-6 md:pb-0 text-gray-400 cursor-pointer"
+                                    className="text-sm pr-0 pb-6 md:pb-0 text-gray-400 cursor-pointer"
                                     onClick={() => setSelectedImage(item?.image[0])}
                                 >
                                     <div className="flex items-center gap-4">
@@ -74,7 +74,7 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                 </div>
             </div>
 
-            <div className="w-full md:w-11/12 border-t-2 border-b-2 border-black mx-auto bg-gray-100 py-20 md:py-10">
+            <div className="w-full  md:w-11/12 border-t-2 border-b-2 border-black mx-auto bg-gray-100 py-20 md:py-10">
                 <div className="flex flex-col justify-center items-center w-full xl:w-2/4 mx-auto">
                     <p className="h1 font-normal">How it works</p>
                     <h2 className="sub__h1 text-center">
