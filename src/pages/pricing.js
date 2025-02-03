@@ -76,7 +76,7 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/pricing'} />
-            <div className=" cont py-10 lg:gap-24 gap-6">
+            <div className=" cont pb-10 lg:gap-24 gap-6">
                 <div className="cont container ">
                     <Navbar navData={navData} utm={'/pricing'} borderClass={'border-b-0'} />
                     <div className="">
