@@ -226,14 +226,14 @@ const Index = ({
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full  h-dvh min-h-fit py-10  hero_gradint"
-                style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
+                className="w-full md:h-dvh min-h-fit hero_gradint"
+                // style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
             >
                 <div className="container h-full flex flex-col">
                     <Navbar navData={navData} utm={'/index'} />
-                    <div className=" flex flex-col mt-auto  cont__gap">
-                        <div className="md:flex-row flex-col gap-20 text-center md:text-start items-center flex justify-between ">
-                            <div className="md:w-3/5 flex flex-col items-center md:items-start gap-8 py-20">
+                    <div className=" flex flex-col h-full cont__gap">
+                        <div className="md:flex-row h-full flex-col gap-4 text-center md:text-start items-center flex justify-between ">
+                            <div className="mt-auto max-w-[800px] w-full flex flex-col items-center md:items-start gap-4 py-20">
                                 <div className="flex flex-col gap-1">
                                     <h1 className="h1 text-black">
                                         <strong className="text-accent">Integrate</strong> your favorite apps and
@@ -243,32 +243,21 @@ const Index = ({
                                         Automate everything, but keep human intervention where it matters.
                                     </h2>
                                 </div>
+
                                 <LinkButton
                                     content={'Get Started'}
                                     customClasses={'btn btn-accent btn-lg'}
                                     href={'/signup?utm_source=/index'}
                                 />
                             </div>
-                            {/* <div className="flex items-center gap-2 w-fit">
                             <Image
-                                src={'/assets/img/chat_expert.jpeg'}
-                                width={100}
-                                height={100}
-                                className="h-11 w-11 rounded-full border-white border-2"
-                                alt="Chat Experts"
+                                src={'/assets/img/website-flow.svg'}
+                                className="max-w-[600px] h-fit md:w-2/5 w-full"
+                                width={1080}
+                                height={1080}
+                                alt="Website flow"
                             />
-                            <div className="text-white text-start">
-                                <p className="text-sm uppercase tracking-wider">Need to automate ?</p>
-                                <span className="flex items-center text-gray-300">
-                                    <span className="text-sm tracking-wider">Ask a Specialist for Free </span>
-                                    <MdArrowOutward />
-                                </span>
-                            </div>
-                        </div> */}
                         </div>
-                        {/* <div className="flex items-center justify-center w-full">
-                        <a className="version-link">Latest Version out !</a>
-                    </div> */}
                     </div>
                 </div>
             </div>
