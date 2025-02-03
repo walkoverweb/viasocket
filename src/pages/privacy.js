@@ -10652,35 +10652,12 @@ const Privacy = ({ navData, footerData, metaData }) => {
                                                                                                                                                                                                         us
                                                                                                                                                                                                         at{' '}
                                                                                                                                                                                                         <bdt className="question">
-                                                                                                                                                                                                            support@viasocket.com
+                                                                                                                                                                                                            support@viasocket.com.
                                                                                                                                                                                                         </bdt>
                                                                                                                                                                                                         <bdt className="statement-end-if-in-editor" />
                                                                                                                                                                                                     </span>
                                                                                                                                                                                                 </span>
-                                                                                                                                                                                                <span
-                                                                                                                                                                                                    style={{
-                                                                                                                                                                                                        fontSize:
-                                                                                                                                                                                                            '15px',
-                                                                                                                                                                                                        color: 'rgb(89, 89, 89)',
-                                                                                                                                                                                                    }}
-                                                                                                                                                                                                >
-                                                                                                                                                                                                    <span
-                                                                                                                                                                                                        style={{
-                                                                                                                                                                                                            fontSize:
-                                                                                                                                                                                                                '15px',
-                                                                                                                                                                                                            color: 'rgb(89, 89, 89)',
-                                                                                                                                                                                                        }}
-                                                                                                                                                                                                    >
-                                                                                                                                                                                                        <span data-custom-class="body_text">
-                                                                                                                                                                                                            &nbsp;or
-                                                                                                                                                                                                            contact
-                                                                                                                                                                                                            us
-                                                                                                                                                                                                            by
-                                                                                                                                                                                                            post
-                                                                                                                                                                                                            at:
-                                                                                                                                                                                                        </span>
-                                                                                                                                                                                                    </span>
-                                                                                                                                                                                                </span>
+                                                                                                                                                                             
                                                                                                                                                                                             </span>
                                                                                                                                                                                         </span>
                                                                                                                                                                                     </span>
@@ -10753,47 +10730,7 @@ const Privacy = ({ navData, footerData, metaData }) => {
                                                                                                                                                                                         </span>
                                                                                                                                                                                     </span>
                                                                                                                                                                                 </div>
-                                                                                                                                                                                <div
-                                                                                                                                                                                    style={{
-                                                                                                                                                                                        lineHeight:
-                                                                                                                                                                                            '1.5',
-                                                                                                                                                                                    }}
-                                                                                                                                                                                >
-                                                                                                                                                                                    <span
-                                                                                                                                                                                        style={{
-                                                                                                                                                                                            fontSize:
-                                                                                                                                                                                                '15px',
-                                                                                                                                                                                        }}
-                                                                                                                                                                                    >
-                                                                                                                                                                                        <span data-custom-class="body_text">
-                                                                                                                                                                                            <bdt className="question">
-                                                                                                                                                                                                Walkover
-                                                                                                                                                                                                Web
-                                                                                                                                                                                                Solutions
-                                                                                                                                                                                                Pvt
-                                                                                                                                                                                                Ltd,
-                                                                                                                                                                                                405-406,
-                                                                                                                                                                                                CAPTAIN
-                                                                                                                                                                                                C.S.NAYUDU
-                                                                                                                                                                                                ARCADE
-                                                                                                                                                                                            </bdt>
-                                                                                                                                                                                            <span
-                                                                                                                                                                                                style={{
-                                                                                                                                                                                                    color: 'rgb(89, 89, 89)',
-                                                                                                                                                                                                }}
-                                                                                                                                                                                            >
-                                                                                                                                                                                                <span
-                                                                                                                                                                                                    style={{
-                                                                                                                                                                                                        fontSize:
-                                                                                                                                                                                                            '15px',
-                                                                                                                                                                                                    }}
-                                                                                                                                                                                                >
-                                                                                                                                                                                                    <bdt className="block-component" />
-                                                                                                                                                                                                </span>
-                                                                                                                                                                                            </span>
-                                                                                                                                                                                        </span>
-                                                                                                                                                                                    </span>
-                                                                                                                                                                                </div>
+                                                                                                                                                                             
                                                                                                                                                                                 <div
                                                                                                                                                                                     style={{
                                                                                                                                                                                         lineHeight:
