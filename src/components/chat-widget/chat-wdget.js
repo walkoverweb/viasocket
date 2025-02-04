@@ -15,7 +15,11 @@ export default function ChatWidget() {
 
     return (
         <>
-            <button onClick={toggleChatWidget} className={style.chat_widget} aria-label="Talk to an expert">
+            <button
+                onClick={toggleChatWidget}
+                className={`${style.chat_widget} btn btn-lg btn-primary `}
+                aria-label="Talk to an expert"
+            >
                 <MdCircle color="#dc3545" fontSize={12} /> Live Chat
             </button>
         </>

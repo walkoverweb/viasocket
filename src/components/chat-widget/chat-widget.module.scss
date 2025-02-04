@@ -1,6 +1,6 @@
 .chat_widget {
-    @apply fixed bottom-6 right-6 btn-primary btn btn-sm  border border-primary;
-    padding-right: 20px !important;
-    padding-left: 20px !important;
+    @apply fixed bottom-6 right-6;
+    // padding-right: 20px !important;
+    // padding-left: 20px !important;
     z-index: 9999;
 }
