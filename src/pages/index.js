@@ -45,6 +45,7 @@ import {
     FaArrowRight,
     FaArrowUp,
 } from 'react-icons/fa';
+import IndexGenerateIntegrationsComp from '@/components/indexComps/indexGenerateIntegrationsComp/indexGenerateIntegrationsComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -559,6 +560,9 @@ const Index = ({
 
                 {features && <FeaturesGrid features={features} />}
 
+                <div className="container">
+                    <IndexGenerateIntegrationsComp />
+                </div>
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
                 </div>
