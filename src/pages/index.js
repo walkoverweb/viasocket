@@ -37,6 +37,15 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
+import {
+    FaArrowCircleLeft,
+    FaArrowCircleRight,
+    FaArrowDown,
+    FaArrowLeft,
+    FaArrowRight,
+    FaArrowUp,
+} from 'react-icons/fa';
+import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -60,6 +69,7 @@ const Index = ({
     navData,
     footerData,
     initialIndus,
+    redirect_to, utm_source
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
@@ -173,6 +183,7 @@ const Index = ({
     };
 
     const handleGenerate = async () => {
+        console.log('object');
         setCombinationLoading(true);
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         try {
@@ -226,42 +237,10 @@ const Index = ({
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full md:h-dvh min-h-fit hero_gradint"
+                className="w-full  hero_gradint cont md:gap-36 sm:gap-24 gap-12"
                 // style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
             >
-                <div className="container h-full flex flex-col">
-                    <Navbar navData={navData} utm={'/index'} />
-                    <div className=" flex flex-col h-full cont__gap">
-                        <div className="md:flex-row h-full flex-col gap-4 text-center md:text-start items-center flex justify-between ">
-                            <div className="mt-auto max-w-[800px] w-full flex flex-col items-center md:items-start gap-4 py-20">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="h1 text-black">
-                                        <strong className="text-accent">Integrate</strong> your favorite apps and
-                                        automate everyday tasks effortlessly
-                                    </h1>
-                                    <h2 className="sub__h1 text-black">
-                                        Automate everything, but keep human intervention where it matters.
-                                    </h2>
-                                </div>
-
-                                <LinkButton
-                                    content={'Get Started'}
-                                    customClasses={'btn btn-accent btn-lg'}
-                                    href={'/signup?utm_source=/index'}
-                                />
-                            </div>
-                            <Image
-                                src={'/assets/img/website-flow.svg'}
-                                className="max-w-[600px] h-fit md:w-2/5 w-full"
-                                width={1080}
-                                height={1080}
-                                alt="Website flow"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className=" cont cont__py gap-36">
+                <IndexBannerComp navData={navData} redirect_to={redirect_to} utm_source={utm_source} />
                 <div className="container flex flex-col gap-4 ">
                     <div className="cont  max-w-[1100px]">
                         <h2 className="h1">Ready-Made Workflows for Every Need</h2>
@@ -482,7 +461,9 @@ const Index = ({
                             >
                                 <button
                                     disabled={selectedApps.length < 2}
-                                    onClick={handleGenerate}
+                                    onClick={() => {
+                                        handleGenerate();
+                                    }}
                                     className="h-[32px] w-[32px] flex items-center justify-center bg-accent text-white"
                                 >
                                     <MdArrowForward />
@@ -547,6 +528,7 @@ const Index = ({
                         </div>
                     </div>
                 </div>
+
                 {features && <FeaturesGrid features={features} />}
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
@@ -563,19 +545,23 @@ const Index = ({
                     </div>
                 )}
 
-                {faqData?.length > 0 && (
-                    <div className="container">
-                        <FAQSection faqData={faqData} faqName={'/index'} />
+                <div className="pb-6">
+                    {faqData?.length > 0 && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <FAQSection faqData={faqData} faqName={'/index'} />
+                        </div>
+                    )}
+                    {getStartedData && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <GetStarted data={getStartedData} isHero={'false'} />
+                        </div>
+                    )}
+                    <div className="container border border-black p-20 border-b-0">
+                        <AlphabeticalComponent step={0} />
                     </div>
-                )}
-                {getStartedData && (
                     <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
+                        <Footer footerData={footerData} />
                     </div>
-                )}
-                <div className="container">
-                    <AlphabeticalComponent step={0} />
-                    <Footer footerData={footerData} />
                 </div>
             </div>
         </>
@@ -653,9 +639,103 @@ const CaseStudyLink = ({ caseStudy }) => {
     );
 };
 
+// const CaseStudiesSection = ({ caseStudies }) => {
+//     const [currentIndex, setCurrentIndex] = useState(1);
+
+//     const prevSlide = () => {
+//         setCurrentIndex((prev) => (prev === 0 ? caseStudies.length - 1 : prev - 1));
+//     };
+
+//     const nextSlide = () => {
+//         setCurrentIndex((prev) => (prev === caseStudies.length - 1 ? 0 : prev + 1));
+//     };
+
+//     return (
+//         <div className="flex flex-col gap-9">
+//             <h2 className="h1 text-center">Trusted by hundreds of businesses like yours</h2>
+
+//             <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
+//                 <div className="flex flex-col md:hidden justify-center gap-4">
+//                     <button className="border-2 border-black p-2" onClick={prevSlide}>
+//                         <FaArrowUp size={40} />
+//                     </button>
+//                 </div>
+//                 <div className="hidden md:flex flex-row gap-4">
+//                     <button className="border-2 border-black p-2" onClick={prevSlide}>
+//                         <FaArrowLeft size={50} />
+//                     </button>
+//                 </div>
+
+//                 <div className="w-full md:w-3/5 overflow-hidden">
+//                     <div className="w-full md:w-[600px] mx-auto relative h-[400px]">
+//                         <div className="flex w-full transition-transform duration-500 justify-center h-5/6 pt-14 md:pt-0">
+//                             {caseStudies.map((caseStudy, index) => {
+//                                 const isCenter = index === currentIndex;
+
+//                                 return (
+//                                     <div
+//                                         key={index}
+//                                         className="custom-translate"
+//                                         style={{
+//                                             '--translate-value': `${(index - currentIndex) * 100}%`,
+//                                             opacity: isCenter ? 1 : 0.7,
+//                                             zIndex: isCenter ? 10 : 1,
+//                                         }}
+//                                     >
+//                                         <div
+//                                             className={`transition-all duration-500 flex flex-col items-center bg-white overflow-hidden border-2 border-black ${
+//                                                 isCenter
+//                                                     ? 'h-[300px] w-[400px] md:h-96 md:w-[600px]'
+//                                                     : 'h-[300px] w-[300px] md:h-80 md:w-[600px]'
+//                                             }`}
+//                                         >
+//                                             <div className="w-full h-3/4 overflow-hidden">
+//                                                 <Image
+//                                                     src={caseStudy?.image[0]}
+//                                                     alt={caseStudy?.title}
+//                                                     width={288}
+//                                                     height={384}
+//                                                     className={`w-full h-full object-cover transition-all duration-500 ${
+//                                                         isCenter ? 'scale-110' : 'scale-100'
+//                                                     }`}
+//                                                 />
+//                                             </div>
+//                                             <div
+//                                                 className={`w-full p-3 text-black flex flex-col gap-2 justify-center items-center text-center ${
+//                                                     isCenter ? 'opacity-100' : 'opacity-80'
+//                                                 }`}
+//                                             >
+//                                                 <p className="text-xs">{caseStudy?.title}</p>
+//                                                 <LinkButton href={caseStudy?.link} content={'Know More'} />
+//                                             </div>
+//                                         </div>
+//                                     </div>
+//                                 );
+//                             })}
+//                         </div>
+//                     </div>
+//                 </div>
+
+//                 <div className="hidden md:flex flex-row gap-4">
+//                     <button className="border-2 border-black p-2" onClick={nextSlide}>
+//                         <FaArrowRight size={50} />
+//                     </button>
+//                 </div>
+//                 <div className="flex flex-col md:hidden justify-center gap-4">
+//                     <button className="border-2 border-black p-2" onClick={nextSlide}>
+//                         <FaArrowDown size={40} />
+//                     </button>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// };
+
 export default Index;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+    const { redirect_to } = context.query;
+    const { utm_source } = context?.query;
     const tag = 'via-socket';
     const defaultTag = 'integrations';
     const res = await axios.get(
@@ -686,33 +766,23 @@ export async function getServerSideProps() {
             footerData: footerData || [],
             posts: posts,
             initialIndus,
+            redirect_to: redirect_to || '',
+            utm_source: utm_source || 'website',
         },
     };
 }
 
 async function fetchApps(category) {
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=30${category && category !== 'All' ? `&category=${category}` : ''}`,
-        apiHeaders
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`
     );
     const rawData = await response.json();
     return rawData?.data;
 }
 
 async function fetchCombos(pathArray, industry, department) {
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
-        apiHeaders
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`
     );
     const responseData = await response.json();
     return responseData;
