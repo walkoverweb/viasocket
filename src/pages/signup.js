@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
         props: {
             navData: navData || [],
             footerData: footerData || [],
-            metaData: metaData[0] || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
             testimonials: testimonials || [],

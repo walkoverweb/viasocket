@@ -57,7 +57,7 @@ export async function getServerSideProps() {
         props: {
             navData: navData || [],
             footerData: footerData || [],
-            metaData: metaData[0] || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
             programs: programs || [],
         },
     };

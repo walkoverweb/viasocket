@@ -748,7 +748,6 @@ export async function getServerSideProps(context) {
 
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/index'`);
     const testimonials = await getTestimonialData(TESTIMONIALS_FIELDS);
-    console.log("🚀 ~ getServerSideProps ~ faqData:", faqData)
     const caseStudies = await getCaseStudyData(CASESTUDY_FIELDS);
     const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
     const features = await getIndexFeatures(INDEXFEATURES_FIELDS, `filter=product='Overall'`);
@@ -761,11 +760,11 @@ export async function getServerSideProps(context) {
             caseStudies: caseStudies || [],
             getStartedData: getStarted || [],
             features: features || [],
-            metaData:[],
-            faqData: [],
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
+            faqData: faqData || [],
             navData: navData || [],
             footerData: footerData || [],
-            posts: posts,
+            posts: posts || [],
             initialIndus,
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',

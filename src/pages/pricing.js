@@ -321,7 +321,7 @@ export async function getServerSideProps() {
     return {
         props: {
             betterChoice: betterChoice || [],
-            metaData: metaData[0] || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
             navData: navData || [],
             footerData: footerData || [],
             faqData: faqData || [],
