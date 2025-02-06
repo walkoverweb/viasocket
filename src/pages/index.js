@@ -45,6 +45,7 @@ import {
     FaArrowRight,
     FaArrowUp,
 } from 'react-icons/fa';
+import { getBlogData } from '@/utils/getBlogData';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -231,6 +232,20 @@ const Index = ({
 
     const utm = '/index';
 
+
+    useEffect(() => {
+        const fetchBlogData = async () => {
+            try {
+                const blogData = await getBlogData();
+                console.log('Fetched blog data:', blogData);
+                // You can set the blog data to a state here if needed
+            } catch (error) {
+                console.error('Error fetching blog data:', error);
+            }
+        };
+
+        fetchBlogData();
+    }, []);
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
