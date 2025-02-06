@@ -48,8 +48,8 @@ export async function getServerSideProps(context) {
             navData: navData || [],
             footerData: footerData || [],
             features: features || [],
-            featureData: featureData[0] || {},
-            metaData: metaData[0] || {},
+            featureData: (featureData?.length > 0 && featureData[0]) || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
             pageInfo: pageInfo || {},
         },
     };

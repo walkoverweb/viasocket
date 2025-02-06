@@ -26,8 +26,8 @@ export async function getServerSideProps() {
     return {
         props: {
             agencies: agencies || [],
-            pageData: pageData[0] || {},
-            metaData: metaData[0] || {},
+            pageData: (pageData?.length > 0 && pageData[0]) || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
             expertsHelp: expertsBlog || [],
             navData: navData || [],
             footerData: footerData || [],
