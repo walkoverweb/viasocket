@@ -1,3 +1,4 @@
+import ChatBoxComp from '@/components/chatBoxComp/chatBoxComp';
 import Navbar from '@/components/navbar/navbar';
 import { LinkButton } from '@/components/uiComponents/buttons';
 import Image from 'next/image';
@@ -59,6 +60,7 @@ export default function IndexBannerComp({ navData, redirect_to, utm_source }) {
                 <div className="md:flex-row h-full flex-col gap-4 text-center md:text-start items-center flex justify-between ">
                     <div className="mt-auto max-w-[800px] w-full flex flex-col items-center md:items-start gap-12 py-20">
                         <div className="flex flex-col gap-1">
+                        <ChatBoxComp/>
                             <h1 className="h1 text-black text-start">
                                 Supercharge your <br/>workflows <strong className="text-accent">with AI </strong>
                             </h1>
