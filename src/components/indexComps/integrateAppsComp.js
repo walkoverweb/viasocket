@@ -19,7 +19,7 @@ export default function IntegrateAppsComp() {
 
         fetchApps();
     }, []);
-    if (apps.length > 0) {
+    if (apps?.length > 0) {
         return (
             <>
                 <div className="cont cont__gap border border-black p-12 ">
