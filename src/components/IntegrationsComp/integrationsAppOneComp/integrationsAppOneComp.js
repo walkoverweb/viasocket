@@ -11,6 +11,7 @@ import { LinkText } from '@/components/uiComponents/buttons';
 import { useState } from 'react';
 import createURL from '@/utils/createURL';
 import IntegrationsEventsComp from '../integrationsEventsComp/integrationsEventsComp';
+import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
 
 export default function IntegrationsAppOneComp({
     appOneDetails,
@@ -72,9 +73,7 @@ export default function IntegrationsAppOneComp({
                             />
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
-                                <div className="flex flex-wrap gap-2">
-                      
-                                </div>
+                                <div className="flex flex-wrap gap-2"></div>
                             </div>
                         </div>
                     </div>
@@ -101,66 +100,53 @@ export default function IntegrationsAppOneComp({
                                 {`  Create effective ${appOneDetails?.name} automations in minutes by using pre-made templates that are customized for your needs`}
                             </p>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
-                            {combosData?.combinations?.slice(0, visibleCombos).map((combo, index) => {
-                                const integrations =
-                                    combosData?.plugins[combo?.trigger?.name]?.rowid +
-                                    ',' +
-                                    combosData?.plugins[combo?.actions[0]?.name]?.rowid;
-                                return (
-                                    <Link
-                                        key={index}
-                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions?.map((action) => action?.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
-                                        className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between  hover:bg-black hover:text-white"
-                                    >
-                                        <div className="cont gap-2">
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex gap-1">
-                                                    <Image
-                                                        src={
-                                                            combosData?.plugins[combo?.trigger?.name]?.iconurl ||
-                                                            'https://placehold.co/40x40'
-                                                        }
-                                                        width={36}
-                                                        height={36}
-                                                        className="w-fit h-8"
-                                                        alt={combo?.trigger?.name}
-                                                    />
-                                                    <Image
-                                                        src={
-                                                            combosData?.plugins[combo?.actions[0]?.name]?.iconurl ||
-                                                            'https://placehold.co/40x40'
-                                                        }
-                                                        width={36}
-                                                        height={36}
-                                                        className="w-fit h-8"
-                                                        alt={combo?.trigger?.name}
-                                                    />
-                                                </div>
-                                                <div className="flex items-center text-white">
-                                                    <span className="text-sm tracking-wider font-semibold">TRY IT</span>{' '}
-                                                    <MdArrowOutward />
-                                                </div>
-                                            </div>
-                                            <p className="text-sm">{combo?.description}</p>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
+                        <div>
+                            <div className="grid grid-cols-1 border-gray-400  md:grid-cols-2 border-b-0 border-r-0 border-2">
+                                {combosData?.combinations?.slice(0, visibleCombos).map((combo, index) => {
+                                    const integrations =
+                                        combosData?.plugins[combo?.trigger?.name]?.rowid +
+                                        ',' +
+                                        combosData?.plugins[combo?.actions[0]?.name]?.rowid;
+                                    const triggerName = combosData?.plugins[combo?.trigger?.name].events.find(
+                                        (event) => event.rowid === combo.trigger?.id
+                                    )?.name;
+                                    const actionName = combosData?.plugins[combo?.actions[0]?.name].events.find(
+                                        (event) => event.rowid === combo.actions[0]?.id
+                                    )?.name;
+                                    return (
+                                        <CombinationCardComp
+                                            trigger={{
+                                                name: triggerName,
+                                                iconurl:
+                                                    combosData?.plugins[combo?.trigger?.name]?.iconurl ||
+                                                    'https://placehold.co/40x40',
+                                            }}
+                                            action={{
+                                                name: actionName,
+                                                iconurl:
+                                                    combosData?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                                    'https://placehold.co/40x40',
+                                            }}
+                                            description={combo?.description}
+                                            link={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions?.map((action) => action?.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
+                                        />
+                                    );
+                                })}
+                            </div>
+                            {showMore && (
+                                <button
+                                    onClick={() => {
+                                        setVisibleCombos(visibleCombos + 8);
+                                        if (combosData?.combinations?.length <= visibleCombos) {
+                                            setShowMore(false);
+                                        }
+                                    }}
+                                    className="btn btn-outline border-t-0 border-2 border-gray-400 "
+                                >
+                                    Load More
+                                </button>
+                            )}
                         </div>
-                        {showMore && (
-                            <button
-                                onClick={() => {
-                                    setVisibleCombos(visibleCombos + 8);
-                                    if (combosData?.combinations?.length <= visibleCombos) {
-                                        setShowMore(false);
-                                    }
-                                }}
-                                className="btn btn-outline "
-                            >
-                                Load More
-                            </button>
-                        )}
                     </>
                 )}
 
