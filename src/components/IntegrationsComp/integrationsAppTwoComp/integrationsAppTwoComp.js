@@ -46,7 +46,7 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appOneDetails?.domain
                             }
                         >
-                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[300px]">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[400px]">
                                 Login to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
@@ -58,7 +58,7 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appTwoDetails?.domain
                             }
                         >
-                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[300px] ">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[400px] ">
                                 Login to {appTwoDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
@@ -74,9 +74,7 @@ export default function IntegrationsAppTwoComp({
                             />
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
-                                <p className="text-sm text-gray-500">
-                                    {appOneDetails?.category?.slice(0, 1).join(', ')}
-                                </p>
+                          
                             </div>
                         </div>
                         <div className="flex md:h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
@@ -89,9 +87,7 @@ export default function IntegrationsAppTwoComp({
                             />
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appTwoDetails?.name}</h2>
-                                <p className="text-sm text-gray-500">
-                                    {appTwoDetails?.category?.slice(0, 1).join(', ')}
-                                </p>
+                             
                             </div>
                         </div>
                     </div>

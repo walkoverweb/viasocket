@@ -27,7 +27,6 @@ export default function IntegrationsAppOneComp({
     const [visibleCombos, setVisibleCombos] = useState(12);
     const [showMore, setShowMore] = useState(combosData?.combinations?.length >= visibleCombos);
     const utm = pageInfo?.url;
-    console.log(appOneDetails);
     return (
         <>
             <IntegrationsHeadComp
@@ -74,14 +73,7 @@ export default function IntegrationsAppOneComp({
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
                                 <div className="flex flex-wrap gap-2">
-                                    {appOneDetails?.category?.map((cat, index) => (
-                                        <span
-                                            key={index}
-                                            className="px-3 py-1 text-sm bg-gray-100 rounded-full border border-gray-200"
-                                        >
-                                            {cat}
-                                        </span>
-                                    ))}
+                      
                                 </div>
                             </div>
                         </div>
