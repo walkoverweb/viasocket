@@ -97,7 +97,7 @@ export default function IntegrationsAppTwoComp({
                     </div>
                 </div>
             </div>
-            <div className="container cont cont__gap cont__py ">
+            <div className="container cont cont__gap ">
                 <div className="flex flex-wrap items-center md:gap-2 gap-0 md:text-lg text-sm">
                     <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
@@ -229,13 +229,13 @@ export default function IntegrationsAppTwoComp({
                     </div>
                 )}
             {blogsData?.length > 0 && (
-                <div className="container cont__py">
+                <div className="container">
                     {' '}
                     <BlogGrid posts={blogsData} />
                 </div>
             )}
 
-            <div className="container cont__py">
+            <div className="container ">
                 <div className="cont  border border-black">
                     <div className="p-12">{faqData && <FAQSection faqData={faqData} />}</div>
                     <div className="flex flex-col md:flex-row border border-x-0 border-b-0 border-black">
