@@ -46,7 +46,7 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appOneDetails?.domain
                             }
                         >
-                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[300px]">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[400px]">
                                 Login to {appOneDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
@@ -58,7 +58,7 @@ export default function IntegrationsAppTwoComp({
                                     : 'http://' + appTwoDetails?.domain
                             }
                         >
-                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[300px] ">
+                            <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[400px] ">
                                 Login to {appTwoDetails?.name} <MdOpenInNew />{' '}
                             </button>
                         </Link>
@@ -74,9 +74,7 @@ export default function IntegrationsAppTwoComp({
                             />
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
-                                <p className="text-sm text-gray-500">
-                                    {appOneDetails?.category?.slice(0, 1).join(', ')}
-                                </p>
+                          
                             </div>
                         </div>
                         <div className="flex md:h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
@@ -89,9 +87,7 @@ export default function IntegrationsAppTwoComp({
                             />
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appTwoDetails?.name}</h2>
-                                <p className="text-sm text-gray-500">
-                                    {appTwoDetails?.category?.slice(0, 1).join(', ')}
-                                </p>
+                             
                             </div>
                         </div>
                     </div>
@@ -236,11 +232,13 @@ export default function IntegrationsAppTwoComp({
             )}
 
             <div className="container cont__py">
-                <div className="cont  border border-black">
-                    <div className="p-12">{faqData && <FAQSection faqData={faqData} />}</div>
+                <div className="cont  ">
+                    <div className="p-12 border border-black border-b-0">
+                        {faqData && <FAQSection faqData={faqData} />}
+                    </div>
                     <div className="flex flex-col md:flex-row border border-x-0 border-b-0 border-black">
-                        <div className="cont gap-4 w-full p-12 border-r border-black">
-                            <div className="cont gap-2">
+                        <div className="cont gap-4 w-full p-12 border border-t-0 md:border-b-0  border-black">
+                            <div className="cont gap-2 ">
                                 <Image
                                     className="h-10 w-fit"
                                     src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
@@ -248,9 +246,26 @@ export default function IntegrationsAppTwoComp({
                                     height={36}
                                     alt="Slack"
                                 />
-                                <h3>About {appOneDetails?.name}</h3>
+                                <h3 className="h2 font-bold pt-5">About {appOneDetails?.name}</h3>
                             </div>
-                            <p>{appOneDetails?.description}</p>
+                            <p className="text-sm sm:text-lg text-black h-full font-medium">
+                                {appOneDetails?.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {appOneDetails?.category?.slice(0, 2).map((cat, index) => (
+                                    <Link
+                                        key={index}
+                                        href={createURL(
+                                            `/integrations/category/${cat.toLowerCase().replace(/\s+/g, '-')}`
+                                        )}
+                                        className="mb-2"
+                                    >
+                                        <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white ">
+                                            {cat}
+                                        </span>
+                                    </Link>
+                                ))}
+                            </div>
                             <Link
                                 href={
                                     appOneDetails?.domain?.startsWith('http')
@@ -261,7 +276,7 @@ export default function IntegrationsAppTwoComp({
                                 <LinkText children={'Learn More'} />
                             </Link>
                         </div>
-                        <div className="cont w-full gap-4 p-12">
+                        <div className="cont w-full gap-4 p-12 border-x md:border-l-0 border-black">
                             <div className="cont gap-2">
                                 <Image
                                     className="h-10 w-fit"
@@ -270,9 +285,26 @@ export default function IntegrationsAppTwoComp({
                                     height={36}
                                     alt="Slack"
                                 />
-                                <h3>About {appTwoDetails?.name}</h3>
+                                <h3 className="h2 font-bold pt-5">About {appTwoDetails?.name}</h3>
                             </div>
-                            <p>{appTwoDetails?.description}</p>
+                            <p className="text-sm sm:text-lg text-black h-full font-medium">
+                                {appTwoDetails?.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {appTwoDetails?.category?.slice(0, 2).map((cat, index) => (
+                                    <Link
+                                        key={index}
+                                        href={createURL(
+                                            `/integrations/category/${cat.toLowerCase().replace(/\s+/g, '-')}`
+                                        )}
+                                        className="mb-2"
+                                    >
+                                        <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                            {cat}
+                                        </span>
+                                    </Link>
+                                ))}
+                            </div>
                             <Link
                                 href={
                                     appTwoDetails?.domain?.startsWith('http')

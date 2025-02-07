@@ -72,9 +72,9 @@ export default function IntegrationsAppOneComp({
                             />
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
-                                <p className="text-sm text-gray-500">
-                                    {appOneDetails?.category?.slice(0, 1).join(', ')}
-                                </p>
+                                <div className="flex flex-wrap gap-2">
+                      
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -212,10 +212,12 @@ export default function IntegrationsAppOneComp({
                 </div>
             )}
             <div className="container cont__py">
-                <div className="cont  border border-black">
-                    <div className="p-12">{faqData && <FAQSection faqData={faqData} />}</div>
+                <div className="cont ">
+                    <div className="p-12 border border-black border-b-0">
+                        {faqData && <FAQSection faqData={faqData} />}
+                    </div>
                     <div className="flex flex-col md:flex-row border border-x-0 border-b-0 border-black">
-                        <div className="cont gap-4 p-12 border-r border-black w-full ">
+                        <div className="cont gap-4 p-12 border-x border-black w-full md:border-b-0 border-b">
                             <div>
                                 <Image
                                     className="h-10 w-fit"
@@ -224,9 +226,26 @@ export default function IntegrationsAppOneComp({
                                     height={36}
                                     alt="Slack"
                                 />
-                                <h3>About {appOneDetails?.name}</h3>
+                                <h3 className="h2 font-bold pt-5">About {appOneDetails?.name}</h3>
                             </div>
-                            <p>{appOneDetails?.description}</p>
+                            <p className="text-sm sm:text-lg text-black h-full font-medium">
+                                {appOneDetails?.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {appOneDetails?.category?.slice(0, 2).map((cat, index) => (
+                                    <Link
+                                        key={index}
+                                        href={createURL(
+                                            `/integrations/category/${cat.toLowerCase().replace(/\s+/g, '-')}`
+                                        )}
+                                        className="mb-2"
+                                    >
+                                        <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                            {cat}
+                                        </span>
+                                    </Link>
+                                ))}
+                            </div>
                             <Link
                                 target="_blank"
                                 href={
@@ -238,7 +257,7 @@ export default function IntegrationsAppOneComp({
                                 <LinkText children={'Learn More'} />
                             </Link>
                         </div>
-                        <div className="w-full cont gap-4 p-12">
+                        <div className="w-full cont gap-4 p-12 border-x md:border-l-0 border-black">
                             <div>
                                 <Image
                                     className="h-10 w-fit"
@@ -247,20 +266,31 @@ export default function IntegrationsAppOneComp({
                                     height={36}
                                     alt="Slack"
                                 />
-                                <h3>About viaSocket</h3>
+                                <h3 className="h2 font-bold pt-5">About viaSocket</h3>
                             </div>
-                            <p>
+                            <p className="text-sm sm:text-lg text-black h-full font-medium">
                                 viasocket is an innovative and versatile workflow automation platform designed to
                                 streamline and simplify the integration of your favorite applications and to
                             </p>
+                            <div className="flex flex-wrap gap-2">
+                                <Link href="/" className="mb-2">
+                                    <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                        Workflow Automation
+                                    </span>
+                                </Link>
+                                <Link href="/integrations" className="mb-2">
+                                    <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                        Integration
+                                    </span>
+                                </Link>
+                            </div>
                             <Link href={'/'}>
                                 <LinkText children={'Learn More'} />
                             </Link>
                         </div>
                     </div>
-                    <div>
-                        <Footer footerData={footerData} />
-                    </div>
+
+                    <Footer footerData={footerData} />
                 </div>
             </div>
         </>
