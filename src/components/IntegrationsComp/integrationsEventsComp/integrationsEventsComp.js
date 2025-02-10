@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { MdAdd, MdCheck, MdClose, MdKeyboardArrowDown } from 'react-icons/md';
+import { MdAdd, MdAdsClick, MdCheck, MdClose, MdKeyboardArrowDown } from 'react-icons/md';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 
 export default function IntegrationsEventsComp({ combosData, appOneDetails, appTwoDetails }) {
     const [visibleEvents, setVisibleEvents] = useState(6);
@@ -128,7 +129,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                 onClick={() => {
                                     setVisibleEvents(visibleEvents + 6);
                                 }}
-                                className="btn btn-outline "
+                                className={`btn btn-outline -mt-2 ${trigger.length >= visibleEvents ? 'border-t-0' : ''}`}
                             >
                                 Load More <MdKeyboardArrowDown fontSize={20} />
                             </button>
@@ -211,7 +212,14 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                     <div className="flex lg:flex-row flex-col w-full gap-2">
                         {trigger?.length > 0 && (
                             <div className="cont gap-2 w-full">
-                                <h3 className="h2">Triggers</h3>
+                                <h3 className="h2 flex items-center gap-2">
+                                    <MdAdsClick fontSize={20} />
+                                    When this happens
+                                    <span className="bg-red-100 text-red-700 text-sm px-2 py-0.5 inline-flex items-center">
+                                        Triggers
+                                    </span>
+                                </h3>
+
                                 {trigger.slice(0, visibleEvents).map((event, index) => {
                                     return (
                                         <div
@@ -236,7 +244,13 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                         )}
                         {actions?.length > 0 && (
                             <div className="cont gap-2 w-full  ">
-                                <h3 className="h2">Actions</h3>
+                                <h3 className="h2 flex items-center gap-2">
+                                    <IoMdCheckmarkCircleOutline fontSize={20} />
+                                    Do this
+                                    <span className="bg-blue-100 text-blue-700 text-sm px-2 py-0.5 inline-flex items-center">
+                                        Actions
+                                    </span>
+                                </h3>
                                 {actions.slice(0, visibleEvents).map((event, index) => {
                                     return (
                                         <div
@@ -265,7 +279,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                             onClick={() => {
                                 setVisibleEvents(visibleEvents + 6);
                             }}
-                            className="btn btn-outline "
+                            className={`btn btn-outline -mt-2 ${trigger.length >= visibleEvents ? 'border-t-0' : ''}`}
                         >
                             Load More <MdKeyboardArrowDown fontSize={20} />
                         </button>
