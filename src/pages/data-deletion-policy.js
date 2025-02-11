@@ -12,7 +12,7 @@ export async function getStaticProps() {
         props: {
             navData: navData || [],
             footerData: footerData || [],
-            metaData: metaData[0] || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
         },
     };
 }
@@ -48,22 +48,25 @@ export default function DataDeletionPolicy({ navData, footerData, metaData }) {
                             integrations created by our users.
                         </p>
                     </div>
-                    <div className='flex flex-col gap-3'>
+                    <div className="flex flex-col gap-3">
                         <strong>2. Our Data Practices</strong>
                         <p data-custom-class="body_text">
-                            <strong>Workflow Content</strong><br />
+                            <strong>Workflow Content</strong>
+                            <br />
                             Workflow Content refers to the data transferred in and out of workflows during their
                             execution. We do not store or access this data. It is temporarily processed solely for the
                             purpose of integrating apps and enabling workflows.
                         </p>
                         <p data-custom-class="body_text">
-                            <strong>Workflow Logs</strong><br />
+                            <strong>Workflow Logs</strong>
+                            <br />
                             Workflow Logs include metadata about workflows, such as the workflow name, dates and times
                             of workflow runs, and workflow status. These logs are retained for 7 days to allow
                             troubleshooting and are then archived.
                         </p>
                         <p data-custom-class="body_text">
-                            <strong>Workflow Metrics</strong><br />
+                            <strong>Workflow Metrics</strong>
+                            <br />
                             Workflow Metrics consist of statistical metadata about workflows, such as the count of
                             workflow invocations. We retain only this aggregate statistical information and do not store
                             any detailed data or content related to workflows.

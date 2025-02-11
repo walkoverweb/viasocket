@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward, MdArrowUpward } from 'react-icons/md';
 import axios from 'axios';
-import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
@@ -10,7 +9,6 @@ import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
-import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
@@ -37,15 +35,8 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
-import {
-    FaArrowCircleLeft,
-    FaArrowCircleRight,
-    FaArrowDown,
-    FaArrowLeft,
-    FaArrowRight,
-    FaArrowUp,
-} from 'react-icons/fa';
 import { getBlogData } from '@/utils/getBlogData';
+import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -69,6 +60,8 @@ const Index = ({
     navData,
     footerData,
     initialIndus,
+    redirect_to,
+    utm_source,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
@@ -250,40 +243,10 @@ const Index = ({
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full md:h-dvh min-h-fit hero_gradint cont md:gap-36 sm:gap-24 gap-12"
+                className="w-full  hero_gradint cont md:gap-36 sm:gap-24 gap-12"
                 // style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
             >
-                <div className="container h-full flex flex-col">
-                    <Navbar navData={navData} utm={'/index'} />
-                    <div className=" flex flex-col h-full cont__gap">
-                        <div className="md:flex-row h-full flex-col gap-4 text-center md:text-start items-center flex justify-between ">
-                            <div className="mt-auto max-w-[800px] w-full flex flex-col items-center md:items-start gap-4 py-20">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="h1 text-black">
-                                        <strong className="text-accent">Integrate</strong> your favorite apps and
-                                        automate everyday tasks effortlessly
-                                    </h1>
-                                    <h2 className="sub__h1 text-black">
-                                        Automate everything, but keep human intervention where it matters.
-                                    </h2>
-                                </div>
-
-                                <LinkButton
-                                    content={'Get Started'}
-                                    customClasses={'btn btn-accent btn-lg'}
-                                    href={'/signup?utm_source=/index'}
-                                />
-                            </div>
-                            <Image
-                                src={'/assets/img/website-flow.svg'}
-                                className="max-w-[600px] h-fit md:w-2/5 w-full"
-                                width={1080}
-                                height={1080}
-                                alt="Website flow"
-                            />
-                        </div>
-                    </div>
-                </div>
+                <IndexBannerComp navData={navData} redirect_to={redirect_to} utm_source={utm_source} />
                 <div className="container flex flex-col gap-4 ">
                     <div className="cont  max-w-[1100px]">
                         <h2 className="h1">Ready-Made Workflows for Every Need</h2>
@@ -652,13 +615,17 @@ const CaseStudiesSection = ({ caseStudies }) => (
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
+    const isSecond = !isPriority && caseStudy?.priority === '2';
+    const isThird = !isPriority && caseStudy?.priority === '3';
     return (
         <div
             aria-label="casestudy"
             className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
                 isPriority
                     ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
-                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col border-black ' +
+                      (isSecond ? 'border-t lg:border-0' : '') +
+                      (isThird ? 'border-t' : '')
             }`}
         >
             <>
@@ -776,7 +743,9 @@ const CaseStudyLink = ({ caseStudy }) => {
 
 export default Index;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+    const { redirect_to } = context.query;
+    const { utm_source } = context?.query;
     const tag = 'via-socket';
     const defaultTag = 'integrations';
     const res = await axios.get(
@@ -801,12 +770,14 @@ export async function getServerSideProps() {
             caseStudies: caseStudies || [],
             getStartedData: getStarted || [],
             features: features || [],
-            metaData: metaData[0] || {},
-            faqData: faqData,
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
+            faqData: faqData || [],
             navData: navData || [],
             footerData: footerData || [],
-            posts: posts,
+            posts: posts || [],
             initialIndus,
+            redirect_to: redirect_to || '',
+            utm_source: utm_source || 'website',
         },
     };
 }
