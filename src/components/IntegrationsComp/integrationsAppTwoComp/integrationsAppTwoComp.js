@@ -92,7 +92,7 @@ export default function IntegrationsAppTwoComp({
                     </div>
                 </div>
             </div>
-            <div className="container cont cont__gap cont__py ">
+            <div className="container cont cont__gap ">
                 <div className="flex flex-wrap items-center md:gap-2 gap-0 md:text-lg text-sm">
                     <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
@@ -213,7 +213,7 @@ export default function IntegrationsAppTwoComp({
                     </div>
                 )}
             {blogsData?.length > 0 && (
-                <div className="container cont__py">
+                <div className="container">
                     {' '}
                     <BlogGrid posts={blogsData} />
                 </div>
@@ -236,7 +236,7 @@ export default function IntegrationsAppTwoComp({
                                 />
                                 <h3 className="h2 font-bold pt-5">About {appOneDetails?.name}</h3>
                             </div>
-                            <p className="text-sm sm:text-lg text-black h-full font-medium">
+                            <p className="text-sm sm:text-lg text-black h-full f">
                                 {appOneDetails?.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -248,7 +248,7 @@ export default function IntegrationsAppTwoComp({
                                         )}
                                         className="mb-2"
                                     >
-                                        <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white ">
+                                        <span className="px-3 text-sm py-2 hover:bg-accent bg-black text-white ">
                                             {cat}
                                         </span>
                                     </Link>
@@ -275,7 +275,7 @@ export default function IntegrationsAppTwoComp({
                                 />
                                 <h3 className="h2 font-bold pt-5">About {appTwoDetails?.name}</h3>
                             </div>
-                            <p className="text-sm sm:text-lg text-black h-full font-medium">
+                            <p className="text-sm sm:text-lg text-black h-full ">
                                 {appTwoDetails?.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -287,7 +287,7 @@ export default function IntegrationsAppTwoComp({
                                         )}
                                         className="mb-2"
                                     >
-                                        <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                        <span className="px-3 py-2 text-sm hover:bg-accent bg-black text-white">
                                             {cat}
                                         </span>
                                     </Link>
