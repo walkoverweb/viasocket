@@ -5,7 +5,7 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import { getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
+import { getDefaultBlogData, getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
 import {
     FAQS_FIELDS,
     FOOTER_FIELDS,
@@ -17,13 +17,17 @@ import Autocomplete from 'react-autocomplete';
 import getCountries from '@/utils/getCountries';
 import Image from 'next/image';
 import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
+import BlogGrid from '@/components/blogGrid/blogGrid';
+import { getBlogData } from '@/utils/getBlogData';
 
-export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries }) {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries, blogTags }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState();
     const [inputValue, setInputValue] = useState('');
     const [isDeveloping, setIsDeveloping] = useState(false);
+    const [blogData, setBlogData] = useState([]);
+
     useEffect(() => {
         const fetchCountryData = async () => {
             if (selectedCountry) {
@@ -72,6 +76,32 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
             description: 'For Teams who want to collaborate on work.',
         },
     ];
+
+    useEffect(() => {
+        const fetchBlogData = async () => {
+     try {
+         const blogData = await getBlogData(blogTags);
+ 
+         if (blogData.length < 3) {
+             const defaultBlogData = await getDefaultBlogData();
+ 
+             const requiredDataCount = 3 - blogData.length;
+             const additionalData = defaultBlogData.slice(0, requiredDataCount);
+ 
+             const finalBlogData = [...blogData, ...additionalData];
+             setBlogData(finalBlogData);
+         } else {
+             setBlogData(blogData.slice(0, 6));
+         }
+ 
+     } catch (error) {
+         console.error('Error fetching blog data:', error);
+     }
+ };
+ 
+ fetchBlogData();
+ 
+     }, []);
 
     return (
         <>
@@ -299,6 +329,11 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
                             </div>
                         </div>
                     </div>
+                
+                    <div className="container">
+                        <BlogGrid posts={blogData} />
+                    </div>
+      
                     <div className="flex flex-col">
                         <div className="flex flex-col border-black border border-b-0 p-6 md:p-12">
                             {faqData && faqData.length > 0 && <FAQSection faqData={faqData} faqName={`/pricing`} />}
@@ -318,6 +353,7 @@ export async function getServerSideProps() {
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/pricing'`);
     const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
     const countries = await getCountries();
+    const blogTags = 'pricing';
     return {
         props: {
             betterChoice: betterChoice || [],
@@ -326,6 +362,7 @@ export async function getServerSideProps() {
             footerData: footerData || [],
             faqData: faqData || [],
             countries: countries || [],
+            blogTags: blogTags || [],
         },
     };
 }

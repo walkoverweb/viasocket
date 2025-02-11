@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { MdChevronRight, MdOutlineArrowForward } from 'react-icons/md';
-import { BtnWithHideIco, LinkButton, LinkText } from '../uiComponents/buttons';
+import { LinkText } from '../uiComponents/buttons';
 import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
     return (
@@ -42,7 +41,7 @@ const CardComponent = ({ card }) => {
                 <Image
                     width={720}
                     height={720}
-                    src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail}
+                    src={card?.image}
                     alt={card?.title}
                 />
             </figure>

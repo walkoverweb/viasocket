@@ -16,6 +16,7 @@ import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
 import {
     getCaseStudyData,
+    getDefaultBlogData,
     getFaqData,
     getFooterData,
     getGetStartedData,
@@ -56,12 +57,13 @@ const Index = ({
     features,
     metaData,
     faqData,
-    posts,
+    // posts,
     navData,
     footerData,
     initialIndus,
     redirect_to,
     utm_source,
+    blogTags,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
@@ -73,6 +75,7 @@ const Index = ({
     const [selectedDept, setSelectedDept] = useState('');
     const [showDeptDropdown, setShowDeptDropdown] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [blogData, setBlogData] = useState([]);
 
     const [selectedApps, setSelectedApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
@@ -227,17 +230,28 @@ const Index = ({
 
 
     useEffect(() => {
-        const fetchBlogData = async () => {
-            try {
-                const blogData = await getBlogData();
-                console.log('Fetched blog data:', blogData);
-                // You can set the blog data to a state here if needed
-            } catch (error) {
-                console.error('Error fetching blog data:', error);
-            }
-        };
+       const fetchBlogData = async () => {
+    try {
+        const blogData = await getBlogData(blogTags);
 
-        fetchBlogData();
+        if (blogData.length < 3) {
+            const defaultBlogData = await getDefaultBlogData();
+
+            const requiredDataCount = 3 - blogData.length;
+            const additionalData = defaultBlogData.slice(0, requiredDataCount);
+
+            const finalBlogData = [...blogData, ...additionalData];
+            setBlogData(finalBlogData);
+        } else {
+            setBlogData(blogData.slice(0, 6));
+        }
+    } catch (error) {
+        console.error('Error fetching blog data:', error);
+    }
+};
+
+fetchBlogData();
+
     }, []);
     return (
         <>
@@ -545,11 +559,11 @@ const Index = ({
                 <div className="container">
                     <CaseStudiesSection caseStudies={caseStudies} />
                 </div>
-                {posts?.length > 0 && (
+                
                     <div className="container">
-                        <BlogGrid posts={posts} />
+                        <BlogGrid posts={blogData} />
                     </div>
-                )}
+                
 
                 <div className="pb-6">
                     {faqData?.length > 0 && (
@@ -746,12 +760,12 @@ export default Index;
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
     const { utm_source } = context?.query;
-    const tag = 'via-socket';
-    const defaultTag = 'integrations';
-    const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-    );
-    const posts = await res.data;
+    // const tag = 'via-socket';
+    // const defaultTag = 'integrations';
+    // const res = await axios.get(
+    //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
+    // );
+    // const posts = await res.data;
 
     const randomIndex = Math.floor(Math.random() * Industries.industries.length);
     const initialIndus = Industries.industries[randomIndex];
@@ -764,6 +778,7 @@ export async function getServerSideProps(context) {
     const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/'`);
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
+    const blogTags = 'index' ;
     return {
         props: {
             testimonials: testimonials || [],
@@ -774,10 +789,11 @@ export async function getServerSideProps(context) {
             faqData: faqData || [],
             navData: navData || [],
             footerData: footerData || [],
-            posts: posts || [],
+            // posts: posts || [],
             initialIndus,
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
+            blogTags: blogTags,
         },
     };
 }

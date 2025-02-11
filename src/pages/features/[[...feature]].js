@@ -1,13 +1,41 @@
+import BlogGrid from '@/components/blogGrid/blogGrid';
 import FeatureBannerComp from '@/components/FeaturesComp/FeatureBannerComp/FeatureBannerComp';
 import FeatureContentComp from '@/components/FeaturesComp/FeatureContentComp/FeatureContentComp';
 import FeatureGridComp from '@/components/FeaturesComp/FeatureGridComp/FeatureGridComp';
 import FeaturesFooterComp from '@/components/FeaturesComp/FeaturesFooterComp/FeaturesFooterComp';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { ALLFEATURES_FIELDS, FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
-import { getAllFeatures, getFeatureData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
+import { getBlogData } from '@/utils/getBlogData';
+import { getAllFeatures, getDefaultBlogData, getFeatureData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
 import GetPageInfo from '@/utils/getPageInfo';
+import { useEffect, useState } from 'react';
 
-export default function Features({ features, featureData, navData, footerData, metaData, pathArray, pageInfo }) {
+export default function Features({ features, featureData, navData, footerData, metaData, pathArray, pageInfo, blogTags }) {
+    const [blogData, setBlogData] = useState([]);
+    useEffect(() => {
+        const fetchBlogData = async () => {
+     try {
+         const blogData = await getBlogData(blogTags);
+ 
+         if (blogData.length < 3) {
+             const defaultBlogData = await getDefaultBlogData();
+ 
+             const requiredDataCount = 3 - blogData.length;
+             const additionalData = defaultBlogData.slice(0, requiredDataCount);
+ 
+             const finalBlogData = [...blogData, ...additionalData];
+             setBlogData(finalBlogData);
+         } else {
+             setBlogData(blogData.slice(0, 6));
+         }
+     } catch (error) {
+         console.error('Error fetching blog data:', error);
+     }
+ };
+ 
+ fetchBlogData();
+ 
+     }, []);
     return (
         <>
             <MetaHeadComp metaData={metaData} page={pathArray?.join('/')} pathArray={pathArray} />
@@ -15,6 +43,9 @@ export default function Features({ features, featureData, navData, footerData, m
                 <FeatureBannerComp featureData={featureData} navData={navData} pageInfo={pageInfo} />
                 <FeatureGridComp features={features} pageInfo={pageInfo} />
                 <FeatureContentComp featureData={featureData?.faqs} pageInfo={pageInfo} />
+                <div className="container cont cont__py">
+                    <BlogGrid posts={blogData} />
+                </div>
                 <FeaturesFooterComp
                     featureData={featureData?.cta_content}
                     footerData={footerData}
@@ -43,6 +74,7 @@ export async function getServerSideProps(context) {
         featureData = await getFeatureData([], `filter=slug='${feature}'`);
     }
 
+    const blogTags = 'feature';
     return {
         props: {
             navData: navData || [],
@@ -51,6 +83,7 @@ export async function getServerSideProps(context) {
             featureData: (featureData?.length > 0 && featureData[0]) || {},
             metaData: (metaData?.length > 0 && metaData[0]) || {},
             pageInfo: pageInfo || {},
+            blogTags: blogTags || [],
         },
     };
 }

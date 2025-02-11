@@ -1,12 +1,11 @@
-export async function getBlogData() {
+export async function getBlogData(tag) {
     try {
-        const response = await fetch('https://flow.sokt.io/func/scri3Tye3dRc?tag=integration' , {
+        const response = await fetch(`https://flow.sokt.io/func/scri3Tye3dRc?tag=${tag}`, {
             method: 'GET',
             headers: {
                 'auth-key': process.env.NEXT_PUBLIC_BLOG_DB_KEY,
             },
         });
-        console.log("🚀 ~ getBlogData ~ response:", response)
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
