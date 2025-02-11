@@ -2,7 +2,7 @@ import { LinkButton, LinkText } from '../uiComponents/buttons';
 import { useState } from 'react';
 
 export default function FAQSection({ faqData, faqName }) {
-    const [openIndex, setOpenIndex] = useState(0);
+    const [openIndex, setOpenIndex] = useState(-1);
 
     return (
         <>
@@ -15,13 +15,12 @@ export default function FAQSection({ faqData, faqName }) {
                             return (
                                 <div key={index} className="collapse border-b border-none rounded-none LinkButtonCard ">
                                     <input
-                                        type="radio"
-                                        name="my-accordion-3"
-                                        defaultChecked={index === 0}
-                                        onChange={(e) => setOpenIndex(e.target.checked ? index : -1)}
+                                        type="checkbox"
+                                        checked={openIndex === index}
+                                        onChange={() => setOpenIndex(openIndex === index ? -1 : index)}
                                     />
                                     <div className="collapse-title text-xl sm:text-2xl font-semibold grid grid-cols-[60px_1fr_32px] sm:grid-cols-[80px_1fr_40px] items-start border-t-2 border-gray-200">
-                                        <span className="text-3xl sm:text-5xl text-gray-400">
+                                        <span className="text-4xl  text-gray-300">
                                             {String(index + 1).padStart(2, '0')}
                                         </span>
                                         {faq?.que}
