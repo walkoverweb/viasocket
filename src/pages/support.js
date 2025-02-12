@@ -165,7 +165,7 @@ export default function Support({ navData, footerData, metaData }) {
                             <button className="btn btn-accent" onClick={() => window.chatWidget.open()}>
                                 Live Chat
                             </button>
-                            <Link href="https://calendly.com/rpaliwal71/15-mins?month=2024-07" target="_blank">
+                            <Link href="https://cal.id/team/viasocket/superheros" target="_blank">
                                 <button className="btn btn-primary btn-outline">Book a Meeting</button>
                             </Link>
                             <Link href="https://viasocket.com/faq" target="_blank">

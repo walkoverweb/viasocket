@@ -595,13 +595,17 @@ const CaseStudiesSection = ({ caseStudies }) => (
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
+    const isSecond = !isPriority && caseStudy?.priority === '2';
+    const isThird = !isPriority && caseStudy?.priority === '3';
     return (
         <div
             aria-label="casestudy"
             className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
                 isPriority
                     ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
-                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col border-black ' +
+                      (isSecond ? 'border-t lg:border-0' : '') +
+                      (isThird ? 'border-t' : '')
             }`}
         >
             <>
