@@ -1,7 +1,6 @@
 import getApps from '@/utils/getApps';
 import {
     getCategoryData,
-    getDefaultBlogData,
     getDisconnectedData,
     getFaqData,
     getFooterData,
@@ -58,18 +57,8 @@ export default function Integrations({
         const fetchBlogData = async () => {
      try {
          const blogData = await getBlogData(blogTags);
- 
-         if (blogData.length < 3) {
-             const defaultBlogData = await getDefaultBlogData();
- 
-             const requiredDataCount = 3 - blogData.length;
-             const additionalData = defaultBlogData.slice(0, requiredDataCount);
- 
-             const finalBlogData = [...blogData, ...additionalData];
-             setBlogData(finalBlogData);
-         } else {
-             setBlogData(blogData.slice(0, 6));
-         }
+
+        setBlogData(blogData.slice(0, 6));
  
      } catch (error) {
          console.error('Error fetching blog data:', error);

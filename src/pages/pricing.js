@@ -1,3 +1,4 @@
+
 import FAQSection from '@/components/faqSection/faqSection';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -5,7 +6,7 @@ import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Link from 'next/link';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
-import { getDefaultBlogData, getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
+import { getFaqData, getFooterData, getMetaData, getNavData, getPricingBetterChoice } from '@/utils/getData';
 import {
     FAQS_FIELDS,
     FOOTER_FIELDS,
@@ -26,8 +27,6 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
     const [selectedCountry, setSelectedCountry] = useState();
     const [inputValue, setInputValue] = useState('');
     const [isDeveloping, setIsDeveloping] = useState(false);
-    const [blogData, setBlogData] = useState([]);
-
     useEffect(() => {
         const fetchCountryData = async () => {
             if (selectedCountry) {
@@ -76,32 +75,20 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
             description: 'For Teams who want to collaborate on work.',
         },
     ];
-
+    const [blogData, setBlogData] = useState([]);
     useEffect(() => {
+       
         const fetchBlogData = async () => {
-     try {
-         const blogData = await getBlogData(blogTags);
- 
-         if (blogData.length < 3) {
-             const defaultBlogData = await getDefaultBlogData();
- 
-             const requiredDataCount = 3 - blogData.length;
-             const additionalData = defaultBlogData.slice(0, requiredDataCount);
- 
-             const finalBlogData = [...blogData, ...additionalData];
-             setBlogData(finalBlogData);
-         } else {
-             setBlogData(blogData.slice(0, 6));
-         }
- 
-     } catch (error) {
-         console.error('Error fetching blog data:', error);
-     }
- };
- 
- fetchBlogData();
- 
-     }, []);
+            try {
+           
+                const blogData = await getBlogData(blogTags);
+                setBlogData(blogData);
+            } catch (error) {
+                console.error('Error fetching blog data:', error);
+            }
+        };
+        fetchBlogData();
+    }, []);
 
     return (
         <>
@@ -329,12 +316,10 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
                             </div>
                         </div>
                     </div>
-                
-                    <div className="container">
+                    <div className="flex flex-col">
+                    <div className="container cont pb-36">
                         <BlogGrid posts={blogData} />
                     </div>
-      
-                    <div className="flex flex-col">
                         <div className="flex flex-col border-black border border-b-0 p-6 md:p-12">
                             {faqData && faqData.length > 0 && <FAQSection faqData={faqData} faqName={`/pricing`} />}
                         </div>

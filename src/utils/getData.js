@@ -116,10 +116,7 @@ export async function getTrustedByData(fields, filter) {
     return handleData(data);
 }
 
-export async function getDefaultBlogData() {
-    const tag = 'index';
-    return getBlogData(tag);
-}
+
 
 export async function getDisconnectedData(fields, filter) {
     const data = await getDataFromTable(DISCONNECTED, handleFieldsFilter(fields, filter));
