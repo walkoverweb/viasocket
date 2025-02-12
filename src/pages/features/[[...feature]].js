@@ -10,22 +10,7 @@ import { getAllFeatures, getDefaultBlogData, getFeatureData, getFooterData, getM
 import GetPageInfo from '@/utils/getPageInfo';
 import { useEffect, useState } from 'react';
 
-export default function Features({ features, featureData, navData, footerData, metaData, pathArray, pageInfo, blogTags }) {
-    const [blogData, setBlogData] = useState([]);
-    useEffect(() => {
-        const fetchBlogData = async () => {
-     try {
-         const blogData = await getBlogData(blogTags);
-        setBlogData(blogData.slice(0, 6));
-      
-     } catch (error) {
-         console.error('Error fetching blog data:', error);
-     }
- };
- 
- fetchBlogData();
- 
-     }, []);
+export default function Features({ features, featureData, navData, footerData, metaData, pathArray, pageInfo, blogData}) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={pathArray?.join('/')} pathArray={pathArray} />
@@ -63,8 +48,9 @@ export async function getServerSideProps(context) {
     } else {
         featureData = await getFeatureData([], `filter=slug='${feature}'`);
     }
-
     const blogTags = 'feature';
+    const blogData = await getBlogData(blogTags);
+
     return {
         props: {
             navData: navData || [],
@@ -73,7 +59,7 @@ export async function getServerSideProps(context) {
             featureData: (featureData?.length > 0 && featureData[0]) || {},
             metaData: (metaData?.length > 0 && metaData[0]) || {},
             pageInfo: pageInfo || {},
-            blogTags: blogTags || [],
+            blogData: blogData || [],
         },
     };
 }

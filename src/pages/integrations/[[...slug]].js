@@ -26,7 +26,6 @@ import {
     METADATA_FIELDS,
     NAVIGATION_FIELDS,
 } from '@/const/fields';
-import { useState, useEffect } from 'react';
 import { getBlogData } from '@/utils/getBlogData';
 
 
@@ -45,29 +44,9 @@ export default function Integrations({
     noData,
     categories,
     disconnecteData,
+    blogData,
 }) {
-
-    const [blogData, setBlogData] = useState([]);
-
-    const blogTags = (appOneDetails?.appslugname && appTwoDetails?.appslugname) 
-        ? `${appOneDetails.appslugname}-${appTwoDetails.appslugname}` 
-        : appOneDetails?.appslugname || appTwoDetails?.appslugname || 'integrations';
-        console.log(blogTags);
-    useEffect(() => {
-        const fetchBlogData = async () => {
-     try {
-         const blogData = await getBlogData(blogTags);
-
-        setBlogData(blogData.slice(0, 6));
- 
-     } catch (error) {
-         console.error('Error fetching blog data:', error);
-     }
- };
- 
- fetchBlogData();
- 
-     }, []);
+    
     if (noData) {
         return (
             <>
@@ -160,6 +139,8 @@ export async function getServerSideProps(context) {
         const combosData = await getCombos(integrationsInfo);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
         const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
+        const blogTags = `${appOneDetails.appslugname}-${appTwoDetails.appslugname}`
+        const blogData = await getBlogData(blogTags);
         if ((appOneDetails, appTwoDetails)) {
             return {
                 props: {
@@ -174,6 +155,7 @@ export async function getServerSideProps(context) {
                     appOneDetails: appOneDetails || {},
                     appTwoDetails: appTwoDetails || {},
                     categoryData: {},
+                    blogData: blogData || [],
                 },
             };
         } else {
@@ -202,6 +184,8 @@ export async function getServerSideProps(context) {
             `filter=slugname='${integrationsInfo?.appone}' `
         );
         if (appOneDetails) {
+            const blogTags = appOneDetails.appslugname
+            const blogData = await getBlogData(blogTags);
             return {
                 props: {
                     pageInfo: pageInfo || {},
@@ -216,6 +200,7 @@ export async function getServerSideProps(context) {
                     appTwoDetails: {},
                     categoryData: {},
                     disconnecteData: disconnecteData || [],
+                    blogData: blogData || [],
                 },
             };
         } else {
@@ -238,6 +223,8 @@ export async function getServerSideProps(context) {
         );
         const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const categories = await getCategoryData(INTECATEGORYlIST_FILED);
+        const blogTags = 'integrations'
+        const blogData = await getBlogData(blogTags);
         return {
             props: {
                 pageInfo: pageInfo || {},
@@ -252,6 +239,7 @@ export async function getServerSideProps(context) {
                 appTwoDetails: {},
                 categoryData: (categoryData?.length > 0 && categoryData[0]) || {},
                 categories: categories || [],
+                blogData: blogData || [],
             },
         };
     }

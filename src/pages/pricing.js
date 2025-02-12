@@ -21,7 +21,7 @@ import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import { getBlogData } from '@/utils/getBlogData';
 
-export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries, blogTags }) {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries, blogData }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState();
@@ -75,20 +75,6 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
             description: 'For Teams who want to collaborate on work.',
         },
     ];
-    const [blogData, setBlogData] = useState([]);
-    useEffect(() => {
-       
-        const fetchBlogData = async () => {
-            try {
-           
-                const blogData = await getBlogData(blogTags);
-                setBlogData(blogData);
-            } catch (error) {
-                console.error('Error fetching blog data:', error);
-            }
-        };
-        fetchBlogData();
-    }, []);
 
     return (
         <>
@@ -339,6 +325,7 @@ export async function getServerSideProps() {
     const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
     const countries = await getCountries();
     const blogTags = 'pricing';
+    const blogData = await getBlogData(blogTags);
     return {
         props: {
             betterChoice: betterChoice || [],
@@ -348,6 +335,7 @@ export async function getServerSideProps() {
             faqData: faqData || [],
             countries: countries || [],
             blogTags: blogTags || [],
+            blogData: blogData || [],
         },
     };
 }

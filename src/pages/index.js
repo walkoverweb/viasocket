@@ -16,7 +16,6 @@ import searchApps from '@/utils/searchApps';
 import Link from 'next/link';
 import {
     getCaseStudyData,
-    getDefaultBlogData,
     getFaqData,
     getFooterData,
     getGetStartedData,
@@ -57,13 +56,12 @@ const Index = ({
     features,
     metaData,
     faqData,
-    // posts,
     navData,
     footerData,
     initialIndus,
     redirect_to,
     utm_source,
-    blogTags,
+    blogData,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
@@ -75,7 +73,6 @@ const Index = ({
     const [selectedDept, setSelectedDept] = useState('');
     const [showDeptDropdown, setShowDeptDropdown] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [blogData, setBlogData] = useState([]);
 
     const [selectedApps, setSelectedApps] = useState([]);
     const [searchData, setSearchData] = useState([]);
@@ -229,19 +226,7 @@ const Index = ({
     const utm = '/index';
 
 
-    useEffect(() => {
-       const fetchBlogData = async () => {
-    try {
-        const blogData = await getBlogData(blogTags);
-            setBlogData(blogData.slice(0, 6));
-    } catch (error) {
-        console.error('Error fetching blog data:', error);
-    }
-};
-
-fetchBlogData();
-
-    }, []);
+   
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
@@ -652,109 +637,13 @@ const CaseStudyLink = ({ caseStudy }) => {
     );
 };
 
-// const CaseStudiesSection = ({ caseStudies }) => {
-//     const [currentIndex, setCurrentIndex] = useState(1);
 
-//     const prevSlide = () => {
-//         setCurrentIndex((prev) => (prev === 0 ? caseStudies.length - 1 : prev - 1));
-//     };
-
-//     const nextSlide = () => {
-//         setCurrentIndex((prev) => (prev === caseStudies.length - 1 ? 0 : prev + 1));
-//     };
-
-//     return (
-//         <div className="flex flex-col gap-9">
-//             <h2 className="h1 text-center">Trusted by hundreds of businesses like yours</h2>
-
-//             <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
-//                 <div className="flex flex-col md:hidden justify-center gap-4">
-//                     <button className="border-2 border-black p-2" onClick={prevSlide}>
-//                         <FaArrowUp size={40} />
-//                     </button>
-//                 </div>
-//                 <div className="hidden md:flex flex-row gap-4">
-//                     <button className="border-2 border-black p-2" onClick={prevSlide}>
-//                         <FaArrowLeft size={50} />
-//                     </button>
-//                 </div>
-
-//                 <div className="w-full md:w-3/5 overflow-hidden">
-//                     <div className="w-full md:w-[600px] mx-auto relative h-[400px]">
-//                         <div className="flex w-full transition-transform duration-500 justify-center h-5/6 pt-14 md:pt-0">
-//                             {caseStudies.map((caseStudy, index) => {
-//                                 const isCenter = index === currentIndex;
-
-//                                 return (
-//                                     <div
-//                                         key={index}
-//                                         className="custom-translate"
-//                                         style={{
-//                                             '--translate-value': `${(index - currentIndex) * 100}%`,
-//                                             opacity: isCenter ? 1 : 0.7,
-//                                             zIndex: isCenter ? 10 : 1,
-//                                         }}
-//                                     >
-//                                         <div
-//                                             className={`transition-all duration-500 flex flex-col items-center bg-white overflow-hidden border-2 border-black ${
-//                                                 isCenter
-//                                                     ? 'h-[300px] w-[400px] md:h-96 md:w-[600px]'
-//                                                     : 'h-[300px] w-[300px] md:h-80 md:w-[600px]'
-//                                             }`}
-//                                         >
-//                                             <div className="w-full h-3/4 overflow-hidden">
-//                                                 <Image
-//                                                     src={caseStudy?.image[0]}
-//                                                     alt={caseStudy?.title}
-//                                                     width={288}
-//                                                     height={384}
-//                                                     className={`w-full h-full object-cover transition-all duration-500 ${
-//                                                         isCenter ? 'scale-110' : 'scale-100'
-//                                                     }`}
-//                                                 />
-//                                             </div>
-//                                             <div
-//                                                 className={`w-full p-3 text-black flex flex-col gap-2 justify-center items-center text-center ${
-//                                                     isCenter ? 'opacity-100' : 'opacity-80'
-//                                                 }`}
-//                                             >
-//                                                 <p className="text-xs">{caseStudy?.title}</p>
-//                                                 <LinkButton href={caseStudy?.link} content={'Know More'} />
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 );
-//                             })}
-//                         </div>
-//                     </div>
-//                 </div>
-
-//                 <div className="hidden md:flex flex-row gap-4">
-//                     <button className="border-2 border-black p-2" onClick={nextSlide}>
-//                         <FaArrowRight size={50} />
-//                     </button>
-//                 </div>
-//                 <div className="flex flex-col md:hidden justify-center gap-4">
-//                     <button className="border-2 border-black p-2" onClick={nextSlide}>
-//                         <FaArrowDown size={40} />
-//                     </button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
 
 export default Index;
 
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
     const { utm_source } = context?.query;
-    // const tag = 'via-socket';
-    // const defaultTag = 'integrations';
-    // const res = await axios.get(
-    //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-    // );
-    // const posts = await res.data;
 
     const randomIndex = Math.floor(Math.random() * Industries.industries.length);
     const initialIndus = Industries.industries[randomIndex];
@@ -768,6 +657,9 @@ export async function getServerSideProps(context) {
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
     const blogTags = 'index' ;
+
+    const blogData = await getBlogData(blogTags);
+
     return {
         props: {
             testimonials: testimonials || [],
@@ -778,7 +670,7 @@ export async function getServerSideProps(context) {
             faqData: faqData || [],
             navData: navData || [],
             footerData: footerData || [],
-            // posts: posts || [],
+            blogData: blogData || [],
             initialIndus,
             redirect_to: redirect_to || '',
             utm_source: utm_source || 'website',
