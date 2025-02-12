@@ -81,7 +81,7 @@ const NewNavbar = ({ navData, utm, borderClass }) => {
 
                     <div className="flex items-center ">
                         <Link
-                            href={`/login?utm_source=${utm}`}
+                            href={`https://flow.viasocket.com?utm_source=${utm}`}
                             className={`hidden lg:inline-block btn px-4 py-2 text-black  bg-white font-times-now text-lg font-normal border border-r-0  border-black bg-white hover:bg-gray-50 text-md md:text-lgw-auto lg:w-40 h-10 ${borderClass} `}
                         >
                             Login
@@ -94,7 +94,7 @@ const NewNavbar = ({ navData, utm, borderClass }) => {
                         </Link>
 
                         <Link
-                            href={`/login?utm_source=${utm}`}
+                            href={`https://flow.viasocket.com?utm_source=${utm}`}
                             className={`lg:hidden text-black p-3  border border-black border-r-0 ${borderClass}`}
                             aria-label="Login"
                         >
