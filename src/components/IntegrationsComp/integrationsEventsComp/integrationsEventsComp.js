@@ -128,7 +128,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                                 onClick={() => {
                                     setVisibleEvents(visibleEvents + 6);
                                 }}
-                                className="btn btn-outline "
+                                className="btn btn-outline w-full"
                             >
                                 Load More <MdKeyboardArrowDown fontSize={20} />
                             </button>
@@ -265,7 +265,7 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                             onClick={() => {
                                 setVisibleEvents(visibleEvents + 6);
                             }}
-                            className="btn btn-outline "
+                            className="w-full btn btn-outline"
                         >
                             Load More <MdKeyboardArrowDown fontSize={20} />
                         </button>
