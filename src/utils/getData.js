@@ -13,6 +13,7 @@ import {
     PROGRAMS,
     TESTIMONIALS,
     TRUSTEDBY,
+    EMBED,
 } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
@@ -135,5 +136,10 @@ export async function getBlogData() {
 
 export async function getDisconnectedData(fields, filter) {
     const data = await getDataFromTable(DISCONNECTED, handleFieldsFilter(fields, filter));
+    return handleData(data);
+}
+
+export async function getEmbedData(fields, filter) {
+    const data = await getDataFromTable(EMBED, handleFieldsFilter(fields, filter));
     return handleData(data);
 }
