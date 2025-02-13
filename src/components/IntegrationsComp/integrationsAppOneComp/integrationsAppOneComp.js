@@ -79,7 +79,7 @@ export default function IntegrationsAppOneComp({
                     </div>
                 </div>
             </div>
-            <div className="container cont cont__gap cont__py ">
+            <div className="container cont cont__gap  ">
                 <div className="flex items-center gap-2 text-lg">
                     <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
                         Integrations{' '}
@@ -168,7 +168,7 @@ export default function IntegrationsAppOneComp({
                     </div>
                 )}
             </div>
-            <div className="cont cont__gap cont__py">
+            <div className="cont cont__gap ">
                 <div className="container cont gap-6">
                     <h2 className="h1">{`Connect Any App with ${appOneDetails?.name}`}</h2>
                     <div className="flex items-center gap-4 ">
@@ -192,7 +192,7 @@ export default function IntegrationsAppOneComp({
                 </div>
             )}
             {blogsData?.length > 0 && (
-                <div className="container cont__py">
+                <div className="container ">
                     {' '}
                     <BlogGrid posts={blogsData} />
                 </div>
@@ -214,7 +214,7 @@ export default function IntegrationsAppOneComp({
                                 />
                                 <h3 className="h2 font-bold pt-5">About {appOneDetails?.name}</h3>
                             </div>
-                            <p className="text-sm sm:text-lg text-black h-full font-medium">
+                            <p className="text-sm sm:text-lg text-black h-full">
                                 {appOneDetails?.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export default function IntegrationsAppOneComp({
                                         )}
                                         className="mb-2"
                                     >
-                                        <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                        <span className="px-3 text-sm py-2 hover:bg-accent bg-black text-white">
                                             {cat}
                                         </span>
                                     </Link>
@@ -258,14 +258,14 @@ export default function IntegrationsAppOneComp({
                                 viasocket is an innovative and versatile workflow automation platform designed to
                                 streamline and simplify the integration of your favorite applications and to
                             </p>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-3">
                                 <Link href="/" className="mb-2">
-                                    <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                    <span className="px-3 py-2 text-sm hover:bg-accent bg-black text-white">
                                         Workflow Automation
                                     </span>
                                 </Link>
                                 <Link href="/integrations" className="mb-2">
-                                    <span className="px-3 py-2 text-sm sm:text-lg bg-gray-800 text-white">
+                                    <span className="px-3 py-2 text-sm hover:bg-accent bg-black text-white">
                                         Integration
                                     </span>
                                 </Link>

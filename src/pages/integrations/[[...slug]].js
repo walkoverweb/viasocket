@@ -56,10 +56,11 @@ export default function Integrations({
         );
     } else if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
         return (
-            <>
+            <div className="cont md:gap-36 sm:gap-24 gap-12">
                 <Head>
                     <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
                 </Head>
+
                 <IntegrationsAppTwoComp
                     pageInfo={pageInfo}
                     integrationsInfo={integrationsInfo}
@@ -72,26 +73,28 @@ export default function Integrations({
                     faqData={faqData}
                     footerData={footerData}
                 />
-            </>
+            </div>
         );
     } else if (integrationsInfo?.appone) {
         const isDisconnected = pageInfo?.qurey?.status === 'disconnected';
         if (isDisconnected) {
             return (
-                <IntegrationsDisconnectedComp
-                    pageInfo={pageInfo}
-                    integrationsInfo={integrationsInfo}
-                    metadata={metadata}
-                    blogsData={blogsData}
-                    appOneDetails={appOneDetails}
-                    faqData={faqData}
-                    footerData={footerData}
-                    disconnecteData={disconnecteData}
-                />
+                <div className="container cont">
+                    <IntegrationsDisconnectedComp
+                        pageInfo={pageInfo}
+                        integrationsInfo={integrationsInfo}
+                        metadata={metadata}
+                        blogsData={blogsData}
+                        appOneDetails={appOneDetails}
+                        faqData={faqData}
+                        footerData={footerData}
+                        disconnecteData={disconnecteData}
+                    />
+                </div>
             );
         } else {
             return (
-                <>
+                <div className="cont md:gap-36 sm:gap-24 gap-12">
                     <IntegrationsAppOneComp
                         pageInfo={pageInfo}
                         integrationsInfo={integrationsInfo}
@@ -103,21 +106,23 @@ export default function Integrations({
                         faqData={faqData}
                         footerData={footerData}
                     />
-                </>
+                </div>
             );
         }
     } else {
         return (
-            <IntegrationsIndexComp
-                pageInfo={pageInfo}
-                integrationsInfo={integrationsInfo}
-                navData={navData}
-                footerData={footerData}
-                apps={apps}
-                blogsData={blogsData}
-                categoryData={categoryData}
-                categories={categories}
-            />
+            <div className="cont md:gap-36 sm:gap-24 gap-12">
+                <IntegrationsIndexComp
+                    pageInfo={pageInfo}
+                    integrationsInfo={integrationsInfo}
+                    navData={navData}
+                    footerData={footerData}
+                    apps={apps}
+                    blogsData={blogsData}
+                    categoryData={categoryData}
+                    categories={categories}
+                />
+            </div>
         );
     }
 }
