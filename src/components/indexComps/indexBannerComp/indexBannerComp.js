@@ -52,7 +52,7 @@ export default function IndexBannerComp({ navData, redirect_to, utm_source }) {
         }
     }, []);
 
-    const signupFeatures = ['Unlimited active workflows', 'No credit card required', 'Connect 500+ apps'];
+    const signupFeatures = ['Unlimited active workflows', 'No credit card required', 'Connect 5000+ apps'];
     return (
         <div className="container h-full md:h-dvh min-h-fit flex flex-col">
             <Navbar navData={navData} utm={'/index'} />

@@ -63,7 +63,7 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
                             {apps?.map((app) => (
                                 <a
                                     key={app?.rowid}
-                                    href={app?.appslugname ? `/find-apps/${alphabet}/${app?.appslugname}` : `/noplugin`}
+                                    href={app?.appslugname ? `/integrations/${app?.appslugname}` : `/noplugin`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="block"
@@ -77,7 +77,7 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
                 </>
             )}
 
-            {step == 2 && (
+            {/* {step == 2 && (
                 <>
                     <Head>
                         <title>
@@ -187,7 +187,7 @@ const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) =
                         </div>
                     </div>
                 </>
-            )}
+            )} */}
         </div>
     );
 };
@@ -212,36 +212,36 @@ export async function getServerSideProps(context) {
                 },
             };
         }
-        case 2: {
-            const response = await fetch(`https://plugservice-api.viasocket.com/plugins/search?prefix=${slug[1]}`);
-            const data = await response.json();
-            const filteredData = data?.data?.rows.filter((app) => app.appslugname === slug[1]);
-            return {
-                props: {
-                    apps: [],
-                    appDetails: filteredData[0] || [],
-                    alphabet: slug[0] || '',
-                    step: step,
-                    alphabet2: null,
-                },
-            };
-        }
-        case 3: {
-            const appResponse = await fetch(`https://plugservice-api.viasocket.com/plugins/search?prefix=${slug[1]}`);
-            const appData = await appResponse.json();
-            const filteredData = appData?.data?.rows.filter((app) => app.appslugname === slug[1]);
-            const response = await fetch(`https://plugservice-api.viasocket.com/plugins/search?prefix=${slug[2]}`);
-            const data = await response.json();
-            return {
-                props: {
-                    apps: data?.data?.rows || [],
-                    appDetails: filteredData[0] || [],
-                    alphabet: slug[0] || '',
-                    step: step,
-                    alphabet2: slug[2] || '',
-                },
-            };
-        }
+        // case 2: {
+        //     const response = await fetch(`https://plugservice-api.viasocket.com/plugins/search?prefix=${slug[1]}`);
+        //     const data = await response.json();
+        //     const filteredData = data?.data?.rows.filter((app) => app.appslugname === slug[1]);
+        //     return {
+        //         props: {
+        //             apps: [],
+        //             appDetails: filteredData[0] || [],
+        //             alphabet: slug[0] || '',
+        //             step: step,
+        //             alphabet2: null,
+        //         },
+        //     };
+        // }
+        // case 3: {
+        //     const appResponse = await fetch(`https://plugservice-api.viasocket.com/plugins/search?prefix=${slug[1]}`);
+        //     const appData = await appResponse.json();
+        //     const filteredData = appData?.data?.rows.filter((app) => app.appslugname === slug[1]);
+        //     const response = await fetch(`https://plugservice-api.viasocket.com/plugins/search?prefix=${slug[2]}`);
+        //     const data = await response.json();
+        //     return {
+        //         props: {
+        //             apps: data?.data?.rows || [],
+        //             appDetails: filteredData[0] || [],
+        //             alphabet: slug[0] || '',
+        //             step: step,
+        //             alphabet2: slug[2] || '',
+        //         },
+        //     };
+        // }
         default: {
             return {
                 props: {
