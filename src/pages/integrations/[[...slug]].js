@@ -223,7 +223,7 @@ export async function getServerSideProps(context) {
         );
         const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const categories = await getCategoryData(INTECATEGORYlIST_FILED);
-        const blogTags = 'integrations'
+        const blogTags = 'integration'
         const blogData = await getBlogData(blogTags);
         return {
             props: {

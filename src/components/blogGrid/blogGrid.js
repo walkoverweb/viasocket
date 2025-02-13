@@ -42,7 +42,7 @@ const CardComponent = ({ card }) => {
             </figure>
             <div className="card-body gap-4">
                 <div className="flex flex-col gap-1 h-full">
-                    <h3 className="uppercase tracking-wider font-semibold">{card?.title.toLowerCase()}</h3>
+                    <h3 className=" font-semibold">{card?.title}</h3>
                     <p className="text-base">{card?.description}</p>
                 </div>
                 <div className="card-actions justify-start mt-auto">
