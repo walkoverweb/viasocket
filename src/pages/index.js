@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward, MdArrowUpward } from 'react-icons/md';
 import axios from 'axios';
-import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
@@ -10,7 +9,6 @@ import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
-import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
@@ -46,6 +44,7 @@ import {
     FaArrowUp,
 } from 'react-icons/fa';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
+import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -69,7 +68,8 @@ const Index = ({
     navData,
     footerData,
     initialIndus,
-    redirect_to, utm_source
+    redirect_to,
+    utm_source,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
@@ -470,52 +470,38 @@ const Index = ({
                                 </button>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
+                        <div className="grid grid-cols-1 border-gray-400  md:grid-cols-2 border-b-0 border-r-0 border-2">
                             {!combinationLoading
                                 ? renderCombos?.combinations?.map((combo) => {
+                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name].events.find(
+                                          (event) => event.rowid === combo.trigger?.id
+                                      )?.name;
+                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name].events.find(
+                                          (event) => event.rowid === combo.actions[0]?.id
+                                      )?.name;
+
                                       const integrations =
                                           renderCombos?.plugins[combo?.trigger?.name]?.rowid +
                                           ',' +
                                           renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
                                       return (
-                                          <Link
-                                              href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
-                                              className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between hover:bg-black hover:text-white "
-                                          >
-                                              <div className="cont gap-2">
-                                                  <div className="flex items-center gap-3">
-                                                      <div className="flex gap-1">
-                                                          <Image
-                                                              src={
-                                                                  renderCombos?.plugins[combo?.trigger?.name]
-                                                                      ?.iconurl || 'https://placehold.co/40x40'
-                                                              }
-                                                              width={36}
-                                                              height={36}
-                                                              className="w-fit h-8"
-                                                              alt={combo?.trigger?.name}
-                                                          />
-                                                          <Image
-                                                              src={
-                                                                  renderCombos?.plugins[combo?.actions[0]?.name]
-                                                                      ?.iconurl || 'https://placehold.co/40x40'
-                                                              }
-                                                              width={36}
-                                                              height={36}
-                                                              className="w-fit h-8"
-                                                              alt={combo?.trigger?.name}
-                                                          />
-                                                      </div>
-                                                      <div className="flex items-center text-white">
-                                                          <span className="text-sm tracking-wider font-semibold">
-                                                              TRY IT
-                                                          </span>{' '}
-                                                          <MdArrowOutward />
-                                                      </div>
-                                                  </div>
-                                                  <p className="text-sm">{combo?.description}</p>
-                                              </div>
-                                          </Link>
+                                          <CombinationCardComp
+                                              trigger={{
+                                                  name: triggerName,
+                                                  iconurl:
+                                                      renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
+                                                      'https://placehold.co/40x40',
+                                              }}
+                                              action={{
+                                                  name: actionName,
+                                                  iconurl:
+                                                      renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                                      'https://placehold.co/40x40',
+                                              }}
+                                              description={combo?.description}
+                                              link={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
+                                          />
+                                   
                                       );
                                   })
                                 : combinationLoading &&
@@ -609,13 +595,17 @@ const CaseStudiesSection = ({ caseStudies }) => (
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
+    const isSecond = !isPriority && caseStudy?.priority === '2';
+    const isThird = !isPriority && caseStudy?.priority === '3';
     return (
         <div
             aria-label="casestudy"
             className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
                 isPriority
                     ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
-                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col border-black ' +
+                      (isSecond ? 'border-t lg:border-0' : '') +
+                      (isThird ? 'border-t' : '')
             }`}
         >
             <>
