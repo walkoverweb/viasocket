@@ -222,3 +222,8 @@ $button-transition-timing: 100ms;
         }
     }
 }
+
+
+.combo_card:hover > .combocard_div{
+    @apply text-white bg-black transition-colors;
+}
