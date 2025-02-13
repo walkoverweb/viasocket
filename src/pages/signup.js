@@ -89,7 +89,10 @@ const Login = ({ metaData, testimonials, pathArray, redirect_to, utm_source }) =
                                 </div>
                                 <p>
                                     Already have an account?{' '}
-                                    <Link className="active-link text-link" href={'/login'}>
+                                    <Link
+                                        className="active-link text-link"
+                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}?utm_source=${'website'}`}
+                                    >
                                         Login
                                     </Link>
                                 </p>
