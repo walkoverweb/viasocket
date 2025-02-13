@@ -125,15 +125,18 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                             )}
                         </div>
                         {(actions?.length >= visibleEvents || trigger >= visibleEvents) && (
+                                             <div className='flex items-center justify-center w-full'>
                             <button
                                 onClick={() => {
                                     setVisibleEvents(visibleEvents + 6);
                                 }}
-                                className={`w-full btn btn-outline -mt-2 ${trigger.length >= visibleEvents ? 'border-t-0' : ''}`}
+                                className={`w-full max-w-[800px] btn btn-outline ${trigger.length >= visibleEvents ? 'border-t-0' : ''}`}
                             >
                                 Load More <MdKeyboardArrowDown fontSize={20} />
                             </button>
+                            </div>
                         )}
+                        
                     </div>
                     {(selectedTrigger || selectedAction) && (
                         <div className="fixed bottom-0 left-0 w-full z-[99999] bg-white border border-black p-4 ">
@@ -275,14 +278,17 @@ export default function IntegrationsEventsComp({ combosData, appOneDetails, appT
                         )}
                     </div>
                     {(actions?.length >= visibleEvents || trigger >= visibleEvents) && (
+                        <div className='flex items-center justify-center w-full'>
+
                         <button
                             onClick={() => {
                                 setVisibleEvents(visibleEvents + 6);
                             }}
-                            className={`w-full btn btn-outline -mt-2 ${trigger.length >= visibleEvents ? 'border-t-0' : ''}`}
+                            className={`w-full max-w-[800px] btn btn-outline ${trigger.length >= visibleEvents ? 'border-t-0' : ''}`}
                         >
                             Load More <MdKeyboardArrowDown fontSize={20} />
                         </button>
+                        </div>
                     )}
                 </div>
             )}
