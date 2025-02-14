@@ -58,7 +58,7 @@ export default function Footer({ footerData, borderClass }) {
                                 alt="socket fav icon"
                             />
                         </Link>
-                        <p>© 2024 viaSocket</p>
+                        <p>© {new Date().getFullYear()} viaSocket</p>
                         <p>All rights reserved.</p>
                     </div>
                     {/* <div className="flex items-end gap-2 w-full flex-wrap mt-auto">
