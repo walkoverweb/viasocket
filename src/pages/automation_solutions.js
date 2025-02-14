@@ -2,10 +2,8 @@ import Navbar from '@/components/navbar/navbar';
 import { NAVIGATION_FIELDS } from '@/const/fields';
 import { getNavData } from '@/utils/getData';
 import { CgArrowTopRight } from 'react-icons/cg';
-import Industries from '@/assets/data/categories.json';
-import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { MdArrowForward, MdClose, MdSearch } from 'react-icons/md';
 import searchApps from '@/utils/searchApps';
 import { CiSquarePlus } from 'react-icons/ci';
 
@@ -20,7 +18,7 @@ const useDebounce = (value, delay) => {
     return debouncedValue;
 };
 
-export default function AutomationSuggestions({ navData, initialIndus }) {
+export default function AutomationSuggestions({ navData }) {
     const [selectedDomain, setSelectedDomain] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -60,11 +58,12 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
 
     const handleGenerate = async () => {
         setCombinationLoading(true);
+        setRenderCombos([]);
 
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         const industry = selectedIndustry || 'Dummy Industry';
         const domain = selectedDomain || 'Dummy domain';
-        const useCaseData = useCase;
+        const useCaseData = useCase || 'use case';
 
         try {
             const combos = await fetchCombos(
@@ -105,17 +104,29 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
         }
     };
 
-    const handleSelectApp = (appName) => {
-        const app = searchData.find((app) => app.appslugname === appName);
-        if (app) {
-            setSelectedApps((prev) => [...prev, app]);
-            setSearchData((prev) => prev.filter((item) => item.appslugname !== appName));
-            setSearchTerm('');
-            setShowAppDropdown(false);
-        }
+    const handleSelectApp = (app) => {
+        setSelectedApps((prev) => {
+            const exists = prev.some((selected) => selected.appslugname === app.appslugname);
+            return exists ? prev.filter((item) => item.appslugname !== app.appslugname) : [...prev, app];
+        });
     };
 
     const [showAppDropdown, setShowAppDropdown] = useState(false);
+
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowAppDropdown(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [dropdownRef]);
 
     return (
         <div className="flex flex-col h-full md:h-screen ">
@@ -126,10 +137,10 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
             <div className="flex flex-col md:flex-row flex-grow overflow-hidden">
                 <div className="w-full md:w-1/2 py-10 md:py-0 px-10 flex flex-col justify-center bg-gradient-to-l from-[#def9f0] to-[#def9f0]">
                     <div className="flex flex-col gap-2 justify-start items-center text-lg w-full">
-                        <div className="flex  items-center w-full group">
+                        <div className="flex items-center w-full group">
                             <h1 className="h1 text-nowrap">I use</h1>
 
-                            <div className="ml-2 flex items-center gap-3 ">
+                            <div className="ml-2 flex items-center gap-3">
                                 {selectedApps.map((app) => (
                                     <div key={app.appslugname} className="flex items-center">
                                         {selectedApps.length === 1 ? (
@@ -148,7 +159,7 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
                             </div>
 
                             {selectedApps.length === 0 || showAppDropdown ? (
-                                <div className="relative overflow-visible">
+                                <div className="relative overflow-visible" ref={dropdownRef}>
                                     <input
                                         type="text"
                                         className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-[100px]"
@@ -159,34 +170,34 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                     />
                                     {showAppDropdown && (
-                                        <ul
-                                            tabIndex={0}
-                                            className="absolute mt-2 bg-base-100 shadow-xl z-10 max-h-[290px] w-[300px] overflow-scroll p-0 border border-gray-300 rounded-lg"
-                                        >
-                                            {searchData?.length > 0 &&
-                                                searchData.map((app, index) => (
-                                                    <div
+                                        <ul className="absolute mt-2 bg-base-100 shadow-xl z-10 max-h-[290px] w-[300px] overflow-scroll p-0 border border-gray-300 rounded-lg">
+                                            {selectedApps.map((app) => (
+                                                <DropdownItem
+                                                    key={app.appslugname}
+                                                    app={app}
+                                                    isChecked={true}
+                                                    handleSelect={handleSelectApp}
+                                                />
+                                            ))}
+                                            {searchData
+                                                ?.filter(
+                                                    (app) =>
+                                                        !selectedApps.some(
+                                                            (selected) => selected.appslugname === app.appslugname
+                                                        )
+                                                )
+                                                .map((app, index) => (
+                                                    <DropdownItem
                                                         key={index}
-                                                        className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-[300px] ${
-                                                            index === highlightedIndex ? 'bg-gray-200' : 'bg-white'
-                                                        } hover:bg-gray-100`}
-                                                        onClick={() => handleSelectApp(app?.appslugname)}
-                                                        onMouseEnter={() => setHighlightedIndex(index)}
-                                                    >
-                                                        <Image
-                                                            src={app?.iconurl || 'https://placehold.co/36x36'}
-                                                            width={16}
-                                                            height={16}
-                                                            alt="ico"
-                                                        />
-                                                        <span>{app?.name}</span>
-                                                    </div>
+                                                        app={app}
+                                                        isChecked={false}
+                                                        handleSelect={handleSelectApp}
+                                                    />
                                                 ))}
                                         </ul>
                                     )}
                                 </div>
-                            ) : null}
-                            {!showAppDropdown && (
+                            ) : (
                                 <button
                                     className="flex h1 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ml-4"
                                     onClick={() => setShowAppDropdown(true)}
@@ -313,14 +324,29 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
     );
 }
 
+const DropdownItem = ({ app, isChecked, handleSelect }) => (
+    <div
+        className={`flex items-center gap-2 px-3 py-2 cursor-pointer w-[300px] hover:bg-gray-100 ${
+            isChecked ? 'bg-gray-200' : 'bg-white'
+        }`}
+        onClick={() => handleSelect(app)}
+    >
+        <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={() => handleSelect(app)}
+            onClick={(e) => e.stopPropagation()} // Prevent parent div click
+        />
+        <Image src={app?.iconurl || 'https://placehold.co/36x36'} width={16} height={16} alt="ico" />
+        <span>{app?.name}</span>
+    </div>
+);
+
 export async function getServerSideProps() {
     const navData = await getNavData(NAVIGATION_FIELDS);
-    const randomIndex = Math.floor(Math.random() * Industries.industries.length);
-    const initialIndus = Industries.industries[randomIndex];
     return {
         props: {
             navData: navData,
-            initialIndus,
         },
     };
 }
@@ -334,8 +360,9 @@ async function fetchApps(category) {
 }
 
 async function fetchCombos(pathArray, industry, domain, useCase) {
+    console.log(pathArray, industry, domain, useCase);
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&domain=${domain && domain.toLowerCase()}&useCase=${useCase && encodeURIComponent(useCase)}`
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&domain=${domain && domain.toLowerCase()}&usecase=${useCase && encodeURIComponent(useCase)}`
     );
     const responseData = await response.json();
     return responseData;
