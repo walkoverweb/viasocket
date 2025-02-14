@@ -92,7 +92,6 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
     }, []);
 
     const filterApps = async () => {
-        setSearchLoading(true);
         try {
             if (debounceValue) {
                 const result = await searchApps(debounceValue);
@@ -103,8 +102,6 @@ export default function AutomationSuggestions({ navData, initialIndus }) {
             }
         } catch (error) {
             console.error(error);
-        } finally {
-            setSearchLoading(false);
         }
     };
 
