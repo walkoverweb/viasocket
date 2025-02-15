@@ -57,10 +57,8 @@ export default function AutomationSuggestions({ navData }) {
     }, [fetchAppsData, filterSelectedApps]);
 
     const handleGenerate = async () => {
+        setRenderCombos();
         setCombinationLoading(true);
-        // setRenderCombos([]);
-        console.log('Render Combos cleared', renderCombos);
-
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         const industry = selectedIndustry || 'Dummy Industry';
         const domain = selectedDomain || 'Dummy domain';
@@ -271,50 +269,64 @@ export default function AutomationSuggestions({ navData }) {
 
                 <div className="w-full md:w-1/2 bg-gray-100 flex flex-col overflow-y-auto h-full border-gray-400 border-2">
                     <div className="h-full flex flex-col justify-between ">
-                        <ul className="divide-y divide-gray-300 space-y-6 flex-grow">
-                            {!combinationLoading
-                                ? renderCombos?.combinations?.map((combo) => {
-                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name].events.find(
-                                          (event) => event.rowid === combo.trigger?.id
-                                      )?.name;
-                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name].events.find(
-                                          (event) => event.rowid === combo.actions[0]?.id
-                                      )?.name;
+                        <div className="flex flex-col">
+                            {combinationLoading ? (
+                                <>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                    <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
+                                </>
+                            ) : (
+                                renderCombos?.combinations?.map((combo) => {
+                                    const triggerName = renderCombos?.plugins[combo?.trigger?.name]?.events?.find(
+                                        (event) => event?.rowid === combo.trigger?.id
+                                    )?.name;
+                                    const actionName = renderCombos?.plugins[combo?.actions[0]?.name]?.events?.find(
+                                        (event) => event?.rowid === combo?.actions[0]?.id
+                                    )?.name;
 
-                                      const triggerIcon =
-                                          renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
-                                          'https://placehold.co/40x40';
-                                      const actionIcon =
-                                          renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
-                                          'https://placehold.co/40x40';
+                                    const triggerIcon =
+                                        renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
+                                        'https://placehold.co/40x40';
+                                    const actionIcon =
+                                        renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                        'https://placehold.co/40x40';
 
-                                      const integrations =
-                                          renderCombos?.plugins[combo?.trigger?.name]?.rowid +
-                                          ',' +
-                                          renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
+                                    const integrations =
+                                        renderCombos?.plugins[combo?.trigger?.name]?.rowid +
+                                        ',' +
+                                        renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
 
-                                      return (
-                                          <li key={combo.trigger?.id} className="p-4 flex items-center gap-4 relative">
-                                              <img src={triggerIcon} alt="Trigger Icon" className="w-6 h-6" />
-                                              <img src={actionIcon} alt="Action Icon" className="w-6 h-6" />
-                                              <div className="flex-1">
-                                                  <p className="text-lg flex items-center gap-2">
-                                                      {triggerName} → {actionName}
-                                                      <a
-                                                          href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
-                                                          className="text-gray-500 text-sm flex items-center"
-                                                      >
-                                                          Try It <CgArrowTopRight />
-                                                      </a>
-                                                  </p>
-                                              </div>
-                                          </li>
-                                      );
-                                  })
-                                : Array.from({ length: 12 }).map((_, index) => (
-                                      <li key={index} className="p-4 skeleton bg-gray-100 h-[100px]"></li>
-                                  ))}
-                        </ul>
+                                    return (
+                                        <a
+                                        target='blank'
+                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
+                                            key={combo.trigger?.id}
+                                            className="px-4 py-6 flex items-center gap-4 border-b hover:bg-white "
+                                        >
+                                            <img src={triggerIcon} alt="Trigger Icon" className="w-6 h-6" />
+                                            <img src={actionIcon} alt="Action Icon" className="w-6 h-6" />
+                                            <div className="flex gap-4 items-center justify-between w-full">
+                                                <p className="text-lg flex items-center gap-2">
+                                                    {triggerName} → {actionName}
+                                                </p>
+                                                <span
+                                                    className="text-gray-500 text-sm flex items-center"
+                                                >
+                                                    Try It <CgArrowTopRight />
+                                                </span>
+                                            </div>
+                                        </a>
+                                    );
+                                })
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
