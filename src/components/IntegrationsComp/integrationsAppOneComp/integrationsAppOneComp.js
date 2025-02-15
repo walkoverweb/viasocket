@@ -168,23 +168,26 @@ export default function IntegrationsAppOneComp({
                     </div>
                 )}
             </div>
-            <div className="cont cont__gap ">
-                <div className="container cont gap-6">
-                    <h2 className="h1">{`Connect Any App with ${appOneDetails?.name}`}</h2>
-                    <div className="flex items-center gap-4 ">
-                        <Image
-                            className="h-10 w-fit"
-                            src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
-                            width={36}
-                            height={36}
-                            alt="Slack"
-                        />
-                        <h2 className="text-2xl font-bold">{appOneDetails?.name}</h2>
+            {appOneDetails?.events.length > 0 && (
+                <div className="cont cont__gap ">
+                    <div className="container cont gap-6">
+                        <h2 className="h1">{`Connect Any App with ${appOneDetails?.name}`}</h2>
+                        <div className="flex items-center gap-4 ">
+                            <Image
+                                className="h-10 w-fit"
+                                src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
+                                width={36}
+                                height={36}
+                                alt="Slack"
+                            />
+                            <h2 className="text-2xl font-bold">{appOneDetails?.name}</h2>
+                        </div>
+                        <MdAdd fontSize={36} />
                     </div>
-                    <MdAdd fontSize={36} />
+                    <IntegrationsAppComp pageInfo={pageInfo} integrationsInfo={integrationsInfo} apps={apps} />
                 </div>
-                <IntegrationsAppComp pageInfo={pageInfo} integrationsInfo={integrationsInfo} apps={apps} />
-            </div>
+            )}
+
             {combosData?.combinations?.length > 0 && (
                 <div className="container cont gap-4">
                     <h2 className="h1">Actions and Triggers</h2>
@@ -214,9 +217,7 @@ export default function IntegrationsAppOneComp({
                                 />
                                 <h3 className="h2 font-bold pt-5">About {appOneDetails?.name}</h3>
                             </div>
-                            <p className="text-sm sm:text-lg text-black h-full">
-                                {appOneDetails?.description}
-                            </p>
+                            <p className="text-sm sm:text-lg text-black h-full">{appOneDetails?.description}</p>
                             <div className="flex flex-wrap gap-2">
                                 {appOneDetails?.category?.slice(0, 2).map((cat, index) => (
                                     <Link

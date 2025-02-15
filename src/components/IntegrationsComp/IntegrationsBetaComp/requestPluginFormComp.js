@@ -6,7 +6,6 @@ import Image from 'next/image';
 export default function RequestPluginFormComp({ appOneDetails }) {
     const { executeRecaptcha } = useGoogleReCaptcha();
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
-    console.log('Current URL:', currentUrl);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
