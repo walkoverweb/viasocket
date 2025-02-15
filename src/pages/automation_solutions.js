@@ -58,7 +58,8 @@ export default function AutomationSuggestions({ navData }) {
 
     const handleGenerate = async () => {
         setCombinationLoading(true);
-        setRenderCombos([]);
+        // setRenderCombos([]);
+        console.log('Render Combos cleared', renderCombos);
 
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         const industry = selectedIndustry || 'Dummy Industry';
@@ -73,6 +74,7 @@ export default function AutomationSuggestions({ navData }) {
                 useCaseData
             );
             setRenderCombos(combos?.data);
+            console.log(renderCombos);
         } catch (error) {
             console.error('Error fetching combos:', error);
         } finally {
@@ -136,7 +138,7 @@ export default function AutomationSuggestions({ navData }) {
 
             <div className="flex flex-col md:flex-row flex-grow overflow-hidden">
                 <div className="w-full md:w-1/2 py-10 md:py-0 px-10 flex flex-col justify-center bg-gradient-to-l from-[#def9f0] to-[#def9f0]">
-                    <div className="flex flex-col gap-2 justify-start items-center text-lg w-full">
+                    <div className="flex flex-col gap-2 justify-start items-start text-lg w-fit">
                         <div className="flex items-center w-full group">
                             <h1 className="h1 text-nowrap">I use</h1>
 
@@ -162,7 +164,7 @@ export default function AutomationSuggestions({ navData }) {
                                 <div className="relative overflow-visible" ref={dropdownRef}>
                                     <input
                                         type="text"
-                                        className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-[100px]"
+                                        className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-[200px]"
                                         placeholder="App"
                                         value={searchTerm}
                                         onFocus={() => setShowAppDropdown(true)}
@@ -207,54 +209,50 @@ export default function AutomationSuggestions({ navData }) {
                             )}
                         </div>
 
-                        <div className="flex flex-col justify-start items-start w-full">
-                            <div className="flex items-center">
-                                <h1 className="h1 text-nowrap ">We're in the </h1>
-                                <input
-                                    type="text"
-                                    className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full"
-                                    placeholder="Industry type"
-                                    value={selectedDomain}
-                                    onFocus={(e) => {
-                                        e.target.classList.remove('text-gray-400');
+                        <div className="flex items-center">
+                            <h1 className="h1 text-nowrap ">We're in the </h1>
+                            <input
+                                type="text"
+                                className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-[350px] "
+                                placeholder="Industry type"
+                                value={selectedDomain}
+                                onFocus={(e) => {
+                                    e.target.classList.remove('text-gray-400');
+                                    e.target.classList.add('text-red-500');
+                                }}
+                                onBlur={(e) => {
+                                    if (!e.target.value) {
+                                        e.target.classList.add('text-gray-400');
+                                        e.target.classList.remove('text-red-500');
+                                    } else {
                                         e.target.classList.add('text-red-500');
-                                    }}
-                                    onBlur={(e) => {
-                                        if (!e.target.value) {
-                                            e.target.classList.add('text-gray-400');
-                                            e.target.classList.remove('text-red-500');
-                                        } else {
-                                            e.target.classList.add('text-red-500');
-                                        }
-                                    }}
-                                    onChange={(e) => setSelectedDomain(e.target.value)}
-                                />
-                            </div>
+                                    }
+                                }}
+                                onChange={(e) => setSelectedDomain(e.target.value)}
+                            />
                         </div>
 
-                        <div className="flex flex-col justify-start items-start w-full">
-                            <div className="flex items-center">
-                                <h1 className="h1 text-nowrap">I run </h1>
-                                <input
-                                    type="text"
-                                    className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full"
-                                    placeholder="domain.com"
-                                    value={selectedIndustry}
-                                    onFocus={(e) => {
-                                        e.target.classList.remove('text-gray-400');
+                        <div className="flex items-center">
+                            <h1 className="h1 text-nowrap">I run </h1>
+                            <input
+                                type="text"
+                                className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none  w-[300px]"
+                                placeholder="domain.com"
+                                value={selectedIndustry}
+                                onFocus={(e) => {
+                                    e.target.classList.remove('text-gray-400');
+                                    e.target.classList.add('text-red-500');
+                                }}
+                                onBlur={(e) => {
+                                    if (!e.target.value) {
+                                        e.target.classList.add('text-gray-400');
+                                        e.target.classList.remove('text-red-500');
+                                    } else {
                                         e.target.classList.add('text-red-500');
-                                    }}
-                                    onBlur={(e) => {
-                                        if (!e.target.value) {
-                                            e.target.classList.add('text-gray-400');
-                                            e.target.classList.remove('text-red-500');
-                                        } else {
-                                            e.target.classList.add('text-red-500');
-                                        }
-                                    }}
-                                    onChange={(e) => setSelectedIndustry(e.target.value)}
-                                />
-                            </div>
+                                    }
+                                }}
+                                onChange={(e) => setSelectedIndustry(e.target.value)}
+                            />
                         </div>
 
                         <textarea
