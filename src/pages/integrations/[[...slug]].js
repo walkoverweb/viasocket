@@ -139,9 +139,9 @@ export async function getServerSideProps(context) {
         const combosData = await getCombos(integrationsInfo);
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
         const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
-        const blogTags = `${appOneDetails.appslugname}-${appTwoDetails.appslugname}`
+        const blogTags = `${appOneDetails?.appslugname}-${appTwoDetails?.appslugname}`
         const blogData = await getBlogData(blogTags);
-        if ((appOneDetails, appTwoDetails)) {
+        if (appOneDetails && appTwoDetails) {
             return {
                 props: {
                     pageInfo: pageInfo || {},
