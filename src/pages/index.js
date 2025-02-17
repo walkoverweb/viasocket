@@ -496,7 +496,6 @@ const Index = ({
                                               description={combo?.description}
                                               link={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
                                           />
-                                   
                                       );
                                   })
                                 : combinationLoading &&
