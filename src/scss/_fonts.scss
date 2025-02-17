@@ -14,6 +14,9 @@ body {
     @apply md:text-6xl text-4xl font-normal;
     font-family: 'Times Now';
     line-height: 1.1em;
+    &__b {
+        @apply font-bold;
+    }
 }
 .h2 {
     @apply md:text-3xl text-2xl;
