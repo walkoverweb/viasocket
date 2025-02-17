@@ -1,3 +1,4 @@
+
 import FAQSection from '@/components/faqSection/faqSection';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -17,8 +18,10 @@ import Autocomplete from 'react-autocomplete';
 import getCountries from '@/utils/getCountries';
 import Image from 'next/image';
 import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
+import BlogGrid from '@/components/blogGrid/blogGrid';
+import { getBlogData } from '@/utils/getBlogData';
 
-export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries }) {
+export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries, blogData }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState();
@@ -300,6 +303,9 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
                         </div>
                     </div>
                     <div className="flex flex-col">
+                    <div className="container cont pb-36">
+                        <BlogGrid posts={blogData} />
+                    </div>
                         <div className="flex flex-col border-black border border-b-0 p-6 md:p-12">
                             {faqData && faqData.length > 0 && <FAQSection faqData={faqData} faqName={`/pricing`} />}
                         </div>
@@ -318,14 +324,18 @@ export async function getServerSideProps() {
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/pricing'`);
     const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
     const countries = await getCountries();
+    const blogTags = 'pricing';
+    const blogData = await getBlogData(blogTags);
     return {
         props: {
             betterChoice: betterChoice || [],
-            metaData: metaData[0] || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
             navData: navData || [],
             footerData: footerData || [],
             faqData: faqData || [],
             countries: countries || [],
+            blogTags: blogTags || [],
+            blogData: blogData || [],
         },
     };
 }

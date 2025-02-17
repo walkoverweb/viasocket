@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { MdChevronRight, MdOutlineArrowForward } from 'react-icons/md';
-import { BtnWithHideIco, LinkButton, LinkText } from '../uiComponents/buttons';
+import { LinkText } from '../uiComponents/buttons';
 import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
     return (
@@ -39,16 +38,13 @@ const CardComponent = ({ card }) => {
         >
             {' '}
             <figure className="h-90">
-                <Image
-                    width={720}
-                    height={720}
-                    src={process.env.NEXT_PUBLIC_BASE_URL + card?.thumbnail}
-                    alt={card?.title}
-                />
+                <Image width={720} height={720} src={card?.image} alt={card?.title} />
             </figure>
             <div className="card-body gap-4">
-                <h3 className="uppercase tracking-wider font-semibold">{card?.title}</h3>
-                <p className="text-base">{card?.description}</p>
+                <div className="flex flex-col gap-1 h-full">
+                    <h3 className=" font-semibold">{card?.title}</h3>
+                    <p className="text-base">{card?.description}</p>
+                </div>
                 <div className="card-actions justify-start mt-auto">
                     <LinkText children="Know more" />
                 </div>

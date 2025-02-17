@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward, MdArrowUpward } from 'react-icons/md';
 import axios from 'axios';
-import { getDbdashData } from './api/index';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
@@ -10,7 +9,6 @@ import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import Industries from '@/assets/data/categories.json';
 import { LinkButton } from '@/components/uiComponents/buttons';
-import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
@@ -37,6 +35,9 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
+import { getBlogData } from '@/utils/getBlogData';
+import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
+import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -56,10 +57,12 @@ const Index = ({
     features,
     metaData,
     faqData,
-    posts,
     navData,
     footerData,
     initialIndus,
+    redirect_to,
+    utm_source,
+    blogData,
 }) => {
     const formattedIndustries = useMemo(() => Industries.industries.map((name, id) => ({ name, id: id + 1 })), []);
     const formattedDepartments = useMemo(() => Industries.departments.map((name, id) => ({ name, id: id + 1 })), []);
@@ -173,6 +176,7 @@ const Index = ({
     };
 
     const handleGenerate = async () => {
+        console.log('object');
         setCombinationLoading(true);
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         try {
@@ -222,46 +226,16 @@ const Index = ({
 
     const utm = '/index';
 
+
+   
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
             <div
-                className="w-full md:h-dvh min-h-fit hero_gradint"
+                className="w-full  hero_gradint cont md:gap-36 sm:gap-24 gap-12"
                 // style={{ background: 'url(/assets/img/gradientHero.svg) center/cover' }}
             >
-                <div className="container h-full flex flex-col">
-                    <Navbar navData={navData} utm={'/index'} />
-                    <div className=" flex flex-col h-full cont__gap">
-                        <div className="md:flex-row h-full flex-col gap-4 text-center md:text-start items-center flex justify-between ">
-                            <div className="mt-auto max-w-[800px] w-full flex flex-col items-center md:items-start gap-4 py-20">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="h1 text-black">
-                                        <strong className="text-accent">Integrate</strong> your favorite apps and
-                                        automate everyday tasks effortlessly
-                                    </h1>
-                                    <h2 className="sub__h1 text-black">
-                                        Automate everything, but keep human intervention where it matters.
-                                    </h2>
-                                </div>
-
-                                <LinkButton
-                                    content={'Get Started'}
-                                    customClasses={'btn btn-accent btn-lg'}
-                                    href={'/signup?utm_source=/index'}
-                                />
-                            </div>
-                            <Image
-                                src={'/assets/img/website-flow.svg'}
-                                className="max-w-[600px] h-fit md:w-2/5 w-full"
-                                width={1080}
-                                height={1080}
-                                alt="Website flow"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className=" cont cont__py gap-36">
+                <IndexBannerComp navData={navData} redirect_to={redirect_to} utm_source={utm_source} />
                 <div className="container flex flex-col gap-4 ">
                     <div className="cont  max-w-[1100px]">
                         <h2 className="h1">Ready-Made Workflows for Every Need</h2>
@@ -482,59 +456,47 @@ const Index = ({
                             >
                                 <button
                                     disabled={selectedApps.length < 2}
-                                    onClick={handleGenerate}
+                                    onClick={() => {
+                                        handleGenerate();
+                                    }}
                                     className="h-[32px] w-[32px] flex items-center justify-center bg-accent text-white"
                                 >
                                     <MdArrowForward />
                                 </button>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-black border-b-0 border-r-0 border">
+                        <div className="grid grid-cols-1 border-gray-400  md:grid-cols-2 border-b-0 border-r-0 border-2">
                             {!combinationLoading
                                 ? renderCombos?.combinations?.map((combo) => {
+                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name].events.find(
+                                          (event) => event.rowid === combo.trigger?.id
+                                      )?.name;
+                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name].events.find(
+                                          (event) => event.rowid === combo.actions[0]?.id
+                                      )?.name;
+
                                       const integrations =
                                           renderCombos?.plugins[combo?.trigger?.name]?.rowid +
                                           ',' +
                                           renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
                                       return (
-                                          <Link
-                                              href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action?utm_source=${utm}`}
-                                              className="border border-black border-t-0 border-l-0 p-4 lg:p-8 cont gap-4 justify-between hover:bg-black hover:text-white "
-                                          >
-                                              <div className="cont gap-2">
-                                                  <div className="flex items-center gap-3">
-                                                      <div className="flex gap-1">
-                                                          <Image
-                                                              src={
-                                                                  renderCombos?.plugins[combo?.trigger?.name]
-                                                                      ?.iconurl || 'https://placehold.co/40x40'
-                                                              }
-                                                              width={36}
-                                                              height={36}
-                                                              className="w-fit h-8"
-                                                              alt={combo?.trigger?.name}
-                                                          />
-                                                          <Image
-                                                              src={
-                                                                  renderCombos?.plugins[combo?.actions[0]?.name]
-                                                                      ?.iconurl || 'https://placehold.co/40x40'
-                                                              }
-                                                              width={36}
-                                                              height={36}
-                                                              className="w-fit h-8"
-                                                              alt={combo?.trigger?.name}
-                                                          />
-                                                      </div>
-                                                      <div className="flex items-center text-white">
-                                                          <span className="text-sm tracking-wider font-semibold">
-                                                              TRY IT
-                                                          </span>{' '}
-                                                          <MdArrowOutward />
-                                                      </div>
-                                                  </div>
-                                                  <p className="text-sm">{combo?.description}</p>
-                                              </div>
-                                          </Link>
+                                          <CombinationCardComp
+                                              trigger={{
+                                                  name: triggerName,
+                                                  iconurl:
+                                                      renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
+                                                      'https://placehold.co/40x40',
+                                              }}
+                                              action={{
+                                                  name: actionName,
+                                                  iconurl:
+                                                      renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                                      'https://placehold.co/40x40',
+                                              }}
+                                              description={combo?.description}
+                                              link={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
+                                          />
+                                   
                                       );
                                   })
                                 : combinationLoading &&
@@ -547,6 +509,7 @@ const Index = ({
                         </div>
                     </div>
                 </div>
+
                 {features && <FeaturesGrid features={features} />}
                 <div className="container">
                     <TestimonialsSection testimonials={testimonials} />
@@ -557,25 +520,29 @@ const Index = ({
                 <div className="container">
                     <CaseStudiesSection caseStudies={caseStudies} />
                 </div>
-                {posts?.length > 0 && (
+                
                     <div className="container">
-                        <BlogGrid posts={posts} />
+                        <BlogGrid posts={blogData} />
                     </div>
-                )}
+                
 
-                {faqData?.length > 0 && (
-                    <div className="container">
-                        <FAQSection faqData={faqData} faqName={'/index'} />
+                <div className="pb-6">
+                    {faqData?.length > 0 && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <FAQSection faqData={faqData} faqName={'/index'} />
+                        </div>
+                    )}
+                    {getStartedData && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <GetStarted data={getStartedData} isHero={'false'} />
+                        </div>
+                    )}
+                    <div className="container border border-black p-20 border-b-0">
+                        <AlphabeticalComponent step={0} />
                     </div>
-                )}
-                {getStartedData && (
                     <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
+                        <Footer footerData={footerData} />
                     </div>
-                )}
-                <div className="container">
-                    <AlphabeticalComponent step={0} />
-                    <Footer footerData={footerData} />
                 </div>
             </div>
         </>
@@ -623,13 +590,17 @@ const CaseStudiesSection = ({ caseStudies }) => (
 
 const CaseStudyLink = ({ caseStudy }) => {
     const isPriority = caseStudy?.priority === '1';
+    const isSecond = !isPriority && caseStudy?.priority === '2';
+    const isThird = !isPriority && caseStudy?.priority === '3';
     return (
         <div
             aria-label="casestudy"
             className={` bg-neutral flex  overflow-hidden col-span-6 row-span-2    ${
                 isPriority
                     ? 'lg:col-span-3 lg:row-span-6 lg:flex-col flex-col md:flex-row col-span-6 row-span-2'
-                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col'
+                    : 'lg:col-span-3 lg:row-span-3 md:flex-row flex-col border-black ' +
+                      (isSecond ? 'border-t lg:border-0' : '') +
+                      (isThird ? 'border-t' : '')
             }`}
         >
             <>
@@ -653,15 +624,13 @@ const CaseStudyLink = ({ caseStudy }) => {
     );
 };
 
+
+
 export default Index;
 
-export async function getServerSideProps() {
-    const tag = 'via-socket';
-    const defaultTag = 'integrations';
-    const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-    );
-    const posts = await res.data;
+export async function getServerSideProps(context) {
+    const { redirect_to } = context.query;
+    const { utm_source } = context?.query;
 
     const randomIndex = Math.floor(Math.random() * Industries.industries.length);
     const initialIndus = Industries.industries[randomIndex];
@@ -674,45 +643,40 @@ export async function getServerSideProps() {
     const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/'`);
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
+    const blogTags = 'index' ;
+
+    const blogData = await getBlogData(blogTags);
+
     return {
         props: {
             testimonials: testimonials || [],
             caseStudies: caseStudies || [],
             getStartedData: getStarted || [],
             features: features || [],
-            metaData: metaData[0] || {},
-            faqData: faqData,
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
+            faqData: faqData || [],
             navData: navData || [],
             footerData: footerData || [],
-            posts: posts,
+            blogData: blogData || [],
             initialIndus,
+            redirect_to: redirect_to || '',
+            utm_source: utm_source || 'website',
+            blogTags: blogTags,
         },
     };
 }
 
 async function fetchApps(category) {
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=30${category && category !== 'All' ? `&category=${category}` : ''}`,
-        apiHeaders
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/all?limit=50${category && category !== 'All' ? `&category=${category}` : ''}`
     );
     const rawData = await response.json();
     return rawData?.data;
 }
 
 async function fetchCombos(pathArray, industry, department) {
-    const apiHeaders = {
-        headers: {
-            'auth-key': process.env.NEXT_PUBLIC_INTEGRATION_KEY,
-        },
-    };
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`,
-        apiHeaders
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&department=${department && department !== 'All' && department.toLowerCase()}`
     );
     const responseData = await response.json();
     return responseData;

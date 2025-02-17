@@ -12,7 +12,7 @@ export async function getStaticProps() {
         props: {
             navData: navData || [],
             footerData: footerData || [],
-            metaData: metaData[0] || {},
+            metaData: (metaData?.length > 0 && metaData[0]) || {},
         },
     };
 }

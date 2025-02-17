@@ -37,7 +37,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            getStartedData: results[1].data.rows,
+            getStartedData:(results?.length > 0 && results[1].data.rows) || {},
             navData: results[4]?.data?.rows,
             footerData: results[5]?.data?.rows,
             posts,

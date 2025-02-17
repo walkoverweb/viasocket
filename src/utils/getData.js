@@ -17,6 +17,7 @@ import {
 } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
+import { getBlogData } from './getBlogData';
 
 const handleData = (data) => {
     return data?.data?.rows;
@@ -116,23 +117,7 @@ export async function getTrustedByData(fields, filter) {
     return handleData(data);
 }
 
-export async function getBlogData() {
-    const tag = 'via-socket';
-    const defaultTag = 'integrations';
-    try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-        );
-        if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const posts = await res.json();
-        return posts;
-    } catch (error) {
-        console.error('Error fetching blog data:', error);
-        return [];
-    }
-}
+
 
 export async function getDisconnectedData(fields, filter) {
     const data = await getDataFromTable(DISCONNECTED, handleFieldsFilter(fields, filter));
