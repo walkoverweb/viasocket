@@ -28,7 +28,7 @@ export default function AutomationSuggestions({ navData }) {
     const debounceValue = useDebounce(searchTerm, 300);
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-    const [renderCombos, setRenderCombos] = useState();
+    const [renderCombos, setRenderCombos] = useState([]);
     const [selectedIndustry, setSelectedIndustry] = useState('');
     const [useCase, setUseCase] = useState('');
 
@@ -57,13 +57,12 @@ export default function AutomationSuggestions({ navData }) {
     }, [fetchAppsData, filterSelectedApps]);
 
     const handleGenerate = async () => {
-        setRenderCombos();
         setCombinationLoading(true);
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         const industry = selectedIndustry || 'Dummy Industry';
         const domain = selectedDomain || 'Dummy domain';
         const useCaseData = useCase || 'use case';
-
+        // setRenderCombos();
         try {
             const combos = await fetchCombos(
                 selectedAppSlugs.length > 0 ? selectedAppSlugs : ['gohighlevel', 'slack', 'airtable'],
@@ -71,6 +70,7 @@ export default function AutomationSuggestions({ navData }) {
                 domain,
                 useCaseData
             );
+            console.log(combos, ' asoifhoiasfoih');
             setRenderCombos(combos?.data);
             console.log(renderCombos);
         } catch (error) {
@@ -107,7 +107,10 @@ export default function AutomationSuggestions({ navData }) {
     const handleSelectApp = (app) => {
         setSelectedApps((prev) => {
             const exists = prev.some((selected) => selected.appslugname === app.appslugname);
-            return exists ? prev.filter((item) => item.appslugname !== app.appslugname) : [...prev, app];
+            if (exists) {
+                return prev.filter((item) => item.appslugname !== app.appslugname);
+            }
+            return [...prev, { ...app }];
         });
     };
 
@@ -162,11 +165,11 @@ export default function AutomationSuggestions({ navData }) {
                                 <div className="relative overflow-visible" ref={dropdownRef}>
                                     <input
                                         type="text"
-                                        className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-[200px]"
+                                        className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full"
                                         placeholder="App"
                                         value={searchTerm}
                                         onFocus={() => setShowAppDropdown(true)}
-                                        onBlur={() => setTimeout(() => setShowAppDropdown(false), 200)}
+                                        onBlur={() => setTimeout(() => setShowAppDropdown(false), 300)}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                     />
                                     {showAppDropdown && (
@@ -207,11 +210,11 @@ export default function AutomationSuggestions({ navData }) {
                             )}
                         </div>
 
-                        <div className="flex items-center">
+                        <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-start items-start">
                             <h1 className="h1 text-nowrap ">We're in the </h1>
                             <input
                                 type="text"
-                                className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-[350px] "
+                                className="h1 ml-0 sm:ml-2 md:ml-0 lg:ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full "
                                 placeholder="Industry type"
                                 value={selectedDomain}
                                 onFocus={(e) => {
@@ -234,7 +237,7 @@ export default function AutomationSuggestions({ navData }) {
                             <h1 className="h1 text-nowrap">I run </h1>
                             <input
                                 type="text"
-                                className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none  w-[300px]"
+                                className="h1 ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full"
                                 placeholder="domain.com"
                                 value={selectedIndustry}
                                 onFocus={(e) => {
@@ -305,8 +308,8 @@ export default function AutomationSuggestions({ navData }) {
 
                                     return (
                                         <a
-                                        target='blank'
-                                        href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
+                                            target="blank"
+                                            href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
                                             key={combo.trigger?.id}
                                             className="px-4 py-6 flex items-center gap-4 border-b hover:bg-white "
                                         >
@@ -316,9 +319,7 @@ export default function AutomationSuggestions({ navData }) {
                                                 <p className="text-lg flex items-center gap-2">
                                                     {triggerName} → {actionName}
                                                 </p>
-                                                <span
-                                                    className="text-gray-500 text-sm flex items-center"
-                                                >
+                                                <span className="text-gray-500 text-sm flex items-center">
                                                     Try It <CgArrowTopRight />
                                                 </span>
                                             </div>
@@ -344,8 +345,8 @@ const DropdownItem = ({ app, isChecked, handleSelect }) => (
         <input
             type="checkbox"
             checked={isChecked}
+            onClick={(e) => e.stopPropagation()}
             onChange={() => handleSelect(app)}
-            onClick={(e) => e.stopPropagation()} // Prevent parent div click
         />
         <Image src={app?.iconurl || 'https://placehold.co/36x36'} width={16} height={16} alt="ico" />
         <span>{app?.name}</span>
@@ -372,7 +373,10 @@ async function fetchApps(category) {
 async function fetchCombos(pathArray, industry, domain, useCase) {
     console.log(pathArray, industry, domain, useCase);
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&domain=${domain && domain.toLowerCase()}&usecase=${useCase && encodeURIComponent(useCase)}`
+        `${process.env.NEXT_PUBLIC_INTEGRATION_URL}/recommend/services?${pathArray.map((service) => `service=${service}`).join('&')}&industry=${industry && industry.toLowerCase()}&domain=${domain && domain.toLowerCase()}&usecase=${useCase && encodeURIComponent(useCase)}`,
+        {
+            cache: 'no-cache',
+        }
     );
     const responseData = await response.json();
     return responseData;
