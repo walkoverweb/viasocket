@@ -154,18 +154,20 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                         <BlogGrid posts={blogData} />
                     </div>
                 )}
-                {faqData?.length > 0 && (
+                <div className="pb-6">
+                    {faqData?.length > 0 && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <FAQSection faqData={faqData} faqName={'/index'} />
+                        </div>
+                    )}
+                    {getStartedData && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <GetStarted data={getStartedData} isHero={'false'} />
+                        </div>
+                    )}
                     <div className="container">
-                        <FAQSection faqData={faqData} faqName={'/index'} />
+                        <Footer footerData={footerData} />
                     </div>
-                )}
-                {getStartedData && (
-                    <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
-                    </div>
-                )}
-                <div className="container">
-                    <Footer footerData={footerData} />
                 </div>
             </div>
         </>
