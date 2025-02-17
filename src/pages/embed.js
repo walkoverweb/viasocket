@@ -32,25 +32,20 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                                     product.
                                 </h2>
                             </div>
-                            <div>
+                            <div className="flex flex-col md:flex-row gap-4 items-center">
                                 <button className="btn btn-accent ">How To Start</button>
-                                <span className="px-5 text-gray-500 ">Or</span>
+                                <p className="px-5 text-gray-500 ">Or</p>
                                 <button className="btn btn-outline">Self Embed</button>
                             </div>
                         </div>
-                        <div className="flex justify-center items-center mt-8 lg:mt-0 relative w-full md:w-2/5 h-full min-h-[400px] mx-auto">
-                            <Image
-                                src="/assets/img/embedheroimage.svg"
-                                layout="fill"
-                                alt="Selected Embed Image"
-                                className="object-cover"
-                            />
+                        <div className="flex justify-center items-center mt-8 lg:mt-0 relative w-full md:w-1/2 h-full min-h-[400px] mx-auto">
+                            <Image src="/assets/img/embedheroimage.svg" layout="fill" alt="Selected Embed Image" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="h-fit lg:h-screen w-full flex justify-center items-center p-0 md:p-10 md:py-20 gap-6">
+            <div className="h-fit lg:h-screen w-full flex justify-center items-center p-0 md:p-10 md:py-20 gap-6 mt-10">
                 <div className="w-full lg:w-5/6 h-full px-0 flex flex-col md:flex-row justify-center items-center gap-4">
                     <div className=" hidden md:block w-full md:w-1/2 h-full min-h-[400px] mx-auto bg-[#FFF5F5] p-6 border-2 border-gray-200">
                         <div className=" flex relative justify-center items-center h-full min-h-[400px]">
@@ -91,22 +86,22 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
                         Follow these steps, and your product will be seamlessly integrated with the viaSocket embed
                     </h2>
                 </div>
-                <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20  h-fit xl:h-fit min-h-[400px] pt-20 gap-8">
-                    <div className=" w-2/5 xl:w-1/3 py-14 px-6 border-2  lg:border-b-2  border-gray-200 bg-white">
+                <div className="flex flex-col lg:flex-row justify-center items-center lg:items-stretch px-1 md:px-20   min-h-[400px] pt-20 gap-8">
+                    <div className="w-5/6 md:w-2/4 xl:w-1/3 py-14 px-6 border-2  lg:border-b-2  border-gray-200 bg-white ">
                         <h3 className="h2 font-semibold mb-2 h-1/3">Configure the Display</h3>
                         <p className="sub__h2">
                             You have full control over the integration's appearance and functionality. Customize the
                             display style, button type, and filter available services to suit your needs.
                         </p>
                     </div>
-                    <div className="w-full xl:w-1/3 py-14 px-6 border-2  lg:border-b-2  border-gray-200 bg-white">
+                    <div className="w-5/6 md:w-2/4 xl:w-1/3 py-14 px-6 border-2  lg:border-b-2  border-gray-200 bg-white ">
                         <h3 className="h2 font-semibold mb-2 h-1/3 ">Generate JWT Token</h3>
                         <p className="sub__h2">
                             To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure
                             each user only sees their relevant flows.
                         </p>
                     </div>
-                    <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-gray-200 bg-white">
+                    <div className="w-5/6 md:w-2/4 xl:w-1/3 py-14 px-6 border-2 border-gray-200 bg-white">
                         <h3 className="h2 font-semibold mb-2 h-1/3">Embed SDK</h3>
                         <p className="sub__h2">
                             Once you've got your token, grab the SDK code snippet and paste it into your app's code
@@ -127,7 +122,7 @@ const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData 
             <div className="flex flex-col lg:flex-row h-fit mt-20 lg:mt-0 lg:h-screen w-11/12 mx-auto justify-center items-center">
                 <div className="h-full w-full lg:w-3/5 flex flex-col justify-center gap-2 px-4 lg:px-0 ">
                     <div>
-                        <h6 className="h1">Give Your Chatbot the Power of 5,000+ Integrations</h6>
+                        <h6 className="text-4xl">Give Your Chatbot the Power of 5,000+ Integrations</h6>
                     </div>
                     <div>
                         <h2 className="sub__h1 w-full lg:w-4/5">
