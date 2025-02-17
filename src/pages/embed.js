@@ -112,7 +112,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
             </div>
 
             <div className="container cont cont__py border-y-2 md:border-2 border-black  justify-center items-center text-center gap-10 mt-20">
-                <div>
+                <div className="flex flex-col justify-center items-center">
                     <h1 className="h1 max-w-[1200px]">Upgrade your Product Today with viaSocket</h1>
                     <h2 className="sub__h1 max-w-[1000px]">
                         Start using viaSocket embed and bring seamless automation within your product, so your customers
@@ -138,7 +138,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
             </div>
 
             <div className="container cont cont__py  bg-black text-white  justify-center items-center text-center gap-10">
-                <div>
+                <div className="flex flex-col justify-center items-center">
                     <h1 className="h1 max-w-[1200px]">Start Showing Your Customers Automation Use Cases for Free</h1>
                     <h2 className="sub__h1 max-w-[1000px]">
                         Simply add the provided embed code to your blog or website, and instantly display real-world
