@@ -96,8 +96,11 @@ export default function IntegrationsDisconnectedComp({
                                 __html:
                                     disconnecteData?.length > 0
                                         ? disconnecteData[0]?.description
-                                        : `<p class="sub__h1">Your ${appOneDetails?.name}  access has been disconnected, which may disrupt your workflows. Reconnect now to restore seamless access.</p>
- `,
+                                        : `<span class="sub__h1">Your ${appOneDetails?.name} access has been disconnected, which may disrupt your workflows. Reconnect now to restore seamless access. 
+                   <a href="https://viasocket.com/faq/integration-guides/How-to-Reconnect-QuickBooks-with-viaSocket-" class="text-blue-500 underline">
+                       How to Reconnect?
+                   </a>
+                   </span>`,
                             }}
                         ></div>
                         {}
