@@ -5,7 +5,6 @@ import ReCaptchaProvider from './reCaptchaProvider';
 
 export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
     const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
-    console.log('Current URL:', currentUrl);
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -62,7 +61,7 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
                             If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
                         </p>
                         <button
-                            className="btn btn-outline"
+                            className="btn btn-accent"
                             onClick={() => document.getElementById('beta_request').showModal()}
                         >
                             Request Combination
@@ -78,7 +77,7 @@ export default function IntegrationsBetaComp({ appOneDetails, appTwoDetails }) {
                             If you can’t wait, we can add the beta version to your viaSocket workspace within 24 hours.
                         </p>
                         <button
-                            className="btn btn-outline"
+                            className="btn btn-accent"
                             onClick={() => document.getElementById('beta_request').showModal()}
                         >
                             Request Beta Access
