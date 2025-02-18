@@ -81,7 +81,6 @@ export default function Integrations({
         const isDisconnected = pageInfo?.qurey?.status === 'disconnected';
         if (isDisconnected) {
             return (
-                <div className="container cont">
                     <IntegrationsDisconnectedComp
                         pageInfo={pageInfo}
                         integrationsInfo={integrationsInfo}
@@ -92,7 +91,6 @@ export default function Integrations({
                         footerData={footerData}
                         disconnecteData={disconnecteData}
                     />
-                </div>
             );
         } else {
             return (
