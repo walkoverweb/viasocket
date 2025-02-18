@@ -1,9 +1,25 @@
 @font-face {
     font-family: 'Times Now';
-    src: url('../../public/fonts/times-now/TimesNow-Light.woff');
+    src:
+        url('../../public/fonts/times-now/TimesNow-Light.woff') format('woff');
     font-style: normal;
+    font-weight: 400; /* Light */
 }
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src: url('../../public/fonts/times-now/TimesNow-SemiBold.woff') format('woff');
+//     font-style: normal;
+//     font-weight: 600; /* Regular */
+// }
+
+// @font-face {
+//     font-family: 'Times Now';
+//     src: url('../../public/fonts/times-now/TimesNow-Bold.woff') format('woff');
+//     font-style: normal;
+//     font-weight: 800; /* Bold */
+// }
+// @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 body {
     font-family: 'Inter', serif;
@@ -11,11 +27,12 @@ body {
 }
 
 .h1 {
-    @apply md:text-6xl text-4xl font-normal;
+    @apply md:text-6xl text-4xl ;
     font-family: 'Times Now';
     line-height: 1.1em;
+    font-weight: 400;
     &__b {
-        @apply font-bold;
+        font-weight: 400;
     }
 }
 .h2 {
