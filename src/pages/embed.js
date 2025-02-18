@@ -63,29 +63,32 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 </div>
             </div>
 
-            <div className="container h-fit  xl:h-screen w-full flex justify-center items-center p-0 md:p-10 md:py-20 gap-6 mt-10">
-                <div className="w-full lg:w-5/6 h-full px-0 flex flex-col md:flex-row justify-center items-center gap-4">
-                    <div className=" hidden md:block w-full md:w-1/2 h-full min-h-[400px] mx-auto bg-[#FFF5F5] p-6 border-2 border-gray-200">
-                        <div className=" flex relative justify-center items-center h-full min-h-[400px]">
+            <div className="container h-fit xl:h-screen w-full flex justify-center items-center p-12 gap-12 my-20">
+                <div className="w-full h-full flex flex-col md:flex-row justify-center items-center gap-8">
+                    <div className="hidden md:block w-full h-full min-h-[400px] mx-auto bg-[#FFF5F5] p-6 border-2 border-gray-200">
+                        <div className="flex relative justify-center items-center h-full w-full">
                             <Image
                                 src={selectedImage || 'https://placehold.co/40x40'}
                                 layout="fill"
-                                // width={400}
-                                // height={400}
                                 alt="Connector Image"
-                                className="object-cover"
+                                className="object-fill max-w-full"
                             />
                         </div>
                     </div>
-                    <div className="w-full sm:w-1/2 h-fit flex flex-col justify-center  items-center p-4 md:p-8 lg:max-h-[650px]">
+                    <div className="w-full h-fit flex flex-col justify-center items-center gap-2">
                         {embedData.map((item, index) => (
-                            <div key={index} className="hover:bg-black hover:text-white px-4 py-8 group w-full">
+                            <div
+                                key={index}
+                                className={`p-4 group w-full ${selectedImage === item?.image[0] ? 'bg-black text-white' : 'hover:bg-black hover:text-white'}`}
+                            >
                                 <div
-                                    className="text-lg text-gray-400 cursor-pointer"
+                                    className={`text-lg cursor-pointer ${selectedImage === item?.image[0] ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}
                                     onMouseEnter={() => setSelectedImage(item?.image[0])}
                                 >
                                     <div className="flex items-center gap-2">
-                                        <div className="text-xl font-bold sm:whitespace-nowrap group-hover:text-white text-black">
+                                        <div
+                                            className={`text-xl font-bold sm:whitespace-nowrap ${selectedImage === item?.image[0] ? 'text-white' : 'text-black group-hover:text-white'}`}
+                                        >
                                             {item.name}
                                         </div>
                                     </div>
@@ -97,14 +100,14 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 </div>
             </div>
 
-            <div className="container cont cont__py gap-20 h-fit xl:h-screen border-2 border-x-gray-200 my-12 bg-[#F5FBFF]">
+            <div className="container cont cont__py gap-20 h-fit border-2 border-x-gray-200 my-12 bg-[#F5FBFF]">
                 <div className="flex flex-col justify-center items-center w-full xl:w-2/4 mx-auto">
-                    <p className="h1 h1__b font-bold">How it works</p>
+                    <p className="h1 h1__b font-extrabold">How it works</p>
                     <h2 className="sub__h1 text-center">
                         Follow these steps, and your product will be seamlessly integrated with the viaSocket embed
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-12 min-h-[400px] justify-items-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-12  justify-items-center">
                     {steps.map((step, index) => (
                         <div
                             key={index}
@@ -131,10 +134,8 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
             <div className="container cont cont__py flex flex-col lg:flex-row h-fit lg:mt-0 lg:h-screen justify-center items-center">
                 <div className="h-full w-full lg:w-1/2 flex flex-col justify-center gap-4">
                     <div>
-                        <h6 className="text-4xl font-semibold   ">
-                            Give Your Chatbot the Power of 5,000+ Integrations
-                        </h6>
-                        <h2 className="text-xl">
+                        <h6 className="h1 font-semibold   ">Give Your Chatbot the Power of 5,000+ Integrations</h6>
+                        <h2 className="sub__h1">
                             You can connect your chatbot to over 5000 apps on viaSocket. Automate tasks, streamline
                             workflows and enhance your chatbot's capabilities—all in just a few clicks. Explore the
                             possibilities and watch your chatbot evolve.
