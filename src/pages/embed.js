@@ -11,25 +11,8 @@ import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
 
-const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedData }) => {
+const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedData, tableData, howItWorksData }) => {
     const [selectedImage, setSelectedImage] = useState(embedData[0]?.image?.[0]);
-
-    const steps = [
-        {
-            title: 'Configure the Display',
-            description:
-                "You have full control over the integration's appearance and functionality. Customize the display style, button type, and filter available services to suit your needs.",
-        },
-        {
-            title: 'Generate JWT Token',
-            description:
-                'To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure each user only sees their relevant flows.',
-        },
-        {
-            title: 'Embed SDK',
-            description: "Once you've got your token, grab the SDK code snippet and paste it into your app's code.",
-        },
-    ];
 
     return (
         <>
@@ -63,7 +46,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 </div>
             </div>
 
-            <div className="container h-fit xl:h-screen w-full flex justify-center items-center p-12 gap-12 my-20">
+            <div className="container h-fit xl:h-screen w-full flex justify-center items-center py-20 gap-12 my-20">
                 <div className="w-full h-full flex flex-col md:flex-row justify-center items-center gap-8">
                     <div className="hidden md:block w-full h-full min-h-[400px] mx-auto bg-[#FFF5F5] p-6 border-2 border-gray-200">
                         <div className="flex relative justify-center items-center h-full w-full">
@@ -75,15 +58,15 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                             />
                         </div>
                     </div>
-                    <div className="w-full h-fit flex flex-col justify-center items-center gap-2">
+                    <div className="w-full h-fit flex flex-col justify-center items-center ">
                         {embedData.map((item, index) => (
                             <div
                                 key={index}
-                                className={`p-4 group w-full ${selectedImage === item?.image[0] ? 'bg-black text-white' : 'hover:bg-black hover:text-white'}`}
+                                className={`px-4 py-8 group w-full ${selectedImage === item?.image[0] ? 'bg-black text-white' : 'hover:bg-black hover:text-white'}`}
+                                onMouseEnter={() => setSelectedImage(item?.image[0])}
                             >
                                 <div
                                     className={`text-lg cursor-pointer ${selectedImage === item?.image[0] ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}
-                                    onMouseEnter={() => setSelectedImage(item?.image[0])}
                                 >
                                     <div className="flex items-center gap-2">
                                         <div
@@ -100,7 +83,11 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 </div>
             </div>
 
-            <div className="container cont cont__py gap-20 h-fit border-2 border-x-gray-200 my-12 bg-[#F5FBFF]">
+            <div className="container  border-2 border-black">
+                <Table data={tableData} />
+            </div>
+
+            <div className="container cont cont__py gap-20 h-fit border-2 border-x-gray-200 my-20 bg-[#F5FBFF]">
                 <div className="flex flex-col justify-center items-center w-full xl:w-2/4 mx-auto">
                     <p className="h1 h1__b font-extrabold">How it works</p>
                     <h2 className="sub__h1 text-center">
@@ -108,7 +95,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                     </h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-12  justify-items-center">
-                    {steps.map((step, index) => (
+                    {howItWorksData.map((step, index) => (
                         <div
                             key={index}
                             className="py-20 px-8 border-2 border-gray-200 bg-white flex flex-col gap-4 transition-transform transform hover:scale-110"
@@ -120,7 +107,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 </div>
             </div>
 
-            <div className="container cont cont__py border-y-2 md:border-2 border-black  justify-center items-center text-center gap-10 mt-20">
+            <div className="container cont cont__py border-y-2 md:border-2 border-black  justify-center items-center text-center gap-12 my-20">
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="h1 h1__b max-w-[1200px]">Upgrade your Product Today with viaSocket</h1>
                     <h2 className="sub__h1 max-w-[1000px]">
@@ -135,7 +122,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 <div className="h-full w-full lg:w-1/2 flex flex-col justify-center gap-4">
                     <div>
                         <h6 className="h1 font-semibold   ">Give Your Chatbot the Power of 5,000+ Integrations</h6>
-                        <h2 className="sub__h1">
+                        <h2 className="text-2xl">
                             You can connect your chatbot to over 5000 apps on viaSocket. Automate tasks, streamline
                             workflows and enhance your chatbot's capabilities—all in just a few clicks. Explore the
                             possibilities and watch your chatbot evolve.
@@ -146,7 +133,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 <div className="flex justify-center items-center mt-8 lg:mt-0 relative w-full md:w-2/5 h-2/3 min-h-[400px] mx-auto bg-gray-300"></div>
             </div>
 
-            <div className="container cont cont__py  bg-black text-white  justify-center items-center text-center gap-10">
+            <div className="container cont cont__py  bg-black text-white  justify-center items-center text-center gap-12">
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="h1 h1__b max-w-[1200px]">Start Showing Automation Use Cases on Your Platform</h1>
                     <h2 className="sub__h1 max-w-[1000px]">
@@ -183,6 +170,37 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
     );
 };
 
+const Table = ({ data }) => {
+    return (
+        <div className="w-full h-full cont p-20 gap-12">
+            <div className="flex flex-col gap-0">
+                <h1 className="h1 ">viaSocket Embed vs Custom Development:</h1>
+                <h1 className="h1">A Quick Overview</h1>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="w-full border border-gray-200">
+                    <thead className="p-4">
+                        <tr>
+                            <th className="p-4 text-left text-xl w-1/3">Feature</th>
+                            <th className="p-4 text-left text-xl border-l w-1/3">viaSocket Embed</th>
+                            <th className="p-4 text-left text-xl border-l w-1/3">Custom Automation Development</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((user, index) => (
+                            <tr key={index} className="border border-gray-200 hover:bg-gray-100">
+                                <td className="p-4 text-lg border-l">{user.Feature}</td>
+                                <td className="p-4 text-lg font-semibold border-l">{user.embed}</td>
+                                <td className="p-4 text-lg border-l">{user.development}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+};
+
 export default Embed;
 
 export async function getServerSideProps() {
@@ -193,6 +211,30 @@ export async function getServerSideProps() {
     const embedData = await getEmbedData();
     const blogTags = 'embed';
     const blogData = await getBlogData(blogTags);
+    const tableData = [
+        { Feature: 'Time to Implement', embed: 'Minutes', development: 'Weeks/Months' },
+        { Feature: 'Developer Resources', embed: 'No Requirements', development: 'Required Development Team' },
+        { Feature: 'Maintenance & Updates', embed: 'Managed by viaSocket', development: 'Ongoing Maintenance Needed' },
+        { Feature: 'Pre-Made Templates', embed: 'Available', development: 'Requires Manual Setup' },
+        { Feature: 'Scalability', embed: 'Easy to scale', development: 'Complex to scale' },
+    ];
+
+    const howItWorksData = [
+        {
+            title: 'Configure the Display',
+            description:
+                "You have full control over the integration's appearance and functionality. Customize the display style, button type, and filter available services to suit your needs.",
+        },
+        {
+            title: 'Generate JWT Token',
+            description:
+                'To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure each user only sees their relevant flows.',
+        },
+        {
+            title: 'Embed SDK',
+            description: "Once you've got your token, grab the SDK code snippet and paste it into your app's code.",
+        },
+    ];
 
     return {
         props: {
@@ -202,6 +244,8 @@ export async function getServerSideProps() {
             faqData: faqData || [],
             getStartedData: getStarted || [],
             embedData: embedData || [],
+            tableData: tableData,
+            howItWorksData: howItWorksData,
         },
     };
 }
