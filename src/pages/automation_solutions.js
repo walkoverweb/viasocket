@@ -1,12 +1,16 @@
 import Navbar from '@/components/navbar/navbar';
-import { FOOTER_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
-import { getFooterData, getNavData } from '@/utils/getData';
+import { FAQS_FIELDS, FOOTER_FIELDS, GETSTARTED_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
+import { getFaqData, getFooterData, getGetStartedData, getNavData } from '@/utils/getData';
 import { CgArrowTopRight } from 'react-icons/cg';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import searchApps from '@/utils/searchApps';
 import { CiSquarePlus } from 'react-icons/ci';
 import Footer from '@/components/footer/footer';
+import { getBlogData } from '@/utils/getBlogData';
+import GetStarted from '@/components/getStarted/getStarted';
+import FAQSection from '@/components/faqSection/faqSection';
+import BlogGrid from '@/components/blogGrid/blogGrid';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -19,7 +23,7 @@ const useDebounce = (value, delay) => {
     return debouncedValue;
 };
 
-export default function AutomationSuggestions({ navData, footerData }) {
+export default function AutomationSuggestions({ navData, footerData, getStartedData, faqData, blogData }) {
     const [selectedDomain, setSelectedDomain] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -133,13 +137,13 @@ export default function AutomationSuggestions({ navData, footerData }) {
 
     return (
         <>
-            <div className="container pb-10">
-                <Navbar navData={navData} utm={'/index'} />
-            </div>
-            <div className="flex flex-col h-full md:h-screen mb-36">
-                <div className="flex flex-col md:flex-row flex-grow overflow-hidden">
-                    <div className="w-full md:w-1/2 py-10 md:py-0 px-10 flex flex-col justify-center bg-gradient-to-l from-[#def9f0] to-[#def9f0]">
-                        <div className="flex flex-col gap-2 justify-start items-start text-lg w-fit">
+            <div className="cont gap-36">
+                <div className="w-full cont min-h-fit h-screen">
+                    <div className=" container">
+                        <Navbar navData={navData} utm={'/index'} />
+                    </div>
+                    <div className="h-full flex flex-col lg:flex-row mt-10 ">
+                        <div className="h-full w-full lg:w-1/2 flex flex-col justify-center gap-4 px-8 py-20 bg-gradient-to-l from-[#def9f0] to-[#def9f0]">
                             <div className="flex items-center w-full group">
                                 <h1 className="h1 text-nowrap">I use</h1>
 
@@ -210,11 +214,11 @@ export default function AutomationSuggestions({ navData, footerData }) {
                                 )}
                             </div>
 
-                            <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-start items-start">
+                            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row justify-start items-start">
                                 <h1 className="h1 text-nowrap ">We're in the </h1>
                                 <input
                                     type="text"
-                                    className="h1 ml-0 sm:ml-2 md:ml-0 lg:ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full "
+                                    className="h1 ml-0 sm:ml-2 lg:ml-0 xl:ml-2 text-gray-400 border-none bg-transparent focus:outline-none w-full "
                                     placeholder="Industry type"
                                     value={selectedDomain}
                                     onFocus={(e) => {
@@ -268,72 +272,90 @@ export default function AutomationSuggestions({ navData, footerData }) {
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="w-full md:w-1/2 bg-gray-100 flex flex-col overflow-y-auto h-full border-gray-400 border-2">
-                        <div className="h-full flex flex-col justify-between ">
-                            <div className="flex flex-col">
-                                {combinationLoading ? (
-                                    <>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                        <div className="flex rounded-none justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b"></div>
-                                    </>
-                                ) : (
-                                    renderCombos?.combinations?.map((combo) => {
-                                        const triggerName = renderCombos?.plugins[combo?.trigger?.name]?.events?.find(
-                                            (event) => event?.rowid === combo.trigger?.id
-                                        )?.name;
-                                        const actionName = renderCombos?.plugins[combo?.actions[0]?.name]?.events?.find(
-                                            (event) => event?.rowid === combo?.actions[0]?.id
-                                        )?.name;
+                        <div className="w-full lg:w-1/2 h-full bg-gray-100 border-gray-400 border">
+                            <div className="h-full w-full overflow-y-auto">
+                                <div className="flex flex-col h-full">
+                                    {combinationLoading ? (
+                                        <>
+                                            {[...Array(9)].map((_, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="flex justify-center items-center w-full h-[86px] p-4 skeleton bg-slate-100 border-b flex-shrink-0"
+                                                ></div>
+                                            ))}
+                                        </>
+                                    ) : (
+                                        renderCombos?.combinations?.map((combo, index) => {
+                                            const triggerName = renderCombos?.plugins[
+                                                combo?.trigger?.name
+                                            ]?.events?.find((event) => event?.rowid === combo.trigger?.id)?.name;
+                                            const actionName = renderCombos?.plugins[
+                                                combo?.actions[0]?.name
+                                            ]?.events?.find((event) => event?.rowid === combo?.actions[0]?.id)?.name;
 
-                                        const triggerIcon =
-                                            renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
-                                            'https://placehold.co/40x40';
-                                        const actionIcon =
-                                            renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
-                                            'https://placehold.co/40x40';
+                                            const triggerIcon =
+                                                renderCombos?.plugins[combo?.trigger?.name]?.iconurl ||
+                                                'https://placehold.co/40x40';
+                                            const actionIcon =
+                                                renderCombos?.plugins[combo?.actions[0]?.name]?.iconurl ||
+                                                'https://placehold.co/40x40';
 
-                                        const integrations =
-                                            renderCombos?.plugins[combo?.trigger?.name]?.rowid +
-                                            ',' +
-                                            renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
+                                            const integrations =
+                                                renderCombos?.plugins[combo?.trigger?.name]?.rowid +
+                                                ',' +
+                                                renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
 
-                                        return (
-                                            <a
-                                                target="blank"
-                                                href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
-                                                // key={combo.trigger?.id}
-                                                className="px-4 py-6 flex items-center gap-4 border-b hover:bg-white "
-                                            >
-                                                <img src={triggerIcon} alt="Trigger Icon" className="w-6 h-6" />
-                                                <img src={actionIcon} alt="Action Icon" className="w-6 h-6" />
-                                                <div className="flex gap-4 items-center justify-between w-full">
-                                                    <p className="text-lg flex items-center gap-2">
-                                                        {triggerName} → {actionName}
-                                                    </p>
-                                                    <span className="text-gray-500 text-sm flex items-center">
-                                                        Try It <CgArrowTopRight />
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        );
-                                    })
-                                )}
+                                            return (
+                                                <a
+                                                    key={index}
+                                                    target="blank"
+                                                    href={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions
+                                                        .map((action) => action.id)
+                                                        .join(
+                                                            ','
+                                                        )}&integrations=${integrations}&action&utm_source=${utm}`}
+                                                    className="px-4 py-6 flex items-center gap-4 border-b hover:bg-white flex-shrink-0"
+                                                >
+                                                    <img src={triggerIcon} alt="Trigger Icon" className="w-6 h-6" />
+                                                    <img src={actionIcon} alt="Action Icon" className="w-6 h-6" />
+                                                    <div className="flex gap-4 items-center justify-between w-full">
+                                                        <p className="text-lg flex items-center gap-2">
+                                                            {triggerName} → {actionName}
+                                                        </p>
+                                                        <span className="text-gray-500 text-sm flex items-center">
+                                                            Try It <CgArrowTopRight />
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            );
+                                        })
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="container pb-10">
-                <Footer footerData={footerData} />
+
+                <div className="container ">
+                    <BlogGrid posts={blogData} />
+                </div>
+
+                <div className="pb-6">
+                    {faqData?.length > 0 && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <FAQSection faqData={faqData} faqName={'/index'} />
+                        </div>
+                    )}
+                    {getStartedData && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <GetStarted data={getStartedData} isHero={'false'} />
+                        </div>
+                    )}
+                    <div className="container">
+                        <Footer footerData={footerData} />
+                    </div>
+                </div>
             </div>
         </>
     );
@@ -360,10 +382,17 @@ const DropdownItem = ({ app, isChecked, handleSelect }) => (
 export async function getServerSideProps() {
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
+    const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/autmation_solutions'`);
+    const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
+    const blogTags = 'automation';
+    const blogData = await getBlogData(blogTags);
     return {
         props: {
             navData: navData,
             footerData: footerData,
+            getStartedData: getStarted || [],
+            blogData: blogData || [],
+            faqData: faqData || [],
         },
     };
 }
