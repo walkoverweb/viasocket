@@ -19,7 +19,7 @@ import getCountries from '@/utils/getCountries';
 import Image from 'next/image';
 import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import { getBlogData } from '@/utils/getBlogData';
+import getBlogData from '@/utils/getBlogData';
 
 export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries, blogData }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
