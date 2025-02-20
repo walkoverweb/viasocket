@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { LinkText } from '../uiComponents/buttons';
 import Image from 'next/image';
 const BlogGrid = ({ posts }) => {
-    return (
-        <>
-            {' '}
+    if (posts?.length > 0) {
+        return (
             <div className="flex flex-col gap-9">
                 <h2 className="h1">
                     Know More About <br />
@@ -13,7 +12,7 @@ const BlogGrid = ({ posts }) => {
                 </h2>
                 <div className="w-full cont">
                     <div className="grid md:grid-cols-3 grid-cols-1 index_blog_grid">
-                        {posts.map((post, index) => (
+                        {posts?.map((post, index) => (
                             <CardComponent key={index} card={post} />
                         ))}
                     </div>
@@ -25,8 +24,8 @@ const BlogGrid = ({ posts }) => {
                     </Link>
                 </div>
             </div>
-        </>
-    );
+        );
+    }
 };
 const CardComponent = ({ card }) => {
     return (

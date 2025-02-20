@@ -35,7 +35,7 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
-import { getBlogData } from '@/utils/getBlogData';
+import getBlogData from '@/utils/getBlogData';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
 
