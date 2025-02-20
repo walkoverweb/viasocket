@@ -17,7 +17,6 @@ import {
 } from '@/const/tables';
 import { FOOTER, METADATA, NAVIGATION } from '@/const/tables';
 import getDataFromTable from './getDataFromTable';
-import { getBlogData } from './getBlogData';
 
 const handleData = (data) => {
     return data?.data?.rows;
