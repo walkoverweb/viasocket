@@ -4,164 +4,281 @@ import Footer from '@/components/footer/footer';
 import GetStarted from '@/components/getStarted/getStarted';
 import Navbar from '@/components/navbar/navbar';
 import { EMBED_FIELDS, FAQS_FIELDS, FOOTER_FIELDS, GETSTARTED_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
+import { getBlogData } from '@/utils/getBlogData';
 import { getEmbedData, getFaqData, getFooterData, getGetStartedData, getNavData } from '@/utils/getData';
 import axios from 'axios';
 import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
+import Link from 'next/link';
 
-const Embed = ({ navData, posts, footerData, faqData, getStartedData, embedData }) => {
+const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedData, tableData, howItWorksData }) => {
     const [selectedImage, setSelectedImage] = useState(embedData[0]?.image?.[0]);
 
     return (
         <>
-            <div className="w-full h-fit lg:h-screen py-10 border-b-2 border-black">
-                <div className="container h-full flex flex-col">
-                    <Navbar navData={navData} utm={'/index'} />
-                    <div className="flex flex-col lg:flex-row h-full mt-10">
-                        <div className="h-full w-full lg:w-3/5 flex flex-col justify-center gap-4 px-4 lg:px-0 ">
-                            <div>
-                                <h6 className="h1 font-normal">
-                                    <span className="text-red-700">Embed </span>
-                                    viaSocket into Your Product for Powerful Automation
-                                </h6>
+            <div className="cont lg:gap-24 md:gap-16 gap-12">
+                <div className="w-full min-h-fit lg:h-dvh  border-b border-black">
+                    <div className="container h-full flex flex-col">
+                        <Navbar navData={navData} utm={'/index'} />
+                        <div className="flex flex-col lg:flex-row h-full">
+                            <div className="h-full w-full lg:w-3/5 flex flex-col justify-center gap-8 px-4 lg:px-0 ">
+                                <div className="cont">
+                                    <h1 className="h1">
+                                        <span className="text-accent">Embed </span>
+                                        third party apps with your SaaS/AI product
+                                    </h1>
+                                    <h2 className="sub__h1 w-full lg:w-4/5">
+                                        Let your customers easily discover, connect and manage workflows right within
+                                        your product.
+                                    </h2>
+                                </div>
+                                <div className="flex flex-row  flex-wrap gap-4 items-center">
+                                    <Link href="https://viasocket.com/faq/viasocket-embed">
+                                        <button className="btn btn-accent ">How To Start</button>
+                                    </Link>
+                                    <p className="text-gray-500 text-center">Or</p>
+                                    <Link href="login?utm_source=/embed">
+                                        <button className="btn btn-outline">Self Embed</button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div>
-                                <h2 className="sub__h1 w-full lg:w-2/5">
-                                    Let your customers easily discover, create, edit, and manage workflows right within
-                                    your product.
-                                </h2>
+                            <div className="flex justify-center items-center relative w-full md:w-1/2 h-full min-h-[400px] mx-auto">
+                                <Image src="/assets/img/embedheroimage.svg" layout="fill" alt="Selected Embed Image" />
                             </div>
-                            <button className="btn btn-primary bg-black text-white mt-5 w-fit">Get Started</button>
-                        </div>
-                        <div className="flex justify-center items-center mt-8 lg:mt-0 relative w-full md:w-1/2 h-full min-h-[400px] mx-auto">
-                            <Image src="/assets/img/embedheroimage.svg" layout="fill" alt="Selected Embed Image" />
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="h-fit lg:h-screen w-full flex justify-center items-center p-0 md:p-10 md:py-20 gap-6">
-                <div className="w-full lg:w-5/6 h-full px-0 flex flex-col md:flex-row justify-center items-center gap-4">
-                    <div className=" flex relative justify-center items-center  hidden md:block w-full md:w-1/2 h-full min-h-[400px] mx-auto">
-                        <Image
-                            src={selectedImage || 'https://placehold.co/40x40'}
-                            layout="fill"
-                            // width={400}
-                            // height={400}
-                            alt="Connector Image"
-                            className="object-contain"
-                        />
-                    </div>
-                    <div className="w-full sm:w-1/2 h-fit flex flex-col justify-center gap-6 items-center p-4 md:p-8 lg:max-h-[650px]">
-                        {embedData.map((item, index) => (
-                            <div key={index} className="hover:bg-black hover:text-white py-6 px-0 md:px-2 group w-full">
+                <div className="container w-full min-h-fit lg:h-dvh flex justify-center items-center gap-12 ">
+                    <div className="w-full h-full flex flex-col-reverse lg:flex-row justify-center items-center gap-6 lg:gap-24">
+                        <div className="block w-full h-full  max-h-[600px] aspect-square min-h-[400px] bg-[#FFF5F5] md:p-6 p-2 border">
+                            <div className="flex justify-center items-center h-full w-full overflow-hidden">
+                                <Image
+                                    src={selectedImage || 'https://placehold.co/40x40'}
+                                    // layout="fill"
+                                    width={1080}
+                                    height={1080}
+                                    alt="Connector Image"
+                                    className="max-w-full h-fit "
+                                />
+                            </div>
+                        </div>
+                        <div className="w-full h-fit flex flex-col justify-center items-center ">
+                            {embedData.map((item, index) => (
                                 <div
-                                    className="text-sm pr-0 pb-6 md:pb-0 text-gray-400 cursor-pointer"
-                                    onClick={() => setSelectedImage(item?.image[0])}
+                                    key={index}
+                                    className={`px-4 py-8 group w-full ${selectedImage === item?.image[0] ? 'bg-black text-white' : 'hover:bg-black hover:text-white'}`}
+                                    onMouseEnter={() => setSelectedImage(item?.image[0])}
                                 >
-                                    <div className="flex items-center gap-4">
-                                        <div className="sm:whitespace-nowrap group-hover:text-white text-black">
-                                            {item.name}
+                                    <div
+                                        className={`text-lg cursor-pointer ${selectedImage === item?.image[0] ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <div
+                                                className={`text-xl font-bold sm:whitespace-nowrap ${selectedImage === item?.image[0] ? 'text-white' : 'text-black group-hover:text-white'}`}
+                                            >
+                                                {item?.name}
+                                            </div>
                                         </div>
-                                        <div className="h-[1px] bg-gray-400 w-full"></div>
+                                        {item?.description}
                                     </div>
-                                    {item.description}
                                 </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container border border-black">
+                    <Table data={tableData} />
+                </div>
+
+                <div className="container cont cont__py gap-20 px-24  h-fit border  bg-[#F5FBFF]">
+                    <div className="flex flex-col justify-center items-center w-full max-w-[1000px] mx-auto">
+                        <h2 className="h1">How it works</h2>
+                        <p className="sub__h1 text-center">
+                            Follow these steps, and your product will be seamlessly integrated with the viaSocket embed
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 justify-items-center">
+                        {howItWorksData.map((step, index) => (
+                            <div
+                                key={index}
+                                className="lg:py-20 py-8 px-8 border-2 border-gray-200 bg-white flex flex-col gap-2 transition-transform transform hover:scale-110"
+                            >
+                                <h3 className="h2 font-bold">{step.title}</h3>
+                                <p className="sub__h2">{step.description}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
 
-            <div className="w-full  md:w-11/12 border-t-2 border-b-2 border-black mx-auto bg-gray-100 py-20 md:py-10">
-                <div className="flex flex-col justify-center items-center w-full xl:w-2/4 mx-auto">
-                    <p className="h1 font-normal">How it works</p>
-                    <h2 className="sub__h1 text-center">
-                        Follow these steps, and your product will be seamlessly integrated with the viaSocket embed
-                    </h2>
+                <div className="container cont cont__py border border-black  justify-center items-center text-center gap-12 ">
+                    <div className="flex flex-col justify-center items-center">
+                        <h2 className="h1  max-w-[1200px]">Upgrade your Product Today with viaSocket</h2>
+                        <p className="sub__h1 max-w-[1000px]">
+                            Start using viaSocket embed and bring seamless automation within your product, so your
+                            customers can stick to your product while automating their day-to-day repetitive tasks.
+                        </p>
+                    </div>
+                    <Link href="login?utm_source=/embed">
+                        <button className="btn btn-accent">Get Started</button>
+                    </Link>
                 </div>
-                <div className="flex flex-col lg:flex-row justify-center px-1 md:px-20 h-fit xl:h-fit min-h-[400px] pt-20">
-                    <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h2 font-semibold mb-2 h-1/2">Configure the Display</h3>
-                        <p className="sub__h2">
-                            You have full control over the integration's appearance and functionality. Customize the
-                            display style, button type, and filter available services to suit your needs.
-                        </p>
+
+                {/* <div className="container cont cont__py flex flex-col lg:flex-row  justify-center items-center">
+                    <div className="h-full w-full lg:w-1/2 flex flex-col justify-center gap-4">
+                        <div>
+                            <h2 className="h1 font-semibold">Give Your Chatbot the Power of 5,000+ Integrations</h2>
+                            <p className="text-2xl">
+                                You can connect your chatbot to over 5000 apps on viaSocket. Automate tasks, streamline
+                                workflows and enhance your chatbot's capabilities—all in just a few clicks. Explore the
+                                possibilities and watch your chatbot evolve.
+                            </p>
+                        </div>
+                        <Link href=" https://viasocket.com/blog/give-your-chatbot-the-power-of-5000-integrations/">
+                            <button className="btn btn-accent">Read More</button>
+                        </Link>
                     </div>
-                    <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-b-0 lg:border-b-2 lg:border-r-0 border-black bg-white">
-                        <h3 className="h2 font-semibold mb-2 h-1/2 ">Generate JWT Token</h3>
-                        <p className="sub__h2">
-                            To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure
-                            each user only sees their relevant flows.
-                        </p>
-                    </div>
-                    <div className="w-full xl:w-1/3 py-14 px-6 border-2 border-black bg-white">
-                        <h3 className="h2 font-semibold mb-2 h-1/2">Embed SDK</h3>
-                        <p className="sub__h2">
-                            Once you've got your token, grab the SDK code snippet and paste it into your app's code
-                        </p>
+                    <div className="flex justify-center items-center mt-8 lg:mt-0 relative w-full md:w-2/5 h-2/3 min-h-[400px] mx-auto bg-gray-300"></div>
+                </div> */}
+                <div className="container h-dvh min-h-fit">
+                    <div className="flex flex-col lg:flex-row h-full gap-12">
+                        <div className="h-full w-full lg:w-3/5 flex flex-col justify-center gap-8 px-4 lg:px-0 ">
+                            <div>
+                                <h2 className="h1 font-semibold">Give Your Chatbot the Power of 5,000+ Integrations</h2>
+                                <p className="text-2xl">
+                                    You can connect your chatbot to over 5000 apps on viaSocket. Automate tasks,
+                                    streamline workflows and enhance your chatbot's capabilities—all in just a few
+                                    clicks. Explore the possibilities and watch your chatbot evolve.
+                                </p>
+                            </div>
+                            <Link href=" https://viasocket.com/blog/give-your-chatbot-the-power-of-5000-integrations/">
+                                <button className="btn btn-accent">Read More</button>
+                            </Link>
+                        </div>
+                        <div className="flex justify-center items-center relative w-full md:w-1/2 h-full min-h-[400px] mx-auto">
+                            <Image src="/assets/img/readmore.svg" layout="fill" alt="Selected Embed Image" />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="w-full md:w-11/12 p-2 md:p-20 mx-auto border-b-2 border-black flex flex-col justify-center items-center text-center gap-10">
-                <h1 className="h1 font-normal">Upgrade your Product Today with viaSocket</h1>
-                <h2 className="sub__h1 w-full md:w-3/4">
-                    Start using viaSocket embed and bring seamless automation within your product, so your customers can
-                    stick to your product while automating their day-to-day repetitive tasks.
-                </h2>
-                <button className="btn btn-primary text-white">Get Started</button>
-            </div>
+                <div className="container cont cont__py  bg-black text-white  justify-center items-center text-center gap-12">
+                    <div className="flex flex-col justify-center items-center">
+                        <h2 className="h1  max-w-[1200px]">Start Showing Automation Use Cases on Your Platform</h2>
+                        <p className="sub__h1 max-w-[1000px]">
+                            Simply add the provided embed code to your blog or website, and instantly display real-world
+                            automation examples that highlight how your app connects with others.
+                        </p>
+                    </div>
+                    <Link href="https://viasocket.com/faq/viasocket-embed/Discover-the-Power-of-Automation-with-viasocket-Integration-Script">
+                        <button className="btn btn-accent">Get your free embed code</button>
+                    </Link>
+                </div>
 
-            <div className="cont cont__py gap-36">
-                {posts?.length > 0 && (
-                    <div className="container">
-                        <BlogGrid posts={posts} />
+                <div className="cont cont__py gap-36">
+                    {blogData?.length > 0 && (
+                        <div className="container">
+                            <BlogGrid posts={blogData} />
+                        </div>
+                    )}
+                    <div className="pb-6">
+                        {faqData?.length > 0 && (
+                            <div className="container border border-black p-20 border-b-0">
+                                <FAQSection faqData={faqData} faqName={'/embed'} />
+                            </div>
+                        )}
+                        {getStartedData && (
+                            <div className="container border border-black p-20 border-b-0">
+                                <GetStarted data={getStartedData} isHero={'false'} />
+                            </div>
+                        )}
+                        <div className="container">
+                            <Footer footerData={footerData} />
+                        </div>
                     </div>
-                )}
-                {faqData?.length > 0 && (
-                    <div className="container">
-                        <FAQSection faqData={faqData} faqName={'/index'} />
-                    </div>
-                )}
-                {getStartedData && (
-                    <div className="container">
-                        <GetStarted data={getStartedData} isHero={'false'} />
-                    </div>
-                )}
-                <div className="container">
-                    <Footer footerData={footerData} />
                 </div>
             </div>
         </>
     );
 };
 
+const Table = ({ data }) => {
+    return (
+        <div className="w-full h-full cont gap-12 p-2 sm:p-20">
+            <div className="flex flex-col gap-0">
+                <h1 className="h1 ">viaSocket Embed vs Custom Development:</h1>
+                <h1 className="h1">A Quick Overview</h1>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="w-full border border-gray-200">
+                    <thead className="p-4">
+                        <tr>
+                            <th className="p-4 text-left text-xl w-1/3">Feature</th>
+                            <th className="p-4 text-left text-xl border-l w-1/3">viaSocket Embed</th>
+                            <th className="p-4 text-left text-xl border-l w-1/3">Custom Automation Development</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((user, index) => (
+                            <tr key={index} className="border border-gray-200 hover:bg-gray-100">
+                                <td className="p-4 text-lg border-l">{user.Feature}</td>
+                                <td className="p-4 text-lg font-semibold border-l">{user.embed}</td>
+                                <td className="p-4 text-lg border-l">{user.development}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+};
+
 export default Embed;
 
 export async function getServerSideProps() {
-    const tag = 'via-socket';
-    const defaultTag = 'integrations';
-    const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetch-posts?tag=${tag}&defaulttag=${defaultTag}`
-    );
-
-    const posts = await res.data;
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
-    const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/index'`);
+    const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/embed'`);
     const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
-    const embedData = await getEmbedData();
+    const embedData = await getEmbedData(EMBED_FIELDS);
+    const blogTags = 'embed';
+    const blogData = await getBlogData(blogTags);
+    const tableData = [
+        { Feature: 'Time to Implement', embed: 'Minutes', development: 'Weeks/Months' },
+        { Feature: 'Developer Resources', embed: 'No Requirements', development: 'Required Development Team' },
+        { Feature: 'Maintenance & Updates', embed: 'Managed by viaSocket', development: 'Ongoing Maintenance Needed' },
+        { Feature: 'Pre-Made Templates', embed: 'Available', development: 'Requires Manual Setup' },
+        { Feature: 'Scalability', embed: 'Easy to scale', development: 'Complex to scale' },
+    ];
+
+    const howItWorksData = [
+        {
+            title: 'Configure the Display',
+            description:
+                "You have full control over the integration's appearance and functionality. Customize the display style, button type, and filter available services to suit your needs.",
+        },
+        {
+            title: 'Generate JWT Token',
+            description:
+                'To generate the JWT token, gather the org_id, user_id, project_id, and access key to ensure each user only sees their relevant flows.',
+        },
+        {
+            title: 'Embed SDK',
+            description: "Once you've got your token, grab the SDK code snippet and paste it into your app's code.",
+        },
+    ];
 
     return {
         props: {
             navData: navData || [],
             footerData: footerData || [],
-            posts: posts || [],
+            blogData: blogData || [],
             faqData: faqData || [],
             getStartedData: getStarted || [],
             embedData: embedData || [],
+            tableData: tableData,
+            howItWorksData: howItWorksData,
         },
     };
 }
