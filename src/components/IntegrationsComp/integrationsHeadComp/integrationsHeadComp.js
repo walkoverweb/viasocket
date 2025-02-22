@@ -1,7 +1,6 @@
 import Head from 'next/head';
 
 export default function IntegrationsHeadComp({ pageInfo, metaData, integrationsInfo, plugins, type }) {
-
     const keywords = metaData?.keywords && typeof metaData.keywords === 'string' ? metaData.keywords : '';
 
     if (type === 'appTwo') {
@@ -14,8 +13,8 @@ export default function IntegrationsHeadComp({ pageInfo, metaData, integrationsI
                     <meta name="description" content={description} />
                     <meta property="og:title" content={title} />
                     <meta property="og:description" content={description} />
-                    <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
-                    {keywords && <meta name='keywords' content={keywords} />}
+                    <meta property="og:image" content="https://files.msg91.com/342616/wnitwkyk" />
+                    {keywords && <meta name="keywords" content={keywords} />}
                     <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
                 </Head>
             </>
@@ -31,7 +30,7 @@ export default function IntegrationsHeadComp({ pageInfo, metaData, integrationsI
                     <meta property="og:title" content={title} />
                     <meta property="og:description" content={description} />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
-                    {keywords && <meta name='keywords' content={keywords} />}
+                    {keywords && <meta name="keywords" content={keywords} />}
                     <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
 
                     {integrationsInfo?.page && integrationsInfo?.page > 1 && (
@@ -77,7 +76,7 @@ export default function IntegrationsHeadComp({ pageInfo, metaData, integrationsI
                     />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
                     <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
-                    {keywords && <meta name='keywords' content={keywords} />}
+                    {keywords && <meta name="keywords" content={keywords} />}
                     {integrationsInfo?.page && integrationsInfo?.page > 1 && (
                         <>
                             <link
@@ -129,7 +128,7 @@ export default function IntegrationsHeadComp({ pageInfo, metaData, integrationsI
                         content={`Browse through thousands of apps to simplify your workflow. Find the right solution for your business with viaSocket's wide range of integrations. ${integrationsInfo?.page ? '| Page ' + integrationsInfo?.page : ''}`}
                     />
                     <meta property="og:image" content="https://viasocket.com/assets/brand/socket_fav_dark.svg" />
-                    {keywords && <meta name='keywords' content={keywords} />}
+                    {keywords && <meta name="keywords" content={keywords} />}
                     <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
                     {integrationsInfo?.page && integrationsInfo?.page > 1 && (
                         <>
