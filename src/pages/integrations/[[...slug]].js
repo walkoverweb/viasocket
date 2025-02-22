@@ -26,7 +26,7 @@ import {
     METADATA_FIELDS,
     NAVIGATION_FIELDS,
 } from '@/const/fields';
-import { getBlogData } from '@/utils/getBlogData';
+import getBlogData  from '@/utils/getBlogData';
 
 
 export default function Integrations({
