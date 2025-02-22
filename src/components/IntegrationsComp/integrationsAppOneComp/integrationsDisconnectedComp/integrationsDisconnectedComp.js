@@ -32,6 +32,9 @@ export default function IntegrationsDisconnectedComp({
                 pageInfo={pageInfo}
                 integrationsInfo={integrationsInfo}
             />
+            <div className='cont gap-24'>
+
+         
             <div style={{ background: appOneDetails?.brandcolor }}>
                 <div className="container cont py-8 gap-4 flex items-center justify-between">
                     <div className="flex md:items-center w-full justify-end gap-2 md:gap-4 flex-col md:flex-row ">
@@ -96,8 +99,13 @@ export default function IntegrationsDisconnectedComp({
                                 __html:
                                     disconnecteData?.length > 0
                                         ? disconnecteData[0]?.description
-                                        : `<p class="sub__h1">Your ${appOneDetails?.name}  access has been disconnected, which may disrupt your workflows. Reconnect now to restore seamless access.</p>
- `,
+                                        : `<span class="sub__h1">Your ${appOneDetails?.name} access has been disconnected, which may disrupt your workflows. Reconnect now to restore seamless access. 
+                   ${
+                       appOneDetails?.name === 'QuickBooks'
+                           ? `<a target='_blank' href="https://viasocket.com/faq/integration-guides/How-to-Reconnect-QuickBooks-with-viaSocket-" class="text-blue-500 underline"> How to Reconnect?</a>`
+                           : ''
+                   }
+                   </span>`,
                             }}
                         ></div>
                         {}
@@ -172,6 +180,7 @@ export default function IntegrationsDisconnectedComp({
                         <Footer footerData={footerData} />
                     </div>
                 </div>
+            </div>
             </div>
         </>
     );
