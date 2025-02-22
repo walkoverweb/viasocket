@@ -226,8 +226,6 @@ const Index = ({
 
     const utm = '/index';
 
-
-   
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
@@ -519,13 +517,12 @@ const Index = ({
                 <div className="container">
                     <CaseStudiesSection caseStudies={caseStudies} />
                 </div>
-                
-                    <div className="container">
-                        <BlogGrid posts={blogData} />
-                    </div>
-                
 
-                <div className="pb-6">
+                <div className="container">
+                    <BlogGrid posts={blogData} />
+                </div>
+
+                <div className="pb-4">
                     {faqData?.length > 0 && (
                         <div className="container border border-black p-20 border-b-0">
                             <FAQSection faqData={faqData} faqName={'/index'} />
@@ -623,8 +620,6 @@ const CaseStudyLink = ({ caseStudy }) => {
     );
 };
 
-
-
 export default Index;
 
 export async function getServerSideProps(context) {
@@ -642,7 +637,7 @@ export async function getServerSideProps(context) {
     const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/'`);
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
-    const blogTags = 'index' ;
+    const blogTags = 'index';
 
     const blogData = await getBlogData(blogTags);
 

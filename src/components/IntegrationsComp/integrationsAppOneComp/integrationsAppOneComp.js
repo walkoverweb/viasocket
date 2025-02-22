@@ -201,7 +201,7 @@ export default function IntegrationsAppOneComp({
                 </div>
             )}
             <div className="container cont__py">
-                <div className="cont ">
+                <div className="cont">
                     <div className="p-12 border border-black border-b-0">
                         {faqData && <FAQSection faqData={faqData} />}
                     </div>

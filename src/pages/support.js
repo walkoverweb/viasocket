@@ -81,7 +81,7 @@ export default function Support({ navData, footerData, metaData }) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/support'} />
-            <div className="container pt-8">
+            <div className="container ">
                 <Navbar navData={navData} utm={'/support'} />
             </div>
 
@@ -229,7 +229,7 @@ export default function Support({ navData, footerData, metaData }) {
                     </div>
                 </div>{' '}
             </div>
-            <div className="container py-16">
+            <div className="container pt-16 pb-4">
                 <Footer footerData={footerData} />
             </div>
         </>

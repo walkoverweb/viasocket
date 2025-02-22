@@ -17,7 +17,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
 
     return (
         <>
-            <div className="cont lg:gap-24 md:gap-16 gap-12">
+            <div className="cont lg:gap-36 md:gap-24 gap-12">
                 <div className="w-full min-h-fit lg:h-dvh  border-b border-black">
                     <div className="container h-full flex flex-col">
                         <Navbar navData={navData} utm={'/index'} />
@@ -176,26 +176,24 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                     </Link>
                 </div>
 
-                <div className="cont cont__py gap-36">
-                    {blogData?.length > 0 && (
-                        <div className="container">
-                            <BlogGrid posts={blogData} />
+                {blogData?.length > 0 && (
+                    <div className="container">
+                        <BlogGrid posts={blogData} />
+                    </div>
+                )}
+                <div className="pb-4">
+                    {faqData?.length > 0 && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <FAQSection faqData={faqData} faqName={'/embed'} />
                         </div>
                     )}
-                    <div className="pb-6">
-                        {faqData?.length > 0 && (
-                            <div className="container border border-black p-20 border-b-0">
-                                <FAQSection faqData={faqData} faqName={'/embed'} />
-                            </div>
-                        )}
-                        {getStartedData && (
-                            <div className="container border border-black p-20 border-b-0">
-                                <GetStarted data={getStartedData} isHero={'false'} />
-                            </div>
-                        )}
-                        <div className="container">
-                            <Footer footerData={footerData} />
+                    {getStartedData && (
+                        <div className="container border border-black p-20 border-b-0">
+                            <GetStarted data={getStartedData} isHero={'false'} />
                         </div>
+                    )}
+                    <div className="container">
+                        <Footer footerData={footerData} />
                     </div>
                 </div>
             </div>
