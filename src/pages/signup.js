@@ -30,7 +30,6 @@ const Login = ({ metaData, testimonials, pathArray, redirect_to, utm_source }) =
         const configuration = {
             referenceId: process.env.NEXT_PUBLIC_REFERENCE_ID,
             success: (data) => {
-                console.log('success response', data);
             },
             failure: (error) => {
                 console.log('failure reason', error);

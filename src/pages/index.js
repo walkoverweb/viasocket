@@ -176,7 +176,6 @@ const Index = ({
     };
 
     const handleGenerate = async () => {
-        console.log('object');
         setCombinationLoading(true);
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         try {
