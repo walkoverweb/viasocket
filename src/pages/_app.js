@@ -5,10 +5,13 @@ import { useEffect, useState } from 'react';
 import HeadComp from '@/components/headComp/headComp';
 import ChatWidget from '@/components/chat-widget/chat-wdget';
 import Head from 'next/head';
+import { usePathname } from 'next/navigation';
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter();
     var browserPath = router.asPath;
+    const pathname = usePathname();
+
     useEffect(() => {
         const script = document.createElement('script');
         script.type = 'text/javascript';
@@ -33,18 +36,25 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     }
 
     const [showSkeleton, setShowSkeleton] = useState(false);
+
     useEffect(() => {
         const handleLinkClick = (event) => {
             let target = event.target;
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+            // Find closest <a> element
             while (target && target.tagName !== 'A') {
                 target = target.parentElement;
             }
 
             if (target && target.tagName === 'A') {
-                event.preventDefault();
-                setShowSkeleton(true);
-                window.location.href = target.href;
+                const href = target.getAttribute('href');
+
+                if (href && (href.startsWith('/') || pathname.startsWith(baseUrl))) {
+                    event.preventDefault();
+                    setShowSkeleton(true);
+                    window.location.href = target.href;
+                }
             }
         };
 
@@ -53,7 +63,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
         return () => {
             document.removeEventListener('click', handleLinkClick);
         };
-    }, []);
+    }, [pathname]);
 
     useEffect(() => {
         const helloConfig = {
