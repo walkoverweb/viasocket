@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import HeadComp from '@/components/headComp/headComp';
 import ChatWidget from '@/components/chat-widget/chat-wdget';
 import Head from 'next/head';
+export const runtime = 'edge';
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter();
@@ -72,6 +73,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
             document.head.removeChild(script);
         };
     }, []);
+    
     return (
         <>
             <HeadComp />
