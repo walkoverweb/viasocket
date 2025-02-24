@@ -38,47 +38,54 @@ export default function IntegrationsAppOneComp({
                 pageInfo={pageInfo}
                 integrationsInfo={integrationsInfo}
             />
-            <div style={{ background: appOneDetails?.brandcolor }}>
-                <div className="container cont py-8 gap-4 flex items-center justify-between">
-                    <div className="flex md:items-center w-full justify-end gap-2 md:gap-4 flex-col md:flex-row ">
-                        <Link
-                            target="_blank"
-                            href={`${process.env.NEXT_PUBLIC_FLOW_URL}/connect/${appOneDetails?.rowid}?utm_source=${utm}`}
-                        >
-                            <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
-                                Connect to {appOneDetails?.name} <MdOpenInNew />{' '}
-                            </button>
-                        </Link>
-                        <Link
-                            target="_blank"
-                            href={
-                                appOneDetails?.domain.startsWith('http')
-                                    ? appOneDetails?.domain
-                                    : 'http://' + appOneDetails?.domain
-                            }
-                        >
-                            <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
-                                Login to {appOneDetails?.name} <MdOpenInNew />{' '}
-                            </button>
-                        </Link>
-                    </div>
-                    <div className="flex  gap-2 items-center w-full justify-start">
-                        <div className="flex md:h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
-                            <Image
-                                className="h-8 md:h-10 w-fit"
-                                src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
-                                width={36}
-                                height={36}
-                                alt="Slack"
-                            />
-                            <div>
-                                <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
-                                <div className="flex flex-wrap gap-2"></div>
+            <div className="flex flex-col gap-8">
+                <div style={{ background: appOneDetails?.brandcolor }}>
+                    <div className="container cont py-8 gap-4 flex items-center justify-between">
+                        <div className="flex md:items-center w-full justify-end gap-2 md:gap-4 flex-col md:flex-row ">
+                            <Link
+                                target="_blank"
+                                href={
+                                    appOneDetails?.domain.startsWith('http')
+                                        ? appOneDetails?.domain
+                                        : 'http://' + appOneDetails?.domain
+                                }
+                            >
+                                <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                                    Login to {appOneDetails?.name} <MdOpenInNew />{' '}
+                                </button>
+                            </Link>
+                            <Link target="_blank" href={`/login?utm_source=${utm}`}>
+                                <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                                    Login to visSocket <MdOpenInNew />{' '}
+                                </button>
+                            </Link>
+                        </div>
+                        <div className="flex  gap-2 items-center w-full justify-start">
+                            <div className="flex md:h-28 items-center gap-4 px-5 py-3 bg-white w-full max-w-[400px] border border-black">
+                                <Image
+                                    className="h-8 md:h-10 w-fit"
+                                    src={appOneDetails?.iconurl || 'https://placehold.co/36x36'}
+                                    width={36}
+                                    height={36}
+                                    alt="Slack"
+                                />
+                                <div>
+                                    <h2 className="text-xl md:text-2xl font-bold">{appOneDetails?.name}</h2>
+                                    <div className="flex flex-wrap gap-2"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Link
+                    target="_blank"
+                    href={`${process.env.NEXT_PUBLIC_FLOW_URL}/connect/${appOneDetails?.rowid}?utm_source=${utm}`}
+                    className="flex items-center gap-2 container hover:text-blue-600"
+                >
+                    Connect to {appOneDetails?.name} <MdOpenInNew />
+                </Link>
             </div>
+
             <div className="container cont cont__gap  ">
                 <div className="flex items-center gap-2 text-lg">
                     <Link href={createURL(`/integrations`)} className="flex items-center gap-0 underline">
