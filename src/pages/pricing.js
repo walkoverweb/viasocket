@@ -21,6 +21,8 @@ import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import getBlogData from '@/utils/getBlogData';
 
+export const runtime = 'experimental-edge';
+
 export default function pricing({ navData, footerData, faqData, betterChoice, metaData, countries, blogData }) {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [isToggled, setIsToggled] = useState(false);

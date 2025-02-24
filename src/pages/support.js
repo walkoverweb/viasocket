@@ -20,6 +20,8 @@ export async function getStaticProps() {
         },
     };
 }
+export const runtime = 'experimental-edge';
+
 
 export default function Support({ navData, footerData, metaData }) {
     const [issubmit, setIsSubmit] = useState(false);

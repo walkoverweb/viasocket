@@ -1,4 +1,3 @@
-import { getDbdashData } from './api';
 import AgencyList from '@/components/agencyList/agnecyList';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { MdArticle, MdChevronRight, MdOutlineArticle } from 'react-icons/md';
@@ -34,6 +33,7 @@ export async function getServerSideProps() {
         },
     };
 }
+export const runtime = 'experimental-edge';
 
 const Experts = ({ agencies, pageData, pathArray, metaData, expertsHelp, navData, footerData }) => {
     let verifiedArr = [];

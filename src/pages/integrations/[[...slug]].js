@@ -28,6 +28,7 @@ import {
 } from '@/const/fields';
 import getBlogData  from '@/utils/getBlogData';
 
+export const runtime = 'experimental-edge';
 
 export default function Integrations({
     pageInfo,
