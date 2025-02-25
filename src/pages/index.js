@@ -466,17 +466,18 @@ const Index = ({
                         <div className="grid grid-cols-1 border-gray-400  md:grid-cols-2 border-b-0 border-r-0 border-2">
                             {!combinationLoading
                                 ? renderCombos?.combinations?.map((combo) => {
-                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name].events.find(
-                                          (event) => event.rowid === combo.trigger?.id
+                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name]?.events?.find(
+                                          (event) => event?.rowid === combo?.trigger?.id
                                       )?.name;
-                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name].events.find(
-                                          (event) => event.rowid === combo.actions[0]?.id
+                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name]?.events?.find(
+                                          (event) => event?.rowid === combo?.actions[0]?.id
                                       )?.name;
 
                                       const integrations =
                                           renderCombos?.plugins[combo?.trigger?.name]?.rowid +
                                           ',' +
                                           renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
+                                          console.log("🚀 ~ ?renderCombos?.combinations?.map ~ triggerName:", triggerName)
                                       return (
                                           <CombinationCardComp
                                               trigger={{
@@ -496,6 +497,7 @@ const Index = ({
                                           />
                                       );
                                   })
+                                   
                                 : combinationLoading &&
                                   Array.from({ length: 12 }).map((_, index) => (
                                       <div
