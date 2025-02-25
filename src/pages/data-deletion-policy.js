@@ -24,7 +24,7 @@ export default function DataDeletionPolicy({ navData, footerData, metaData }) {
         <>
             <MetaHeadComp metaData={metaData} page={'/data-deletion-policy'} />
 
-            <div className="container pt-8">
+            <div className="container">
                 <Navbar navData={navData} utm={'/data-deletion-policy'} />
             </div>
             <div className="container mb-4 mt-28">

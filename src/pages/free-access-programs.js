@@ -11,7 +11,7 @@ export default function Programs({ footerData, navData, metaData, programs }) {
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/free-access-programs'} />
-            <div className="pt-8 container">
+            <div className=" container">
                 <Navbar navData={navData} utm={'/free-access-programs'} />
             </div>
             <div className="container cont cont__py cont__gap ">
@@ -42,7 +42,7 @@ export default function Programs({ footerData, navData, metaData, programs }) {
                         })}
                 </div>
             </div>
-            <div className="container py-16">
+            <div className="container pt-16 pb-4">
                 <Footer footerData={footerData} />
             </div>
         </>
