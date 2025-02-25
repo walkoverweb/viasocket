@@ -6,11 +6,12 @@ import Navbar from '@/components/navbar/navbar';
 import { EMBED_FIELDS, FAQS_FIELDS, FOOTER_FIELDS, GETSTARTED_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 import getBlogData from '@/utils/getBlogData';
 import { getEmbedData, getFaqData, getFooterData, getGetStartedData, getNavData } from '@/utils/getData';
-import axios from 'axios';
 import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
+
+export const runtime = 'experimental-edge';
 
 const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedData, tableData, howItWorksData }) => {
     const [selectedImage, setSelectedImage] = useState(embedData[0]?.image?.[0]);
