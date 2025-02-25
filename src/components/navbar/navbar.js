@@ -44,7 +44,7 @@ export default function Navbar({ navData, utm }) {
 
     return (
         <>
-            <div className="pt-8 justify-between lg:flex hidden">
+            <div className="pt-4 justify-between lg:flex hidden">
                 <Link
                     href="/"
                     aria-label="logo"
