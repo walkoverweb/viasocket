@@ -134,11 +134,11 @@ export default function IntegrationsAppTwoComp({
                                 combosData?.plugins[combo?.trigger?.name]?.rowid +
                                 ',' +
                                 combosData?.plugins[combo?.actions[0]?.name]?.rowid;
-                            const triggerName = combosData?.plugins[combo?.trigger?.name].events.find(
-                                (event) => event.rowid === combo.trigger?.id
+                            const triggerName = combosData?.plugins[combo?.trigger?.name]?.events?.find(
+                                (event) => event.rowid === combo?.trigger?.id
                             )?.name;
-                            const actionName = combosData?.plugins[combo?.actions[0]?.name].events.find(
-                                (event) => event.rowid === combo.actions[0]?.id
+                            const actionName = combosData?.plugins[combo?.actions[0]?.name]?.events?.find(
+                                (event) => event.rowid === combo?.actions[0]?.id
                             )?.name;
                             return (
                                 <CombinationCardComp
