@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { MdClose, MdSearch, MdArrowForward, MdOutlineAutoAwesome, MdArrowOutward, MdArrowUpward } from 'react-icons/md';
-import axios from 'axios';
 import GetStarted from '@/components/getStarted/getStarted';
 import { FeaturesGrid } from '@/components/featureGrid/featureGrid';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
@@ -13,7 +12,6 @@ import Footer from '@/components/footer/footer';
 import Autocomplete from 'react-autocomplete';
 import AlphabeticalComponent from '@/components/alphabetSort/alphabetSort';
 import searchApps from '@/utils/searchApps';
-import Link from 'next/link';
 import {
     getCaseStudyData,
     getFaqData,
@@ -38,6 +36,8 @@ import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
 import getBlogData from '@/utils/getBlogData';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
+
+export const runtime = 'experimental-edge';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -225,8 +225,6 @@ const Index = ({
 
     const utm = '/index';
 
-
-   
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
@@ -467,17 +465,18 @@ const Index = ({
                         <div className="grid grid-cols-1 border-gray-400  md:grid-cols-2 border-b-0 border-r-0 border-2">
                             {!combinationLoading
                                 ? renderCombos?.combinations?.map((combo) => {
-                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name].events.find(
-                                          (event) => event.rowid === combo.trigger?.id
+                                      const triggerName = renderCombos?.plugins[combo?.trigger?.name]?.events?.find(
+                                          (event) => event?.rowid === combo?.trigger?.id
                                       )?.name;
-                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name].events.find(
-                                          (event) => event.rowid === combo.actions[0]?.id
+                                      const actionName = renderCombos?.plugins[combo?.actions[0]?.name]?.events?.find(
+                                          (event) => event?.rowid === combo?.actions[0]?.id
                                       )?.name;
 
                                       const integrations =
                                           renderCombos?.plugins[combo?.trigger?.name]?.rowid +
                                           ',' +
                                           renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
+                                          console.log("🚀 ~ ?renderCombos?.combinations?.map ~ triggerName:", triggerName)
                                       return (
                                           <CombinationCardComp
                                               trigger={{
@@ -495,9 +494,9 @@ const Index = ({
                                               description={combo?.description}
                                               link={`${process.env.NEXT_PUBLIC_FLOW_URL}/makeflow/trigger/${combo?.trigger?.id}/action?events=${combo?.actions.map((action) => action.id).join(',')}&integrations=${integrations}&action&utm_source=${utm}`}
                                           />
-                                   
                                       );
                                   })
+                                   
                                 : combinationLoading &&
                                   Array.from({ length: 12 }).map((_, index) => (
                                       <div
@@ -519,13 +518,12 @@ const Index = ({
                 <div className="container">
                     <CaseStudiesSection caseStudies={caseStudies} />
                 </div>
-                
-                    <div className="container">
-                        <BlogGrid posts={blogData} />
-                    </div>
-                
 
-                <div className="pb-6">
+                <div className="container">
+                    <BlogGrid posts={blogData} />
+                </div>
+
+                <div className="pb-4">
                     {faqData?.length > 0 && (
                         <div className="container border border-black p-20 border-b-0">
                             <FAQSection faqData={faqData} faqName={'/index'} />
@@ -623,8 +621,6 @@ const CaseStudyLink = ({ caseStudy }) => {
     );
 };
 
-
-
 export default Index;
 
 export async function getServerSideProps(context) {
@@ -642,7 +638,7 @@ export async function getServerSideProps(context) {
     const metaData = await getMetaData(METADATA_FIELDS, `filter=name='/'`);
     const navData = await getNavData(NAVIGATION_FIELDS);
     const footerData = await getFooterData(FOOTER_FIELDS);
-    const blogTags = 'index' ;
+    const blogTags = 'index';
 
     const blogData = await getBlogData(blogTags);
 

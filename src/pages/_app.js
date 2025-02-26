@@ -6,11 +6,11 @@ import HeadComp from '@/components/headComp/headComp';
 import ChatWidget from '@/components/chat-widget/chat-wdget';
 import Head from 'next/head';
 import HandleUtmSource from '@/utils/handleUtmSource';
+export const runtime = 'experimental-edge';
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter();
     var browserPath = router.asPath;
-
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -80,7 +80,7 @@ export default function MyApp({ Component, pageProps, pagesData }) {
     useEffect(() => {
         HandleUtmSource();
     }, []);
-    
+
     return (
         <>
             <HeadComp />

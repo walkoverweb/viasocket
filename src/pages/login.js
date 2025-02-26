@@ -7,6 +7,8 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 import { getFooterData, getIndexFeatures, getMetaData, getNavData } from '@/utils/getData';
 
+export const runtime = 'experimental-edge';
+
 export async function getServerSideProps(context) {
     const { redirect_to } = context?.query;
     const { utm_source } = context?.query;
