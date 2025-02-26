@@ -33,7 +33,7 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
-// import getBlogData from '@/utils/getBlogData';
+import { getBlogData } from '@/utils/getBlogData';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
 import getBlogsData from '@/utils/getBlogData';
@@ -178,7 +178,6 @@ const Index = ({
     };
 
     const handleGenerate = async () => {
-        console.log('object');
         setCombinationLoading(true);
         const selectedAppSlugs = selectedApps.map((app) => app.appslugname);
         try {
@@ -227,7 +226,6 @@ const Index = ({
     };
 
     const utm = '/index';
-
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />
@@ -479,7 +477,6 @@ const Index = ({
                                           renderCombos?.plugins[combo?.trigger?.name]?.rowid +
                                           ',' +
                                           renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
-                                      console.log('🚀 ~ ?renderCombos?.combinations?.map ~ triggerName:', triggerName);
                                       return (
                                           <CombinationCardComp
                                               trigger={{
@@ -642,7 +639,7 @@ export async function getServerSideProps(context) {
     const footerData = await getFooterData(FOOTER_FIELDS);
     const blogTags = 'index';
 
-    const blogData = await getBlogsData(blogTags);
+    const blogData = await getBlogData(blogTags);
 
     return {
         props: {

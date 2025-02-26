@@ -18,7 +18,7 @@ import getCountries from '@/utils/getCountries';
 import Image from 'next/image';
 import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import getBlogsData from '@/utils/getBlogData';
+import { getBlogData } from '@/utils/getBlogData';
 
 export const runtime = 'experimental-edge';
 
@@ -47,7 +47,6 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
     const filterCountries = (searchTerm) => {
         return countries.filter((country) => country?.name?.common?.toLowerCase()?.includes(searchTerm?.toLowerCase()));
     };
-
     const plans = [
         {
             name: 'starter',
@@ -326,7 +325,7 @@ export async function getServerSideProps() {
     const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
     const countries = await getCountries();
     const blogTags = 'pricing';
-    const blogData = await getBlogsData(blogTags);
+    const blogData = await getBlogData(blogTags);
     return {
         props: {
             betterChoice: betterChoice || [],

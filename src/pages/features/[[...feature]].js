@@ -5,7 +5,7 @@ import FeatureGridComp from '@/components/FeaturesComp/FeatureGridComp/FeatureGr
 import FeaturesFooterComp from '@/components/FeaturesComp/FeaturesFooterComp/FeaturesFooterComp';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { ALLFEATURES_FIELDS, FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
-import getBlogsData from '@/utils/getBlogData';
+import { getBlogData } from '@/utils/getBlogData';
 import {
     getAllFeatures,
     getDefaultBlogData,
@@ -67,7 +67,7 @@ export async function getServerSideProps(context) {
         featureData = await getFeatureData([], `filter=slug='${feature}'`);
     }
     const blogTags = 'feature';
-    const blogData = await getBlogsData(blogTags);
+    const blogData = await getBlogData(blogTags);
 
     return {
         props: {

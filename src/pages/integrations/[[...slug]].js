@@ -26,8 +26,7 @@ import {
     METADATA_FIELDS,
     NAVIGATION_FIELDS,
 } from '@/const/fields';
-import getBlogsData from '@/utils/getBlogData';
-
+import { getBlogData } from '@/utils/getBlogData';
 export const runtime = 'experimental-edge';
 
 export default function Integrations({
@@ -138,7 +137,7 @@ export async function getServerSideProps(context) {
         const appOneDetails = getAppDetails(combosData, integrationsInfo?.appone);
         const appTwoDetails = getAppDetails(combosData, integrationsInfo?.apptwo);
         const blogTags = `${appOneDetails?.appslugname}-${appTwoDetails?.appslugname}`;
-        const blogData = await getBlogsData(blogTags);
+        const blogData = await getBlogData(blogTags);
         if (appOneDetails && appTwoDetails) {
             return {
                 props: {
@@ -183,7 +182,7 @@ export async function getServerSideProps(context) {
         );
         if (appOneDetails) {
             const blogTags = appOneDetails.appslugname;
-            const blogData = await getBlogsData(blogTags);
+            const blogData = await getBlogData(blogTags);
             return {
                 props: {
                     pageInfo: pageInfo || {},
@@ -222,7 +221,7 @@ export async function getServerSideProps(context) {
         const apps = await getApps({ page: integrationsInfo?.page, categoryData });
         const categories = await getCategoryData(INTECATEGORYlIST_FILED);
         const blogTags = 'integration';
-        const blogData = await getBlogsData(blogTags);
+        const blogData = await getBlogData(blogTags);
         return {
             props: {
                 pageInfo: pageInfo || {},
