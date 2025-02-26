@@ -23,6 +23,7 @@ export default function MetaHeadComp({ metaData, page, plugin, pathSlugs }) {
         }
 
         const keywords = metaData?.keywords && typeof metaData.keywords === 'string' ? metaData.keywords : '';
+
         return (
             <>
                 <Head>
