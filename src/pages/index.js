@@ -33,9 +33,10 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
-import getBlogData from '@/utils/getBlogData';
+// import getBlogData from '@/utils/getBlogData';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
+import getBlogsData from '@/utils/getBlogData';
 
 export const runtime = 'experimental-edge';
 
@@ -478,7 +479,7 @@ const Index = ({
                                           renderCombos?.plugins[combo?.trigger?.name]?.rowid +
                                           ',' +
                                           renderCombos?.plugins[combo?.actions[0]?.name]?.rowid;
-                                          console.log("🚀 ~ ?renderCombos?.combinations?.map ~ triggerName:", triggerName)
+                                      console.log('🚀 ~ ?renderCombos?.combinations?.map ~ triggerName:', triggerName);
                                       return (
                                           <CombinationCardComp
                                               trigger={{
@@ -498,7 +499,6 @@ const Index = ({
                                           />
                                       );
                                   })
-                                   
                                 : combinationLoading &&
                                   Array.from({ length: 12 }).map((_, index) => (
                                       <div
@@ -642,7 +642,7 @@ export async function getServerSideProps(context) {
     const footerData = await getFooterData(FOOTER_FIELDS);
     const blogTags = 'index';
 
-    const blogData = await getBlogData(blogTags);
+    const blogData = await getBlogsData(blogTags);
 
     return {
         props: {
