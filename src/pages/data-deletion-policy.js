@@ -4,7 +4,7 @@ import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { getFooterData, getMetaData, getNavData } from '@/utils/getData';
 import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 export async function getStaticProps() {
     const navData = await getNavData(NAVIGATION_FIELDS);

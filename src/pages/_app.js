@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import HeadComp from '@/components/headComp/headComp';
 import ChatWidget from '@/components/chat-widget/chat-wdget';
 import Head from 'next/head';
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 export default function MyApp({ Component, pageProps, pagesData }) {
     const router = useRouter();

@@ -20,7 +20,7 @@ export async function getStaticProps() {
         },
     };
 }
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 
 export default function Support({ navData, footerData, metaData }) {

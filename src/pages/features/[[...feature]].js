@@ -31,7 +31,7 @@ export default function Features({ features, featureData, navData, footerData, m
     );
 }
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 export async function getServerSideProps(context) {
     const pageInfo = GetPageInfo(context);

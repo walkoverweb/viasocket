@@ -5,7 +5,7 @@ import Footer from '@/components/footer/footer';
 import { getFooterData, getMetaData, getNavData, getProgramsData } from '@/utils/getData';
 import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS, PROGRAMS_FIELDS } from '@/const/fields';
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 export default function Programs({ footerData, navData, metaData, programs }) {
     return (

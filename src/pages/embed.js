@@ -11,7 +11,7 @@ import React from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedData, tableData, howItWorksData }) => {
     const [selectedImage, setSelectedImage] = useState(embedData[0]?.image?.[0]);

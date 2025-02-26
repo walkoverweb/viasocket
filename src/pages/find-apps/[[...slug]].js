@@ -4,7 +4,7 @@ import AZMetaHeadComp from '@/components/aZComp/aZMetaHeadComp/aZMetaHeadComp';
 import Head from 'next/head';
 import Image from 'next/image';
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 const SelectedAlphabetPage = ({ apps, alphabet, appDetails, step, alphabet2 }) => {
     return (

@@ -17,7 +17,7 @@ export async function getStaticProps() {
     };
 }
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 const Privacy = ({ navData, footerData, metaData }) => {
     return (
