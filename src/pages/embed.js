@@ -151,7 +151,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                 <div className="container cont cont__py border border-black justify-center items-center text-center gap-8">
                     <div className="flex flex-col gap-8">
                         <h2 className="h1">Embed Pricing</h2>
-                        <p>$500/month + $0.0005/invocation</p>
+                        <p className="h2">Start from : $500/month + $0.0005/invocation</p>
                     </div>
                     <div>
                         <h3 className="text-2xl md:text-3xl text-nowrap font-medium text-accent">Pay as You Grow!</h3>
@@ -160,7 +160,7 @@ const Embed = ({ navData, blogData, footerData, faqData, getStartedData, embedDa
                         </p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-8">
-                        <Link href="/">
+                        <Link href="/signup">
                             <button className="btn btn-accent text-nowrap">START GROWING NOW</button>
                         </Link>
                         <Link href="/support">
