@@ -23,4 +23,4 @@ export default async function fetchDataAndUpdateState(IDs, getDataFunction) {
     }
 }
 
-export const runtime = 'edge';
+export const runtime = 'experimental-edge';

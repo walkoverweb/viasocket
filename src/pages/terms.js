@@ -16,7 +16,7 @@ export async function getStaticProps() {
         },
     };
 }
-export const runtime = 'edge';
+export const runtime = 'experimental-edge';
 
 const Terms = ({ navData, footerData, metaData }) => {
     return (
