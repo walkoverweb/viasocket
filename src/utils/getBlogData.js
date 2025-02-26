@@ -16,7 +16,6 @@ export async function getBlogs(tag) {
         }
 
         const data = await response.json();
-        console.log(data);
         return data?.data?.rows || [];
     } catch (error) {
         console.error('Error fetching blog data:', error);
@@ -25,7 +24,6 @@ export async function getBlogs(tag) {
 }
 
 export async function getBlogData(tag) {
-    console.log(tag, 3443);
     let blogs = [];
     const getBlogsRecursive = async (tag) => {
         const data = await getBlogs(tag);

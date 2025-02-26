@@ -224,11 +224,6 @@ const Index = ({
     };
 
     const utm = '/index';
-
-    useEffect(() => {
-        console.log(blogData);
-    }, [blogData]);
-
     return (
         <>
             <MetaHeadComp metaData={metaData} page={'/'} />

@@ -47,10 +47,6 @@ export default function pricing({ navData, footerData, faqData, betterChoice, me
     const filterCountries = (searchTerm) => {
         return countries.filter((country) => country?.name?.common?.toLowerCase()?.includes(searchTerm?.toLowerCase()));
     };
-    useEffect(() => {
-        console.log(blogData);
-    }, [blogData]);
-
     const plans = [
         {
             name: 'starter',
