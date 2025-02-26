@@ -7,10 +7,11 @@ import Image from 'next/image';
 import searchApps from '@/utils/searchApps';
 import { CiSquarePlus } from 'react-icons/ci';
 import Footer from '@/components/footer/footer';
-import { getBlogData } from '@/utils/getBlogData';
+// import { getBlogData } from '@/utils/getBlogData';
 import GetStarted from '@/components/getStarted/getStarted';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
+import getBlogsData from '@/utils/getBlogData';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -337,9 +338,11 @@ export default function AutomationSuggestions({ navData, footerData, getStartedD
                     </div>
                 </div>
 
-                <div className="container ">
-                    <BlogGrid posts={blogData} />
-                </div>
+                {blogData?.length > 0 && (
+                    <div className="container ">
+                        <BlogGrid posts={blogData} />
+                    </div>
+                )}
 
                 <div className="pb-6">
                     {faqData?.length > 0 && (
@@ -385,7 +388,7 @@ export async function getServerSideProps() {
     const faqData = await getFaqData(FAQS_FIELDS, `filter=page='/autmation_solutions'`);
     const getStarted = await getGetStartedData(GETSTARTED_FIELDS);
     const blogTags = 'automation';
-    const blogData = await getBlogData(blogTags);
+    const blogData = await getBlogsData(blogTags);
     return {
         props: {
             navData: navData,

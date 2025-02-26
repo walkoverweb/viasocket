@@ -18,7 +18,7 @@ import getCountries from '@/utils/getCountries';
 import Image from 'next/image';
 import checkDevelopingCountry from '@/utils/checkDevelopingCountry';
 import BlogGrid from '@/components/blogGrid/blogGrid';
-import getBlogData from '@/utils/getBlogData';
+import getBlogsData from '@/utils/getBlogData';
 
 export const runtime = 'experimental-edge';
 
@@ -326,7 +326,7 @@ export async function getServerSideProps() {
     const betterChoice = await getPricingBetterChoice(PRICINGBETTERCHOICE_FIELDS);
     const countries = await getCountries();
     const blogTags = 'pricing';
-    const blogData = await getBlogData(blogTags);
+    const blogData = await getBlogsData(blogTags);
     return {
         props: {
             betterChoice: betterChoice || [],
