@@ -12,6 +12,7 @@ import GetStarted from '@/components/getStarted/getStarted';
 import FAQSection from '@/components/faqSection/faqSection';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import getBlogsData from '@/utils/getBlogData';
+export const runtime = 'experimental-edge';
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
