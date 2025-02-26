@@ -36,8 +36,10 @@ import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
 import { getBlogData } from '@/utils/getBlogData';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
+import getBlogsData from '@/utils/getBlogData';
 
 export const runtime = 'experimental-edge';
+
 
 const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
