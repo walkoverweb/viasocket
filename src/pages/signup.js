@@ -6,6 +6,8 @@ import { getFooterData, getMetaData, getNavData, getTestimonialData } from '@/ut
 import { FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS, TESTIMONIALS_FIELDS } from '@/const/fields';
 import { MdStar } from 'react-icons/md';
 
+export const runtime = 'experimental-edge';
+
 export async function getServerSideProps(context) {
     const { redirect_to } = context.query;
     const { utm_source } = context?.query;

@@ -5,7 +5,7 @@ import FeatureGridComp from '@/components/FeaturesComp/FeatureGridComp/FeatureGr
 import FeaturesFooterComp from '@/components/FeaturesComp/FeaturesFooterComp/FeaturesFooterComp';
 import MetaHeadComp from '@/components/metaHeadComp/metaHeadComp';
 import { ALLFEATURES_FIELDS, FOOTER_FIELDS, METADATA_FIELDS, NAVIGATION_FIELDS } from '@/const/fields';
-import { getBlogData } from '@/utils/getBlogData';
+import getBlogData from '@/utils/getBlogData';
 import { getAllFeatures, getDefaultBlogData, getFeatureData, getFooterData, getMetaData, getNavData } from '@/utils/getData';
 import GetPageInfo from '@/utils/getPageInfo';
 import { useEffect, useState } from 'react';
@@ -30,6 +30,8 @@ export default function Features({ features, featureData, navData, footerData, m
         </>
     );
 }
+
+export const runtime = 'experimental-edge';
 
 export async function getServerSideProps(context) {
     const pageInfo = GetPageInfo(context);

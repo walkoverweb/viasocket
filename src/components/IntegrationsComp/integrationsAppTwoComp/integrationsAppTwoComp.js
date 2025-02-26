@@ -39,7 +39,12 @@ export default function IntegrationsAppTwoComp({
             <div style={{ background: appOneDetails?.brandcolor }} className="">
                 <div className="container cont py-8 gap-4 flex items-center justify-between">
                     <div className="flex md:items-center w-full justify-end gap-2 md:gap-4 flex-col md:flex-row ">
-                        <Link
+                    <Link target="_blank" href={`/login?utm_source=${utm}`}>
+                                <button className="bg-white flex border border-black items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all">
+                                    Login to viaSocket <MdOpenInNew />{' '}
+                                </button>
+                            </Link>
+                        {/* <Link
                             target="_blank"
                             href={
                                 appOneDetails?.domain?.startsWith('http')
@@ -62,7 +67,7 @@ export default function IntegrationsAppTwoComp({
                             <button className="bg-white  border border-black flex items-center gap-2 px-5 py-3 hover:bg-black hover:text-white transition-all w-full max-w-[400px] ">
                                 Login to {appTwoDetails?.name} <MdOpenInNew />{' '}
                             </button>
-                        </Link>
+                        </Link> */}
                     </div>
                     <div className="flex w-full  gap-2 md:gap-4 flex-col md:flex-row ">
                         <div className="flex md:h-28 items-center gap-4 px-5 py-3  border border-black bg-white w-full max-w-[400px]">
@@ -129,11 +134,11 @@ export default function IntegrationsAppTwoComp({
                                 combosData?.plugins[combo?.trigger?.name]?.rowid +
                                 ',' +
                                 combosData?.plugins[combo?.actions[0]?.name]?.rowid;
-                            const triggerName = combosData?.plugins[combo?.trigger?.name].events.find(
-                                (event) => event.rowid === combo.trigger?.id
+                            const triggerName = combosData?.plugins[combo?.trigger?.name]?.events?.find(
+                                (event) => event?.rowid === combo?.trigger?.id
                             )?.name;
-                            const actionName = combosData?.plugins[combo?.actions[0]?.name].events.find(
-                                (event) => event.rowid === combo.actions[0]?.id
+                            const actionName = combosData?.plugins[combo?.actions[0]?.name]?.events?.find(
+                                (event) => event?.rowid === combo?.actions[0]?.id
                             )?.name;
                             return (
                                 <CombinationCardComp

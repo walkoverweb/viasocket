@@ -26,8 +26,9 @@ import {
     METADATA_FIELDS,
     NAVIGATION_FIELDS,
 } from '@/const/fields';
-import { getBlogData } from '@/utils/getBlogData';
+import getBlogData  from '@/utils/getBlogData';
 
+export const runtime = 'experimental-edge';
 
 export default function Integrations({
     pageInfo,
@@ -58,7 +59,7 @@ export default function Integrations({
         );
     } else if (integrationsInfo?.appone && integrationsInfo?.apptwo) {
         return (
-            <div className="cont md:gap-36 sm:gap-24 gap-12">
+            <div className="cont md:gap-20 sm:gap-16 gap-12">
                 <Head>
                     <link rel="canonical" href={`https://viasocket.com${pageInfo?.url || '/'}`} />
                 </Head>
@@ -81,7 +82,6 @@ export default function Integrations({
         const isDisconnected = pageInfo?.qurey?.status === 'disconnected';
         if (isDisconnected) {
             return (
-                <div className="container cont">
                     <IntegrationsDisconnectedComp
                         pageInfo={pageInfo}
                         integrationsInfo={integrationsInfo}
@@ -92,11 +92,10 @@ export default function Integrations({
                         footerData={footerData}
                         disconnecteData={disconnecteData}
                     />
-                </div>
             );
         } else {
             return (
-                <div className="cont md:gap-36 sm:gap-24 gap-12">
+                <div className="cont md:gap-20 sm:gap-16 gap-12">
                     <IntegrationsAppOneComp
                         pageInfo={pageInfo}
                         integrationsInfo={integrationsInfo}
