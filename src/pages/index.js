@@ -33,7 +33,7 @@ import {
     TESTIMONIALS_FIELDS,
 } from '@/const/fields';
 import IntegrateAppsComp from '@/components/indexComps/integrateAppsComp';
-import getBlogsData from '@/utils/getBlogData';
+import { getBlogData } from '@/utils/getBlogData';
 import IndexBannerComp from '@/components/indexComps/indexBannerComp/indexBannerComp';
 import CombinationCardComp from '@/components/combinationCardComp/combinationCardComp';
 
@@ -642,7 +642,7 @@ export async function getServerSideProps(context) {
     const footerData = await getFooterData(FOOTER_FIELDS);
     const blogTags = 'index';
 
-    const blogData = await getBlogsData(blogTags);
+    const blogData = await getBlogData(blogTags);
 
     return {
         props: {
