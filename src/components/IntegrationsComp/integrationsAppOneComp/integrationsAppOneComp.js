@@ -30,7 +30,7 @@ export default function IntegrationsAppOneComp({
     const utm = pageInfo?.url;
     const [utmSource, setUtmSource] = useState('');
     useEffect(() => {
-        const storedUtm = localStorage.getItem('utmData');
+        const storedUtm = sessionStorage.getItem('utmData');
 
         if (storedUtm) {
             try {

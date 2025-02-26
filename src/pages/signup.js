@@ -42,7 +42,7 @@ const Login = ({ metaData, testimonials, pathArray, redirect_to, utm_source }) =
                 redirect_path: redirect_to,
             };
         }
-        const utm_source = localStorage.getItem('utmData');
+        const utm_source = sessionStorage.getItem('utmData');
         configuration.state = { utm_source: utm_source };
 
         if (typeof window.initVerification === 'function') {

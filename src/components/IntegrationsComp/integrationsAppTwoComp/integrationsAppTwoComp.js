@@ -5,7 +5,7 @@ import IntegrationsAppComp from '../integrationsAppComp/integrationsAppComp';
 import FAQSection from '@/components/faqSection/faqSection';
 import { LinkButton, LinkText } from '@/components/uiComponents/buttons';
 import Footer from '@/components/footer/footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IntegrationsBetaComp from '../IntegrationsBetaComp/IntegrationsBetaComp';
 import BlogGrid from '@/components/blogGrid/blogGrid';
 import IntegrationsHeadComp from '../integrationsHeadComp/integrationsHeadComp';
@@ -30,7 +30,7 @@ export default function IntegrationsAppTwoComp({
     const [showMore, setShowMore] = useState(combosData?.combinations?.length >= visibleCombos);
 
     useEffect(() => {
-        const storedUtm = localStorage.getItem('utmData');
+        const storedUtm = sessionStorage.getItem('utmData');
 
         if (storedUtm) {
             try {

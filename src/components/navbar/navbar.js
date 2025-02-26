@@ -45,7 +45,7 @@ export default function Navbar({ navData, utm }) {
     }
 
     useEffect(() => {
-        const storedUtm = localStorage.getItem('utmData');
+        const storedUtm = sessionStorage.getItem('utmData');
 
         if (storedUtm) {
             try {
